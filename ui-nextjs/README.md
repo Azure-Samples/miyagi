@@ -19,6 +19,6 @@ yarn dev
 ### Screenshots
 > TBD
 
-<img src="public/images/readme/1.png" width=30% height=30%>
+<img src="public/images/readme/1.png" width=30% height=30% />
 
 [^fn]: [Components](https://mui.com/material-ui/getting-started/overview/)

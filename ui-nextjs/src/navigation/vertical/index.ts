@@ -14,7 +14,7 @@ import ViewDashboardOutline from "mdi-material-ui/ViewDashboardOutline";
 const navigation = (): VerticalNavItemsType => {
   return [
     {
-      title: 'Dasboard',
+      title: 'Home',
       icon: ViewDashboardOutline,
       path: '/home'
     }
