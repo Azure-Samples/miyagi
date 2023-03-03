@@ -32,3 +32,11 @@ export type AuthValuesType = {
   login: (params: LoginParams, errorCallback?: ErrCallbackType) => void
   register: (params: RegisterParams, errorCallback?: ErrCallbackType) => void
 }
+
+export type AppBarSearchType = {
+  id: number
+  url: string
+  icon: string
+  title: string
+  category: string
+}
