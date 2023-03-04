@@ -2,11 +2,15 @@
 
 >  “start with the customer experience and work backwards for the technology” - Steve Jobs
 
-This is a sample repo to showcase the art of the possible to modernize and transform your applications with embedded intelligence and scalable event-driven architecture. As always, start with your customers and rethink how AI could augment and hyper-personalize their experiences, whether it's for a line-of-business (LOB) or consumer-facing app. 
+This is a sample repository designed to inspire and guide you in modernizing and transforming your applications. Embedded with intelligence and a scalable event-driven architecture, this project showcases the art of the possible.
 
-Project Miyagi is a case study, incorporating our customer use cases and pain-points in the financial sector. However, it's an easy-to-understand scenario to find insightful as you rethink UX and re-architect your backend to design a system with enterprise-grade quality attributes. <TODO>
+With a focus on customer-centricity, rethink how AI can elevate and personalize your customers' experiences, whether it's a line-of-business (LOB) or consumer-facing app. Project Miyagi incorporates real-world customer use cases and pain points in the financial sector, providing an easy-to-understand scenario for you to gain valuable insights.
 
-The backend of this polyglot codebase comprises several microservices to choregraph retail and high-frequency trading, generative AI for personalized financial coaching, and agent-like orchestration, all with a EDA backbone to ensure availability, scalability, and maintainability. <TODO>
+This polyglot codebase boasts a sophisticated backend, featuring a multitude of microservices. From choreographing retail and high-frequency trading to generative AI for personalized financial coaching and agent-like orchestration, the system is built on a solid EDA backbone. This ensures enterprise-grade quality attributes such as availability, scalability, and maintainability.
+
+Get started with the self-guided workshop to transform your applications into cutting-edge, intelligent systems.
+
+TBD
 
 ## Tech stack
 

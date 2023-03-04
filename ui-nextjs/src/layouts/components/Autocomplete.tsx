@@ -6,13 +6,14 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
+import Button from '@mui/material/Button'
 import MuiDialog from '@mui/material/Dialog'
 import ListItem from '@mui/material/ListItem'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
+import Box, { BoxProps } from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { styled, useTheme } from '@mui/material/styles'
@@ -23,9 +24,12 @@ import MuiAutocomplete, { AutocompleteRenderInputParams } from '@mui/material/Au
 // ** Icons Imports
 import Tab from 'mdi-material-ui/Tab'
 import Close from 'mdi-material-ui/Close'
+
 import Magnify from 'mdi-material-ui/Magnify'
 import Lastpass from 'mdi-material-ui/Lastpass'
+import Paperclip from 'mdi-material-ui/Paperclip'
 import ChartDonut from 'mdi-material-ui/ChartDonut'
+import Microphone from 'mdi-material-ui/Microphone'
 import CartOutline from 'mdi-material-ui/CartOutline'
 import CurrencyUsd from 'mdi-material-ui/CurrencyUsd'
 import AccountGroup from 'mdi-material-ui/AccountGroup'
@@ -42,6 +46,7 @@ import ChartTimelineVariant from 'mdi-material-ui/ChartTimelineVariant'
 import SubdirectoryArrowLeft from 'mdi-material-ui/SubdirectoryArrowLeft'
 import FormatTextVariantOutline from 'mdi-material-ui/FormatTextVariantOutline'
 import CardBulletedSettingsOutline from 'mdi-material-ui/CardBulletedSettingsOutline'
+
 
 // ** Third Party Imports
 import axios from 'axios'
@@ -272,6 +277,17 @@ const Dialog = styled(MuiDialog)({
   }
 })
 
+// ** Styled Components
+const ChatFormWrapper = styled(Box)<BoxProps>(({ theme }) => ({
+  display: 'flex',
+  borderRadius: 8,
+  alignItems: 'center',
+  boxShadow: theme.shadows[1],
+  padding: theme.spacing(1.25, 4),
+  justifyContent: 'space-between',
+  backgroundColor: theme.palette.background.paper
+}))
+
 const NoResult = ({ value, setOpenDialog }: NoResultProps) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center' }}>
@@ -472,7 +488,21 @@ const AutocompleteComponent = ({ hidden, settings }: Props) => {
           <Magnify />
         </IconButton>
         {!hidden && layout === 'vertical' ? (
-          <Typography sx={{ color: 'text.disabled' }}>Ask Miyagi (Ctrl+/)</Typography>
+          <ChatFormWrapper>
+            <Typography sx={{ color: 'text.disabled' }}>Ask Miyagi (Ctrl+/)</Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <IconButton size='small' sx={{ mr: 1.5, color: 'text.primary' }}>
+                <Microphone sx={{ fontSize: '1.375rem' }} />
+              </IconButton>
+              <IconButton size='small' component='label' htmlFor='upload-img' sx={{ mr: 2.75, color: 'text.primary' }}>
+                <Paperclip sx={{ fontSize: '1.375rem' }} />
+                <input hidden type='file' id='upload-img' />
+              </IconButton>
+              <Button type='submit' variant='contained'>
+                Send
+              </Button>
+            </Box>
+          </ChatFormWrapper>
         ) : null}
         <Dialog fullWidth open={openDialog} fullScreen={fullScreenDialog} onClose={() => setOpenDialog(false)}>
           <Box sx={{ top: 0, width: '100%', position: 'sticky' }}>

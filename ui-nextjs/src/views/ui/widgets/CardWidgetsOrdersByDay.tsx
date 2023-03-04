@@ -75,7 +75,7 @@ const CardWidgetsOrdersByDay = () => {
   return (
     <Card>
       <CardHeader
-        title='Orders by Day'
+        title='TBD'
         subheader='Total 2.2k Orders'
         subheaderTypographyProps={{ sx: { lineHeight: 1.429 } }}
         titleTypographyProps={{ sx: { letterSpacing: '0.15px' } }}
