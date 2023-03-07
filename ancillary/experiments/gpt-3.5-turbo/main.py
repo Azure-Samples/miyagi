@@ -1,7 +1,7 @@
 import os
 import gradio as gr
 import openai
-from pydantic import BaseSettings, BaseModel
+from pydantic import BaseSettings
 
 WHISPER = "whisper-1"
 GPT_TURBO = "gpt-3.5-turbo"
@@ -11,8 +11,18 @@ class Settings(BaseSettings):
     openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
+user_preferences = {
+    "follows": "Jim Cramer",
+    "age": 50,
+    "gender": "male"
+}
 settings = Settings()
-messages = [{"role": "system", "content": 'You are a financial advisor. Respond to all input in 50 words or less.'}]
+messages = [{"role": "system",
+             "content": f'You are a financial advisor. ' +
+                        f'For someone who is {user_preferences["age"]}' +
+                        f' and {user_preferences["gender"]},' +
+                        f' in the voice of {user_preferences["follows"]}, respond.'
+                        f' Keep it to 50 words or less.'}]
 
 
 def transcribe(audio_file):
@@ -42,8 +52,6 @@ def transcribe(audio_file):
     return chat
 
 
+print(gr.__version__)
 ui = gr.Interface(fn=transcribe, inputs=gr.Audio(source="microphone", type="filepath"), outputs="text").launch()
 ui.launch()
-
-
-
