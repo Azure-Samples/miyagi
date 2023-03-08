@@ -1,6 +1,6 @@
 # Usage of whisper-1 and gpt-3.5-turbo
 This is a sample to showcase how audio can be transcribed using `whisper-1` model followed by invoking `gpt-3.5-turbo`
-to respond for the query. It demonstrates prompt engineering and basic usage of latest OpenAI models
+to respond to a query. It demonstrates prompt engineering and basic usage of OpenAI models
 
 ### Pre-reqs
 * To capture audio, ensure you have `ffmpeg` installed.
@@ -19,3 +19,4 @@ pip install -r requirements.txt
 ```bash
 python main.py
 ```
+![img.png](img.png)
