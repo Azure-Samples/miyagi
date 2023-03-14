@@ -2,13 +2,24 @@
 
 >  “start with the customer experience and work backwards for the technology” - Steve Jobs
 
-This is a sample repository designed to inspire and guide you in modernizing and transforming your applications. Embedded with intelligence and a scalable event-driven architecture, this project showcases the art of the possible.
+This repository demonstrates the art of the possible as you modernize and transform your applications with AI.
+Project Miyagi is embedded with intelligence and built on a scalable event-driven architecture, 
+leveraging innovative programming paradigms such as
+prompt engineering, prompt chaining, embeddings, conversational memory stores, and nascent technologies like
+[Semantic Kernel](https://github.com/microsoft/semantic-kernel), [LangChain](https://github.com/hwchase17/langchain#readme),
+as well as Foundation Models from Azure OpenAI and 
+[Cognitive Services](https://azure.microsoft.com/en-us/blog/announcing-a-renaissance-in-computer-vision-ai-with-microsofts-florence-foundation-model).
 
-With a focus on customer-centricity, rethink how AI can elevate and personalize your customers' experiences, whether it's a line-of-business (LOB) or consumer-facing app. Project Miyagi incorporates real-world customer use cases and pain points in the financial sector, providing an easy-to-understand scenario for you to gain valuable insights.
+With a focus on customer-centricity, Project Miyagi challenges you to rethink how AI can elevate and hyper-personalize your 
+customers' experiences, whether it's a line-of-business (LOB) or consumer-facing app.
+It includes real-world customer use cases and pain points in the financial sector, 
+providing an easily understandable scenario for gaining valuable insights.
 
-This polyglot codebase boasts a sophisticated backend, featuring a multitude of microservices. From choreographing retail and high-frequency trading to generative AI for personalized financial coaching and agent-like orchestration, the system is built on a solid EDA backbone. This ensures enterprise-grade quality attributes such as availability, scalability, and maintainability.
+This polyglot codebase relies on a scalable event-driven backend and a multitude of microservices, 
+choreographing retail and high-frequency trading,
+generating AI for personalized financial coaching and agent-like orchestration, and building on a solid EDA backbone to ensure enterprise-grade quality attributes such as availability, scalability, and maintainability.
 
-Get started with the self-guided workshop to transform your applications into cutting-edge, intelligent systems.
+Take the first step towards transforming your applications into cutting-edge, intelligent systems with the self-guided workshop.
 
 TBD
 
@@ -16,13 +27,15 @@ TBD
 
 <TODO>
 
-- Azure OpenAI Service
+- [Azure OpenAI](https://azure.microsoft.com/en-us/products/cognitive-services/openai-service)
   - text-davinci-003
   - whisper
   - dall-e
+- [Semantic Kernel](https://github.com/microsoft/semantic-kernel)
+- [LangChain](https://github.com/hwchase17/langchain#readme)
+- [Foundation models from CogServices](https://azure.microsoft.com/en-us/blog/announcing-a-renaissance-in-computer-vision-ai-with-microsofts-florence-foundation-model/)
 - Temporal
 - DreamFusion
-- LangChain
 
 <img src="ui-nextjs/public/images/readme/1.png" width=30% height=30% />
 
