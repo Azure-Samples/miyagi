@@ -1,0 +1,6 @@
+uvicorn==0.21.0
+openai==0.27.2
+fastapi==0.94.1
+pydantic==1.10.6
+gradio==3.21.0
+langchain==0.0.109
