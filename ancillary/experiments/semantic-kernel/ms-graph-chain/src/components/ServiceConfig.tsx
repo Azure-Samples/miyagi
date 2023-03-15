@@ -30,7 +30,7 @@ const ServiceConfig: FC<IData> = ({ uri, onConfigComplete }) => {
         setIsBusy(true);
 
         //POST a simple ask to validate the key
-        const ask = { value: 'clippy', inputs: [{ key: 'style', value: 'Bill & Ted' }] };
+        const ask = { value: 'miyagi', inputs: [{ key: 'style', value: 'Jim Cramer' }] };
 
         try {
             var result = await sk.invokeAsync(keyConfig, ask, 'funskill', 'joke');
@@ -57,16 +57,9 @@ const ServiceConfig: FC<IData> = ({ uri, onConfigComplete }) => {
 
     return (
         <>
-            <Title3>Enter in your OpenAI or Azure OpenAI Service Key</Title3>
+            <Title3>Values from .env</Title3>
             <Body1>
-                Start by entering in your OpenAI key, either from{' '}
-                <a href="https://beta.openai.com/account/api-keys" target="_blank" rel="noreferrer">
-                    OpenAI
-                </a>{' '}
-                or{' '}
-                <a href="https://oai.azure.com/portal" target="_blank" rel="noreferrer">
-                    Azure OpenAI Service
-                </a>
+                If not present, update .env or here. If you are using Azure OpenAI, you will need to create a deployment
             </Body1>
 
             <TabList defaultSelectedValue="oai" onTabSelect={(t, v) => setIsOpenAI(v.value === 'oai')}>
