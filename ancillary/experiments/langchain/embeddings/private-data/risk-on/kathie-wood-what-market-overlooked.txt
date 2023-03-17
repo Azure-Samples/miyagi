@@ -1,0 +1,69 @@
+What The Market Overlooked in 2022: A Letter from Cathie Wood, ARK Founder, CEO, & CIO
+January 12, 2023
+15 min read
+What The Market Overlooked in 2022: A Letter from Cathie Wood, ARK Founder, CEO, & CIO
+By: Catherine Wood
+In 2014, I founded ARK Invest for two reasons: to focus exclusively on disruptive innovation and to create a transparent research ecosystem designed to surface and share information on the convergences between and among the five major innovation platforms evolving today. Involving 14 technologies, those platforms are multiomics sequencing, robotics, energy storage, artificial intelligence, and blockchain technology.
+
+In 2022, one of the most challenging years in market history, transparency was more important than ever as shares of innovation-focused companies suffered disproportionately. In my 45 years on Wall Street and more than 30 years in portfolio management, I have never seen markets this dislocated. Today, money supply is declining, commodity prices are deteriorating, bloated inventories are unwinding, and innovation is disrupting the traditional world order, all pointing toward lower inflation, perhaps deflation. Notwithstanding the U.S. Federal Reserve’s (Fed) rhetoric, the bond market seems to be corroborating this outlook with 10-year Treasury yields in the 3.5% range and a yield curve[1] that has not been this inverted[2] in forty years. Both metrics suggest that real growth and inflation could surprise on the low side of expectations this year.
+
+That said, plagued by fears of entrenched inflation and higher interest rates, the wall of worry in the equity markets has scaled to enormous heights, historically a positive backdrop for equities. According to the latest BofA Fund Manager Survey, investors currently are holding high levels of cash, levels not seen since the 9/11 crisis in 2001, and are overweight in bonds for the first time since April 2009. In December, the Chicago Board Options Exchange (CBOE) equity put/call ratio[3] reached a record high, surpassing levels seen during the tech and telecom bubble and the Global Financial Crisis. In hindsight, both of those times were terrific opportunities to put funds to work in highly differentiated strategies. I believe that the current market dislocation presents an opportunity for innovation strategies to thrive when equity markets recover. Fear of the future is palpable, but crisis can create opportunities.
+
+In the spirit of prudent portfolio management, we believe an allocation to disruptive innovation is likely to balance a comprehensive wealth portfolio. Disruptive innovation not only provides access to potential exponential growth opportunities typically absent from broad-based indices, but also offers an opportunity to hedge against the increasing risk of incumbents being disrupted.
+
+In the next few sections, I would like to communicate examples of game-changing innovation that the equity market largely ignored in 2022. In the face of market headwinds and media criticism, these breakthroughs are corroborating our original research and boosting our confidence that ARK’s strategies are on the right side of change. Disruption can surface in surprising forms and at unexpected times. Innovation solves problems and has historically gained share during turbulent times.
+
+Next Generation Internet
+ChatGPT: Artificial Intelligence (AI) is advancing at an unprecedented rate, with ChatGPT, a version of GPT-3 optimized for conversation, signing up one million users in just five days. This uptake is particularly impressive compared to the original GPT-3, which took 24 months to reach the same level. ChatGPT already scores above the national average on the SAT, demonstrating its potential to revolutionize the way we approach knowledge work.
+
+Connected TV: In 2022, TV advertising in the US underwent significant changes as linear ad spend declined by 2% in real terms to ~$70 billion and Connected TV (CTV) ad spend on the same terms increased by 14% to ~$21 billion.[4] [5] Pure-play CTV operator Roku’s advertising platform revenue increased 15% year-over-year in the third quarter, the latest report available, while traditional TV scatter markets plummeted 38% year-over-year in the US.[6] Despite fierce competition, last year Roku maintained its position in the CTV market as the leading smart TV vendor in the US, accounting for 32% of the market, market share equal to Android, Tizen (Samsung), and WebOS (LG) combined.[7]
+
+Digital Wallets: Allowing users to transact on their smartphones, digital wallets are replacing cash and credit cards. They overtook cash as the top transaction method for offline commerce in 2020 and accounted for ~50% of global online commerce volume in 2021.[8] [9] During the three years from pre-COVID levels in 2019 to 2022, Square’s payment volume soared 193%, six times faster than the 30% increase in total retail spending.[10] [11]
+
+Social Commerce: While overall e-commerce spending increased by 99% over the last three years,[12] social commerce as measured by Shopify’s gross merchandise volume grew by 312%, almost four times faster.[13] Social commerce is taking significant share from traditional ecommerce and off-line retail sales.
+
+Blockchain Technology: Despite the recent collapse of crypto exchange FTX, underlying public blockchains like Bitcoin and Ethereum have not skipped a beat in processing transactions, highlighting that their transparent, decentralized, and auditable ledgers could be a solution to the fraud and mismanagement associated with centralized, opaque institutions. After the FTX collapse, the share of trading volume on decentralized exchanges, which allow for trading without a central intermediary, rose 37% from 8.35% to 11.44%.[14] Total crypto exchange trading volume declined 66% year-on-year from $1 trillion in 2021 to $357 billion in 2022,[15] but the fallout from Terra/Luna’s and FTX’s collapses propelled Coinbase’s share of fiat-based exchange volume (excluding Binance International) by 18 percentage points, from 22% in June to 40% in December.[16]
+
+Autonomous Technology & Robotics
+Electric Vehicles: During 2022 in the US, as auto sales dropped 8% on a year-over-year basis,[17] Tesla’s sales increased ~49%. During the past three years, Tesla’s market share of total auto sales in the US has increased ~240 basis points[18] to 3.8%.[19]
+
+Autonomous Driving: In 2022, GM’s Cruise expanded its autonomous taxi service to most of San Francisco in the first large-scale rollout in a major US city before launching in both Phoenix and Austin toward the end of the year. It compressed time to commercialization from nine years in San Francisco to just 90 days in Austin. Also, Tesla expanded access to its FSD (full self-driving) beta software to all owners in North America who had requested access, reflecting Tesla’s confidence in the capability of its feature set.[20]
+
+Autonomous Logistics: By January 4 of this year, both Amazon and Walmart had begun deliveries using drones in select US cities.[21]
+
+3D printing: Across the top 50 medical device companies, 90% rely on 3D printing for prototyping, testing, and even printing medical devices.[22]
+
+Space Exploration: In 2022, SpaceX nearly doubled the number of rockets it launched to 61. It reused the same rocket in as few as 21 days, a dramatic improvement over the 356 days required for its first rocket reuse.
+
+Industrial Robots: Despite trade tensions with China and the impact of COVID-19, industrial robot sales increased ~30% in 2021,[23] highlighting that innovation can thrive during tumultuous times.
+
+
+
+For informational purposes only and should not be considered investment advice or a recommendation to buy, sell, or hold any particular security. Forecasts are inherently limited and cannot be relied upon.
+
+Energy Demand: Demand for crude oil may have peaked in 2019 at 100.5 million barrels per day, particularly now that electric vehicles (EVs) are taking share of total auto sales and ride-hailing companies like Uber are partnering with rental car companies like Hertz to rent EVs. Hertz says that EV maintenance costs are 50-60% lower than those for gas powered cars. According to ARK’s research, thanks to their high utilization rate compared to personal cars, autonomous electric vehicles could lower oil demand by 25-30% to 72.6 million barrels per day by 2030, as shown below.
+
+
+
+For informational purposes only and should not be considered investment advice or a recommendation to buy, sell, or hold any particular security. Forecasts are inherently limited and cannot be relied upon.
+
+https://iea.blob.core.windows.net/assets/830fe099-5530-48f2-a7c1-11f35d510983/WorldEnergyOutlook2022.pdf, as of November 2022. https://www.bp.com/en/global/corporate/energy-economics/energy-outlook/oil-demand.html, as of March 2022.
+
+Genomic Revolution
+Base Editing: In 2022, thanks to a new form of gene editing, a young girl in the UK with leukemia went from her death bed in May to cancer-free in November. Base editing and multiplexing have the potential to provide more effective CAR-T treatments for patients with otherwise incurable cancers.
+
+Prime Editing: In 2022, Dutch scientists at the Hubrecht Institute, UMC Utrecht, and the Oncode Institute used another form of gene editing – prime editing – to correct the mutation that causes cystic fibrosis in human stem cells. In addition, Korean researchers at Yonsei University used prime editing successfully to treat liver and eye diseases in adult mice.
+
+CRISPR Gene Editing: Awarded the Nobel Prize in Chemistry in 2020, CRISPR gene editing has delivered functional cures for beta-thalassemia and sickle cell disease. CRISPR Therapeutics and Vertex Pharmaceuticals have treated more than 75 patients, resulting in some well-publicized “functional cures”. They are expecting FDA approval for Exa-Cel, the treatment for sickle cell and beta thalassemia, in early 2023.
+
+Other Cell and Gene Therapies: In 2022, regulators approved several landmark cell and gene therapies, including Hemgenix for the treatment of Haemophilia B, Zyntelgo for beta thalassemia, Skysona for cerebral adrenoleukodystrophy, Yescarta and Breyanzi for Non-Hodgkin lymphoma, Tecartus for mantle cell lymphoma, and Carvykti and Abecma for multiple myeloma.
+
+Molecular Diagnostic Testing: Liquid biopsies – blood tests – are enabling the early detection of colorectal cancer which, if discovered at or before stage 1, have a five-year survival rate greater than 90%. Late-stage or metastatic cancers account for more than 55% of deaths over a five-year period, but only 17% of new diagnoses. Thanks to regular screening and liquid biopsy, colorectal cancers are now among the earliest detected cancer types, 37% at or before stage 1. In 2020, the death rate from colorectal cancer was 12.8 per 100,000 persons, 38% below the 20.7 in 2000.[24]
+
+With many thanks for your support and high hopes for innovation in the coming years.
+
+DISCLOSURE
+
+This material is for informational purposes only and is subject to change without notice. All statements made regarding companies or securities are strictly beliefs and points of view held by ARK and are not endorsements by ARK of any company or security or recommendations by ARK to buy, sell or hold any security. Historical results are not indications of future results. Certain of the statements contained in this material may be statements of future expectations and other forward-looking statements that are based on ARK’s current views and assumptions and involve known and unknown risks and uncertainties that could cause actual results, performance or events to differ materially from those expressed or implied in such statements. The matters discussed in this material may also involve risks and uncertainties described from time to time in ARK’s filings with the U.S. Securities and Exchange Commission. ARK assumes no obligation to update any forward-looking information contained in this material. Certain information was obtained from sources that ARK believes to be reliable; however, ARK does not guarantee the accuracy or completeness of any information obtained from any third party. ARK and its clients as well as its related persons may (but do not necessarily) have financial interests in securities or issuers that are discussed.
+
+An investor should consult a financial professional, an attorney, or tax professional regarding the investor’s specific situation before making any investment related decision.

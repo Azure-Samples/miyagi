@@ -51,6 +51,16 @@ We are incrementally implementing use cases for Miyagi in the experiments folder
 4. [Azure OpenAI GPT-3.5 basic flow](./ancillary/experiments/az-openai)
 5. [GPT-3.5-turbo and Whisper-1 usage to transcribe audio and demonstrate few-shot example](./ancillary/experiments/gpt-3.5-turbo)
 
+### WIP - Architecture
+
+![image-20230316225614023](D:\source\gbb\miyagi\ancillary\images\wip-architecture)
+
+
+
+### WIP - Generative image use case architecture with Dreambooth
+
+![image-20230316225725707](D:\source\gbb\miyagi\ancillary\images\wip-dreambooth)
+
 
 
 ### Contributing

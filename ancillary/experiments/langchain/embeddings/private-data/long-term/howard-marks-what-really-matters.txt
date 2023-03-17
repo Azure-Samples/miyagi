@@ -1,0 +1,413 @@
+What Really Matters?
+
+
+I’ve gathered a few ideas from several of my memos this year – plus some recent musings and conversations – to form the subject of this memo: what really matters or should matter for investors.  I’ll start by examining a number of things that I think don’t matter.
+
+
+
+What Doesn’t Matter: Short-Term Events
+
+
+In The Illusion of Knowledge (September 2022), I railed against macro forecasting, which in our profession mostly concerns the next year or two.  And in I Beg to Differ (July 2022), I discussed the questions I was asked most frequently at Oaktree’s June 21 conference in London: How bad will inflation get?  How much will the Fed raise interest rates to fight it?  Will those increases cause a recession?  How bad and for how long?  The bottom line, I told the attendees, was that these things all relate to the short term, and this is what I know about the short term:
+
+Most investors can’t do a superior job of predicting short-term phenomena like these.
+
+Thus, they shouldn’t put much stock in opinions on these subjects (theirs or those of others).
+
+They’re unlikely to make major changes in their portfolios in response to these opinions.
+
+The changes they do make are unlikely to be consistently right.
+
+Thus, these aren’t the things that matter.
+
+
+Consider an example.  In response to the first tremors of the Global Financial Crisis, the Federal Reserve began to cut the fed funds rate in 3Q2007.  They then lowered it to zero around the end of 2008 and left it there for seven years.  In late 2015, virtually the only question I got was “When will the first rate increase occur?”  My answer was always the same: “Why do you care?  If I say ‘February,’ what will you do?  And if I later change my mind and say ‘May,’ what will you do differently?  If everyone knows rates are about to rise, what difference does it make which month the process starts?”  No one ever offered a convincing answer.  Investors probably think asking such questions is part of behaving professionally, but I doubt they could explain why.
+
+
+The vast majority of investors can’t know for sure what macro events lie just ahead or how the markets will react to the things that do happen.  In The Illusion of Knowledge, I wrote at length about the way unforeseen events make a hash of economic and market forecasts.  In summary, most forecasts are extrapolations, and most of the time things don’t change, so extrapolations are usually correct, but not particularly profitable.  On the other hand, accurate forecasts of deviations from trend can be very profitable, but they’re hard to make and hard to act on.  These are some of the reasons why most people can’t predict the future well enough to repeatably produce superior performance.
+
+
+Why is doing this so hard?  Don’t most of us know what events are likely to transpire?  Can’t we just buy the securities of the companies that are most likely to benefit from those events?  In the long run, maybe, but I want to turn to a theme that Bruce Karsh has been emphasizing lately, regarding a major reason why it’s particularly challenging to profit from a short-term focus: It’s very difficult to know which expectations regarding events are already incorporated in security prices.
+
+
+One of the critical mistakes people are guilty of – we see it all the time in the media – is believing that changes in security prices are the result of events: that favorable events lead to rising prices and negative events lead to falling prices.  I think that’s what most people believe – especially first-level thinkers – but that’s not right. Security prices are determined by events and how investors react to those events, which is largely a function of how the events stack up against investors’ expectations.
+
+
+How can we explain the company that reports higher earnings, only to see its stock price drop?  The answer, of course, is that the reported improvement fell short of expectations and thus disappointed investors.  So, at the most elementary level, it’s not whether the event is simply positive or not, but how the event compares with what was expected.
+
+
+In my earliest working years, I used to spend a few minutes each day looking over the earnings reports printed in The Wall Street Journal.  But after a while, it dawned on me that since I didn’t know what numbers had been expected, I had no idea whether an announcement from a company I didn’t follow was good news or bad.
+
+
+Investors can become expert regarding a few companies and their securities, but no one is likely to know enough about macro events to (a) be able to understand the macro expectations that underlie the prices of securities, (b) anticipate the broad events, and (c) predict how those securities will react.  Where can a prospective buyer look to find out what the investors who set securities prices already anticipate in terms of inflation, GDP, or unemployment?  Inferences regarding expectations can sometimes be drawn from asset prices, but the inferred levels often aren’t proved correct when the actual results come in.
+
+
+Further, in the short term, security prices are highly susceptible to random and exogenous events that can swamp the impact of fundamental events.  Macro events and the ups and downs of companies’ near-term fortunes are unpredictable and not necessarily indicative of – or relevant to – companies’ long-term prospects.  So little attention should be paid to them.  For example, companies often deliberately reduce current earnings by investing in the future of their businesses; thus, low reported earnings can imply high future earnings, not continued low earnings.  To know the difference, you have to have an in-depth understanding of the company.
+
+
+No one should be fooled into thinking security pricing is a dependable process that accurately follows a set of rules.  Events are unpredictable; they can be altered by unpredictable influences; and investors’ reactions to the events that occur are unpredictable.  Due to the presence of so much uncertainty, most investors are unable to improve their results by focusing on the short term.
+
+
+It’s clear from observation that security prices fluctuate much more than economic output or company profits.  What accounts for this?  It must be the fact that, in the short term, the ups and downs of prices are influenced far more by swings in investor psychology than by changes in companies’ long-term prospects.  Because swings in psychology matter more in the near term than changes in fundamentals – and are so hard to predict – most short-term trading is a waste of time . . . or worse.
+
+
+
+What Doesn’t Matter: The Trading Mentality
+
+
+Over the years, my memos have often included some of my father’s jokes from the 1950s, based on my strong belief that humor often reflects truths about the human condition.  Given its relevance here, I’m going to devote a bit of space to a joke I’ve shared before:
+
+
+Two friends meet in the street, and Joe asks Sam what’s new.  “Oh,” he replies, “I just got a case of great sardines.”
+
+Joe:
+
+Great, I love sardines.  I’ll take some.  How much are they?
+
+Sam:
+
+$10,000 a tin.
+
+Joe:
+
+What!  How can a tin of sardines cost $10,000?
+
+Sam:
+
+These are the greatest sardines in the world.  Each one is a pedigreed purebred, with papers.  They were caught by net, not hook; deboned by hand; and packed in the finest extra-virgin olive oil.  And the label was painted by a well-known artist.  They’re a bargain at $10,000.
+
+Joe:
+
+But who would ever eat $10,000 sardines?
+
+Sam:
+
+Oh, these aren’t eating sardines; they’re trading sardines.
+
+
+I include this old joke because I believe most people treat stocks and bonds like something to trade, not something to own.
+
+
+If you ask Warren Buffett to describe the foundation of his approach to investing, he’ll probably start by insisting that stocks should be thought of as ownership interests in companies.  Most people don’t start companies with the goal of selling them in the short term, but rather they seek to operate them, enjoy profitability, and expand the business.  Of course, founders do these things to ultimately make money, but they’re likely to view the money as the byproduct of having run a successful business.  Buffett says people who buy stocks should think of themselves as partners of owners with whom they share goals.
+
+
+But I think that’s rarely the case.  Most people buy stocks with the goal of selling them at a higher price, thinking they’re for trading, not for owning.  This means they abandon the owner mentality and instead act like gamblers or speculators who bet on stock price moves.  The results are often unpleasant.
+
+
+The DALBAR Institute 2012 study showed that investors receive three percentage points less per year than the S&P 500 generated from 1992 to 2012, and the average holding period for a typical investor is six months.  Six Months!!  When you hold a stock for less than a year, you are not using the stock market to acquire business ownership positions and participate in the growth of that business.  Instead, you are just guessing at short-term news and expectations, and your returns are based on how other people react to that news information.  In aggregate, that kind of attitude gets you three percentage points less per year than you’d get from doing nothing at all beyond making the initial investment in the index fund of the S&P 500.  (“Fidelity’s Best Investors Are Dead,” The Conservative Income Investor, April 8, 2020)
+
+
+To me, buying for a short-term trade equates to forgetting about your sports team’s chances of winning the championship and instead betting on who’s going to succeed in the next play, period, or inning.
+
+
+Let’s think about the logic.  You buy a stock because you think it’s worth more than you have to pay for it, whereas the seller considers it fully priced.  Someday, if things go well, it’ll become fully priced, in your opinion, meaning you’ll sell it.  The person you sell it to, however, will buy it because he thinks it’s worth still more.  We used to talk about this process as being reliant on the Greater Fool Theory: No matter what price I pay for a stock, there will always be someone who will buy it from me for more, despite the fact that I’m selling because I’ve concluded that it has reached full value.
+
+
+Every buyer is motivated by the belief that the stock will eventually be worth more than today’s price (a view the seller presumably doesn’t share).  The key question is what type of thinking underlies these purchases.  Are the buyers buying because this is a company they’d like to own a piece of for years?  Or are they merely betting that the price will go up?  The transactions may look the same from the outside, but I wonder about the thought process and thus the soundness of the logic.
+
+
+Each time a stock is traded, one side is wrong and one is right.  But if what you’re doing is betting on trends in popularity, and thus the direction of price moves over the next month, quarter, or year, is it realistic to believe you’ll be right more often than the person on the other side of the trade?  Maybe the decline of active management can be attributed to the many active managers who placed bets on the direction of stock prices in the short term, instead of picking companies they wanted to own part of for years.  It’s all a matter of the underlying mentality.
+
+
+I had a long debate on this topic with my father back in 1969, when I lived with him during my first months at First National City Bank.  (It’s amazing for me to think back to those days; he was so much younger than I am today.)  I told him I thought buying a stock should be motivated by something other than the hope that the price would rise, and I suggested this might be the expectation that dividends would increase over time.  He countered that no one buys stocks for the dividends – they buy because they think the price will go up.  But what would trigger the rise?
+
+
+Wanting to own a business for its commercial merit and long-term earnings potential is a good reason to be a stockholder, and if these expectations are borne out, a good reason to believe the stock price will rise.  In the absence of that, buying in the hope of appreciation merely amounts to trying to guess which industries and companies investors will favor in the future.  Ben Graham famously said, “In the short run, the market is a voting machine, but in the long run, it is a weighing machine.”  While none of this is easy, as Charlie Munger once told me, carefully weighing long-term merit should produce better results than trying to guess at short-term swings in popularity.
+
+
+
+What Doesn’t Matter: Short-Term Performance
+
+
+Given the possible contributors to short-term investment performance, reported results can present a highly misleading picture, and here I’m talking mostly about superior gains in good times.  I feel there are three ingredients for success during good times – aggressiveness, timing, and skill – and if you have enough aggressiveness at the right time, you don’t need that much skill.  We all know that in good times, the highest returns often go to the person whose portfolio incorporates the most risk, beta, and correlation.  Having such a portfolio isn’t a mark of distinction or insight if the investor is a perma-bull who’s always positioned aggressively.  Finally, random events can have an overwhelming impact on returns – in either direction – in a given quarter or year.
+
+
+One of the recurring themes in my memos is the idea that the quality of a decision cannot be determined from the outcome alone.  Decisions often lead to negative outcomes even when they’re well-reasoned and based on all the available information.  On the other hand, we all know people – even occasionally ourselves – who’ve been right for the wrong reason.  Hidden information and random developments can frustrate even the best thinkers’ decisions.  (However, when outcomes are considered over a long period of time and a large number of trials, the better decision maker is overwhelmingly likely to have a higher proportion of successes.)
+
+
+Obviously, no one should attach much significance to returns in one quarter or year.  Investment performance is simply one result drawn from the full range of returns that could have materialized, and in the short term, it can be heavily influenced by random events.  Thus, a single quarter’s return is likely to be a very weak indicator of an investor’s ability, if that.  Deciding whether a manager has special skill – or whether an asset allocation is appropriate for the long run – on the basis of one quarter or year is like forming an opinion of a baseball player on the basis of one trip to the plate, or of a racehorse based on one race.
+
+
+We know short-term performance doesn’t matter much.  And yet, most of the investment committees I’ve sat on have had the latest quarter’s performance as the first item on the agenda and devoted a meaningful portion of each meeting to it.  The discussion is usually extensive, but it rarely leads to significant action.  So why do we keep doing it?  For the same reasons investors pay attention to forecasting, as described in The Illusion of Knowledge: “everyone does it,” and “it would be irresponsible not to.”
+
+
+
+What Doesn’t Matter: Volatility
+
+
+I haven’t written much about volatility, other than to say I strongly disagree with people who consider it the definition or essence of risk.  I’ve described my belief that the academics who developed the Chicago School theory of investment in the early 1960s (a) wanted to examine the relationship between investment returns and risk, (b) needed a number quantifying risk that they could put into their calculations, and (c) undoubtedly chose volatility as a proxy for risk for the simple reason that it was the only quantifiable metric available.  I define risk as the probability of a bad outcome, and volatility is, at best, an indicator of the presence of risk.  But volatility is not risk.  That’s all I’m going to say on that subject.
+
+
+What I want to talk about here is the extent to which thinking and caring about volatility has warped the investing world over the 50-plus years that I’ve been in it.  It was a great advantage for me to have attended the Graduate School of Business at the University of Chicago in the late ’60s and to have been part of one of the very first classes that was taught the new theories.  I learned about the efficient market hypothesis, the capital asset pricing model, the random walk, the importance of risk aversion, and the role of volatility as risk.  While volatility wasn’t a topic of conversation when I got into the real world of investing in 1969, practice soon caught up with theory.
+
+
+In particular, the Sharpe ratio was adopted as the measure of risk-adjusted return.  It’s the ratio of a portfolio’s excess return (the part of its return that exceeds the yield on T-bills) to its volatility.  The more return per unit of volatility, the higher the risk-adjusted return.  Risk adjustment is an essential concept, and returns should absolutely be evaluated relative to the risk that was taken to achieve them.  Everyone cites Sharpe ratios, including Oaktree, because it’s the only quantitative tool available for the job.  (If investors, consultants, and clients didn’t use the Sharpe ratio, they’d have no metric at all, and if they tried to substitute fundamental riskiness for volatility in their assessments, they’d find that there’s no way to quantify it.)  The Sharpe ratio may hint at risk-adjusted performance in the same way that volatility hints at risk, but since volatility isn’t risk, the Sharpe ratio is a very imperfect measure.
+
+
+Take, for example, one of the asset classes I started working with in 1978: high yield bonds.  At Oaktree, we think moderately-above-benchmark returns can be produced with substantially less risk than the benchmark, and this shows up in superior Sharpe ratios.  But the real risk in high yield bonds – the one we care about and have a history of reducing – is the risk of default.  We don’t much care about reducing volatility, and we don’t take conscious steps to do so.  We believe high Sharpe ratios can result from – and perhaps are correlated with – the actions we take to reduce defaults.
+
+
+Volatility is particularly irrelevant in our field of fixed income or “credit.”  Bonds, notes, and loans represent contractual promises of periodic interest and repayment at maturity.  Most of the time when you buy a bond with an 8% yield, you’ll basically get the 8% yield over its life, regardless of whether the bond price goes up or down in the interim.  I say “basically” because, if the price falls, you’ll have the opportunity to reinvest the interest payments at yields above 8%, so your holding-period return will creep up.  Thus, the downward price volatility that so many revile is actually a good thing – as long as it doesn’t presage defaults.  (Note that, as indicated in this paragraph, “volatility” is often a misnomer.  Strategists and the media often warn that “there may be volatility ahead.”  What they really mean is “there may be price declines ahead.”  No one worries about, or minds experiencing, volatility to the upside.)
+
+
+It’s essential to recognize that protection from volatility generally isn’t a free good.  Reducing volatility for its own sake is a suboptimizing strategy: It should be presumed that favoring lower-volatility assets and approaches will – all things being equal – lead to lower returns.  Only managers with superior skill, or alpha (see page 11), will be able to overcome this negative presumption and reduce return less than they reduce volatility.
+
+
+Nevertheless, since many clients, bosses, and other constituents are uncomfortable with radical ups and downs (well, mostly with downs), asset managers often take steps to reduce volatility.  Consider what happened after institutional investors began to pile into hedge funds following the three-year decline of stocks brought on by the bursting of the tech bubble in 2000.  (This was the first three-year decline since 1939-41.)  Hedge funds – previously members of a cottage industry where most funds had a few hundred million dollars of capital from wealthy individuals – did much better than stocks in the downdraft.  Institutions were attracted to these funds’ low volatility, and thus invested billions in them.
+
+
+The average hedge fund delivered the stability the institutions wanted.  But somewhere in the shuffle, the idea of earning high returns with low volatility got lost.  Instead, hedge fund managers pursued low volatility as a goal in itself, since they knew it was what the institutions were after.  As a result, over roughly the last 18 years, the average hedge fund delivered the low volatility that was desired, but it was accompanied by modest single-digit returns.  No miracle there.
+
+
+Why do I recite all this?  Because volatility is just a temporary phenomenon (assuming you survive it financially), and most investors shouldn’t attach as much importance to it as they seem to.   As I wrote in I Beg to Differ, many investors have the luxury of being able to focus exclusively on the long term . . . if they will take advantage of it.  Volatility should be less of a concern for investors:
+
+whose entities are long-lived, like life insurance companies, endowments, and pension funds;
+whose capital isn’t subject to lump-sum withdrawal;
+whose essential activities won’t be jeopardized by downward fluctuations;
+who don’t have to worry about being forced into mistakes by their constituents; and
+who haven’t levered up with debt that might have to be repaid in the short run.
+
+Most investors lack some of these things, and few have them all.  But to the extent these characteristics are present, investors should take advantage of their ability to withstand volatility, since many investments with the potential for high returns might be susceptible to substantial fluctuations.
+
+
+Warren Buffett always puts it best, and on this topic he usefully said, “We prefer a lumpy 15% return to a smooth 12% return.”  Investors who’d rather have the reverse – who find a smooth 12% preferable to a lumpy 15% – should ask themselves whether their aversion to volatility is mostly financial or mostly emotional.
+
+
+Of course, the choices made by employees, investment committee members, and hired investment managers may have to reflect real-world considerations.  People in charge of institutional portfolios can have valid reasons for avoiding ups and downs that their organizations or clients might be able to stomach in financial terms but would still find unpleasant.  All anyone can do is the best they can under their particular circumstances.  But my bottom line is this: In many cases, people accord volatility far more importance than they should.
+
+
+
+An Aside
+
+
+While I’m on the subject of volatility, I want to turn to an area that hasn’t reported much of it of late: private investment funds.  The first nine months of 2022 constituted one of the worst periods on record for both stocks and bonds.  Yet many private equity and private debt funds are reporting only small losses for the year to date.  I’m often asked what this means, and whether it reflects reality.
+
+
+Maybe the performance of private funds is being reported accurately.  (I know we believe ours is.)  But I recently came across an interesting Financial Times article provocatively titled, “The volatility laundering, return manipulation and ‘phoney happiness’ of private equity,” by Robin Wigglesworth.  Here’s some of its content:
+
+
+The widening performance gap between public and private markets is a huge topic these days.  Investors are often seen as the gormless [foolish] dupes falling for the “return manipulation” of cunning private equity tycoons.  But what if they are co-conspirators?...
+
+
+That’s what a new paper from three academics at the University of Florida argues.  Based on nearly two decades worth of private equity real estate funds data, Blake Jackson, David Ling and Andy Naranjo conclude that “private equity fund managers manipulate returns to cater to their investors.”
+
+
+...Jackson, Ling and Naranjo’s...central conclusion is that “GPs do not appear to manipulate interim returns to fool their LPs, but rather because their LPs want them to do so”.
+
+
+Similar to the idea that banks design financial products to cater to yield-seeking investors or firms issue dividends to cater to investor demand for dividend payments, we argue that PE fund managers boost interim performance reports to cater to some investors’ demand for manipulated returns.
+
+
+...If a GP boosts or smooths returns,...investment managers within LP organizations can report artificially higher Sharpe ratios, alphas, and top-line returns, such as IRRs, to their trustees or other overseers.  In doing so, these investment managers, whose median tenure of four years often expires years before the ultimate returns of a PE fund are realized, might improve their internal job security or potential labor market outcomes....
+
+
+This probably helps explain why private equity firms on average actually reported gains of 1.6 per cent in the first quarter of 2022 and only some modest mark downwards since then, despite global equities losing 22 per cent of their value this year.  (November 2, 2022.  Emphasis added)
+
+
+If both GPs and LPs are happy with returns that seem unusually good, might the result be suspect?  Is the performance of private assets being stated accurately?  Is the low volatility being reported genuine?  If the current business climate is challenging, shouldn’t that affect the prices of public and private investments alike?
+
+
+But there’s another series of relevant questions: Mightn’t it be fair for GPs to decline to mark down private investments in companies that have experienced short-term weakness but whose long-term prospects remain bright?  And while private investments might not have been marked down enough this year, isn’t it true that the prices of public securities are more volatile than they should be, overstating the changes in long-term value?  I certainly think public security prices reflect psychological swings that are often excessive.  Should the prices of private investments emulate this?
+
+
+As with most things, any inaccuracy in reporting will eventually come to light.  Eventually, private debt will mature, and private equity holdings will have to be sold.  If the returns being reported this year understate the real declines in value, performance from here on out will likely look surprisingly poor.  And I’m sure this will lead plenty of academics (and maybe a few regulators) to question whether the pricing of private investments in 2022 was too high.  We’ll see.
+
+
+
+What Doesn’t Matter: Hyper-Activity
+
+
+In Selling Out (January 2022), I expressed my strong view that most investors trade too much.  Since it’s hard to make multiple consecutive decisions correctly, and trading costs money and is often likely to result from an investor’s emotional swings, it’s better to do less of it.
+
+
+When I was a boy, there was a popular saying: Don’t just sit there; do something.  But for investing, I’d invert it: Don’t just do something; sit there.  Develop the mindset that you don’t make money on what you buy and sell; you make money (hopefully) on what you hold.  Think more.  Trade less.  Make fewer, but more consequential, trades.  Over-diversification reduces the importance of each trade; thus it can allow investors to take actions without adequate investigation or great conviction.  I think most portfolios are overdiversified and over-traded.
+
+
+I devoted a good portion of The Illusion of Knowledge and Selling Out to warning investors about how difficult it is to improve returns through short-term market timing, and I quoted the great investor Bill Miller: “Time, not timing, is key to building wealth in the stock market.”
+
+
+On this subject, I was recently asked by a consultant, “If you don’t try to get in and out of the market as appropriate, how do you earn your fees?”  My answer was that it’s our job to assemble portfolios that will perform well over the long run, and market timing is unlikely to add to the outcome unless it can be done well, which I’m not convinced is usually the case.  “What about you?” I asked.  “If you help a client establish an appropriate asset allocation, does it follow that you’re not earning your fees if you don’t change it a month later?”
+
+
+Likewise, the day The Illusion of Knowledge came out, an old friend asked me, “But you have to take a position [on short-run events], don’t you?”  My answer, predictably, was, “No, not if you don’t have an advantage when doing so.  Why would you bet on the outcome of a coin toss, especially if it cost money to play?”
+
+
+I’ll end my discussion of this subject with a wonderful citation:
+
+
+A news item that has gotten a lot of attention recently concerned an internal performance review of Fidelity accounts to determine which type of investors received the best returns between 2003 and 2013. The customer account audit revealed that the best investors were either dead or inactive – the people who switched jobs and “forgot” about an old 401(k) leaving the current options in place, or the people who died and the assets were frozen while the estate handled the assets.  (“Fidelity’s Best Investors Are Dead,” The Conservative Income Investor, April 8, 2020)
+
+
+Since the journalists have been unable to find the Fidelity study, and apparently so has Fidelity, the story is probably apocryphal.  But I still like the idea, since the conclusion is so much in line with my thinking.  I’m not saying it’s worth dying to improve investment performance, but it might be a good idea for investors to simulate that condition by sitting on their hands.
+
+
+
+So What Does Matter?
+
+
+What really matters is the performance of your holdings over the next five or ten years (or more) and how the value at the end of the period compares to the amount you invested and to your needs.  Some people say the long run is a series of short runs, and if you get those right, you’ll enjoy success in the long run.  They might think the route to success consists of trading often in order to capitalize on relative value assessments, predictions regarding swings in popularity, and forecasts of macro events.  I obviously do not.
+
+
+Most individual investors and anyone who understands the limitations regarding outperformance would probably be best off holding index funds over the long run.  Investment professionals and others who feel they need or want to engage in active management might benefit from the following suggestions.
+
+
+I think most people would be more successful if they focused less on the short run or macro trends and instead worked hard to gain superior insight concerning the outlook for fundamentals over multi-year periods in the future.  They should:
+
+study companies and securities, assessing things such as their earnings potential;
+
+buy the ones that can be purchased at attractive prices relative to their potential;
+
+hold onto them as long as the company’s earnings outlook and the attractiveness of the price remain intact; and
+
+make changes only when those things can’t be reconfirmed, or when something better comes along.
+
+
+At the London conference mentioned on page one – while I was discussing (and discouraging) paying attention to the short run – I said that at Oaktree we consider it our job to (a) buy debt that will be serviced as promised (or will return the same amount or more if not) and (b) invest in companies that will become more valuable over time.  I’ll stick with that.
+
+
+The above description of the investor’s job is quite simple . . . some might say simplistic.  And it is.  Setting out the goals and the process in broad terms is easy.  The hard part is executing better than most people: That’s the only route to market-beating performance.  Since average decision-making is reflected in security prices and produces average performance, superior results have to be based on superior insight.  But I can’t tell you how to do these things better than the average investor.
+
+There’s a lot more to the process, and I’m going to outline some of what I think are key elements to remember.  You’ll recognize recurring themes here, from other memos and from earlier pages in this one, but I make no apology for dwelling on things that are important:
+
+Forget the short run – only the long run matters.  Think of securities as interests in companies, not trading cards.
+
+Decide whether you believe in market efficiency.  If so, is your market sufficiently inefficient to permit outperformance, and are you up to the task of exploiting it?
+
+Decide whether your approach will lean more toward aggressiveness or defensiveness.  Will you try to find more and bigger winners or focus on avoiding losers, or both?  Will you try to make more on the way up or lose less on the down, or both?  (Hint: “both” is much harder to achieve than one or the other.)  In general, people’s investment styles should fit their personalities.
+
+Think about what your normal risk posture should be – your normal balance between aggressiveness and defensiveness – based on your or your clients’ financial position, needs, aspirations, and ability to live with fluctuations.  Consider whether you’ll vary your balance depending on what happens in the market.
+
+Adopt a healthy attitude toward return and risk.  Understand that “the more return potential, the better” can be a dangerous rule to follow given that increased return potential is usually accompanied by increased risk.  On the other hand, completely avoiding risk usually leads to avoiding return as well.
+
+Insist on an adequate margin of safety, or the ability to weather periods when things go less well than you expected.
+
+Stop trying to predict the macro; study the micro like mad in order to know your subject better than others.  Understand that you can expect to succeed only if you have a knowledge advantage, and be realistic about whether you have it or not.  Recognize that trying harder isn’t enough.  Accept my son Andrew’s view that merely possessing “readily available quantitative information regarding the present” won’t give you above average results, since everyone else has it.
+
+Recognize that psychology swings much more than fundamentals, and usually in the wrong direction or at the wrong time.  Understand the importance of resisting those swings.  Profit if you can by being counter-cyclical and contrarian.
+
+Study conditions in the investment environment – especially investor behavior – and consider where things stand in terms of the cycle.  Understand that where the market stands in its cycle will strongly influence whether the odds are in your favor or against you.
+
+Buy debt when you like the yield, not for trading purposes.  In other words, buy 9% bonds if you think the yield compensates you for the risk, and you’ll be happy with 9%.  Don’t buy 9% bonds expecting to make 11% thanks to price appreciation resulting from declining interest rates.
+
+
+Of critical importance, equity investors should make their primary goals (a) participating in the secular growth of economies and companies and (b) benefiting from the wonder of compounding.  Think about the 10.5% yearly return of the S&P 500 Index (or its predecessors) since 1926 and the fact that this would have turned $1 into over $13,000 by now, even though the period witnessed 16 recessions, one Great Depression, several wars, one World War, a global pandemic, and many instances of geopolitical turmoil.
+
+
+Think of participating in the long-term performance of the average as the main event and the active efforts to improve on it as “embroidery around the edges.”  This might be the reverse of most active investors’ attitudes.  Improving results through over- and underweighting, short-term trading, market timing, and other active measures isn’t easy.  Believing you can do these things successfully requires the assumption that you’re smarter than a bunch of very smart people.  Think twice before proceeding, as the requirements for success are high (see below).
+
+Don’t mess it up by over-trading.  Think of buying and selling as an expense item, not a profit center.  I love the idea of the automated factory of the future, with its one man and one dog; The dog’s job is to keep the man from touching the machinery, and the man’s job is to feed the dog.  Investors should find a way to keep their hands off their portfolios most of the time.
+
+
+
+A Special Word in Closing: Asymmetry
+
+
+“Asymmetry” is a concept I’ve been conscious of for decades and consider more important with every passing year.  It’s my word for the essence of investment excellence and a standard against which investors should be measured.
+
+
+
+First, some definitions:
+
+I’m going to talk below about whether an investor has “alpha.”  Alpha is technically defined as return in excess of the benchmark return, but I prefer to think of it as superior investing skill.  It’s the ability to find and exploit inefficiencies when they’re present.
+
+Inefficiencies – mispricings or mistakes – represent instances when an asset’s price diverges from its fair value.  These divergences can show up as bargains or the opposite, over-pricings.
+
+Bargains will dependably perform better than other investments over time after adjustment for their riskiness.  Over-pricings will do the opposite.
+
+“Beta” is an investor’s or a portfolio’s relative volatility, also described as relative sensitivity or systematic risk.
+
+
+People who believe in the efficient market hypothesis think of a portfolio’s return as the product of the market’s return multiplied by the portfolio’s beta.  This is all it takes to explain results, since there are no mispricings to take advantage of in an efficient market (and so no such thing as alpha).  Thus, alpha is skill that enables an investor to produce performance better than that which is explained purely by market return and beta.  Another way to say this is that having alpha allows an investor to enjoy profit potential that is disproportionate to loss potential: asymmetry.  In my view, asymmetry is present when an investor can repeatedly do some or all of the following:
+
+make more money in good markets than he gives back in bad markets,
+
+have more winners than losers,
+
+make more money on his winners than he loses on his losers,
+
+do well when his aggressive or defensive bias proves timely but not badly when it doesn’t,
+
+do well when his sector or strategy is in favor but not badly when it isn’t, and
+
+construct portfolios so that most of the surprises are on the upside.
+
+
+For example, most of us have an inherent bias toward either aggressiveness or defensiveness.  For this reason, it doesn’t mean much if an aggressive investor outperforms in a good year or a defensive investor outperforms in a bad year.  To determine whether they have alpha and produce asymmetry, we have to consider whether the aggressive investor is able to avoid the full loss that his aggressiveness alone would produce in a bad market and whether the defensive investor can avoid missing out on too much of the gain when the market does well.  In my opinion, “excellence” lies in asymmetry between the results in good and bad times.
+
+
+As I see it, if inefficiencies are present in an investor’s market, and she has alpha, the impact will show up in asymmetrical returns.  If her returns show no asymmetry, the investor doesn’t have alpha (or perhaps there are no inefficiencies for her to identify).  Flipping that over, if an investor doesn’t have alpha, her returns won’t be asymmetrical.  It’s as simple as that.
+
+
+To simplify, here’s how I think about asymmetry.  This discussion is based on material I included in my 2018 book Mastering the Market Cycle: Getting the Odds on Your Side.  While I may appear to be talking about one good year and one bad one, these observations can only be considered valid if these patterns hold over a meaningful number of years.
+
+
+Let’s consider a manager’s performance:
+
+
+Market performance	+10%	-10%
+
+Manager A	+10%	-10%
+
+The above manager clearly adds no value.  You might as well invest in an index fund (probably at a much lower fee).
+
+
+These two managers also add no value:
+
+
+Market performance	+10%	-10%
+
+Manager B	+5%	-5%
+Manager C	+20%	-20%
+
+Manager B is just a no-alpha manager with a beta of 0.5, and manager C is a no-alpha manager with a beta of 2.0.  You could get the same results as manager B by putting half your capital in an index fund and keeping the rest under your mattress and in the case of manager C, by doubling your investment with borrowed capital and putting it all in an index fund.
+
+
+These two managers, however, do have alpha, as they exhibit asymmetry:
+
+
+Market performance	+10%	-10%
+
+Manager D	+17%	-12%
+Manager E	+9%	-3%
+
+Both managers’ returns reflect more of the market’s gain in good times than they do its loss in bad ones.  Manager D might be described as an aggressive manager with alpha; she achieves 170% of the market’s return when the market rises but suffers only 120% of the loss when it falls.  Manager E is a defensive manager with alpha; his returns reflect 90% of the gain in an up market but only 30% of the loss in a down market.  These asymmetries can only be attributed to the presence of alpha.  Risk-tolerant clients will prefer to invest with D, and risk-averse ones will prefer E.
+
+
+This manager is truly exceptional:
+
+
+Market performance	+10%	-10%
+
+Manager F	+20%	-5%
+
+She beat the market in both directions: She’s up more than the market when it rises and down less when it falls.  She’s up so much in a good market that you might be tempted to describe her as aggressive.  But since she’s down less in a down market, that description won’t hold.  Either she doesn’t have a bias in terms of aggressiveness versus defensiveness, or her alpha is great enough to offset it.
+
+
+Finally, here’s one of the greatest managers of all time:
+
+
+Market performance	+10%	-10%
+
+Manager G	+20%	+5%
+
+Manager G is up in good and bad markets alike.  He clearly doesn’t have an aggressiveness/defensiveness bias, since his performance is exceptional in both markets.  His alpha is sufficient to enable him to buck the trend and achieve a positive return in a down year.  When you find Manager G, you should (a) do extensive due diligence regarding his reported performance, (b) if the numbers hold up, invest a lot of money with him, (c) hope he won’t accept so much money that his edge goes away, and (d) send me his number.
+
+
+
+*            *            *
+
+
+
+What matters most?  Asymmetry.
+
+In sum, asymmetry shows up in a manager’s ability to do very well when things go his way and not too bad when they don’t.
+
+A great adage says, “Never confuse brains and a bull market.”  Managers with the skill needed to produce asymmetry are special because they’re able to fashion good gains from sources other than market advances.
+
+When you think about it, the active investment business is, at its heart, completely about asymmetry.  If a manager’s performance doesn’t exceed what can be explained by market returns and his relative risk posture – which stems from his choice of market sector, tactics, and level of aggressiveness – he simply hasn’t earned his fees.
+
+
+Without asymmetry (see Managers A, B, and C on page 12), active management delivers no value and deserves no fees.  Indeed, all the choices an active investor makes will be for naught if he doesn’t possess superior skill or insight.  By definition, average investors and below-average investors don’t have alpha and can’t produce asymmetry.
+
+
+The big question is how to achieve asymmetry.  Most of the things people focus on – the things I describe on pages one through nine as not mattering – can’t provide it.  As I’ve said before, the average of all investors’ thinking produces market prices and, obviously, average performance.  Asymmetry can only be demonstrated by the relatively few people with superior skill and insight.  The key lies in finding them.
