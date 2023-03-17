@@ -4,24 +4,24 @@
 >
 >  "Systems with AI will replace systems without AI"
 
-This repository demonstrates the art of the possible as you modernize and transform your applications with AI.
-Project Miyagi is embedded with intelligence and built on a scalable event-driven architecture, 
-leveraging innovative programming paradigms such as
-prompt engineering, prompt chaining, embeddings, conversational memory stores, and nascent technologies like
-[Semantic Kernel](https://github.com/microsoft/semantic-kernel), [LangChain](https://github.com/hwchase17/langchain#readme),
-as well as Foundation Models from Azure OpenAI and 
-[Cognitive Services](https://azure.microsoft.com/en-us/blog/announcing-a-renaissance-in-computer-vision-ai-with-microsofts-florence-foundation-model).
+<p align="center"><img src="ui-nextjs/public/images/readme/1.png" width=20% height=20% /></p>
 
-With a focus on customer-centricity, Project Miyagi challenges you to rethink how AI can elevate and hyper-personalize your 
+This is a sample to demonstrate AI-first architecture and user experiences. It is also a sandbox to showcase emerging programming paradigms in generative AI such as
+prompt engineering (chain-of-thought, few-shot, in-context), embeddings, conversational memory stores etc. In addition, it has usage examples of nascent frameworks such as 
+[Semantic Kernel](https://github.com/microsoft/semantic-kernel), [LangChain](https://github.com/hwchase17/langchain#readme), vector stores ([Chroma](https://www.trychroma.com/)/[Pinecone](https://www.pinecone.io/)), [SD-InstructPix2Pix](https://github.com/timothybrooks/instruct-pix2pix), [ControlNet](https://github.com/lllyasviel/ControlNet),
+as well as Foundation Models from Azure OpenAI and 
+[Cognitive Services](https://azure.microsoft.com/en-us/blog/announcing-a-renaissance-in-computer-vision-ai-with-microsofts-florence-foundation-model). Leverage this to gain insights as you modernize and transform your applications with AI and fine-tune your private data to build your own private copilot.
+
+Project Miyagi is embedded with intelligence and built on a scalable event-driven architecture. With a focus on customer-centricity, it challenges you to rethink how AI can elevate and hyper-personalize your 
 customers' experiences, whether it's a line-of-business (LOB) or consumer-facing app.
 It includes real-world customer use cases and pain points in the financial sector, 
 providing an easily understandable scenario to gain valuable insights.
 
-This polyglot codebase relies on a scalable event-driven backend and a multitude of microservices, 
+This polyglot codebase relies on a multitude of microservices, 
 choreographing retail and high-frequency trading,
-generating AI for personalized financial coaching and agent-like orchestration, and building on a solid EDA backbone to ensure enterprise-grade quality attributes such as availability, scalability, and maintainability.
+including generative text and images for personalized financial coaching, summarization, and agent-like orchestration. It is built on a cloud-native EDA backbone to ensure enterprise-grade quality attributes such as availability, scalability, and maintainability.
 
-Take the first step towards transforming your applications into cutting-edge, intelligent systems with the self-guided workshop.
+Take the first step towards transforming your applications into cutting-edge, intelligent systems with the self-guided workshop to discover the art of the possible.
 
 WIP
 
@@ -36,6 +36,8 @@ WIP
 - [Semantic Kernel](https://github.com/microsoft/semantic-kernel)
 - [LangChain](https://github.com/hwchase17/langchain#readme)
 - [Foundation models from CogServices](https://azure.microsoft.com/en-us/blog/announcing-a-renaissance-in-computer-vision-ai-with-microsofts-florence-foundation-model/)
+- [Chroma](https://www.trychroma.com/)
+- [ControlNet](https://github.com/lllyasviel/ControlNet)
 - Temporal
 - DreamFusion
 
@@ -49,7 +51,7 @@ We are incrementally implementing use cases for Miyagi in the experiments folder
 4. [Azure OpenAI GPT-3.5 basic flow](./ancillary/experiments/az-openai)
 5. [GPT-3.5-turbo and Whisper-1 usage to transcribe audio and demonstrate few-shot example](./ancillary/experiments/gpt-3.5-turbo)
 
-<img src="ui-nextjs/public/images/readme/1.png" width=30% height=30% />
+
 
 ### Contributing
 
