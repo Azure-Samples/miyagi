@@ -53,13 +53,13 @@ We are incrementally implementing use cases for Miyagi in the experiments folder
 
 ### WIP - Architecture
 
-![image-20230316225614023](D:\source\gbb\miyagi\ancillary\images\wip-architecture)
+![architecture](./ancillary/images/wip-architecture.png)
 
 
 
 ### WIP - Generative image use case architecture with Dreambooth
 
-![image-20230316225725707](D:\source\gbb\miyagi\ancillary\images\wip-dreambooth)
+![generative-image](./ancillary/images/wip-dreambooth.png)
 
 
 
