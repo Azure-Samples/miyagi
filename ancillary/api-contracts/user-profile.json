@@ -1,0 +1,237 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8901",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/api/v1/userprofile": {
+            "get": {
+                "tags": [
+                    "user-profile-controller"
+                ],
+                "operationId": "listUserProfiles",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserProfile"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "user-profile-controller"
+                ],
+                "operationId": "updateUserProfile",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserProfile"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserProfile"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/userprofile/": {
+            "post": {
+                "tags": [
+                    "user-profile-controller"
+                ],
+                "operationId": "createNewCustomer",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserProfile"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserProfile"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/userprofile/{id}": {
+            "get": {
+                "tags": [
+                    "user-profile-controller"
+                ],
+                "operationId": "getUserProfileById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserProfile"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "user-profile-controller"
+                ],
+                "operationId": "deleteUserProfile",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Aspirations": {
+                "type": "object",
+                "properties": {
+                    "aspirationsId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "vacationBucketList": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "perks": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "anticipatedRetirementAge": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "FinancialProfile": {
+                "type": "object",
+                "properties": {
+                    "financialProfileId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "annualSalary": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currentAssets": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "liabilities": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "riskTolerance": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UserProfile": {
+                "type": "object",
+                "properties": {
+                    "userId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "age": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "financialProfile": {
+                        "$ref": "#/components/schemas/FinancialProfile"
+                    },
+                    "aspirations": {
+                        "$ref": "#/components/schemas/Aspirations"
+                    }
+                }
+            }
+        }
+    }
+}
