@@ -26,10 +26,6 @@ spring:
     show-sql: 'true'
   config:
     import: optional:classpath:.env[.properties]
-  jms:
-    servicebus:
-      connection-string: ${SERVICEBUSCONNECTIONSTRING}
-      pricing-tier: ${SERVICEBUSPRICINGTIER:Basic}
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     password: ${MYSQLPASSWORD}

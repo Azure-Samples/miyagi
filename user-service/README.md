@@ -9,3 +9,6 @@ Customer profile service for Miyagi is a RESTful service that provides customer 
 
 ## Run
 - `mvn spring-boot:run`
+- navigate to http://localhost:8901
+
+![img.png](swagger-run.png)
