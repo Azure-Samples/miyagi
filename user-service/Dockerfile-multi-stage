@@ -1,0 +1,22 @@
+# multi-stage build
+FROM openjdk:17-jdk-alpine as builder
+RUN apk add --no-cache maven
+RUN mkdir /project
+COPY . /project
+WORKDIR /project
+RUN mvn clean package -DskipTests
+
+# Using MS Build of OpenJDK image
+#FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu
+FROM openjdk:17-jdk-alpine
+# Secure way to run the container as non-root user
+RUN apk add dumb-init
+RUN mkdir /app
+RUN addgroup --system miyagiuser && adduser -S -s /bin/false -G miyagiuser miyagiuser
+COPY --from=build /project/target/*.jar /app/app.jar
+WORKDIR /app
+RUN chown -R miyagiuser:miyagiuser /app
+USER miyagiuser
+ARG PORT=8702
+EXPOSE ${PORT}
+CMD "dumb-init" "java" "-jar" "app.jar"

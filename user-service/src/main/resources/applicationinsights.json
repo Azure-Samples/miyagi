@@ -1,0 +1,44 @@
+{
+  "connectionString": "${APPLICATIONINSIGHTS_CONNECTION_STRING}",
+  "role": {
+    "instance": "miyagi",
+    "name": "user-service"
+  },
+  "preview": {
+    "profiler": {
+      "enabled": true,
+      "enableDiagnostics": true,
+      "cpuTriggeredSettings": "diagnostic-profile",
+      "memoryTriggeredSettings": "diagnostic-profile",
+      "manualTriggeredSettings": "diagnostic-profile"
+    },
+    "instrumentation": {
+      "apacheCamel": {
+        "enabled": true
+      },
+      "springIntegration": {
+        "enabled": true
+      }
+    }
+  },
+  "instrumentation": {
+    "micrometer": {
+      "enabled": true
+    },
+    "logging": {
+      "level": "INFO"
+    }
+  },
+  "jmxMetrics": [
+    {
+      "name": "JVM uptime (millis)",
+      "objectName": "java.lang:type=Runtime",
+      "attribute": "Uptime"
+    },
+    {
+      "name": "MetaSpace Used",
+      "objectName": "java.lang:type=MemoryPool,name=Metaspace",
+      "attribute": "Usage.used"
+    }
+  ]
+}
