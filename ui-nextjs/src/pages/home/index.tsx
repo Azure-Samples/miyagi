@@ -1,25 +1,19 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
-import { useEffect, useState } from 'react'
+import {useEffect, useState} from 'react'
 
 // ** MUI Imports
 // ** Custom Components Imports
 // ** Hooks
-import { useSettings } from 'src/@core/hooks/useSettings'
+import {useSettings} from 'src/@core/hooks/useSettings'
 
 // ** Styled Components
-import RechartsWrapper from 'src/@core/styles/libs/recharts'
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
 // ** Demo Components Imports
-import RechartsLineChart from 'src/views/charts/recharts/RechartsLineChart'
-import RechartsAreaChart from 'src/views/charts/recharts/RechartsAreaChart'
 
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
-import CardWidgetsProfitPerOrder from '../../views/ui/widgets/CardWidgetsProfitPerOrder'
-import CardWidgetsSalesProfit from '../../views/ui/widgets/CardWidgetsSalesProfit'
-import CardWidgetsOrdersByDay from '../../views/ui/widgets/CardWidgetsOrdersByDay'
+import DialogConnectDataSources from '../../views/pages/dialog/DialogConnectDataSources'
 
 const Home = () => {
   const [stats, setStats] = useState(null)
@@ -42,28 +36,8 @@ const Home = () => {
 
   return (
     <Grid container spacing={6}>
-      <Grid item xs={12} sm={6} md={4}>
-        <CardWidgetsOrdersByDay />
-      </Grid>
-      <Grid item xs={12} sm={6} md={4}>
-        <CardWidgetsProfitPerOrder />
-      </Grid>
-      <Grid item xs={12} sm={6} md={4}>
-        <CardWidgetsSalesProfit />
-      </Grid>
-      <Grid item xs={12}>
-        <RechartsWrapper>
-          <DatePickerWrapper>
-            <Grid container spacing={6}>
-              <Grid item xs={12} md={6}>
-                <RechartsLineChart direction={settings.direction} />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <RechartsAreaChart direction={settings.direction} />
-              </Grid>
-            </Grid>
-          </DatePickerWrapper>
-        </RechartsWrapper>
+      <Grid item xs={12} sm={12}>
+        <DialogConnectDataSources />
       </Grid>
     </Grid>
   )
