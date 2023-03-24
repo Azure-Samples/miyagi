@@ -23,7 +23,7 @@ public class Aspirations {
     @ElementCollection
     private List<String> vacationBucketList;
     @ElementCollection
-    private List<String> perks;
+    private List<String> hobbies;
     private int anticipatedRetirementAge;
 
 }
