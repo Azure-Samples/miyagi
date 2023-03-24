@@ -38,10 +38,11 @@ Embark on a journey to transform your applications into cutting-edge, intelligen
 Due to the rapid pace of advancements in foundation models, we are incrementally implementing use cases for Miyagi in the experiments folder. So far, we have the following implemented:
 
 1. [Knowledge Graph memory using Langchain's entity cache](./ancillary/experiments/langchain/Memory_Usecases.ipynb)
-2. [MS Graph API intent invoked via Semantic Kernel's skills](./ancillary/experiments/semantic-kernel/ms-graph-chain)
-3. [Miyagi prompt engineered chat interaction](./ancillary/experiments/langchain/chat) using LangChain's PromptTemplate 
-4. [Azure OpenAI GPT-3.5 basic flow](./ancillary/experiments/az-openai)
-5. [GPT-3.5-turbo and Whisper-1 usage to transcribe audio and demonstrate few-shot example](./ancillary/experiments/gpt-3.5-turbo)
+2. [Qdrant vector store for embeddings via Langchain](./ancillary/experiments/langchain/qdrant_miyagi_example)
+3. [MS Graph API intent invoked via Semantic Kernel's skills](./ancillary/experiments/semantic-kernel/ms-graph-chain)
+4. [Miyagi prompt engineered chat interaction](./ancillary/experiments/langchain/chat) using LangChain's PromptTemplate 
+5. [Azure OpenAI GPT-3.5 basic flow](./ancillary/experiments/az-openai)
+6. [GPT-3.5-turbo and Whisper-1 usage to transcribe audio and demonstrate few-shot example](./ancillary/experiments/gpt-3.5-turbo)
 
 ### WIP - Architecture
 
