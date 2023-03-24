@@ -25,7 +25,7 @@ CREATE TABLE aspirations
     id                         BIGINT PRIMARY KEY AUTO_INCREMENT,
     user_profile_id            BIGINT NOT NULL,
     vacation_bucket_list       TEXT,
-    perks                      TEXT,
+    hobbies                      TEXT,
     anticipated_retirement_age INT    NOT NULL,
     FOREIGN KEY (user_profile_id) REFERENCES user_profiles (id)
 );
