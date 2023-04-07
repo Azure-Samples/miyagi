@@ -14,9 +14,10 @@ import Laravel from 'mdi-material-ui/Laravel'
 
 // ** Custom Avatar Component
 import CustomAvatar from 'src/@core/components/mui/avatar'
+import Switch from "@mui/material/Switch";
 
 const TabFramework = () => {
-  const [value, setValue] = useState<string>('react')
+  const [value, setValue] = useState<string>('Plaid')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
@@ -43,7 +44,10 @@ const TabFramework = () => {
               </Typography>
             </Box>
           </Box>
-          <Radio value='react' onChange={handleChange} checked={value === 'react'} />
+          <Switch defaultChecked
+                  onChange={handleChange}
+                  name="Plaid"
+                  inputProps={{ 'aria-label': 'Plaid' }}  />
         </Box>
 
         <Box
@@ -61,7 +65,10 @@ const TabFramework = () => {
               </Typography>
             </Box>
           </Box>
-          <Radio value='angular' onChange={handleChange} checked={value === 'angular'} />
+          <Switch defaultChecked
+                  onChange={handleChange}
+                  name="JPMC"
+                  inputProps={{ 'aria-label': 'JPMC' }}  />
         </Box>
         <Box
           onClick={() => setValue('vuejs')}
@@ -78,7 +85,10 @@ const TabFramework = () => {
               </Typography>
             </Box>
           </Box>
-          <Radio value='vuejs' onChange={handleChange} checked={value === 'vuejs'} />
+          <Switch defaultChecked
+                  onChange={handleChange}
+                  name="BoA"
+                  inputProps={{ 'aria-label': 'BoA' }}  />
         </Box>
         <Box
           onClick={() => setValue('laravel')}
@@ -95,7 +105,10 @@ const TabFramework = () => {
               </Typography>
             </Box>
           </Box>
-          <Radio value='laravel' onChange={handleChange} checked={value === 'laravel'} />
+          <Switch defaultChecked
+                  onChange={handleChange}
+                  name="Citi"
+                  inputProps={{ 'aria-label': 'Citi' }}  />
         </Box>
       </Box>
     </Box>

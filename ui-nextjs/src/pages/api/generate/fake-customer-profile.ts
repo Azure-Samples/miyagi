@@ -1,20 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from 'next/types'
 
 export default async function userHandler(req: NextApiRequest, res: NextApiResponse) {
-  const VIRTUAL_CUSTOMERS_URL = process.env.VIRTUAL_CUSTOMERS_URL
+  const USER_SERVICE_URL = process.env.USER_SERVICE_URL
 
   const {
-    query: { numOrders },
     method
   } = req
 
   switch (method) {
-    case 'POST':
-      // Get orders from backend
+    case 'GET':
+      // Get fake user profiles from backend
       const requestHeaders: HeadersInit = new Headers()
       requestHeaders.set('x-origin', 'nextjs')
-      const response = await fetch(`${VIRTUAL_CUSTOMERS_URL}/simulate-orders?numOrders=${numOrders}`, {
-        method: 'POST',
+      const response = await fetch(`${USER_SERVICE_URL}/api/v1/userprofile/generate`, {
+        method: 'GET',
         headers: requestHeaders
       })
       const responseJson = await response.json()
