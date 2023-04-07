@@ -36,6 +36,9 @@ import DialogTabSocial from 'src/views/pages/dialog/data-sources/DialogTabSocial
 import DialogTabBrokerage from 'src/views/pages/dialog/data-sources/DialogTabBrokerage'
 import DialogTabFinancial from 'src/views/pages/dialog/data-sources/DialogTabFinancial'
 import {useAuth} from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
+import CircularProgress from "@mui/material/CircularProgress";
+import {green} from "@mui/material/colors";
 
 interface TabLabelProps {
   title: string
@@ -111,6 +114,8 @@ const DialogConnectDataSources = () => {
   // ** States
   const [show, setShow] = useState<boolean>(false)
   const [activeTab, setActiveTab] = useState<string>('detailsTab')
+  const [isLoading, setIsLoading] = useState(false)
+  const [data, setData] = useState(null)
 
   // ** Hook
   const { settings } = useSettings()
@@ -121,6 +126,32 @@ const DialogConnectDataSources = () => {
   const handleClose = () => {
     setShow(false)
     setActiveTab('detailsTab')
+  }
+
+  const fetchFakeData = async () => {
+    setIsLoading(true)
+
+    try {
+      const response = await fetch(`/api/generate/fake-customer-profile`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json'
+        }
+      })
+
+      if (!response.ok) {
+        throw new Error(`Error! status: ${response.status}`)
+      }
+      const result = await response.json()
+      setData(result)
+      console.log(result)
+      toast.success('Customer profile fetched successfully!')
+    } catch ({ message }) {
+      // @ts-ignore
+      toast.error(message)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const NextArrow = direction === 'ltr' ? ArrowRight : ArrowLeft
@@ -149,12 +180,29 @@ const DialogConnectDataSources = () => {
             if (activeTab !== 'submitTab') {
               setActiveTab(nextTab)
             } else {
-              handleClose()
+              fetchFakeData().then(r => {
+                handleClose()
+                console.log(data)
+              })
+
             }
           }}
         >
           {activeTab === 'submitTab' ? 'Submit' : 'Next'}
         </Button>
+        {(isLoading && activeTab === 'submitTab') && (
+          <CircularProgress
+            size={24}
+            sx={{
+              color: green[500],
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              marginTop: '-12px',
+              marginLeft: '-12px',
+            }}
+          />
+        )}
       </Box>
     )
   }

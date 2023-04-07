@@ -13,6 +13,8 @@ import BriefcaseOutline from 'mdi-material-ui/BriefcaseOutline'
 
 // ** Custom Avatar Component
 import CustomAvatar from 'src/@core/components/mui/avatar'
+import Switch from "@mui/material/Switch";
+import {label} from "aws-amplify";
 
 const TabDetails = () => {
   const [value, setValue] = useState<string>('ecommerce')
@@ -39,7 +41,10 @@ const TabDetails = () => {
               </Typography>
             </Box>
           </Box>
-          <Radio value='crm' onChange={handleChange} checked={value === 'crm'} />
+          <Switch defaultChecked
+                  onChange={handleChange}
+                  name="LinkedIn"
+                  inputProps={{ 'aria-label': 'LinkedIn' }}  />
         </Box>
         <Box
           onClick={() => setValue('ecommerce')}
@@ -56,7 +61,10 @@ const TabDetails = () => {
               </Typography>
             </Box>
           </Box>
-          <Radio value='ecommerce' onChange={handleChange} checked={value === 'ecommerce'} />
+          <Switch defaultChecked
+                  onChange={handleChange}
+                  name="Twitter"
+                  inputProps={{ 'aria-label': 'Twitter' }}  />
         </Box>
       </Box>
     </Box>

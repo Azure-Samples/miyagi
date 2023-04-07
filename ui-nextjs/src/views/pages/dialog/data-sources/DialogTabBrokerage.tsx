@@ -3,7 +3,6 @@ import {ChangeEvent, useState} from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
-import Radio from '@mui/material/Radio'
 import Typography from '@mui/material/Typography'
 
 // ** Icons Imports
@@ -13,9 +12,10 @@ import Database from 'mdi-material-ui/DatabaseOutline'
 
 // ** Custom Avatar Component
 import CustomAvatar from 'src/@core/components/mui/avatar'
+import Switch from "@mui/material/Switch";
 
 const TabDatabase = () => {
-  const [value, setValue] = useState<string>('firebase')
+  const [value, setValue] = useState<string>('Fidelity')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
@@ -39,7 +39,10 @@ const TabDatabase = () => {
               </Typography>
             </Box>
           </Box>
-          <Radio value='firebase' onChange={handleChange} checked={value === 'firebase'} />
+          <Switch defaultChecked
+                  onChange={handleChange}
+                  name="Fidelity"
+                  inputProps={{ 'aria-label': 'Fidelity' }}  />
         </Box>
         <Box
           onClick={() => setValue('aws')}
@@ -56,7 +59,10 @@ const TabDatabase = () => {
               </Typography>
             </Box>
           </Box>
-          <Radio value='aws' onChange={handleChange} checked={value === 'aws'} />
+          <Switch defaultChecked
+                  onChange={handleChange}
+                  name="Etrade"
+                  inputProps={{ 'aria-label': 'Etrade' }}  />
         </Box>
         <Box
           onClick={() => setValue('sql')}
@@ -73,7 +79,10 @@ const TabDatabase = () => {
               </Typography>
             </Box>
           </Box>
-          <Radio value='sql' onChange={handleChange} checked={value === 'sql'} />
+          <Switch defaultChecked
+                  onChange={handleChange}
+                  name="Robinhood"
+                  inputProps={{ 'aria-label': 'Robinhood' }}  />
         </Box>
       </Box>
     </Box>
