@@ -116,6 +116,7 @@ const DialogConnectDataSources = () => {
   const [activeTab, setActiveTab] = useState<string>('detailsTab')
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
+  const [userEmbeddings, setUserEmbeddings] = useState(null)
 
   // ** Hook
   const { settings } = useSettings()
@@ -130,7 +131,6 @@ const DialogConnectDataSources = () => {
 
   const fetchFakeData = async () => {
     setIsLoading(true)
-
     try {
       const response = await fetch(`/api/generate/fake-customer-profile`, {
         method: 'GET',
@@ -153,6 +153,49 @@ const DialogConnectDataSources = () => {
       setIsLoading(false)
     }
   }
+
+  const persistUserEmbeddings = async () => {
+    setIsLoading(true)
+
+    try {
+      const response = await fetch(`/api/user/embeddings`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          Accept: 'application/json'
+        }
+      })
+
+      if (!response.ok) {
+        throw new Error(`Error! status: ${response.status}`)
+      }
+      const result = await response.json()
+      setUserEmbeddings(result)
+      console.log(result)
+      toast.success('Vectorized User profile for long term memory!')
+    } catch ({ message }) {
+      // @ts-ignore
+      toast.error(message)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleSubmit = () => {
+    fetchFakeData().then(() => {
+      console.log("User profile");
+      console.dir(data);
+      if (data) {
+        persistUserEmbeddings().then(() => {
+          console.log("User embeddings");
+          console.dir(userEmbeddings);
+          handleClose();
+        });
+      } else {
+        toast.error("Failed to fetch user profile. Please try again.");
+      }
+    });
+  };
 
   const NextArrow = direction === 'ltr' ? ArrowRight : ArrowLeft
   const PreviousArrow = direction === 'ltr' ? ArrowLeft : ArrowRight
@@ -180,11 +223,7 @@ const DialogConnectDataSources = () => {
             if (activeTab !== 'submitTab') {
               setActiveTab(nextTab)
             } else {
-              fetchFakeData().then(r => {
-                handleClose()
-                console.log(data)
-              })
-
+              handleSubmit()
             }
           }}
         >

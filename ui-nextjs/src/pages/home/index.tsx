@@ -18,7 +18,7 @@ import DialogConnectDataSources from '../../views/pages/dialog/DialogConnectData
 const Home = () => {
   const [stats, setStats] = useState(null)
 
-  const MINUTE_MS = 500000
+  const MINUTE_MS = 50000000
 
   const { settings } = useSettings()
 
