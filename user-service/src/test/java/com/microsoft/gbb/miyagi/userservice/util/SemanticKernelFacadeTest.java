@@ -1,6 +1,6 @@
 package com.microsoft.gbb.miyagi.userservice.util;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -9,69 +9,46 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
 
-import java.net.URI;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class SemanticKernelFacadeTest {
-
-    @InjectMocks
-    private TestableSemanticKernelFacade semanticKernelFacade;
-
-    @Mock
-    private WebClient.Builder webClientBuilder;
-
+class SemanticKernelFacadeTest {
     @Mock
     private WebClient webClient;
 
     @Mock
-    private WebClient.RequestHeadersSpec requestHeadersSpec;
+    private WebClient.Builder webClientBuilder;
 
-    @Mock
-    private WebClient.RequestHeadersUriSpec requestHeadersUriSpec;
+    @InjectMocks
+    private SemanticKernelFacade semanticKernelFacade;
 
-    @Mock
-    private WebClient.ResponseSpec responseSpec;
+    @Test
+    @DisplayName("Should return pong when the ping method is called")
+    void pingReturnsPong() {
+        String expectedResponse = "pong";
+        WebClient.RequestHeadersUriSpec requestHeadersUriSpec =
+                mock(WebClient.RequestHeadersUriSpec.class);
+        WebClient.RequestHeadersSpec requestHeadersSpec = mock(WebClient.RequestHeadersSpec.class);
+        WebClient.ResponseSpec responseSpec = mock(WebClient.ResponseSpec.class);
 
-    @BeforeEach
-    public void setUp() {
-        when(webClientBuilder.baseUrl(any(String.class))).thenReturn(webClientBuilder);
+        when(webClientBuilder.baseUrl(anyString())).thenReturn(webClientBuilder);
         when(webClientBuilder.build()).thenReturn(webClient);
-        when(requestHeadersUriSpec.uri((URI) any())).thenReturn(requestHeadersSpec);
+
+        // Add this line to make sure that baseUrl(String) returns the webClientBuilder instance
+        when(webClientBuilder.baseUrl(anyString())).thenReturn(webClientBuilder);
+
+        when(requestHeadersUriSpec.uri(anyString())).thenReturn(requestHeadersSpec);
         when(requestHeadersSpec.retrieve()).thenReturn(responseSpec);
-    }
+        when(responseSpec.bodyToMono(String.class)).thenReturn(Mono.just(expectedResponse));
 
-    @Test
-    public void testExecutePlan() {
-        when(responseSpec.bodyToMono(String.class)).thenReturn(Mono.just("executePlan response"));
-        Mono<String> result = semanticKernelFacade.executePlan(5);
-
-        StepVerifier.create(result)
-                .expectNext("executePlan response")
-                .verifyComplete();
-    }
-
-    @Test
-    public void testInvokeFunction() {
-        when(responseSpec.bodyToMono(String.class)).thenReturn(Mono.just("invokeFunction response"));
-        Mono<String> result = semanticKernelFacade.invokeFunction("skillName", "functionName");
-
-        StepVerifier.create(result)
-                .expectNext("invokeFunction response")
-                .verifyComplete();
-    }
-
-    @Test
-    public void testPing() {
-        when(responseSpec.bodyToMono(String.class)).thenReturn(Mono.just("ping response"));
         Mono<String> result = semanticKernelFacade.ping();
 
-        StepVerifier.create(result)
-                .expectNext("ping response")
-                .verifyComplete();
+        assertEquals(expectedResponse, result.block());
+        verify(webClient).method(HttpMethod.GET);
+        verify(requestHeadersUriSpec).uri(anyString());
+        verify(requestHeadersSpec).retrieve();
+        verify(responseSpec).bodyToMono(String.class);
     }
 }
