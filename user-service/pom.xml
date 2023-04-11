@@ -24,19 +24,24 @@
         <mysql-connector-j.version>8.0.32</mysql-connector-j.version>
         <micronaut-micrometer-registry-prometheus.version>4.8.2</micronaut-micrometer-registry-prometheus.version>
         <springdoc-openapi-starter-webmvc-ui.version>.</springdoc-openapi-starter-webmvc-ui.version>
+        <spring-boot-starter-version>3.0.5</spring-boot-starter-version>
+        <spring-cloud-starter-version>4.0.2</spring-cloud-starter-version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring-boot-starter-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot-starter-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
+            <version>${spring-cloud-starter-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -121,6 +126,21 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
             <version>${spring-boot-starter-actuator.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <version>${spring-boot-starter-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -180,6 +200,7 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.5.0</version>
                 <executions>
