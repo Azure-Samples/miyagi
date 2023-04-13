@@ -48,7 +48,7 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 6. [GPT-3.5-turbo and Whisper-1 usage to transcribe audio and demonstrate few-shot example](./ancillary/experiments/gpt-3.5-turbo)
 
 ### WIP - Architecture
-
+![azure](./ancillary/images/wip-azure.png)
 ![architecture](./ancillary/images/wip-architecture.png)
 
 
