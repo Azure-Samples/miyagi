@@ -18,24 +18,6 @@ Embark on a journey to transform your applications into cutting-edge, intelligen
 
 *Work in Progress*
 
-## Tech Stack
-
-<TODO>
-
-- Azure OpenAI
-  - text-davinci-003
-  - text-embedding-ada-002
-  - whisper
-  - dall-e
-- [Semantic Kernel](https://github.com/microsoft/semantic-kernel)
-- [Jarvis](https://github.com/microsoft/JARVIS)
-- [LangChain](https://github.com/hwchase17/langchain#readme)
-- [Foundation Models from CogServices](https://azure.microsoft.com/en-us/blog/announcing-a-renaissance-in-computer-vision-ai-with-microsofts-florence-foundation-model/)
-- [Qdrant](https://qdrant.tech/solutions/)
-- [Chroma](https://www.trychroma.com/)
-- [ControlNet](https://github.com/lllyasviel/ControlNet)
-- [Azure Deployment Environments](https://azure.microsoft.com/en-us/products/deployment-environments/)
-
 ### Partial Implementations
 
 Due to the rapid pace of advancements in foundation models, we are incrementally implementing use cases for Miyagi in the experiments folder. So far, we have the following implemented:
@@ -46,6 +28,11 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 4. [Miyagi prompt engineered chat interaction](./ancillary/experiments/langchain/chat) using LangChain's PromptTemplate 
 5. [Azure OpenAI GPT-3.5 basic flow](./ancillary/experiments/az-openai)
 6. [GPT-3.5-turbo and Whisper-1 usage to transcribe audio and demonstrate few-shot example](./ancillary/experiments/gpt-3.5-turbo)
+7. Controllability and Reliability of model output (Alignment) - coming soon
+
+### WIP - Frontend
+Interaction with foundation models is more than chat. This sample shows a few use cases 
+![frontend](./ancillary/images/wip-ui.png)
 
 ### WIP - Architecture
 ![azure](./ancillary/images/wip-azure.png)
@@ -57,7 +44,33 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 
 ![generative-image](./ancillary/images/wip-dreambooth.png)
 
+## Tech Stack
 
+<TODO>
+
+- [Azure OpenAI](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/models)
+  - gpt-4
+  - gpt-35-turbo
+  - text-embedding-ada-002
+- [Semantic Kernel](https://github.com/microsoft/semantic-kernel)
+- [Azure HuggingFace Inference Endpoints](https://azure.microsoft.com/en-us/solutions/hugging-face-on-azure)
+- [Jarvis](https://github.com/microsoft/JARVIS)
+- [LangChain](https://github.com/hwchase17/langchain#readme)
+- [Foundation Models from CogServices](https://azure.microsoft.com/en-us/blog/announcing-a-renaissance-in-computer-vision-ai-with-microsofts-florence-foundation-model/)
+- [Qdrant](https://qdrant.tech/solutions/)
+- [Chroma](https://www.trychroma.com/)
+- [ControlNet](https://github.com/lllyasviel/ControlNet)
+- [Microsoft Clarity](https://clarity.microsoft.com/)
+- [Azure Web PubSub](https://azure.microsoft.com/en-us/products/web-pubsub)
+- [Azure Functions](https://azure.microsoft.com/en-ca/products/functions/)
+- [AKS](https://azure.microsoft.com/en-us/products/kubernetes-service) / [ACA](https://azure.microsoft.com/en-us/products/container-apps)
+- [Azure Monitor](https://learn.microsoft.com/en-us/azure/azure-monitor/)
+- [Cosmos DB](https://azure.microsoft.com/en-us/products/cosmos-db/)
+- [Azure DB for PostgreSQL](https://azure.microsoft.com/en-us/products/postgresql)
+- [Azure Redis Cache](https://azure.microsoft.com/en-us/products/cache)
+- [Azure Storage](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction)
+- [Apache Kafka on Azure Event Hubs](https://learn.microsoft.com/en-us/azure/event-hubs/azure-event-hubs-kafka-overview)
+- [Github Actions](https://docs.github.com/en/actions)
 
 ### Contributing
 
