@@ -4,3 +4,10 @@ resource "azurerm_virtual_network" "default" {
   location = azurerm_resource_group.default.location
   address_space = [local.address_space]
 }
+
+resource "azurerm_subnet" "aks" {
+  name = "AksSubnet"
+  address_prefixes = [
+    cidrsubnet(local.address_space, 8, 1)
+  ]
+}
