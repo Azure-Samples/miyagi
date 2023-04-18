@@ -10,3 +10,8 @@ variable "admin_password" {
 variable "ssh_key_path" {
   type = string
 }
+
+variable "location" {
+  type = string
+  default = "eastus"
+}
