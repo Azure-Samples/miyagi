@@ -14,6 +14,10 @@ import ShapeImage from '@/assets/images/workshop-gbb.png';
 
 export default function Sidebar({ className }: { className?: string }) {
   const { closeDrawer } = useDrawer();
+  const openInNewTab = (url: string) => {
+    window.open(url, "_blank");
+  };
+  const I_APP_URL = "https://iappwksp.com";
   return (
     <aside
       className={cn(
@@ -41,8 +45,8 @@ export default function Sidebar({ className }: { className?: string }) {
         <div className="px-6 pb-5 2xl:px-8">
           <UserCard
             image={AuthorImage}
-            name="John Doe"
-            role="user"
+            name="Govind Kamtamneni"
+            role="(Microsoft Graph)"
           />
 
           <div className="mt-12">
@@ -62,7 +66,8 @@ export default function Sidebar({ className }: { className?: string }) {
             <h2 className="mt-5 mb-7 text-center text-[20px] font-semibold leading-8 text-light-dark dark:text-white">
               Intelligent app workshop
             </h2>
-            <button className="h-12 rounded-lg bg-brand text-white">
+            <button className="h-12 rounded-lg bg-brand text-white"
+                    onClick={() => openInNewTab(I_APP_URL)}>
               Lab Guide {' '}
             </button>
           </div>

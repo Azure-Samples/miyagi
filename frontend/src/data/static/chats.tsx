@@ -2,7 +2,7 @@ export const chats = [
     {
         id: 1,
         actor: 'miyagi',
-        message: 'Hi, John. How can I help? (P.S. I remember our context using long term memory via a vector database) 🤖',
+        message: 'Hi, Govind. How can I help? (P.S. I remember our context using long term memory via a vector database) 🤖',
         timestamp: '',
         config: {}
     },
