@@ -358,3 +358,12 @@ MigrationBackup/
 /src/OrdersBackgroundWorker/Properties/ServiceDependencies/orderbackgroundworker - Zip Deploy/profile.arm.json
 /src/MessageReplicator/Properties/ServiceDependencies/genetec-message-replicator - Web Deploy
 /src/MessageReplicator/Properties/ServiceDependencies/genetec-message-replicator - Zip Deploy
+
+# Terraform Stuff
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate*.*
+*.tfvars
+tfplan
+*.tfplan
