@@ -10,6 +10,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
+  REPOSITORY: ${{ github.repository | lower }}
 
 jobs:
   build:
@@ -28,4 +29,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ env.REGISTRY }}/${{ github.repository | lower }}/order-service:${{ github.sha }}
+        tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/order-service:${{ github.sha }}
