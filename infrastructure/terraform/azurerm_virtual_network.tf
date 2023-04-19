@@ -35,6 +35,16 @@ resource "azurerm_subnet" "postgres" {
   }
 }
 
+resource "azurerm_subnet" "redis" {
+  name = "RedisSubnet"
+  virtual_network_name = azurerm_virtual_network.default.name
+  resource_group_name = azurerm_resource_group.default.name
+  private_endpoint_network_policies_enabled = false
+  address_prefixes = [
+    cidrsubnet(local.address_space, 8, 3)
+  ]
+}
+
 resource "azurerm_subnet" "jumpbox" {
   name = "JumpboxSubnet"
   virtual_network_name = azurerm_virtual_network.default.name
