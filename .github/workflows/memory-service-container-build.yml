@@ -1,0 +1,35 @@
+name: Memory Service Build and Push to GHCR
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'services/memory-service/**'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  REPOSITORY: ${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Login to GHCR
+      uses: docker/login-action@v1
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: downcase env.REPOSITORY
+      run: |
+        echo "REPOSITORY=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: services/memory-service
+        push: true
+        tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/memory-service:${{ github.sha }}
