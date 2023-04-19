@@ -1,42 +1,3 @@
-resource "azurerm_network_security_group" "aks" {
-  name = "${local.base_name}-cluster-nsg"
-  resource_group_name = var.resource_group.name
-  location = var.resource_group.location
-}
-
-resource "azurerm_network_security_rule" "aks-http" {
-  name                        = "allow-http"
-  priority                    = 100
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "80"
-  source_address_prefix       = "Internet"
-  destination_address_prefix  = "*"
-  resource_group_name         = var.resource_group.name
-  network_security_group_name = azurerm_network_security_group.aks.name
-}
-
-resource "azurerm_network_security_rule" "aks-https" {
-  name                        = "allow-https"
-  priority                    = 101
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "443"
-  source_address_prefix       = "Internet"
-  destination_address_prefix  = "*"
-  resource_group_name         = var.resource_group.name
-  network_security_group_name = azurerm_network_security_group.aks.name
-}
-
-resource "azurerm_subnet_network_security_group_association" "aks" {
-  subnet_id = var.aks_subnet_id
-  network_security_group_id = azurerm_network_security_group.aks.id
-}
-
 resource azurerm_kubernetes_cluster default {
  	name                = var.cluster_name
 	location            = var.resource_group.location
@@ -77,15 +38,6 @@ resource azurerm_kubernetes_cluster default {
 		ssh_key {
 			key_data = var.public_key
 		}
-	}
-
-	role_based_access_control_enabled = true
-
-	azure_active_directory_role_based_access_control {
-		managed = true
-		admin_group_object_ids = [
-      var.aks_admin_group_id
-    ]
 	}
 
 	network_profile {

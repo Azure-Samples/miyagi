@@ -22,6 +22,6 @@ variable "public_key" {
   type = string
 }
 
-variable "aks_admin_group_id" {
+variable "aks_admin_group_name" {
   type = string
 }
