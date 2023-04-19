@@ -2,7 +2,7 @@ module "aks" {
   source = "./modules/aks/public"
 
   resource_group = azurerm_resource_group.default
-  aks_subnet_id = azurerm_subnet.aks.id
+  subnet_id = azurerm_subnet.aks.id
   cluster_name = local.cluster_name
   myip = local.myip
   admin_username = var.admin_username

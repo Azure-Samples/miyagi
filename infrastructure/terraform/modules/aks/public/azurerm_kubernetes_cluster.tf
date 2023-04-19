@@ -17,7 +17,7 @@ resource azurerm_kubernetes_cluster default {
 		vm_size             = "Standard_D4s_v3"
     os_disk_type 			= "Ephemeral"
     os_disk_size_gb 		= "100"
-		vnet_subnet_id      = var.aks_subnet_id
+		vnet_subnet_id      = var.subnet_id
 		node_count = 3
     only_critical_addons_enabled = true
 	}
@@ -59,5 +59,5 @@ resource "azurerm_kubernetes_cluster_node_pool" "np1" {
   node_count            = 3
   os_disk_type 			= "Ephemeral"
   os_disk_size_gb 		= "100"
-  vnet_subnet_id = var.aks_subnet_id
+  vnet_subnet_id = var.subnet_id
 }
