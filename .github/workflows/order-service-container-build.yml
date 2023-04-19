@@ -24,6 +24,9 @@ jobs:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    - name: downcase env.REPOSITORY
+      run: |
+        echo "REPOSITORY=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
