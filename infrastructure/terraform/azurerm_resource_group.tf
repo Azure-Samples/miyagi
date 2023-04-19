@@ -1,4 +1,4 @@
 resource "azurerm_resource_group" "default" {
-  name = "miyagi-${local.prefix}"
+  name = local.base_name
   location = var.location
 }

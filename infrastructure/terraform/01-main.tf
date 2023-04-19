@@ -25,7 +25,7 @@ resource "random_password" "admin_password" {
   min_special = 1
 }
 
-resource "random_string" "prefix" {
+resource "random_string" "suffix" {
 	length  = 4
 	special = false
 	numeric 	= false
@@ -37,15 +37,16 @@ data "http" "myip" {
 }
 
 locals {
-	prefix = var.prefix !="" ? var.prefix : random_string.prefix.result
+  suffix = var.suffix !="" ? var.suffix : random_string.suffix.result
+  base_name = "miyagi-${local.suffix}"
 
-	admin_username = var.admin_username
-	admin_password = var.admin_password !="" ? var.admin_password : random_password.admin_password.result
-	public_key = file(var.ssh_key_path)
+  admin_username = var.admin_username
+  admin_password = var.admin_password !="" ? var.admin_password : random_password.admin_password.result
+  public_key = file(var.ssh_key_path)
 
-    address_space = "10.0.0.0/16"
+  address_space = "10.0.0.0/16"
 
-    cluster_name = "${local.prefix}-public-cluster"
+  cluster_name = "${local.base_name}-cluster"
 
-    myip = trimspace(data.http.myip.response_body)
+  myip = trimspace(data.http.myip.response_body)
 }
