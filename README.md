@@ -29,6 +29,7 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 5. [Azure OpenAI GPT-3.5 basic flow](./ancillary/experiments/az-openai)
 6. [GPT-3.5-turbo and Whisper-1 usage to transcribe audio and demonstrate few-shot example](./ancillary/experiments/gpt-3.5-turbo)
 7. Controllability and Reliability of model output (Alignment) - coming soon
+8. [DeepSpeed Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat) with your own biases and personality (RLHF - Reinforcement Learning from Human Feedback) - comming soon
 
 ### WIP - Frontend
 Interaction with foundation models is more than chat. This sample shows a few use cases 
@@ -60,8 +61,7 @@ Interaction with foundation models is more than chat. This sample shows a few us
 - [Foundation Models from CogServices](https://azure.microsoft.com/en-us/blog/announcing-a-renaissance-in-computer-vision-ai-with-microsofts-florence-foundation-model/)
 - [Qdrant](https://qdrant.tech/solutions/)
 - [Chroma](https://www.trychroma.com/)
-- [ControlNet](https://github.com/lllyasviel/ControlNet)
-- [Microsoft Clarity](https://clarity.microsoft.com/)
+- [Microsoft DeepSpeed Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat)
 - [Azure Web PubSub](https://azure.microsoft.com/en-us/products/web-pubsub)
 - [Azure Functions](https://azure.microsoft.com/en-ca/products/functions/)
 - [AKS](https://azure.microsoft.com/en-us/products/kubernetes-service) / [ACA](https://azure.microsoft.com/en-us/products/container-apps)
