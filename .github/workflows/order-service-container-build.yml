@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - services/order-service/**
+      - 'services/order-service/**'
   workflow_dispatch:
 
 env:
