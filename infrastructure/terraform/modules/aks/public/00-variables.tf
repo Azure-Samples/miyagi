@@ -6,7 +6,7 @@ variable "resource_group" {
     })
 }
 
-variable "aks_subnet_id" {
+variable "subnet_id" {
   type = string
 }
 

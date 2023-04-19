@@ -10,7 +10,7 @@ variable "resource_group" {
     })
 }
 
-variable "jumpbox_subnet_id" {
+variable "subnet_id" {
   type = string
 }
 

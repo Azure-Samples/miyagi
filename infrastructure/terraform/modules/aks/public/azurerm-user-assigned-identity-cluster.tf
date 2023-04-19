@@ -21,7 +21,7 @@ resource "azurerm_role_assignment" "cluster-kublet-identity-operator" {
 
 # Needed for multiple reasons
 resource "azurerm_role_assignment" "cluster-network-contrib" {  	
-	scope                = var.aks_subnet_id
+	scope                = var.subnet_id
 	role_definition_name = "Network Contributor"
 	principal_id         = azurerm_user_assigned_identity.cluster-identity.principal_id
 }
