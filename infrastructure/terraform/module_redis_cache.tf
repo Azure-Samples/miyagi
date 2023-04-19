@@ -16,13 +16,3 @@ module "redis" {
     }
 }
 
-
-resource "azurerm_private_dns_a_record" "redis" {
-    count = length(module.redis)
-
-    name                = "${module.redis[count.index].base_name}"
-    zone_name           = azurerm_private_dns_zone.redis.name
-    resource_group_name = azurerm_resource_group.default.name
-    ttl                 = 30
-    records             = [module.redis[count.index].private_ip_address]
-}
