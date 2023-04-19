@@ -1,4 +1,19 @@
+
+# Need to wait for the cluster identity permissions to percolate
+resource "time_sleep" "wait_for_cluster_identity" {
+  depends_on = [
+    azurerm_role_assignment.cluster-kublet-identity-operator
+  ]
+
+  create_duration = "60s"
+}
+
+
 resource azurerm_kubernetes_cluster default {
+	depends_on = [
+		time_sleep.wait_for_cluster_identity
+	]
+
  	name                = var.cluster_name
 	location            = var.resource_group.location
 	resource_group_name = var.resource_group.name
