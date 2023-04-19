@@ -10,7 +10,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  REPOSITORY: ${{ github.repository | lower }}
+  REPOSITORY: ${{ github.repository }}
 
 jobs:
   build:
