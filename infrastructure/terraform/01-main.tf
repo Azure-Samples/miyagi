@@ -42,7 +42,7 @@ locals {
 
   admin_username = var.admin_username
   admin_password = var.admin_password !="" ? var.admin_password : random_password.admin_password.result
-  public_key = file(var.ssh_key_path)
+  public_key = file(var.ssh_public_key_path)
 
   address_space = "10.0.0.0/16"
 

@@ -1,3 +1,8 @@
+variable "suffix" {
+  type = string
+  default = ""
+}
+
 variable "admin_username" {
   type = string
   default = "gbbadmin"
@@ -5,10 +10,12 @@ variable "admin_username" {
 
 variable "admin_password" {
   type = string
+  default = ""
 }
 
-variable "ssh_key_path" {
+variable "ssh_public_key_path" {
   type = string
+  default = "~/.ssh/id_rsa.pub"
 }
 
 variable "location" {

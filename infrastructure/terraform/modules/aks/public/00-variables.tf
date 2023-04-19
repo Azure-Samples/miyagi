@@ -1,5 +1,9 @@
 variable "resource_group" {
-    type = object
+    type = object({
+        id = string
+        location = string
+        name = string
+    })
 }
 
 variable "aks_subnet_id" {
@@ -19,9 +23,5 @@ variable "admin_username" {
 }
 
 variable "public_key" {
-  type = string
-}
-
-variable "aks_admin_group_name" {
   type = string
 }

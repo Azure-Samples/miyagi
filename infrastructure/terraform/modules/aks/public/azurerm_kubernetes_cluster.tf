@@ -6,9 +6,11 @@ resource azurerm_kubernetes_cluster default {
 	dns_prefix = var.cluster_name
 	private_cluster_enabled = false
 	
-  api_server_authorized_ip_ranges = [
-      "${var.myip}/32"
-  ]
+  api_server_access_profile {
+    authorized_ip_ranges = [
+        "${var.myip}/32"
+    ]
+  }
 
 	default_node_pool {
 		name                = "systemnp01"
