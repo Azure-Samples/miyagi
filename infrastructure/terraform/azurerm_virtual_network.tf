@@ -13,3 +13,13 @@ resource "azurerm_subnet" "aks" {
     cidrsubnet(local.address_space, 8, 1)
   ]
 }
+
+
+resource "azurerm_subnet" "jumpbox" {
+  name = "JumpboxSubnet"
+  virtual_network_name = azurerm_virtual_network.default.name
+  resource_group_name = azurerm_resource_group.default.name
+  address_prefixes = [
+    cidrsubnet(local.address_space, 8, 255)
+  ]
+}
