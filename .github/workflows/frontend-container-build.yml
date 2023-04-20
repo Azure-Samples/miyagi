@@ -13,19 +13,12 @@ env:
   REPOSITORY: ${{ github.repository }}
 
 jobs:
-  set-env:
-    name: Set Environment Variables
-    runs-on: ubuntu-latest
-    outputs:
-      tag: ${{ steps.main.outputs.version }}
-    steps:
-      - id: main
-        run: |
-          echo ::set-output name=version::$(echo ${GITHUB_SHA} | cut -c1-8)
-
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: Set outputs
+      id: vars
+      run: echo "::set-output name=short_sha::$(git rev-parse --short HEAD)"
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Login to GHCR
@@ -42,4 +35,4 @@ jobs:
       with:
         context: services/frontend
         push: true
-        tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/frontend-service:${{ needs.set-env.outputs.version }}
+        tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/frontend-service:${{ steps.vars.outputs.short_sha }}
