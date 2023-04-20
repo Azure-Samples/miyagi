@@ -22,7 +22,7 @@ RUN rpm -Uhv https://packages.microsoft.com/config/centos/7/packages-microsoft-p
     echo java -Xshare:dump && \
     java -Xshare:dump
 
-ARG PORT=8702
+ARG PORT=8901
 RUN mkdir /app
 COPY target/*.jar /app/app.jar
 COPY target/agent/applicationinsights-agent.jar /app/applicationinsights-agent.jar
