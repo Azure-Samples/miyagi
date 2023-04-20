@@ -16,9 +16,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Set outputs
+    - name: Set short_sha
       id: vars
-      run: echo "::set-output name=short_sha::$(git rev-parse --short HEAD)"
+      run: echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Login to GHCR
