@@ -25,6 +25,12 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.main.outputs.version }}
+      created: ${{ steps.main.outputs.created }}
+      project: ${{ steps.main.outputs.project }}
+      image: ${{ steps.main.outputs.image }}
+      repository: ${{ steps.main.outputs.repository }}  
     steps:
     - name: Checkout code
       uses: actions/checkout@v2

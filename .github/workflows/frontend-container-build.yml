@@ -40,6 +40,6 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: services/frontend-service
+        context: services/frontend
         push: true
         tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/frontend-service:${{ needs.set-env.outputs.version }}
