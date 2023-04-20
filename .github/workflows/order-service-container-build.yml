@@ -13,6 +13,16 @@ env:
   REPOSITORY: ${{ github.repository }}
 
 jobs:
+  set-env:
+    name: Set Environment Variables
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.main.outputs.version }}
+    steps:
+      - id: main
+        run: |
+          echo ::set-output name=version::$(echo ${GITHUB_SHA} | cut -c1-8)
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -32,4 +42,4 @@ jobs:
       with:
         context: services/order-service
         push: true
-        tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/order-service:${{ github.sha }}
+        tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/order-service:${{ needs.set-env.outputs.version }}
