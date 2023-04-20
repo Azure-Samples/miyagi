@@ -5,7 +5,7 @@ module "aks" {
 
   resource_group = azurerm_resource_group.default
   subnet_id = azurerm_subnet.aks.id
-  cluster_name = "${local.cluster_name}-${count.index}"
+  base_name = "${local.base_name}-${count.index}-cluster"
   myip = local.myip
   admin_username = var.admin_username
   public_key = local.public_key

@@ -10,7 +10,7 @@ variable "subnet_id" {
   type = string
 }
 
-variable "cluster_name" {
+variable "base_name" {
   type = string
 }
 
