@@ -17,16 +17,16 @@ export const menuItems = [
     icon: <FlagIcon className="h-6 w-6 text-gray-500" />,
     href: routes.goals,
   },
-  {
-    name: 'Bills',
-    icon: <ReceiptPercentIcon className="h-6 w-6 text-gray-500" />,
-    href: routes.bills,
-  },
-  {
-    name: 'Offers',
-    icon: <TagIcon className="h-6 w-6 text-gray-500" />,
-    href: routes.offers,
-  },
+  // {
+  //   name: 'Bills',
+  //   icon: <ReceiptPercentIcon className="h-6 w-6 text-gray-500" />,
+  //   href: routes.bills,
+  // },
+  // {
+  //   name: 'Offers',
+  //   icon: <TagIcon className="h-6 w-6 text-gray-500" />,
+  //   href: routes.offers,
+  // },
   {
     name: 'Profile',
     icon: <UserIcon className="h-6 w-6 text-gray-500" />,
