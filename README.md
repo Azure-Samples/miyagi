@@ -28,8 +28,8 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 4. [Miyagi prompt engineered chat interaction](./ancillary/experiments/langchain/chat) using LangChain's PromptTemplate 
 5. [Azure OpenAI GPT-3.5 basic flow](./ancillary/experiments/az-openai)
 6. [GPT-3.5-turbo and Whisper-1 usage to transcribe audio and demonstrate few-shot example](./ancillary/experiments/gpt-3.5-turbo)
-7. Controllability and Reliability of model output (Alignment) - coming soon
-8. [DeepSpeed Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat) with your own biases and personality (RLHF - Reinforcement Learning from Human Feedback) - comming soon
+7. Reliability & Verifiability of model output (Responsible AI: Grounding, Retrieval augmented Generation (RaG) and Alignment) - coming soon
+8. [DeepSpeed Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat) CustomGPT (BYO Weights w/ RLHF - Reinforcement Learning from Human Feedback) - coming soon
 
 ### WIP - Frontend
 Interaction with foundation models is more than chat. This sample shows a few use cases 
