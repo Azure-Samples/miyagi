@@ -7,11 +7,9 @@ import {RadioGroup} from '@/components/ui/radio-group';
 import Scrollbar from '@/components/ui/scrollbar';
 import {Close} from '@/components/icons/close';
 import {useLayout} from '@/lib/hooks/use-layout';
-import {LAYOUT_OPTIONS} from '@/lib/constants';
 import MicrosoftSignInBtn from '@/assets/images/ms-symbollockup_signin_dark.svg';
 import Image from "@/components/ui/image";
 import {Listbox} from '@/components/ui/listbox';
-import HorizontalThreeDots from '@/components/icons/horizontal-three-dots';
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {usePersonalizeDrawer} from "@/components/personalize/personalize-context";
 
@@ -77,31 +75,15 @@ export function SubRedditList({
     return (
         <div className="relative w-full lg:w-auto">
             <Listbox value={selectedItem} onChange={setSelectedItem}>
-                {layout === LAYOUT_OPTIONS.RETRO ? (
-                    <>
-                        <Listbox.Button className="hidden h-11 w-full items-center justify-between rounded-lg pr-2 text-sm text-gray-900 dark:text-white lg:flex xl:flex 3xl:hidden">
-                            <HorizontalThreeDots />
-                        </Listbox.Button>
-                        <Listbox.Button
-                            className={cn(
-                                'flex h-11 w-full items-center justify-between gap-1 rounded-lg bg-gray-100 px-3 text-sm text-gray-900 dark:bg-gray-800 dark:text-white lg:hidden lg:w-40 xl:hidden xl:w-48 3xl:flex',
-                                className
-                            )}
-                        >
-                            {selectedItem.name} <ChevronDownIcon />
-                        </Listbox.Button>
-                    </>
-                ) : (
                     <Listbox.Button
                         className={cn(
-                            'flex h-11 w-full items-center justify-between gap-1 rounded-lg bg-gray-100 px-3 text-sm text-gray-900 dark:bg-gray-800 dark:text-white md:w-36 lg:w-40 xl:w-48',
+                            'flex h-11 w-full items-center justify-between gap-1 rounded-lg bg-brand px-3 text-sm text-white',
                             className
                         )}
                     >
-                        {selectedItem.name}
-                        <ChevronDownIcon />
+                        r/{selectedItem.name}
+                        <ChevronDownIcon className="h-auto w-6"/>
                     </Listbox.Button>
-                )}
                 <Transition
                     as={Fragment}
                     enter="ease-out duration-200"
@@ -138,12 +120,11 @@ export function SubRedditList({
 function B2CLogin() {
 
   return (
-    <div className="px-6 pt-8">
-      <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
-        Login to fetch MS Graph
-      </h4>
+      <div className="px-6 pt-8 flex flex-col items-center">
+
           <Image src={MicrosoftSignInBtn} alt="Login with Microsoft AAD B2C" width={200} />
-    </div>
+      </div>
+
   );
 }
 
@@ -155,7 +136,7 @@ function SubRedditSelector() {
       <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
         Favorite Sub-reddit
       </h4>
-      r/<SubRedditList sortData={subreddits} />
+      <SubRedditList sortData={subreddits} />
     </div>
   );
 }
@@ -175,7 +156,7 @@ export function AccountsList() {
                     <span
                         className={`flex h-9 cursor-pointer items-center justify-center rounded-lg border border-solid text-center text-sm font-medium uppercase tracking-wide transition-all ${
                             checked
-                                ? 'border-brand bg-brand text-white shadow-button'
+                                ? 'border-brand bg-brand/20 text-white shadow-button'
                                 : 'border-gray-200 bg-white text-brand dark:border-gray-700 dark:bg-gray-800 dark:text-white'
                         }`}
                     >
@@ -188,7 +169,7 @@ export function AccountsList() {
                     <span
                         className={`flex h-9 cursor-pointer items-center justify-center rounded-lg border border-solid text-center text-sm font-medium uppercase tracking-wide transition-all ${
                             checked
-                                ? 'border-brand bg-brand text-white shadow-button'
+                                ? 'border-brand bg-brand/20 text-white shadow-button'
                                 : 'border-gray-200 bg-white text-brand dark:border-gray-700 dark:bg-gray-800 dark:text-white'
                         }`}
                     >
@@ -201,7 +182,7 @@ export function AccountsList() {
                     <span
                         className={`flex h-9 cursor-pointer items-center justify-center rounded-lg border border-solid text-center text-sm font-medium uppercase tracking-wide transition-all ${
                             checked
-                                ? 'border-brand bg-brand text-white shadow-button'
+                                ? 'border-brand bg-brand/20 text-white shadow-button'
                                 : 'border-gray-200 bg-white text-brand dark:border-gray-700 dark:bg-gray-800 dark:text-white'
                         }`}
                     >
@@ -214,7 +195,7 @@ export function AccountsList() {
                     <span
                         className={`flex h-9 cursor-pointer items-center justify-center rounded-lg border border-solid text-center text-sm font-medium uppercase tracking-wide transition-all ${
                             checked
-                                ? 'border-brand bg-brand text-white shadow-button'
+                                ? 'border-brand bg-brand/20 text-white shadow-button'
                                 : 'border-gray-200 bg-white text-brand dark:border-gray-700 dark:bg-gray-800 dark:text-white'
                         }`}
                     >
@@ -234,14 +215,16 @@ function LinkAccounts() {
         Link Accounts
       </h4>
         <AccountsList />
-        <Button
-            size="large"
-            shape="rounded"
-            fullWidth={true}
-            className="mx-auto"
-        >
-            Link
-        </Button>
+
+        <div className="flex justify-center mt-2">
+            <Button
+                size="small"
+                shape="rounded"
+                className="max-w-fit bg-brand/80"
+            >
+                Link
+            </Button>
+        </div>
     </div>
   );
 }
@@ -254,7 +237,7 @@ function PrivateDataset() {
       <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
         Private Dataset
       </h4>
-      Todo
+      Coming Soon
     </div>
   );
 }
