@@ -9,3 +9,20 @@ variable "resource_group" {
         name = string
     })
 }
+
+variable "sku" {
+  type = string
+  default = "Standard"
+}
+
+variable "capacity" {
+  type = number
+  default = 1
+}
+
+variable "hubs" {
+  type = list(object ({
+    partition_count = optional(number, 2)
+    message_retention = optiona(number, 1)
+  }))
+}

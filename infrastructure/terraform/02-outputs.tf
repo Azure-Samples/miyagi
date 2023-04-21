@@ -6,6 +6,12 @@ output "jumpbox" {
 
 output "aks" {
   value = {
-    for k in module.aks[*] : "${module.aks[k]}.name" => module.aks[k]
+    for k in module.aks[*] : module.aks[k].name => module.aks[k]
+  }
+}
+
+output eventhubs {
+  value = {
+    for index in module.eventhub[*] : module.eventhub[index].name => module.eventhub[index]
   }
 }
