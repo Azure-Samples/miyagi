@@ -1,5 +1,6 @@
 output "jumpbox" {
   value = {
-    ssh = "ssh ${local.admin_username}@${module.jumpbox.public_ip}"
+    for key, vm in module.jumpbox : "jumpbox-${key}" => "ssh ${module.jumpbox[key].admin_username}@${module.jumpbox[key].public_ip}"
   }
 }
+

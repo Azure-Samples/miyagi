@@ -37,7 +37,11 @@ Interaction with foundation models is more than chat. This sample shows a few us
 
 ### WIP - Architecture
 ![azure](./ancillary/images/wip-azure.png)
+\
+![embedding](./ancillary/images/embeddings.png)
+\
 ![azure-basic](./ancillary/images/basic-arch.png)
+\
 ![architecture](./ancillary/images/wip-architecture.png)
 
 

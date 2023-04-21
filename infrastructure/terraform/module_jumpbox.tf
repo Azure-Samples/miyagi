@@ -1,7 +1,9 @@
 module "jumpbox" {
   source = "./modules/jumpbox"
 
-  base_name = local.base_name
+  count = 1
+
+  base_name = "${local.base_name}-${count.index}"
   resource_group = azurerm_resource_group.default
   subnet_id = azurerm_subnet.jumpbox.id
   myip = local.myip
