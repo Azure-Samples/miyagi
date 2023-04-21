@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: memory
+  namespace: miyagi
+  labels:
+    name: memory
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: memory
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memory
+  namespace: miyagi
+  labels:
+    app: memory
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memory
+  template:
+    metadata:
+      labels:
+        app: memory
+    spec:
+      containers:
+        - name: memory
+          image: "ghcr.io/azure-samples/miyagi/memory-service:latest"
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "0.5"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          readinessProbe:
+            httpGet:
+              path: /probes/ready
+              port: 8080
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 12
+            periodSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /probes/healthz
+              port: 8080
+            failureThreshold: 6
+            periodSeconds: 10
