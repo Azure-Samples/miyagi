@@ -1,0 +1,8 @@
+uvicorn>=0.21.1
+openai>=0.27.4
+fastapi>=0.95.1
+pydantic>=1.10.7
+praw>=7.7.0
+pypdf>=3.8.0
+azure-storage-blob>=12.16.0
+setuptools==67.7.0
