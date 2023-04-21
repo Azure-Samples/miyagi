@@ -4,3 +4,8 @@ output "jumpbox" {
   }
 }
 
+output "aks" {
+  value = {
+    for k in module.aks[*] : "${module.aks[k]}.name" => module.aks[k]
+  }
+}
