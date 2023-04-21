@@ -96,7 +96,7 @@ export default function AssetsCard() {
         <ul className="grid gap-5">
           {assets.map((asset) => (
             <li
-              key={asset.gptRecommendation}
+              key={asset.volume}
               className="grid grid-cols-[150px_repeat(2,1fr)] items-center justify-between text-sm font-medium text-gray-900 dark:text-white 2xl:grid-cols-[140px_repeat(2,1fr)] 3xl:grid-cols-[150px_repeat(2,1fr)]"
             >
               <span className="flex items-center gap-2.5 whitespace-nowrap">

@@ -13,6 +13,7 @@ import '@/assets/css/scrollbar.css';
 import '@/assets/css/globals.css';
 import '@/assets/css/range-slider.css';
 import {useState} from 'react';
+import PersonalizeDrawer from "@/components/personalize/personalize-drawer";
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -41,6 +42,7 @@ function CustomApp({ Component, pageProps }: AppPropsWithLayout) {
           <AccountProvider>
             {getLayout(<Component {...pageProps} />)}
             <ModalsContainer />
+            <PersonalizeDrawer />
             {/* </div> */}
           </AccountProvider>
         </ThemeProvider>
