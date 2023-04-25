@@ -1,4 +1,4 @@
-namespace GBB.Miyagi.RecommendationService
+namespace GBB.Miyagi.RecommendationService.Models
 {
     public class Response
     {
