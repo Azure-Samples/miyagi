@@ -30,7 +30,7 @@ jobs:
 
     - name: Set Terraform Workspace
       shell: bash
-      run: echo "terraform workspace select ${{ env.WORKSPACE }}"
+      run: echo "terraform workspace select $WORKSPACE"
 
     - name: Plan Terraform
       shell: bash
