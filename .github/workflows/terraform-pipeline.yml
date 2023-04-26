@@ -11,6 +11,7 @@ on:
 env:
   WORKSPACE: ${{ github.ref_name }}
   REPOSITORY: ${{ github.repository }}
+  IS_PIPELINE: "true"
 
 jobs:
   build:
@@ -21,8 +22,19 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Set TF Backend
+      if: ${{ env.IS_PIPELINE == 'true' }}
       shell: bash
-      run: echo "terraform backend"
+      run: |
+        cat <<EOF > state.tf
+        terraform {
+          backend "azurerm" {
+            resource_group_name  = "${ var.resource_group_name }"
+            storage_account_name = "${ var.storage_account_name }"
+            container_name       = "${ var.container_name }"
+            key                  = "${ var.key }"
+          }
+        }
+        EOF
 
     - name: Initialize Terraform
       shell: bash
