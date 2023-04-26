@@ -8,7 +8,7 @@
 
 Project Miyagi serves as the foundation for an [envisioning workshop](https://github.com/Azure-Samples/intelligent-app-workshop) that reimagines the design, development, and deployment of intelligent applications. It demonstrates that integrating intelligence transcends a simple chat interface and permeates every aspect of the end-user experience, utilizing enriched data to generate personalized interactions and effectively address individual needs. Through a comprehensive exploration of a financial coaching use case, Miyagi offers hands-on experience with cutting-edge programming paradigms that harness the power of foundation models in every workflow. Additionally, it introduces traditional software engineers to emerging design patterns in prompt engineering (chain-of-thought, few-shot, in-context), vectorization for long-term memory, and the affordances provided by LLMs.
 
-The project also includes examples of usage for popular frameworks and orchestrators like [Semantic Kernel](https://github.com/microsoft/semantic-kernel), [LangChain](https://github.com/hwchase17/langchain#readme), [Jarvis](https://github.com/microsoft/JARVIS), vector stores ([Qdrant](https://qdrant.tech/), [Chroma](https://www.trychroma.com/), [Milvus](https://milvus.io/docs), [Pinecone](https://www.pinecone.io/)), [ControlNet](https://github.com/lllyasviel/ControlNet). Additionally, it features foundation Models from Azure OpenAI and [Cognitive Services](https://azure.microsoft.com/en-us/blog/announcing-a-renaissance-in-computer-vision-ai-with-microsofts-florence-foundation-model). Utilize this project to gain insights as you modernize and transform your applications with AI and fine-tune your private data to build your own private copilot.
+The project also includes examples of usage for popular frameworks and orchestrators like [Semantic Kernel](https://github.com/microsoft/semantic-kernel), [LangChain](https://github.com/hwchase17/langchain#readme), [Jarvis](https://github.com/microsoft/JARVIS), vector stores ([Qdrant](https://qdrant.tech/), [Chroma](https://www.trychroma.com/), [Milvus](https://milvus.io/docs), [Pinecone](https://www.pinecone.io/)), and generative image utilities such as [DreamFusion](https://huggingface.co/thegovind/reddogpillmodel512) and [ControlNet](https://github.com/lllyasviel/ControlNet). Additionally, it features foundation Models from Azure OpenAI and [Cognitive Services](https://azure.microsoft.com/en-us/blog/announcing-a-renaissance-in-computer-vision-ai-with-microsofts-florence-foundation-model). Utilize this project to gain insights as you modernize and transform your applications with AI and fine-tune your private data to build your own Copilot.
 
 Embedded with intelligence and built on a scalable event-driven architecture, Project Miyagi emphasizes customer-centricity. It challenges you to rethink how AI can curate and create hyper-personalized user interactions, whether in a line-of-business (LOB) or consumer-facing app. It features an easy-to-understand use case that offers concrete examples of how these new AI platforms and architectures, supported by Azure, can be leveraged for valuable insights.
 
@@ -29,7 +29,7 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 5. [Azure OpenAI GPT-3.5 basic flow](./ancillary/experiments/az-openai)
 6. [GPT-3.5-turbo and Whisper-1 usage to transcribe audio and demonstrate few-shot example](./ancillary/experiments/gpt-3.5-turbo)
 7. Reliability & Verifiability of model output (Responsible AI: Grounding, Retrieval augmented Generation (RaG) and Alignment) - coming soon
-8. [DeepSpeed Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat) CustomGPT (BYO Weights w/ RLHF - Reinforcement Learning from Human Feedback) - coming soon
+8. [DeepSpeed Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat) MiyagiGPT (BYO Weights w/ RLHF - Reinforcement Learning from Human Feedback) - coming soon
 
 ### WIP - Frontend
 Interaction with foundation models is more than chat. This sample shows a few use cases 
@@ -66,9 +66,9 @@ Interaction with foundation models is more than chat. This sample shows a few us
 - [LangChain](https://github.com/hwchase17/langchain#readme)
 - [Foundation Models from CogServices](https://azure.microsoft.com/en-us/blog/announcing-a-renaissance-in-computer-vision-ai-with-microsofts-florence-foundation-model/)
 - [Qdrant](https://qdrant.tech/solutions/)
-- [Chroma](https://www.trychroma.com/)
 - [Microsoft DeepSpeed Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat)
 - [Azure Web PubSub](https://azure.microsoft.com/en-us/products/web-pubsub)
+- [Azure Communication Services (ACS)](https://learn.microsoft.com/en-us/azure/communication-services/overview#common-scenarios)
 - [Azure Functions](https://azure.microsoft.com/en-ca/products/functions/)
 - [AKS](https://azure.microsoft.com/en-us/products/kubernetes-service) / [ACA](https://azure.microsoft.com/en-us/products/container-apps)
 - [Azure Monitor](https://learn.microsoft.com/en-us/azure/azure-monitor/)
