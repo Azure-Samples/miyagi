@@ -14,11 +14,11 @@ resource azurerm_kubernetes_cluster default {
 		time_sleep.wait_for_cluster_identity
 	]
 
- 	name                = var.cluster_name
+ 	name                = var.base_name
 	location            = var.resource_group.location
 	resource_group_name = var.resource_group.name
 	
-	dns_prefix = var.cluster_name
+	dns_prefix = var.base_name
 	private_cluster_enabled = false
 	
   api_server_access_profile {

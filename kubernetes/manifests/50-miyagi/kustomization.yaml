@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: miyagi
+resources:
+- ./namespace.yaml
+- ./base/data-prep/deployment.yaml
+- ./base/frontend-service/deployment.yaml
+- ./base/memory-service/deployment.yaml
+- ./base/order-service/deployment.yaml
+- ./base/user-service/deployment.yaml

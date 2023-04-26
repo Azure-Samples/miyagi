@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+  namespace: miyagi
+  labels:
+    name: user
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8901
+  selector:
+    app: user
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+  namespace: miyagi
+  labels:
+    app: user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+        - name: user
+          image: "ghcr.io/azure-samples/miyagi/user-service:latest"
+          ports:
+            - containerPort: 8901
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "0.5"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          readinessProbe:
+            httpGet:
+              path: /probes/ready
+              port: 8901
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 12
+            periodSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /probes/healthz
+              port: 8901
+            failureThreshold: 6
+            periodSeconds: 10

@@ -13,10 +13,24 @@ We will iteratively improve upon this and add secure best practices over time, b
 
 ## Requirements
 
-## Terraform
+### Terraform
+Tested on:
+- python 3.10.10
+- az cli v2.47.0
+- terraform v1.45.0
+- terraform azurerm provider v3.35.0
 
 ```bash
+# from repo root
+cd infrastructure/terraform
 
+# For Local Dev/Test as your user account
+az login
+
+# Terraform song/dance
+terraform init
+terraform plan -out tfplan
+terraform apply tfplan
 ```
 
 ## Bicep
