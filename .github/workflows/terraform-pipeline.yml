@@ -1,0 +1,45 @@
+name: Automate Service Provisioning with Terraform
+
+on:
+  push:
+    branches:
+      - rk/infra-automation
+    paths:
+      - 'infrastructure/terraform'
+  workflow_dispatch:
+
+env:
+  WORKSPACE: ${{env.GITHUB_REF_NAME }}
+  REPOSITORY: ${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set TF Backend
+      shell: bash
+      run: echo "terraform backend"
+
+    - name: Initialize Terraform
+      shell: bash
+      run: echo "terraform init"
+
+    - name: Set Terraform Workspace
+      shell: bash
+      run: echo "terraform workspace select ${{ env.WORKSPACE }}"
+
+    - name: Plan Terraform
+      shell: bash
+      run: echo "terraform plan -out tfplan"
+
+    - name: Approval Gate to Apply Terraform
+      shell: bash
+      run: echo "terraform approval gate"
+
+    - name: Apply Terraform
+      shell: bash
+      run: echo "terraform apply tfplan"
