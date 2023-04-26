@@ -68,7 +68,7 @@ export default function Sidebar({ className }: { className?: string }) {
             </h2>
             <button className="h-12 rounded-lg bg-brand text-white"
                     onClick={() => openInNewTab(I_APP_URL)}>
-              Lab Guide {' '}
+              Workshop Guide {' '}
             </button>
           </div>
         </div>

@@ -47,6 +47,7 @@ springdoc:
   api-docs:
     path: /api-docs
 endpoints:
+  sk-base-url: ${SK_BASE_URL:http://localhost:7071}
   execute-plan: ${SK_BASE_URL:http://localhost:7071}/api/planner/execute/{maxSteps?}
   invoke-function: ${SK_BASE_URL:http://localhost:7071}/api/skills/{skillName}/invoke/{functionName}
   sk-ping: ${SK_BASE_URL:http://localhost:7071}/api/ping

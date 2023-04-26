@@ -17,10 +17,13 @@ public class SemanticKernelFacade {
     @Value("${endpoints.sk-ping}")
     private String pingEndpoint;
 
+    @Value("${endpoints.sk-base-url}")
+    private String SK_BASE_URL;
+
     private final WebClient webClient;
 
     public SemanticKernelFacade(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:7071").build();
+        this.webClient = webClientBuilder.baseUrl(SK_BASE_URL).build();
     }
 
     public Mono<String> executePlan(Integer maxSteps) {
