@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKSPACE: ${{ github.GITHUB_REF_NAME }}
+  WORKSPACE: ${{ github.ref_name }}
   REPOSITORY: ${{ github.repository }}
 
 jobs:
