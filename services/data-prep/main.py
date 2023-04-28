@@ -64,6 +64,6 @@ async def fetch_comments(subreddit_input: SubredditInput):
     await blob_client.upload_blob(comments_json, overwrite=True)
 
     # Close the BlobServiceClient
-    await container_client._client.close()
+    await container_client.client.close()
 
     return {"detail": "Comments successfully fetched and stored in Azure Storage Files"}
