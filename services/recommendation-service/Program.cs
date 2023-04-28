@@ -1,4 +1,5 @@
 using System.Globalization;
+using Azure.Storage.Blobs;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.Memory.Qdrant;
@@ -13,6 +14,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add BlobServiceClient to the container
+builder.Services.AddSingleton(x => new BlobServiceClient(Env.Var("AZURE_STORAGE_CONNECTION_STRING")));
+
 
 // Register the required services
 builder.Services.AddSingleton<IKernel>(provider =>
