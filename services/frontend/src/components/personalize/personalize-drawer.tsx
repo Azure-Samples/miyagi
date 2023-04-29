@@ -1,5 +1,6 @@
 import {Fragment, useState} from 'react';
 import cn from 'classnames';
+import toast from 'react-hot-toast';
 import {Dialog} from '@/components/ui/dialog';
 import {Transition} from '@/components/ui/transition';
 import Button from '@/components/ui/button';
@@ -13,6 +14,7 @@ import {Listbox} from '@/components/ui/listbox';
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {usePersonalizeDrawer} from "@/components/personalize/personalize-context";
 import {BingNews} from "@/components/icons/bing";
+import {usePersonalize} from "@/hooks/usePersonalize";
 
 
 // Component: SwitcherButton
@@ -303,8 +305,49 @@ function PrivateDataset() {
     );
 }
 
+function LoadingOverlay() {
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-white"></div>
+        </div>
+    );
+}
+
+
 export default function PersonalizeDrawer() {
-    const {isPersonalizeOpen, closePersonalize} = usePersonalizeDrawer();
+    const { isPersonalizeOpen, closePersonalize } = usePersonalizeDrawer();
+    const personalizeMutation = usePersonalize();
+    const [loading, setLoading] = useState(false);
+
+    const handlePersonalize = async () => {
+        setLoading(true);
+        try {
+            const requestData = {
+                input: 'string',
+                userId: 'stuserring',
+                firstName: 'First',
+                lastName: 'Last',
+                age: 40,
+                riskLevel: 'aggressive',
+                favoriteSubReddit: 'finance',
+                portfolio: ['string'],
+            };
+
+            const response = await personalizeMutation.mutateAsync(requestData);
+            console.log('Successfully got personalization');
+            console.dir(response);
+            toast.success('Personalization successful');
+            closePersonalize();
+        } catch (error) {
+            console.error('Failed to fetch personalizations');
+            console.dir(error);
+            toast.error('Failed to fetch personalization');
+            closePersonalize();
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <Transition appear show={isPersonalizeOpen} as={Fragment}>
             <Dialog
@@ -364,6 +407,7 @@ export default function PersonalizeDrawer() {
                                         shape="rounded"
                                         fullWidth={true}
                                         className="mx-auto mt-8 text-lg bg-indigo-500"
+                                        onClick={handlePersonalize}
                                     >
                                         Personalize
                                     </Button>

@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 
-import {IAsk} from '@/data/utils/ask';
-import {IAskResult} from '@/data/utils/ask-result';
+import {IAsk} from '@/data/utils/types';
+import {IAskResult} from '@/data/utils/types';
 import {
     IKeyConfig,
     SK_HTTP_HEADER_COMPLETION_BACKEND,

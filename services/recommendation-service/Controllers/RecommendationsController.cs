@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs;
+using GBB.Miyagi.RecommendationService.Models;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
@@ -10,7 +11,7 @@ using Microsoft.SemanticKernel.Skills.Web;
 namespace GBB.Miyagi.RecommendationService.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("recommendations")]
     public class RecommendationsController : ControllerBase
     {
         private readonly IKernel _kernel;
@@ -29,8 +30,8 @@ namespace GBB.Miyagi.RecommendationService.Controllers
             _blobServiceClient = blobServiceClient;
         }
 
-        [HttpGet("GetRecommendations")]
-        public async Task<IActionResult> GetRecommendations(string user, string portfolio)
+        [HttpPost("/personalize")]
+        public async Task<IActionResult> GetRecommendations([FromBody] Context context)
         {
             
             Console.WriteLine("== Printing Collections in DB ==");
@@ -41,7 +42,7 @@ namespace GBB.Miyagi.RecommendationService.Controllers
             }
             
             var memoryCollectionName = Env.Var("QDRANT_MEMORY_COLLECTION");
-            var prompt = $"How should {user} allocate {portfolio}?";
+            var prompt = $"How should {context.UserId} allocate {context.Portfolio?.ToString()}?";
 
             // Search Qdrant vector store
             var searchResults = _kernel.Memory.SearchAsync(memoryCollectionName, prompt, limit: 3, minRelevanceScore: 0.8);
@@ -59,14 +60,37 @@ namespace GBB.Miyagi.RecommendationService.Controllers
             const string FUNCTION_DEFINITION = @"
                 Act as a financial advisor, with only the following outputs: Buy, Sell, Hold.
                 Given the following portfolio allocation and user information:
-                Portfolio: {{$portfolio}}
-                User: {{$user}}
+                ONLY USE XML TAGS IN THIS LIST: 
+                [XML TAG LIST]
+                list: Surround any lists with this tag
+                synopsis: An outline of the chapter to write 
+                [END LIST]
+
+                EMIT WELL FORMED XML ALWAYS. Code should be CDATA. 
+
+                Portfolio: <portfolio>
+                    <stock>
+                        <ticker>MSFT</ticker>
+                        <allocation>0.5</allocation>
+                    </stock>
+                    <stock>
+                        <ticker>GOOG</ticker>
+                        <allocation>0.5</allocation>
+                    </stock>
+                User: <user>
+                    <age>30</age>
+                    <income>100000</income>
+                    <risk>0.5</risk>
                 ";
 
-            var portfolioFunction = _kernel.CreateSemanticFunction(FUNCTION_DEFINITION, maxTokens: 100, temperature: 0.4, topP: 1);
+            var portfolioFunction = _kernel.CreateSemanticFunction(FUNCTION_DEFINITION,
+                skillName: "Portfolio",
+                functionName: "AllocationAdvice",
+                description: "Advises on how to allocate a portfolio",
+                maxTokens: 150, temperature: 0.4, topP: 1);
             // Get latest finance news from Bing
             var newsResults = await _kernel.RunAsync(
-                ask,
+                prompt,
                 portfolioFunction,
                 web["SearchAsync"]
             );
@@ -82,7 +106,7 @@ namespace GBB.Miyagi.RecommendationService.Controllers
             return Ok(new { Recommendation = newsResults.Result, Prompt = newPrompt });
         }
         
-        [HttpGet("ListBlobs")]
+        [HttpGet("memory/collections/{containerName}")]
         public async Task<IActionResult> ListBlobsAsync(string containerName)
         {
             var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
@@ -96,11 +120,11 @@ namespace GBB.Miyagi.RecommendationService.Controllers
             return Ok(blobs);
         }
 
-        [HttpPost("SendBlobToQdrant")]
-        public async Task<IActionResult> SendBlobToQdrantAsync(string containerName, string blobName)
+        [HttpPost("memory/collections")]
+        public async Task<IActionResult> SendBlobToQdrantAsync([FromBody] SubRedditBlobInfo subRedditBlobInfo)
         {
-            var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
-            var blobClient = containerClient.GetBlobClient(blobName);
+            var containerClient = _blobServiceClient.GetBlobContainerClient(subRedditBlobInfo.ContainerName);
+            var blobClient = containerClient.GetBlobClient(subRedditBlobInfo.BlobName);
 
             var response = await blobClient.DownloadAsync();
             using var streamReader = new StreamReader(response.Value.Content);
@@ -108,9 +132,10 @@ namespace GBB.Miyagi.RecommendationService.Controllers
 
             // Save the text to Qdrant
             var memoryCollectionName = Env.Var("QDRANT_MEMORY_COLLECTION");
-            var key = await _kernel.Memory.SaveInformationAsync(memoryCollectionName, id: blobName, text: text);
+            var key = await _kernel.Memory.SaveInformationAsync(memoryCollectionName, id: subRedditBlobInfo.BlobName, text: text);
 
             return Ok(new { Id = key });
         }
+
     }
 }

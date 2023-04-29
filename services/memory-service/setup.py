@@ -6,11 +6,11 @@ setup(
     description="A facade to vector memory stores",
     packages=find_packages(),
     install_requires=[
-        "uvicorn==0.20.0",
-        "openai==0.26.1",
-        "fastapi==0.89.1",
-        "pydantic~=1.10.4",
-        "qdrant-client==1.1.3",
+        "uvicorn==0.22.0",
+        "openai==0.27.5",
+        "fastapi==0.95.1",
+        "pydantic~=1.10.7",
+        "qdrant-client==1.1.6",
     ],
     extras_require={
         "dev": [

@@ -1,0 +1,39 @@
+ONLY USE JSON PROPERTIES IN THIS LIST:
+[JSON PROPERTY LIST]
+advice
+portfolio
+user
+[END LIST]
+
+[CONTENT]
+{
+  "portfolio": [
+    {
+      "ticker": "MSFT",
+      "allocation": 0.5
+    },
+    {
+      "ticker": "GOOG",
+      "allocation": 0.5
+    }
+  ],
+  "user": {
+    "age": 30,
+    "income": 100000,
+    "risk": 0.5
+  }
+}
+[END CONTENT]
+
+EMIT WELL FORMED JSON ALWAYS.
+BE BRIEF AND TO THE POINT.
+
+Act as a financial advisor and provide advice based on the given portfolio allocation and user information.
+Your advice should be one of the following outputs: "Buy", "Sell", or "Hold".
+Return well-formed JSON with an "advice" property containing your recommendation.
+Example: { "advice": "Buy" }
+
++++++
+[Input]
+{{$input}}
+[Output]

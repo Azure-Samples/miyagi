@@ -41,6 +41,7 @@
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.43.9",
+    "react-hot-toast": "^2.4.1",
     "react-query": "^3.39.3",
     "react-share": "^4.4.1",
     "react-table": "^7.8.0",

@@ -7,6 +7,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseSettings
 from pydantic import BaseModel
+from qdrant_client.http.models import Batch
 
 COLLECTION_NAME = "miyagi-customer-profiles"
 EMBEDDING_MODEL = "gk-ada-002"
@@ -70,6 +71,11 @@ async def persist_user_profile_embeddings(user: User):
     else:
         print(f'User Profile: {user_profile}')
         gpt_output = await get_openai_embeddings(user_profile)
+        settings.client.upsert(collection_name=COLLECTION_NAME,
+                               points=Batch(
+                                   ids=[1],
+                                   vectors=[gpt_output["data"][0]["embedding"]]
+                               ))
         return {"output": gpt_output}
 
 
