@@ -35,5 +35,6 @@ Example: { "advice": "Buy" }
 
 +++++
 [Input]
-{{$input}}
+{{$portfolio}}
+{{$user}}
 [Output]
