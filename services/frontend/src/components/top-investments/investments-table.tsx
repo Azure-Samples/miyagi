@@ -76,7 +76,7 @@ const COLUMNS = [
         GPT Recommendation
       </div>
     ),
-    accessor: 'gpt_recommendation',
+    accessor: 'gptRecommendation',
     // @ts-ignore
     Cell: ({ cell: { value } }) => (
       <div className="ltr:text-right rtl:text-left">{value}</div>
@@ -152,6 +152,7 @@ export default function TopInvestmentsTable() {
 
   const { pageIndex } = state;
 
+  // @ts-ignore
   return (
     <div className="">
       <div className="rounded-tl-lg rounded-tr-lg bg-white px-4 pt-6 dark:bg-light-dark md:px-8 md:pt-8">

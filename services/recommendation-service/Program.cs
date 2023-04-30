@@ -96,6 +96,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=RecommendationsController}/{action=Index}/{id?}");
+    pattern: "{controller=AssetsController}/{action=Index}/{id?}");
 
 app.Run();

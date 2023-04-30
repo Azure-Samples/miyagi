@@ -1,6 +1,6 @@
 ﻿namespace GBB.Miyagi.RecommendationService.Models;
 
-public class Context
+public class MiyagiContext
 {
     public string Input { get; set; }
     public string UserId { get; set; }
@@ -8,6 +8,9 @@ public class Context
     public string? LastName { get; set; }
     public int? Age { get; set; }
     public string? RiskLevel { get; set; }
+    public double? AnnualHouseholdIncome { get; set; }
     public string? FavoriteSubReddit { get; set; }
-    public List<string>? Portfolio { get; set; }
+    public string? FavoriteAdvisor { get; set; }
+    public List<Portfolio>? Portfolio { get; set; }
+    public List<Stock>? Stocks { get; set; }
 }
