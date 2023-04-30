@@ -40,7 +40,7 @@ const ErrorPage: NextPageWithLayout = () => {
             🚧Work In Progress🚧
         </h2>
         <p className="mb-4 max-w-full text-xs leading-loose tracking-tight text-gray-600 dark:text-gray-400 sm:mb-6 sm:w-[430px] sm:text-sm sm:leading-loose">
-          App Innovation GBB team is still developing this component. Check Contribution Guidelines to contribute to this component.
+            App Innovation GBB team is still developing this component. Check <a href="https://github.com/Azure-Samples/miyagi#contributing" target="_blank" className="text-blue-600 cursor-pointer underline"> Contribution Guidelines</a> to help us out!
         </p>
         <AnchorLink
           href={{

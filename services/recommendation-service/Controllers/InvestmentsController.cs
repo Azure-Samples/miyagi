@@ -4,6 +4,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.KernelExtensions;
 using Microsoft.SemanticKernel.Orchestration;
 using System.Text.Json;
+using GBB.Miyagi.RecommendationService.Skills;
 
 namespace GBB.Miyagi.RecommendationService.Controllers
 {
@@ -23,14 +24,14 @@ namespace GBB.Miyagi.RecommendationService.Controllers
         {
 
             var skillsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Skills");
-
+            var userProfileSkill = _kernel.ImportSkill(new UserProfileSkill(), "UserProfileSkill");
             var advisorSkill = _kernel.ImportSemanticSkillFromDirectory(skillsDirectory, "AdvisorSkill");
             
             var context = new ContextVariables();
 
             context.Set("stocks", JsonSerializer.Serialize(miyagiContext.Stocks));
             context.Set("voice", miyagiContext.FavoriteAdvisor);
-            context.Set("age", miyagiContext.Age.ToString());
+            context.Set("userId", miyagiContext.UserId);
             context.Set("income", miyagiContext.AnnualHouseholdIncome.ToString());
             context.Set("risk", miyagiContext.RiskLevel);
             

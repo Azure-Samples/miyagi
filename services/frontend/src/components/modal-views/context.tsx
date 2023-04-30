@@ -2,12 +2,7 @@ import { atom, useAtom } from 'jotai';
 
 export type MODAL_VIEW =
   | 'SEARCH_VIEW'
-  | 'SHARE_VIEW'
-  | 'LINK_ACCOUNTS_VIEW'
-  | 'PROFILE_INFO_VIEW'
-  | 'FOLLOWING_VIEW'
-  | 'FOLLOWERS_VIEW'
-  | 'NFT_PREVIEW';
+  | 'NOTIFICATIONS_VIEW';
 
 interface ModalTypes {
   isOpen: boolean;
