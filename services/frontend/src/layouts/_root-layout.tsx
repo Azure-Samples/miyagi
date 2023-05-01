@@ -24,11 +24,7 @@ export default function RootLayout({
   const isMounted = useIsMounted();
   const { layout } = useLayout();
 
-  console.log('layout', layout);
-
-  // fix the `Hydration failed because the initial UI does not match` issue
   if (!isMounted) return null;
-
 
   // render modern layout
   if (layout === LAYOUT_OPTIONS.MODERN) {

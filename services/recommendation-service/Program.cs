@@ -3,6 +3,8 @@ using Azure.Storage.Blobs;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.Memory.Qdrant;
+using Microsoft.SemanticKernel.Memory;
+using Microsoft.SemanticKernel.Reliability;
 using Microsoft.SemanticKernel.Skills.Web;
 using Microsoft.SemanticKernel.Skills.Web.Bing;
 
@@ -40,7 +42,18 @@ builder.Services.AddSingleton<IKernel>(provider =>
                 Env.Var("AZURE_OPENAI_EMBEDDINGS_ENDPOINT"),
                 Env.Var("AZURE_OPENAI_EMBEDDINGS_KEY"));
         })
-        .WithMemoryStorage(memoryStore)
+        // TODO: Fix bug w/ Qdrant.WithMemoryStorage(memoryStore)
+        .WithMemoryStorage(new VolatileMemoryStore())
+        .Configure(c => c.SetDefaultHttpRetryConfig(new HttpRetryConfig
+        {
+            MaxRetryCount = 2,
+            UseExponentialBackoff = true,
+            //  MinRetryDelay = TimeSpan.FromSeconds(2),
+            //  MaxRetryDelay = TimeSpan.FromSeconds(8),
+            //  MaxTotalRetryTime = TimeSpan.FromSeconds(30),
+            //  RetryableStatusCodes = new[] { HttpStatusCode.TooManyRequests, HttpStatusCode.RequestTimeout },
+            //  RetryableExceptions = new[] { typeof(HttpRequestException) }
+        }))
         .Build();
 
     return kernel;
@@ -81,6 +94,8 @@ app.Map("/", () => Results.Redirect("/swagger"));
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=AssetsController}/{action=Index}/{id?}");
 
 app.Run();

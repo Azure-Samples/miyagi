@@ -31,3 +31,8 @@ export interface GetParams {
   language?: string;
 }
 
+export interface KeyValueListProp {
+  id: number;
+  name: string;
+}
+
