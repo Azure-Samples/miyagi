@@ -2,10 +2,7 @@
 
 public class MiyagiContext
 {
-    public string Input { get; set; }
     public string UserId { get; set; }
-    public string FirstName { get; set; }
-    public string? LastName { get; set; }
     public int? Age { get; set; }
     public string? RiskLevel { get; set; }
     public double? AnnualHouseholdIncome { get; set; }

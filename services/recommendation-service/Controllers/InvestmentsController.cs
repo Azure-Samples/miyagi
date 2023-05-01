@@ -45,7 +45,6 @@ namespace GBB.Miyagi.RecommendationService.Controllers
             var result = await _kernel.RunAsync(
                 context,
                 advisorSkill["InvestmentAdvise"]);
-
             _kernel.Log.LogDebug("Result: {0}", result.Result);
             
             var output = result.Result.Replace("\n", "");
