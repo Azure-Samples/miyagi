@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     # client = QdrantClient(host="localhost", port=6333)
     client.recreate_collection(
         collection_name=("%s" % COLLECTION_NAME),
-        vectors_config=models.VectorParams(size=100, distance=models.Distance.COSINE),
+        vectors_config=models.VectorParams(size=1536, distance=models.Distance.COSINE),
     )
 
 

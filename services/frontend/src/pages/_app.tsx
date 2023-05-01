@@ -5,6 +5,7 @@ import {ThemeProvider} from 'next-themes';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import ModalsContainer from '@/components/modal-views/container';
 import {AccountProvider} from '@/lib/hooks/use-connect';
+import { GoogleAnalytics } from 'nextjs-google-analytics';
 import 'overlayscrollbars/overlayscrollbars.css';
 // base css file
 import 'swiper/css';
@@ -32,6 +33,7 @@ function CustomApp({ Component, pageProps }: AppPropsWithLayout) {
           content="width=device-width, initial-scale=1 maximum-scale=1"
         />
         <title>Miyagi - Intelligent Financial Coach</title>
+          <GoogleAnalytics />
       </Head>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider
