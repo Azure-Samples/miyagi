@@ -20,8 +20,7 @@ import {LinkAccounts} from "@/components/personalize/selectors/link-accounts";
 function B2CLogin() {
 
     return (
-        <div className="px-6 pt-8 flex flex-col items-center">
-
+        <div className="px-6 pt-8 flex flex-col items-center cursor-pointer">
             <Image src={MicrosoftSignInBtn} alt="Login with Microsoft AAD B2C" width={200}/>
         </div>
 

@@ -66,7 +66,7 @@ export default function Header({ className }: { className?: string }) {
           <SearchButton
             variant="transparent"
             className="ltr:-ml-[17px] rtl:-mr-[17px] dark:text-white"
-          /> Semantic Search
+          /> Semantic Search, Powered by Azure Cognitive Search
         </div>
         <HeaderRightArea />
       </div>

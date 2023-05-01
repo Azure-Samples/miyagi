@@ -11,7 +11,6 @@ const miyagiLayoutAtom = atom(
 const miyagiLayoutAtomWithPersistence = atom(
   (get) => get(miyagiLayoutAtom),
   (get, set, newStorage: any) => {
-      console.log('newStorage', typeof window)
     set(miyagiLayoutAtom, newStorage);
     localStorage.setItem('miyagi-layout', newStorage);
   }

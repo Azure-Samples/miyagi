@@ -5,6 +5,9 @@ using Microsoft.SemanticKernel.KernelExtensions;
 using Microsoft.SemanticKernel.Orchestration;
 using System.Text.Json;
 using GBB.Miyagi.RecommendationService.Skills;
+using GBB.Miyagi.RecommendationService.Utils;
+using Microsoft.SemanticKernel.Skills.Web;
+using Microsoft.SemanticKernel.Skills.Web.Bing;
 
 namespace GBB.Miyagi.RecommendationService.Controllers
 {
@@ -13,10 +16,12 @@ namespace GBB.Miyagi.RecommendationService.Controllers
     public class InvestmentsController : ControllerBase
     {
         private readonly IKernel _kernel;
+        private readonly WebSearchEngineSkill _webSearchEngineSkill;
 
-        public InvestmentsController(IKernel kernel)
+        public InvestmentsController(IKernel kernel, WebSearchEngineSkill webSearchEngineSkill)
         {
             _kernel = kernel;
+            _webSearchEngineSkill = webSearchEngineSkill;
         }
 
         [HttpPost("/investments")]
@@ -44,6 +49,15 @@ namespace GBB.Miyagi.RecommendationService.Controllers
             _kernel.Log.LogDebug("Result: {0}", result.Result);
             
             var output = result.Result.Replace("\n", "");
+            
+            // TODO: Load Bing News Search Skill.
+            var search = _kernel.ImportSkill(_webSearchEngineSkill, "bing");
+
+            var bingResult = await _kernel.RunAsync(
+                "MSFT news",
+                search["SearchAsync"]
+            );
+            _kernel.Log.LogDebug("Bing result: {0}", bingResult.Result);
             
             return Content(output, "application/json");
         }

@@ -1,9 +1,9 @@
 export const subreddits = [
     {id: 1, name: 'personalfinance'},
-    {id: 2, name: 'financialplanning'},
-    {id: 3, name: 'retirement'},
-    {id: 4, name: 'economics'},
-    {id: 5, name: 'frugal'},
+    {id: 2, name: 'wallstreetbets'},
+    {id: 3, name: 'ValueInvesting'},
+    {id: 4, name: 'investing'},
+    {id: 5, name: '💎🙌Superstonk🚀🦍'},
 ];
 export const riskLevels = [
     {id: 1, name: 'Moderate'},

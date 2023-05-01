@@ -34,7 +34,7 @@ namespace GBB.Miyagi.RecommendationService.Controllers
             _webSearchEngineSkill = webSearchEngineSkill;
             _blobServiceClient = blobServiceClient;
             _assetsController = new AssetsController(kernel);
-            _investmentsController = new InvestmentsController(kernel);
+            _investmentsController = new InvestmentsController(kernel, webSearchEngineSkill);
         }
 
 
