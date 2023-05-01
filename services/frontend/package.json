@@ -32,6 +32,7 @@
     "next-seo": "^6.0.0",
     "next-sitemap": "^4.0.7",
     "next-themes": "^0.2.1",
+    "nextjs-google-analytics": "^2.3.3",
     "overlayscrollbars": "^2.1.1",
     "overlayscrollbars-react": "^0.5.0",
     "rc-slider": "^10.1.1",

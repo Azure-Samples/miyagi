@@ -22,7 +22,7 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # expose port 8081
-EXPOSE 8081
+EXPOSE 8082
 
 # run uvicorn command
-CMD ["uvicorn", "main:app", "--port", "8081", "--host", "0.0.0.0", "--reload"]
+CMD ["uvicorn", "main:app", "--port", "8082", "--host", "0.0.0.0", "--reload"]
