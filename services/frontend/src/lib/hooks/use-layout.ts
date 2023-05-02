@@ -5,7 +5,7 @@ import { LAYOUT_OPTIONS } from '@/lib/constants';
 const miyagiLayoutAtom = atom(
   typeof window !== 'undefined'
     ? localStorage.getItem('miyagi-layout')
-    : LAYOUT_OPTIONS.MODERN
+    : LAYOUT_OPTIONS.MIYAGI
 );
 
 const miyagiLayoutAtomWithPersistence = atom(

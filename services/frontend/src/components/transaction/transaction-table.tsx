@@ -1,5 +1,5 @@
 import React from 'react';
-import {useFlexLayout, usePagination, useResizeColumns, useSortBy, useTable,} from 'react-table';
+import { useFlexLayout, usePagination, useResizeColumns, useSortBy, useTable } from 'react-table';
 import Button from '@/components/ui/button';
 import Scrollbar from '@/components/ui/scrollbar';
 import {ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/24/outline";

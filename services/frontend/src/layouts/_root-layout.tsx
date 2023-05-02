@@ -26,8 +26,8 @@ export default function RootLayout({
 
   if (!isMounted) return null;
 
-  // render modern layout
-  if (layout === LAYOUT_OPTIONS.MODERN) {
+  // render miyagi layout
+  if (layout === LAYOUT_OPTIONS.MIYAGI) {
     return (
         <RetroLayout contentClassName={contentClassName}>{children}</RetroLayout>
     );

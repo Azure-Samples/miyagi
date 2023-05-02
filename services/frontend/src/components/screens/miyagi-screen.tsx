@@ -8,7 +8,7 @@ import TopInvestmentsTable from '@/components/top-investments/investments-table'
 //images
 import AssetsCard from "@/components/ui/assets-card";
 
-export default function ModernScreen() {
+export default function MiyagiScreen() {
   return (
     <>
       <NextSeo

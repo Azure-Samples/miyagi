@@ -1,6 +1,5 @@
 import cn from 'classnames';
 import Button from '@/components/ui/button';
-import {useModal} from '@/components/modal-views/context';
 import {usePersonalizeDrawer} from "@/components/personalize/personalize-context";
 
 export default function LinkAccounts({
