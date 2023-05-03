@@ -2,7 +2,7 @@ import cn from 'classnames';
 import Scrollbar from '@/components/ui/scrollbar';
 //images
 import Input from "@/components/ui/forms/input";
-import {chats} from "@/data/static/chats";
+import {Chats} from "@/data/static/chats";
 import ChatMessage from "@/components/chat/chat-message";
 
 export default function Sidebar({ className }: { className?: string }) {
@@ -19,7 +19,7 @@ export default function Sidebar({ className }: { className?: string }) {
             <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
               <div id="messages"
                    className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-                  {chats?.map((chat) => (
+                  {Chats?.map((chat) => (
                       <ChatMessage chat={chat} key={chat?.id} />
                   ))}
               </div>

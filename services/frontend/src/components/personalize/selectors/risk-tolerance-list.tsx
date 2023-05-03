@@ -1,10 +1,12 @@
-import {riskLevels} from "@/data/static/personalize";
+import {RiskLevelsList} from "@/data/static/personalize";
 import {KeyValueListProp} from "@/types";
-import {Fragment, useState} from "react";
+import {Fragment} from "react";
 import {Listbox} from "@/components/ui/listbox";
 import cn from "classnames";
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {Transition} from "@/components/ui/transition";
+import {useAtom} from "jotai";
+import {selectedRiskLevelAtom} from "@/data/personalize/store";
 
 export function RiskToleranceList({
                                       sortData,
@@ -13,10 +15,10 @@ export function RiskToleranceList({
     sortData: KeyValueListProp[];
     className?: string;
 }) {
-    const [selectedItem, setSelectedItem] = useState(sortData[0]);
+    const [selectedItem, setSelectedRiskLevelAtom] = useAtom(selectedRiskLevelAtom);
     return (
         <div className="relative w-full lg:w-auto">
-            <Listbox value={selectedItem} onChange={setSelectedItem}>
+            <Listbox value={selectedItem} onChange={setSelectedRiskLevelAtom}>
                 <Listbox.Button
                     className={cn(
                         'flex h-11 w-full items-center justify-between gap-1 rounded-lg bg-slate-600/80 px-3 text-sm text-white',
@@ -67,7 +69,7 @@ export function RiskTolerance() {
             <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
                 Risk Tolerance
             </h4>
-            <RiskToleranceList sortData={riskLevels}/>
+            <RiskToleranceList sortData={RiskLevelsList}/>
         </div>
     );
 }

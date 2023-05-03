@@ -88,11 +88,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCors();
+// app.UseHttpsRedirection(); // TODO: Issue with Next.js to use https redirection
 
 app.Map("/", () => Results.Redirect("/swagger"));
 
-app.UseAuthorization();
+// app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

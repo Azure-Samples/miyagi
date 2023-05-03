@@ -15,7 +15,8 @@ import {FavoriteAdvisorSelector} from "@/components/personalize/selectors/fin-ad
 import {RiskTolerance} from "@/components/personalize/selectors/risk-tolerance-list";
 import {LinkAccounts} from "@/components/personalize/selectors/link-accounts";
 import {useAtom} from "jotai";
-import {fetchedDataAtom} from "@/data/personalize/store";
+import {assetsDataAtom, investmentsDataAtom, selectedAdvisorAtom, userInfoAtom} from "@/data/personalize/store";
+import {formatRequestData} from "@/data/utils/format-request-data";
 
 
 // Component: B2CLogin
@@ -41,80 +42,45 @@ function LoadingOverlay() {
 export default function PersonalizeDrawer() {
     const { isPersonalizeOpen, closePersonalize } = usePersonalizeDrawer();
     const personalizeMutation = usePersonalize();
-    const [, setFetchedData] = useAtom(fetchedDataAtom);
+    const [, setFetchedData] = useAtom(investmentsDataAtom);
     const [, setLoading] = useState(false);
+
+    const [userInfo] = useAtom(userInfoAtom);
+    const [investmentsInfo, setInvestmentsDataAtom] = useAtom(investmentsDataAtom);
+    const [assetsInfo, setAssetsDataAtom] = useAtom(assetsDataAtom);
 
     const handlePersonalize = async () => {
         setLoading(true);
         try {
-            // TODO: Fetch dynamically from atoms
+            // Format data from assetsInfo and investmentsInfo
+            const { portfolio, stocks } = formatRequestData(assetsInfo, investmentsInfo);
+
+            // Fetch data from atoms
             const requestData = {
-                "input": "string",
-                "userId": "5966",
-                "firstName": "First",
-                "lastName": "Last",
-                "age": 50,
-                "riskLevel": "aggressive",
-                "annualHouseholdIncome": 80000,
-                "favoriteSubReddit": "finance",
-                "favoriteAdvisor": "Jim Cramer",
-                "portfolio": [
-                    {
-                        "name": "Stocks",
-                        "allocation": 0.5
-                    },
-                    {
-                        "name": "Bonds",
-                        "allocation": 0.3
-                    },
-                    {
-                        "name": "Cash",
-                        "allocation": 0.1
-                    },
-                    {
-                        "name": "HomeEquity",
-                        "allocation": 0.1
-                    }
-                ],
-                "stocks": [
-                    {
-                        "symbol": "MSFT",
-                        "allocation": 0.3
-                    },
-                    {
-                        "symbol": "ACN",
-                        "allocation": 0.1
-                    },
-                    {
-                        "symbol": "JPM",
-                        "allocation": 0.3
-                    },
-                    {
-                        "symbol": "PEP",
-                        "allocation": 0.3
-                    }
-                ]
+                userInfo,
+                portfolio,
+                stocks,
             };
+
             const response = await personalizeMutation.mutateAsync(requestData);
             console.log('Successfully got personalization');
             console.dir(response);
             toast.success('Personalization successful');
 
-// Extract the relevant data from the response
-            const updatedAssetData = response.assets.portfolio.map((item) => ({
-                ...item,
+            // Extract the relevant data from the response
+            const updatedAssetData = response.assets.portfolio.map((item, index) => ({
+                ...assetsInfo[index],
                 gptRecommendation: item.gptRecommendation,
             }));
 
-            const updatedInvestmentData = response.investments.portfolio.map((item) => ({
-                ...item,
+            const updatedInvestmentData = response.investments.portfolio.map((item, index) => ({
+                ...investmentsInfo[index],
                 gptRecommendation: item.gptRecommendation,
             }));
 
-// Update the fetched data atoms
-            setFetchedAssetData(updatedAssetData);
-            setFetchedInvestmentData(updatedInvestmentData);
-
+            // Update the fetched data atoms
+            setAssetsDataAtom(updatedAssetData);
+            setInvestmentsDataAtom(updatedInvestmentData);
 
             closePersonalize();
         } catch (error) {

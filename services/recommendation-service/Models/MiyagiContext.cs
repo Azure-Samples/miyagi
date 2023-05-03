@@ -2,12 +2,14 @@
 
 public class MiyagiContext
 {
-    public string UserId { get; set; }
-    public int? Age { get; set; }
-    public string? RiskLevel { get; set; }
-    public double? AnnualHouseholdIncome { get; set; }
-    public string? FavoriteSubReddit { get; set; }
-    public string? FavoriteAdvisor { get; set; }
+    public UserInfo UserInfo { get; set; }
     public List<Portfolio>? Portfolio { get; set; }
     public List<Stock>? Stocks { get; set; }
+    
+    public MiyagiContext()
+    {
+        UserInfo = new UserInfo();
+        Portfolio = new List<Portfolio>();
+        Stocks = new List<Stock>();
+    }
 }
