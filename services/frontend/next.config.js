@@ -10,7 +10,7 @@ const withPWA = require('next-pwa')({
 const nextConfig = withPWA({
   reactStrictMode: true,
   images: {
-    domains: ['azurewebsites.net'],
+    domains: ['agentmiyagi.com'],
   },
   ...(process.env.NODE_ENV === 'production' && {
     typescript: {

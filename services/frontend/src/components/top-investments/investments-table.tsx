@@ -6,6 +6,8 @@ import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {TopInvestmentsData} from '@/data/static/top-investments-data';
 import {useBreakpoint} from '@/lib/hooks/use-breakpoint';
 import {useIsMounted} from '@/lib/hooks/use-is-mounted';
+import {fetchedDataAtom} from "@/data/personalize/store";
+import {useAtom} from "jotai";
 
 const COLUMNS = [
   {
@@ -128,7 +130,7 @@ const COLUMNS = [
 export default function TopInvestmentsTable() {
   useIsMounted();
   useBreakpoint();
-  const data = React.useMemo(() => TopInvestmentsData, []);
+  const [fetchedData] = useAtom(fetchedDataAtom);
   const columns = React.useMemo(() => COLUMNS, []);
 
   const {
@@ -142,7 +144,7 @@ export default function TopInvestmentsTable() {
     {
       // @ts-ignore
       columns,
-      data,
+      data: fetchedData,
     },
     useSortBy,
     useResizeColumns,

@@ -1,20 +1,65 @@
 
 // personalization service types
+export interface MiyagiContext {
+    userId: string;
+    age?: number;
+    riskLevel?: string;
+    annualHouseholdIncome?: number;
+    favoriteSubReddit?: string;
+    favoriteAdvisor?: string;
+    portfolio?: Portfolio[];
+    stocks?: Stock[];
+}
+
+export interface Portfolio {
+    name?: string;
+    allocation?: number;
+}
+
+export interface Stock {
+    symbol?: string;
+    allocation?: number;
+}
+
+export interface AssetRecommendation {
+    name: string;
+    gptRecommendation: string;
+}
+
+export interface PortfolioRecommendations {
+    portfolio: AssetRecommendation[];
+}
+
 export interface PersonalizeRequestData {
-    input: string;
+    input?: string;
     userId: string;
     firstName: string;
     lastName: string;
     age: number;
     riskLevel: string;
+    annualHouseholdIncome: number;
     favoriteSubReddit: string;
     portfolio: string[];
 }
 
 
 export interface PersonalizeResponse {
-    recommendation: string;
-    prompt: string;
+    assets: {
+        portfolio: AssetRecommendation[];
+    };
+    investments: {
+        portfolio: InvestmentRecommendation[];
+    };
+}
+
+export interface AssetRecommendation {
+    name: string;
+    gptRecommendation: string;
+}
+
+export interface InvestmentRecommendation {
+    symbol: string;
+    gptRecommendation: string;
 }
 
 
