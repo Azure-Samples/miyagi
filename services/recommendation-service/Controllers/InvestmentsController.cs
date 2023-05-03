@@ -29,21 +29,22 @@ namespace GBB.Miyagi.RecommendationService.Controllers
         {
 
             var skillsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Skills");
-            var userProfileSkill = _kernel.ImportSkill(new UserProfileSkill(), "UserProfileSkill");
             var advisorSkill = _kernel.ImportSemanticSkillFromDirectory(skillsDirectory, "AdvisorSkill");
             
+            var userProfileSkill = _kernel.ImportSkill(new UserProfileSkill(), "UserProfileSkill");
+            
             var context = new ContextVariables();
-
+            context.Set("userId", miyagiContext.UserInfo.UserId);
             context.Set("stocks", JsonSerializer.Serialize(miyagiContext.Stocks));
             context.Set("voice", miyagiContext.UserInfo.FavoriteAdvisor);
-            context.Set("userId", miyagiContext.UserInfo.UserId);
-            context.Set("income", miyagiContext.UserInfo.AnnualHouseholdIncome.ToString());
             context.Set("risk", miyagiContext.UserInfo.RiskLevel);
             
             _kernel.Log.LogDebug("Context: {0}", context.ToString());
             
             var result = await _kernel.RunAsync(
                 context,
+                userProfileSkill["GetUserAge"],
+                userProfileSkill["GetAnnualHouseholdIncome"],
                 advisorSkill["InvestmentAdvise"]);
             _kernel.Log.LogDebug("Result: {0}", result.Result);
             
