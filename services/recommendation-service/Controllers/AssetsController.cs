@@ -4,6 +4,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.KernelExtensions;
 using Microsoft.SemanticKernel.Orchestration;
 using System.Text.Json;
+using GBB.Miyagi.RecommendationService.Skills;
 
 namespace GBB.Miyagi.RecommendationService.Controllers
 {
@@ -26,19 +27,24 @@ namespace GBB.Miyagi.RecommendationService.Controllers
 
             var advisorSkill = _kernel.ImportSemanticSkillFromDirectory(skillsDirectory, "AdvisorSkill");
             
+            var userProfileSkill = _kernel.ImportSkill(new UserProfileSkill(), "UserProfileSkill");
+            
             var context = new ContextVariables();
             //context.Set("portfolio", "\"portfolio\":[{\"name\":\"Stocks\",\"allocation\":0.6},{\"name\":\"Bonds\",\"allocation\":0.2},{\"name\":\"Cash\",\"allocation\":0.1},{\"name\":\"HomeEquity\",\"allocation\":0.1}]");
             //context.Set("user", "\"user\":{\"age\":50,\"income\":100000,\"risk\":0.5}");
             
             context.Set("portfolio", JsonSerializer.Serialize(miyagiContext.Portfolio));
-            context.Set("age", miyagiContext.Age.ToString());
-            context.Set("income", miyagiContext.AnnualHouseholdIncome.ToString());
-            context.Set("risk", miyagiContext.RiskLevel);
+            context.Set("age", miyagiContext.UserInfo.Age.ToString());
+            context.Set("income", miyagiContext.UserInfo.AnnualHouseholdIncome.ToString());
+            context.Set("risk", miyagiContext.UserInfo.RiskLevel);
+            context.Set("userId", miyagiContext.UserInfo.UserId);
             
             _kernel.Log.LogDebug("Context: {0}", context.ToString());
             
             var result = await _kernel.RunAsync(
                 context,
+                userProfileSkill["GetUserAge"],
+                userProfileSkill["GetAnnualHouseholdIncome"],
                 advisorSkill["PortfolioAllocation"]);
 
             _kernel.Log.LogDebug("Result: {0}", result.Result);

@@ -76,7 +76,7 @@ namespace GBB.Miyagi.RecommendationService.Controllers
             }
 
             var memoryCollectionName = Env.Var("QDRANT_MEMORY_COLLECTION");
-            var prompt = $"How should {miyagiContext.UserId} allocate {miyagiContext.Portfolio?.ToString()}?";
+            var prompt = $"How should {miyagiContext.UserInfo.UserId} allocate {miyagiContext.Portfolio?.ToString()}?";
 
             // Search Qdrant vector store
             var searchResults =

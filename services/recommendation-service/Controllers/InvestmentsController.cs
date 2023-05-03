@@ -35,10 +35,10 @@ namespace GBB.Miyagi.RecommendationService.Controllers
             var context = new ContextVariables();
 
             context.Set("stocks", JsonSerializer.Serialize(miyagiContext.Stocks));
-            context.Set("voice", miyagiContext.FavoriteAdvisor);
-            context.Set("userId", miyagiContext.UserId);
-            context.Set("income", miyagiContext.AnnualHouseholdIncome.ToString());
-            context.Set("risk", miyagiContext.RiskLevel);
+            context.Set("voice", miyagiContext.UserInfo.FavoriteAdvisor);
+            context.Set("userId", miyagiContext.UserInfo.UserId);
+            context.Set("income", miyagiContext.UserInfo.AnnualHouseholdIncome.ToString());
+            context.Set("risk", miyagiContext.UserInfo.RiskLevel);
             
             _kernel.Log.LogDebug("Context: {0}", context.ToString());
             
