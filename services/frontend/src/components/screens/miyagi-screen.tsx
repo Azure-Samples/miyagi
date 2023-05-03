@@ -12,7 +12,7 @@ export default function MiyagiScreen() {
   return (
     <>
       <NextSeo
-        title="Miyagi"
+        title="Miyagi - Intelligent Financial Coach"
         description="Miyagi - Hyper-personalized Financial Coach"
       />
 

@@ -1,12 +1,12 @@
 
 // personalization service types
 export interface MiyagiContext {
-    userId: string;
-    age?: number;
-    riskLevel?: string;
-    annualHouseholdIncome?: number;
-    favoriteSubReddit?: string;
-    favoriteAdvisor?: string;
+    userInfo: {
+        userId: string;
+        riskLevel?: string;
+        favoriteSubReddit?: string;
+        favoriteAdvisor?: string;
+    };
     portfolio?: Portfolio[];
     stocks?: Stock[];
 }
@@ -25,6 +25,17 @@ export interface AssetRecommendation {
     name: string;
     gptRecommendation: string;
 }
+
+export interface RequestStock {
+    symbol?: string;
+    allocation?: number;
+}
+
+export interface RequestAsset {
+    name: string;
+    allocation?: number;
+}
+
 
 export interface PortfolioRecommendations {
     portfolio: AssetRecommendation[];

@@ -4,7 +4,11 @@ import {AdvisorsList, RiskLevelsList, SubredditsList} from "@/data/static/person
 import {UserInfo} from "@/data/static/user-info";
 import {AssetsData} from "@/data/static/assetsData";
 
+export const userInfoAtom = atom(UserInfo);
+
 export const investmentsDataAtom = atom(TopInvestmentsData);
+
+export const assetsDataAtom = atom(AssetsData);
 
 const getRandomIndex = (arrayLength: number) => Math.floor(Math.random() * arrayLength);
 
@@ -14,6 +18,4 @@ export const selectedSubRedditAtom = atom(SubredditsList[getRandomIndex(Subreddi
 
 export const selectedRiskLevelAtom = atom(RiskLevelsList[getRandomIndex(RiskLevelsList.length)]);
 
-export const userInfoAtom = atom(UserInfo);
 
-export const assetsDataAtom = atom(AssetsData);

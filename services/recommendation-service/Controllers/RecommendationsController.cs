@@ -50,11 +50,37 @@ namespace GBB.Miyagi.RecommendationService.Controllers
                     "Failed to get recommendations");
             }
 
-            var assetsContent = assetsResult.Content;
-            var investmentsContent = investmentsResult.Content;
+            const int maxRetries = 2;
+            var currentRetry = 0;
 
-            var assetsJson = JsonDocument.Parse(assetsContent);
-            var investmentsJson = JsonDocument.Parse(investmentsContent);
+            JsonDocument assetsJson = null;
+            JsonDocument investmentsJson = null;
+
+            while (currentRetry <= maxRetries)
+            {
+                try
+                {
+                    var assetsContent = assetsResult.Content;
+                    var investmentsContent = investmentsResult.Content;
+
+                    assetsJson = JsonDocument.Parse(assetsContent);
+                    investmentsJson = JsonDocument.Parse(investmentsContent);
+
+                    break; // If parsing is successful, break out of the loop
+                }
+                catch (JsonException ex)
+                {
+                    if (currentRetry == maxRetries)
+                    {
+                        // Handle error gracefully, e.g. return an error response
+                        return BadRequest(new { error = "Failed to parse JSON data" });
+                    }
+                    else
+                    {
+                        currentRetry++;
+                    }
+                }
+            }
 
             var aggregatedResult = new Dictionary<string, JsonElement>
             {

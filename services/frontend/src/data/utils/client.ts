@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export const Axios = axios.create({
   baseURL: process.env.NEXT_PUBLIC_REST_API_ENDPOINT,
-  timeout: 5000,
+  timeout: 120000,
   headers: {
     'Content-Type': 'application/json',
   },

@@ -22,7 +22,7 @@ const ErrorPage: NextPageWithLayout = () => {
   return (
     <>
       <NextSeo
-        title="Miyagi - 404 - WIP"
+        title="Miyagi - Intelligent Financial Coach"
         description="Hyper-Personalzied Financial Coach"
       />
 
