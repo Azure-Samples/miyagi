@@ -1,6 +1,6 @@
 import Document, {DocumentContext, Head, Html, Main, NextScript,} from 'next/document';
 
-class CustomDocument extends Document {
+class MiyagiDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     return Document.getInitialProps(ctx);
   }
@@ -34,4 +34,4 @@ class CustomDocument extends Document {
   }
 }
 
-export default CustomDocument;
+export default MiyagiDocument;

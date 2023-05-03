@@ -20,20 +20,18 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-function CustomApp({ Component, pageProps }: AppPropsWithLayout) {
-  //could remove this if you don't need to page level layout
+function MiyagiApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   const [queryClient] = useState(() => new QueryClient());
   return (
     <>
       <Head>
-        {/* maximum-scale 1 meta tag need to prevent ios input focus auto zooming */}
+        {}
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1 maximum-scale=1"
         />
         <title>Miyagi - Intelligent Financial Coach</title>
-          <GoogleAnalytics />
       </Head>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider
@@ -43,6 +41,7 @@ function CustomApp({ Component, pageProps }: AppPropsWithLayout) {
         >
           <AccountProvider>
             {getLayout(<Component {...pageProps} />)}
+            <GoogleAnalytics />
             <ModalsContainer />
             <PersonalizeDrawer />
             {/* </div> */}
@@ -53,4 +52,4 @@ function CustomApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-export default CustomApp;
+export default MiyagiApp;

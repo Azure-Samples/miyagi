@@ -2,12 +2,12 @@
 import {API_ENDPOINTS} from '@/data/utils/endpoints';
 import type {GetParams, Investments,} from '@/types';
 import {HttpClient} from '@/data/utils/client';
-import {PersonalizeRequestData, PersonalizeResponse} from "@/data/utils/types";
+import {MiyagiContext, PersonalizeResponse} from "@/data/utils/types";
 
 class client {
 
 
-  personalize = async (requestData: PersonalizeRequestData): Promise<PersonalizeResponse> => {
+  personalize = async (requestData: MiyagiContext): Promise<PersonalizeResponse> => {
     const response = await HttpClient.post<PersonalizeResponse>(`${API_ENDPOINTS.PERSONALIZE}`, requestData);
     return response;
   };

@@ -2,7 +2,7 @@
 
 >  “start with the customer experience and work backwards for the technology” - Steve Jobs
 >
->  "Systems with AI will replace systems without AI"
+>  Systems with AI will replace systems without AI
 
 <p align="center"><img src="ancillary/images/1.png" width=20% height=20% /></p>
 
@@ -31,24 +31,36 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 7. Reliability & Verifiability of model output (Responsible AI: Grounding, Retrieval augmented Generation (RaG) and Alignment) - coming soon
 8. [DeepSpeed Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat) MiyagiGPT (BYO Weights w/ RLHF - Reinforcement Learning from Human Feedback) - coming soon
 
-### WIP - Frontend
+### Frontend
 Interaction with foundation models is more than chat. This sample shows a few use cases 
 ![frontend](./ancillary/images/wip-ui.png)
 
-### WIP - Architecture
+### Architecture
+
+#### High-level logical architecture
+
 ![azure](./ancillary/images/wip-azure.png)
-\
+
+#### Semantic Kernel Orchestration for Miyagi usecase
+
 ![sk-orchestration](./ancillary/images/sk-memory-orchestration.png)
-\
+
+#### In-context learning flow
+
 ![embedding](./ancillary/images/embeddings.png)
-\
+
+#### 30k foot view
+
 ![azure-basic](./ancillary/images/basic-arch.png)
-\
+
+#### Initial ideation for EDA + SK flow
+
 ![architecture](./ancillary/images/wip-architecture.png)
 
 
 
-### WIP - Generative image use case architecture with Dreambooth
+### Generative image use case architecture with Dreambooth
+This will be similar to [reddog](https://reddog-solutions.com) product [image generation use case](https://huggingface.co/thegovind/reddogpillmodel512). 
 
 ![generative-image](./ancillary/images/wip-dreambooth.png)
 

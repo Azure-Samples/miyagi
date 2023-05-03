@@ -87,7 +87,7 @@ export function MenuItem({
                   <ActiveLink
                     href={{
                       pathname: item.href,
-                      ...(layout !== LAYOUT_OPTIONS.MODERN &&
+                      ...(layout !== LAYOUT_OPTIONS.MIYAGI &&
                         layout !== undefined && {
                           query: {
                             layout,
@@ -108,7 +108,7 @@ export function MenuItem({
         <ActiveLink
           href={{
             pathname: href,
-            ...(layout !== LAYOUT_OPTIONS.MODERN &&
+            ...(layout !== LAYOUT_OPTIONS.MIYAGI &&
               layout !== undefined && {
                 query: {
                   layout,
