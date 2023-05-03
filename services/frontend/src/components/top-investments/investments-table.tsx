@@ -3,10 +3,9 @@ import {useFlexLayout, usePagination, useResizeColumns, useSortBy, useTable,} fr
 import {Area, AreaChart, ResponsiveContainer} from 'recharts';
 import Scrollbar from '@/components/ui/scrollbar';
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
-import {TopInvestmentsData} from '@/data/static/top-investments-data';
 import {useBreakpoint} from '@/lib/hooks/use-breakpoint';
 import {useIsMounted} from '@/lib/hooks/use-is-mounted';
-import {fetchedDataAtom} from "@/data/personalize/store";
+import {investmentsDataAtom} from "@/data/personalize/store";
 import {useAtom} from "jotai";
 
 const COLUMNS = [
@@ -130,7 +129,7 @@ const COLUMNS = [
 export default function TopInvestmentsTable() {
   useIsMounted();
   useBreakpoint();
-  const [fetchedData] = useAtom(fetchedDataAtom);
+  const [data] = useAtom(investmentsDataAtom);
   const columns = React.useMemo(() => COLUMNS, []);
 
   const {
@@ -144,7 +143,7 @@ export default function TopInvestmentsTable() {
     {
       // @ts-ignore
       columns,
-      data: fetchedData,
+      data,
     },
     useSortBy,
     useResizeColumns,

@@ -9,11 +9,14 @@ import {useDrawer} from '@/components/drawer-views/context';
 import {XMarkIcon} from "@heroicons/react/24/outline";
 import {menuItems} from '@/layouts/sidebar/menu_items';
 //images
-import AuthorImage from '@/assets/images//avatar/user_icon.png';
+import UserProfileImage from '@/assets/images//avatar/user_icon.png';
 import ShapeImage from '@/assets/images/workshop-gbb.png';
+import {userInfoAtom} from "@/data/personalize/store";
+import {useAtom} from "jotai";
 
 export default function Sidebar({ className }: { className?: string }) {
   const { closeDrawer } = useDrawer();
+  const [ userInfo ] = useAtom(userInfoAtom);
   const openInNewTab = (url: string) => {
     window.open(url, "_blank");
   };
@@ -44,8 +47,8 @@ export default function Sidebar({ className }: { className?: string }) {
       <Scrollbar style={{ height: 'calc(100% - 96px)' }}>
         <div className="px-6 pb-5 2xl:px-8">
           <UserCard
-            image={AuthorImage}
-            name="Govind Kamtamneni"
+            image={UserProfileImage}
+            name={`${userInfo.firstName} ${userInfo.lastName}`}
             role="(Microsoft Graph)"
           />
 

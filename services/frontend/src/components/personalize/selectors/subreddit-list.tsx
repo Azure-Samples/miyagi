@@ -4,7 +4,9 @@ import {Listbox} from "@/components/ui/listbox";
 import cn from "classnames";
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {Transition} from "@/components/ui/transition";
-import {subreddits} from "@/data/static/personalize";
+import {SubredditsList} from "@/data/static/personalize";
+import {selectedSubRedditAtom} from "@/data/personalize/store";
+import {useAtom} from "jotai";
 
 export function SubRedditList({
                                   sortData,
@@ -13,10 +15,10 @@ export function SubRedditList({
     sortData: KeyValueListProp[];
     className?: string;
 }) {
-    const [selectedItem, setSelectedItem] = useState(sortData[0]);
+    const [selectedItem, setSelectedSubRedditAtom] = useAtom(selectedSubRedditAtom);
     return (
         <div className="relative w-full lg:w-auto">
-            <Listbox value={selectedItem} onChange={setSelectedItem}>
+            <Listbox value={selectedItem} onChange={setSelectedSubRedditAtom}>
                 <Listbox.Button
                     className={cn(
                         'flex h-11 w-full items-center justify-between gap-1 rounded-lg bg-slate-600/80 px-3 text-sm text-white',
@@ -66,7 +68,7 @@ export function SubRedditSelector() {
             <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
                 Favorite Sub-reddit
             </h4>
-            <SubRedditList sortData={subreddits}/>
+            <SubRedditList sortData={SubredditsList}/>
         </div>
     );
 }

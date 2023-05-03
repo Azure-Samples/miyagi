@@ -1,10 +1,12 @@
 import {KeyValueListProp} from "@/types";
-import {Fragment, useState} from "react";
+import {Fragment} from "react";
 import {Listbox} from "@/components/ui/listbox";
 import cn from "classnames";
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {Transition} from "@/components/ui/transition";
-import {advisors} from "@/data/static/personalize";
+import {AdvisorsList} from "@/data/static/personalize";
+import {useAtom} from "jotai";
+import {selectedAdvisorAtom} from "@/data/personalize/store";
 
 export function FinancialAdvisorList({
                                          sortData,
@@ -13,10 +15,10 @@ export function FinancialAdvisorList({
     sortData: KeyValueListProp[];
     className?: string;
 }) {
-    const [selectedItem, setSelectedItem] = useState(sortData[0]);
+    const [selectedItem, setSelectedAdvisorAtom] = useAtom(selectedAdvisorAtom);
     return (
         <div className="relative w-full lg:w-auto">
-            <Listbox value={selectedItem} onChange={setSelectedItem}>
+            <Listbox value={selectedItem} onChange={setSelectedAdvisorAtom}>
                 <Listbox.Button
                     className={cn(
                         'flex h-11 w-full items-center justify-between gap-1 rounded-lg bg-slate-600/80 px-3 text-sm text-white',
@@ -66,7 +68,7 @@ export function FavoriteAdvisorSelector() {
             <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
                 Favorite Financial Advisor
             </h4>
-            <FinancialAdvisorList sortData={advisors}/>
+            <FinancialAdvisorList sortData={AdvisorsList}/>
         </div>
     );
 }

@@ -2,7 +2,8 @@ import cn from 'classnames';
 import {useState} from 'react';
 import {Cell, Pie, PieChart, ResponsiveContainer, Tooltip} from 'recharts';
 import {ArrowLongUpIcon, ArrowUpIcon} from "@heroicons/react/24/outline";
-import {assets} from '@/data/static/assets';
+import {assetsDataAtom} from "@/data/personalize/store";
+import {useAtom} from "jotai";
 
 const data = [
   {
@@ -34,6 +35,7 @@ const data = [
 export default function AssetsCard() {
   const [isChangePositive, setChangeStatus] = useState(true);
   const [percentage, setPercentage] = useState(data[0].volume);
+  const [ assetsData ] = useAtom(assetsDataAtom);
   return (
     <div className="rounded-lg bg-white p-6 shadow-card dark:bg-light-dark sm:p-8">
       <h3 className="mb-2 text-base font-medium uppercase">Assets</h3>
@@ -59,7 +61,7 @@ export default function AssetsCard() {
                 );
               }}
             >
-              {assets.map((currency) => (
+              {assetsData.map((currency) => (
                 <Cell
                   key={`cell-${currency.code}`}
                   fill={currency.color}
@@ -94,7 +96,7 @@ export default function AssetsCard() {
           <span>YTD performance</span>
         </div>
         <ul className="grid gap-5">
-          {assets.map((asset) => (
+          {assetsData.map((asset) => (
             <li
               key={asset.volume}
               className="grid grid-cols-[150px_repeat(2,1fr)] items-center justify-between text-sm font-medium text-gray-900 dark:text-white 2xl:grid-cols-[140px_repeat(2,1fr)] 3xl:grid-cols-[150px_repeat(2,1fr)]"

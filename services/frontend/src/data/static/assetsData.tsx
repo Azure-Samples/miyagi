@@ -1,6 +1,6 @@
 import {BanknotesIcon, ChartBarSquareIcon, CurrencyDollarIcon, HomeModernIcon} from "@heroicons/react/24/outline";
 
-export const assets = [
+export const AssetsData = [
   {
     icon: <ChartBarSquareIcon className="h-6 w-6 text-gray-500" />,
     name: 'Stocks',

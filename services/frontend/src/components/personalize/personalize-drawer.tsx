@@ -15,7 +15,7 @@ import {FavoriteAdvisorSelector} from "@/components/personalize/selectors/fin-ad
 import {RiskTolerance} from "@/components/personalize/selectors/risk-tolerance-list";
 import {LinkAccounts} from "@/components/personalize/selectors/link-accounts";
 import {useAtom} from "jotai";
-import {fetchedDataAtom} from "@/data/personalize/store";
+import {investmentsDataAtom} from "@/data/personalize/store";
 
 
 // Component: B2CLogin
@@ -41,7 +41,7 @@ function LoadingOverlay() {
 export default function PersonalizeDrawer() {
     const { isPersonalizeOpen, closePersonalize } = usePersonalizeDrawer();
     const personalizeMutation = usePersonalize();
-    const [, setFetchedData] = useAtom(fetchedDataAtom);
+    const [, setFetchedData] = useAtom(investmentsDataAtom);
     const [, setLoading] = useState(false);
 
     const handlePersonalize = async () => {

@@ -1,4 +1,4 @@
-export const chats = [
+export const Chats = [
     {
         id: 1,
         actor: 'miyagi',
