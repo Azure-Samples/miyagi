@@ -4,8 +4,11 @@ import Scrollbar from '@/components/ui/scrollbar';
 import Input from "@/components/ui/forms/input";
 import {Chats} from "@/data/static/chats";
 import ChatMessage from "@/components/chat/chat-message";
+import {useAtom} from "jotai";
+import {chatsAtom, selectedAdvisorAtom} from "@/data/personalize/store";
 
 export default function Sidebar({ className }: { className?: string }) {
+    const [chats, setChatsAtom] = useAtom(chatsAtom);
   return (
     <aside
       className={cn(
@@ -19,7 +22,7 @@ export default function Sidebar({ className }: { className?: string }) {
             <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
               <div id="messages"
                    className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-                  {Chats?.map((chat) => (
+                  {chats?.map((chat) => (
                       <ChatMessage chat={chat} key={chat?.id} />
                   ))}
               </div>
