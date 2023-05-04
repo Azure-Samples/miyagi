@@ -1,11 +1,10 @@
-namespace GBB.Miyagi.RecommendationService.Models
+namespace GBB.Miyagi.RecommendationService.Models;
+
+public class Response
 {
-    public class Response
-    {
-        public DateTime Date { get; set; }
+    public DateTime Date { get; set; }
 
-        public int InteractionNum { get; set; }
+    public int InteractionNum { get; set; }
 
-        public string? Summary { get; set; }
-    }
+    public string? Summary { get; set; }
 }

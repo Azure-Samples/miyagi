@@ -1,9 +1,7 @@
-﻿using System.Text.Json;
-
-namespace GBB.Miyagi.RecommendationService.Models;
+﻿namespace GBB.Miyagi.RecommendationService.Models;
 
 public class Portfolio
 {
-    public String? Name { get; set; }
-    public Double? Allocation { get; set; }
+    public string? Name { get; set; }
+    public double? Allocation { get; set; }
 }

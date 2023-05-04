@@ -24,10 +24,10 @@ builder.Services.AddSingleton(x => new BlobServiceClient(Env.Var("AZURE_STORAGE_
 // Register the required services
 builder.Services.AddSingleton<IKernel>(provider =>
 {
-    int qdrantPort = int.Parse(Env.Var("QDRANT_PORT"), CultureInfo.InvariantCulture);
-    QdrantMemoryStore memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), qdrantPort, vectorSize: 1536, ConsoleLogger.Log);
-    
-    IKernel kernel = Kernel.Builder
+    var qdrantPort = int.Parse(Env.Var("QDRANT_PORT"), CultureInfo.InvariantCulture);
+    var memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), qdrantPort, 1536, ConsoleLogger.Log);
+
+    var kernel = Kernel.Builder
         .WithLogger(ConsoleLogger.Log)
         .Configure(c =>
         {
@@ -47,7 +47,7 @@ builder.Services.AddSingleton<IKernel>(provider =>
         .Configure(c => c.SetDefaultHttpRetryConfig(new HttpRetryConfig
         {
             MaxRetryCount = 2,
-            UseExponentialBackoff = true,
+            UseExponentialBackoff = true
             //  MinRetryDelay = TimeSpan.FromSeconds(2),
             //  MaxRetryDelay = TimeSpan.FromSeconds(8),
             //  MaxTotalRetryTime = TimeSpan.FromSeconds(30),
@@ -61,8 +61,8 @@ builder.Services.AddSingleton<IKernel>(provider =>
 
 builder.Services.AddSingleton<QdrantMemoryStore>(provider =>
 {
-    int qdrantPort = int.Parse(Env.Var("QDRANT_PORT"), CultureInfo.InvariantCulture);
-    QdrantMemoryStore memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), qdrantPort, vectorSize: 1536, ConsoleLogger.Log);
+    var qdrantPort = int.Parse(Env.Var("QDRANT_PORT"), CultureInfo.InvariantCulture);
+    var memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), qdrantPort, 1536, ConsoleLogger.Log);
     return memoryStore;
 });
 
@@ -96,7 +96,7 @@ app.Map("/", () => Results.Redirect("/swagger"));
 // app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=AssetsController}/{action=Index}/{id?}");
+    "default",
+    "{controller=AssetsController}/{action=Index}/{id?}");
 
 app.Run();

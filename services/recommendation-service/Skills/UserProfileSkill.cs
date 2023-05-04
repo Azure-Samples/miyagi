@@ -6,29 +6,29 @@ using Microsoft.SemanticKernel.SkillDefinition;
 namespace GBB.Miyagi.RecommendationService.Skills;
 
 /// <summary>
-/// UserProfileSkill shows a native skill example to look user info given userId.
+///     UserProfileSkill shows a native skill example to look user info given userId.
 /// </summary>
 /// <example>
-/// Usage: kernel.ImportSkill("UserProfileSkill", new UserProfileSkill());
-/// Examples:
-/// SKContext["userId"] = "000"
-/// {{UserProfileSkill.GetUserAge $userId }} => {userProfile}
+///     Usage: kernel.ImportSkill("UserProfileSkill", new UserProfileSkill());
+///     Examples:
+///     SKContext["userId"] = "000"
+///     {{UserProfileSkill.GetUserAge $userId }} => {userProfile}
 /// </example>
 public class UserProfileSkill
 {
     /// <summary>
-    /// Name of the context variable used for UserId.
+    ///     Name of the context variable used for UserId.
     /// </summary>
     public const string UserId = "UserId";
-    
+
     private const string DefaultUserId = "50";
     private const int DefaultAnnualHouseholdIncome = 150000;
 
     /// <summary>
-    /// Lookup User's age for a given UserId.
+    ///     Lookup User's age for a given UserId.
     /// </summary>
     /// <example>
-    /// SKContext[UserProfileSkill.UserId] = "000"
+    ///     SKContext[UserProfileSkill.UserId] = "000"
     /// </example>
     /// <param name="context">Contains the context variables.</param>
     [SKFunction("Given a userId, find user age")]
@@ -41,12 +41,12 @@ public class UserProfileSkill
         // invoke a service to get the age of the user, given the userId
         return userId;
     }
-    
+
     /// <summary>
-    /// Lookup User's annual income given UserId.
+    ///     Lookup User's annual income given UserId.
     /// </summary>
     /// <example>
-    /// SKContext[UserProfileSkill.UserId] = "000"
+    ///     SKContext[UserProfileSkill.UserId] = "000"
     /// </example>
     /// <param name="context">Contains the context variables.</param>
     [SKFunction("Given a userId, find user age")]
@@ -56,13 +56,13 @@ public class UserProfileSkill
     {
         var userId = context.Variables.ContainsKey(UserId) ? context[UserId] : DefaultUserId;
         context.Log.LogDebug("Returning userId * randomMultiplier for {0}", userId);
-        
-        Random random = new Random();
-        int randomMultiplier = random.Next(1000, 8000);
-        
+
+        var random = new Random();
+        var randomMultiplier = random.Next(1000, 8000);
+
         // invoke a service to get the annual household income of the user, given the userId
-        int annualHouseholdIncome = int.TryParse(userId, out int parsedUserId) 
-            ? parsedUserId * randomMultiplier 
+        var annualHouseholdIncome = int.TryParse(userId, out var parsedUserId)
+            ? parsedUserId * randomMultiplier
             : DefaultAnnualHouseholdIncome;
 
         return annualHouseholdIncome.ToString();
