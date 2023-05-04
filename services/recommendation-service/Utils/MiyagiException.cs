@@ -2,7 +2,7 @@
 
 public class MiyagiException : Exception
 {
-    public MiyagiException() : base()
+    public MiyagiException()
     {
     }
 

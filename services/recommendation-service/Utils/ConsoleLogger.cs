@@ -1,18 +1,14 @@
-﻿using System;
-using Microsoft.Extensions.Logging;
-
-namespace GBB.Miyagi.RecommendationService.Utils;
+﻿namespace GBB.Miyagi.RecommendationService.Utils;
 
 /// <summary>
-/// Basic logger printing to console
+///     Basic logger printing to console
 /// </summary>
 internal static class ConsoleLogger
 {
+    private static readonly Lazy<ILoggerFactory> s_loggerFactory = new(LogBuilder);
     internal static ILogger Log => LogFactory.CreateLogger<object>();
 
     private static ILoggerFactory LogFactory => s_loggerFactory.Value;
-
-    private static readonly Lazy<ILoggerFactory> s_loggerFactory = new(LogBuilder);
 
     private static ILoggerFactory LogBuilder()
     {
