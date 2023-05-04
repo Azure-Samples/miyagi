@@ -43,7 +43,7 @@ export default function PersonalizeDrawer() {
     const { isPersonalizeOpen, closePersonalize } = usePersonalizeDrawer();
     const personalizeMutation = usePersonalize();
     const [, setFetchedData] = useAtom(investmentsDataAtom);
-    const [, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const [userInfo] = useAtom(userInfoAtom);
     const [investmentsInfo, setInvestmentsDataAtom] = useAtom(investmentsDataAtom);
@@ -152,10 +152,36 @@ export default function PersonalizeDrawer() {
                                         size="large"
                                         shape="rounded"
                                         fullWidth={true}
-                                        className="mx-auto mt-8 text-lg bg-indigo-500"
+                                        className={`mx-auto mt-8 text-lg bg-indigo-500 ${loading ? 'opacity-50' : ''}`}
                                         onClick={handlePersonalize}
+                                        disabled={loading}
                                     >
-                                        Personalize
+                                        {loading ? (
+                                            <>
+                                                <svg
+                                                    className="animate-spin h-5 w-5 mr-3 inline-block"
+                                                    viewBox="0 0 24 24"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <circle
+                                                        className="opacity-25"
+                                                        cx="12"
+                                                        cy="12"
+                                                        r="10"
+                                                        stroke="currentColor"
+                                                        strokeWidth="4"
+                                                    ></circle>
+                                                    <path
+                                                        className="opacity-75"
+                                                        fill="currentColor"
+                                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l1-1.647z"
+                                                    ></path>
+                                                </svg>
+                                                Semantic Kernel processing w/ AZ OpenAI...
+                                            </>
+                                        ) : (
+                                            'Personalize'
+                                        )}
                                     </Button>
                                     <div className="mt-8 mx-auto px-12">
                                         <BingNews className="mt-8"/>
