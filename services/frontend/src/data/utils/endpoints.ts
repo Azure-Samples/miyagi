@@ -1,4 +1,5 @@
 export const API_ENDPOINTS = {
   PERSONALIZE: '/personalize',
-  INVESTMENTS: '/investments'
+  INVESTMENTS: '/investments',
+  ALLCHATS: '/chatSession/getAllChats'
 };
