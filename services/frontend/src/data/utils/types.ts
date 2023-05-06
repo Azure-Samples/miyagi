@@ -3,6 +3,8 @@
 export interface MiyagiContext {
     userInfo: {
         userId: string;
+        userName?: string;
+        chatId?: string;
         riskLevel?: string;
         favoriteSubReddit?: string;
         favoriteAdvisor?: string;

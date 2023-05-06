@@ -3,17 +3,21 @@ import cn from "classnames";
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {Fragment, useEffect, useState} from "react";
 import {Transition} from "@/components/ui/transition";
+import {chatsAtom, userInfoAtom} from "@/data/personalize/store";
+import {useAtom} from "jotai";
+import {ChatProps} from "@/types";
 
 export function ChatSessionList({ className }: { className?: string }) {
     const [chatSessions, setChatSessions] = useState<any[]>([]);
     const [selectedSession, setSelectedSession] = useState<any | null>(null);
+    const [, setUserInfoAtom] = useAtom(userInfoAtom);
+    const [, setChatsAtom] = useAtom(chatsAtom);
 
     useEffect(() => {
         async function fetchChatSessions() {
             const response = await fetch("https://f4b7e98a-6c02-41e7-8c24-e735ae1b5b78.mock.pstmn.io/chatSession/getAllChats/govind-k.copilot-chat");
             const data = await response.json();
             setChatSessions(data);
-            setSelectedSession(data[data.length - 1]);
             console.log("Chat sessions");
             console.dir(chatSessions);
             console.dir(selectedSession);
@@ -21,9 +25,28 @@ export function ChatSessionList({ className }: { className?: string }) {
         fetchChatSessions().then(r => console.log(r));
     }, []);
 
+    async function fetchChatMessages(chatId: string) {
+        const response = await fetch(`https://9bd77a1b-ebd4-479e-9a43-03dac6567dfe.mock.pstmn.io/chatSession/getChatMessages/${chatId}?startIdx=0&count=-1`);
+        const data = await response.json();
+        setChatsAtom(data as ChatProps[]);
+    }
+
+    // New handler for Listbox onChange event
+    async function handleSessionChange(currentSession: any) {
+        setSelectedSession(currentSession);
+        console.log("Selected current session");
+        console.dir(currentSession);
+        await fetchChatMessages("4d68fa35-571a-4b6a-ae47-bfe47d28ea5d" || currentSession.id);
+
+        setUserInfoAtom(prevUserInfo => ({
+            ...prevUserInfo,
+            chatId: "52247c33-002b-4888-a560-de3f40cdd198" || currentSession.id,
+        }));
+    }
+
     return (
         <div className="relative w-full lg:w-auto mt-4">
-            <Listbox value={selectedSession} onChange={setSelectedSession}>
+            <Listbox value={selectedSession} onChange={handleSessionChange}>
                 <Listbox.Button
                     className={cn(
                         "flex h-11 w-full items-center justify-between gap-1 rounded-lg bg-slate-600/80 px-3 text-sm text-white",

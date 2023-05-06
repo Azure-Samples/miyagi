@@ -5,13 +5,89 @@ import Input from "@/components/ui/forms/input";
 import {Chats} from "@/data/static/chats";
 import ChatMessage from "@/components/chat/chat-message";
 import {useAtom} from "jotai";
-import {chatsAtom} from "@/data/personalize/store";
+import {chatsAtom, userInfoAtom} from "@/data/personalize/store";
 import { ChatSessionList } from "@/components/chat/chat-session-list";
 import Button from "@/components/ui/button";
+import React, {useState} from "react";
+
+type Variable = {
+    key: string;
+    value: string;
+};
+
+type ApiResponse = {
+    value: string;
+    variables: Variable[];
+};
 
 export default function Sidebar({ className }: { className?: string }) {
     const [chats, setChatsAtom] = useAtom(chatsAtom);
-  return (
+    const [userInfo] = useAtom(userInfoAtom);
+
+    const [userInput, setUserInput] = useState('');
+
+    // Handle input change
+    const handleInputChange = (event: React.FormEvent<HTMLInputElement>) => {
+        setUserInput(event.currentTarget.value);
+    };
+
+// Handle enter key press
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            submitQuestion().then(r => console.log(r));
+        }
+    };
+
+// Function to send a POST request with the user input
+    async function submitQuestion() {
+        const response = await fetch('https://9bd77a1b-ebd4-479e-9a43-03dac6567dfe.mock.pstmn.io/skills/ChatSkill/functions/Chat/invoke', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                input: userInput,
+                variables: [
+                    { key: 'userId', value: userInfo.userId },
+                    { key: 'userName', value: userInfo.userName },
+                    { key: 'chatId', value: userInfo.chatId },
+                ],
+            }),
+        });
+        const data: ApiResponse = await response.json();
+
+        // Create a chat object for the user's message
+        const userInputChat = {
+            id: userInfo.chatId + '-' + new Date().toISOString(),
+            content: userInput,
+            timestamp: new Date().toISOString(),
+            userId: userInfo.userId,
+            userName: userInfo.userName,
+            chatId: userInfo.chatId,
+            authorRole: 0,
+        };
+
+        // Update chatsAtom with the user's message and the response
+        setChatsAtom((prevChats) => [
+            ...prevChats,
+            userInputChat,
+            {
+                id: data.variables.find((v) => v.key === 'chatId').value,
+                content: data.value,
+                timestamp: new Date().toISOString(),
+                userId: data.variables.find((v) => v.key === 'userId').value,
+                userName: data.variables.find((v) => v.key === 'userName').value,
+                chatId: userInfo.chatId,
+                authorRole: 1,
+            },
+        ]);
+
+        // Clear the input field
+        setUserInput('');
+    }
+
+
+    return (
       <aside
           className={cn(
               'top-0 z-20 h-full w-full max-w-full border-dashed border-slate-200 ltr:left-0 rtl:right-0 dark:border-gray-700 lg:fixed lg:w-80 ltr:lg:border-l rtl:lg:border-r xl:pt-20 3xl:w-[350px]',
@@ -45,8 +121,14 @@ export default function Sidebar({ className }: { className?: string }) {
                </svg>
             </button>
          </span>
-            <Input type="text" placeholder="Ask Miyagi"
-                   className="w-full dark:bg-dark/60 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3" />
+              <Input
+                  type="text"
+                  placeholder="Ask Miyagi"
+                  className="w-full dark:bg-dark/60 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3"
+                  value={userInput}
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
+              />
             <div className="absolute right-0 items-center inset-y-0 hidden sm:flex">
 
             </div>

@@ -47,7 +47,7 @@ public class InvestmentsController : ControllerBase
 
         var output = result.Result.Replace("\n", "");
 
-        // TODO: Load Bing News Search Skill.
+        // TODO: Swap Bing Web Search with News Search.
         var search = _kernel.ImportSkill(_webSearchEngineSkill, "bing");
 
         var bingResult = await _kernel.RunAsync(

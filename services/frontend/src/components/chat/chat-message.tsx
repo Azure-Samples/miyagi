@@ -3,16 +3,9 @@ import miyagilogo from '@/assets/images/logo.png';
 import usericon from '@/assets/images/avatar/user_icon.png';
 import cn from "classnames";
 import {Chats} from "@/data/static/chats";
+import {ChatProps} from "@/types";
 
-type ChatProps = {
-  id: string;
-  authorRole: number;
-  content: string;
-  timestamp: string;
-  userId: string;
-  userName: string;
-  chatId: string;
-};
+
 
 export default function ChatMessage({ chat }: { chat: ChatProps }) {
   const {
