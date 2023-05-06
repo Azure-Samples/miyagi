@@ -31,6 +31,11 @@ export interface GetParams {
   language?: string;
 }
 
+export interface GetParamsChat {
+  userId: string;
+  language?: string;
+}
+
 export interface KeyValueListProp {
   id: number;
   name: string;

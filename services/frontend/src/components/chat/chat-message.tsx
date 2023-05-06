@@ -5,47 +5,49 @@ import cn from "classnames";
 import {Chats} from "@/data/static/chats";
 
 type ChatProps = {
-  id: number;
-  actor: string;
-  message: string;
+  id: string;
+  authorRole: number;
+  content: string;
   timestamp: string;
-  config: object;
+  userId: string;
+  userName: string;
+  chatId: string;
 };
 
 export default function ChatMessage({ chat }: { chat: ChatProps }) {
   const {
-    actor,
-    message
+    userName,
+    content
   } = chat ?? {};
   return (
-      <div className="chat-message">
+      <div className="chat-content">
         <div className={cn('flex items-end ', {
           'justify-end':
-              actor !== Chats[0].actor,
+              userName !== Chats[0].userName,
         })}>
           <div className={cn('flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 ', {
             'items-end':
-                actor !== Chats[0].actor,
+                userName !== Chats[0].userName,
             'items-start':
-                actor == Chats[0].actor,
+                userName == Chats[0].userName,
           })}>
             <div><span
                 className={cn('px-4 py-2 rounded-lg inline-block  ', {
                   'rounded-br-none bg-blue-600 text-white':
-                      actor !== Chats[0].actor,
+                      userName !== Chats[0].userName,
                   'rounded-bl-none bg-gray-300 text-gray-600':
-                      actor == Chats[0].actor,
-                })}>{message}</span>
+                      userName == Chats[0].userName,
+                })}>{content}</span>
             </div>
           </div>
           <Image
               width={10} height={10}
-              src={(actor == Chats[0].actor) ? miyagilogo : usericon}
+              src={(userName == Chats[0].userName) ? miyagilogo : usericon}
               alt="Actor" className={cn('w-6 h-6 rounded-full  ', {
             'order-2':
-                actor !== Chats[0].actor,
+                userName !== Chats[0].userName,
             'order-1':
-                actor == Chats[0].actor,
+                userName == Chats[0].userName,
           })} />
         </div>
       </div>

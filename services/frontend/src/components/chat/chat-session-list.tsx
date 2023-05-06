@@ -1,0 +1,76 @@
+import {Listbox} from "@headlessui/react";
+import cn from "classnames";
+import {ChevronDownIcon} from "@heroicons/react/24/outline";
+import {Fragment, useEffect, useState} from "react";
+import {Transition} from "@/components/ui/transition";
+
+export function ChatSessionList({ className }: { className?: string }) {
+    const [chatSessions, setChatSessions] = useState<any[]>([]);
+    const [selectedSession, setSelectedSession] = useState<any | null>(null);
+
+    useEffect(() => {
+        async function fetchChatSessions() {
+            const response = await fetch("https://f4b7e98a-6c02-41e7-8c24-e735ae1b5b78.mock.pstmn.io/chatSession/getAllChats/govind-k.copilot-chat");
+            const data = await response.json();
+            setChatSessions(data);
+            setSelectedSession(data[data.length - 1]);
+            console.log("Chat sessions");
+            console.dir(chatSessions);
+            console.dir(selectedSession);
+        }
+        fetchChatSessions().then(r => console.log(r));
+    }, []);
+
+    return (
+        <div className="relative w-full lg:w-auto mt-4">
+            <Listbox value={selectedSession} onChange={setSelectedSession}>
+                <Listbox.Button
+                    className={cn(
+                        "flex h-11 w-full items-center justify-between gap-1 rounded-lg bg-slate-600/80 px-3 text-sm text-white",
+                        className
+                    )}
+                >
+                    {selectedSession?.name || "Chat history from CosmosDB"}
+                    <ChevronDownIcon className="h-auto w-6" />
+                </Listbox.Button>
+                <Transition
+                    as={Fragment}
+                    enter="ease-out duration-200"
+                    enterFrom="opacity-0 translate-y-2"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 -translate-y-0"
+                    leaveTo="opacity-0 translate-y-2"
+                >
+                    <Listbox.Options
+                        className="absolute z-20 mt-2 w-full min-w-[150px] origin-top-right rounded-lg bg-white p-3 px-1.5 shadow-large shadow-gray-400/10 ltr:right-0 rtl:left-0 dark:bg-[rgba(0,0,0,0.5)] dark:shadow-gray-900 dark:backdrop-blur"
+                    >
+                        {chatSessions.map((chat) => {
+                            const chatIdParts = chat.id.split("-");
+                            const chatLabel = chatIdParts[chatIdParts.length - 1];
+
+                            return (
+                                <Listbox.Option
+                                    key={chat.id}
+                                    value={{ ...chat, name: chatLabel }}
+                                >
+                                    {({ selected }) => (
+                                        <div
+                                            className={`block cursor-pointer rounded-lg px-3 py-2 text-sm font-medium text-gray-900 transition dark:text-white  ${
+                                                selected
+                                                    ? "my-1 bg-gray-100 dark:bg-gray-700"
+                                                    : "hover:bg-gray-50 dark:hover:bg-gray-700"
+                                            }`}
+                                        >
+                                            {chatLabel}
+                                        </div>
+                                    )}
+                                </Listbox.Option>
+                            );
+                        })}
+                    </Listbox.Options>
+                </Transition>
+            </Listbox>
+        </div>
+    );
+}

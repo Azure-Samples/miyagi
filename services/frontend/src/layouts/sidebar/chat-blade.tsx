@@ -5,19 +5,23 @@ import Input from "@/components/ui/forms/input";
 import {Chats} from "@/data/static/chats";
 import ChatMessage from "@/components/chat/chat-message";
 import {useAtom} from "jotai";
-import {chatsAtom, selectedAdvisorAtom} from "@/data/personalize/store";
+import {chatsAtom} from "@/data/personalize/store";
+import { ChatSessionList } from "@/components/chat/chat-session-list";
+import Button from "@/components/ui/button";
 
 export default function Sidebar({ className }: { className?: string }) {
     const [chats, setChatsAtom] = useAtom(chatsAtom);
   return (
-    <aside
-      className={cn(
-        'top-0 z-20 h-full w-full max-w-full border-dashed border-slate-200 ltr:left-0 rtl:right-0 dark:border-gray-700 lg:fixed lg:w-80 ltr:lg:border-l rtl:lg:border-r xl:pt-20 3xl:w-[350px]',
-        className
-      )}
-    >
-      <div className="my-16 mx-5 flex h-full flex-col justify-between overflow-x-hidden rounded-lg bg-transparent sm:mx-6 sm:flex-row lg:mx-0 lg:flex-col lg:p-6 xl:my-0 2xl:p-8">
-      <Scrollbar>
+      <aside
+          className={cn(
+              'top-0 z-20 h-full w-full max-w-full border-dashed border-slate-200 ltr:left-0 rtl:right-0 dark:border-gray-700 lg:fixed lg:w-80 ltr:lg:border-l rtl:lg:border-r xl:pt-20 3xl:w-[350px]',
+              className
+          )}
+      >
+
+      <div className="my-16 mx-5 flex h-full flex-col justify-between overflow-x-hidden rounded-lg bg-transparent sm:mx-6 sm:flex-row lg:mx-0 lg:flex-col lg:p-4 xl:my-0 2xl:p-4">
+          <ChatSessionList className="" />
+          <Scrollbar>
 
             <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
               <div id="messages"
@@ -28,6 +32,7 @@ export default function Sidebar({ className }: { className?: string }) {
               </div>
             </div>
       </Scrollbar>
+
         <div className="border-t-2 border-gray-200 pt-4 mb-2 sm:mb-0 ">
           <div className="relative flex">
          <span className="absolute inset-y-0 flex items-center dark:bg-dark/60">
@@ -45,7 +50,13 @@ export default function Sidebar({ className }: { className?: string }) {
             <div className="absolute right-0 items-center inset-y-0 hidden sm:flex">
 
             </div>
+
           </div>
+            <div className="flex-none w-full mt-2 flex justify-center">
+                <Button variant="ghost" className="mt-2 dark:text-white xs:mt-3 mx-auto">
+                    New Chat Session
+                </Button>
+            </div>
         </div>
       </div>
     </aside>
