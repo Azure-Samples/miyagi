@@ -53,7 +53,7 @@ export default function OverviewChart({ chartWrapperClass }: Props) {
       className={cn(
         'rounded-lg bg-light-dark p-6 text-white shadow-card sm:p-8',
         {
-          'w-full lg:w-[49%]': layout === LAYOUT_OPTIONS.RETRO,
+          'w-full lg:w-[49%]': layout === LAYOUT_OPTIONS.CHAT,
         }
       )}
     >
