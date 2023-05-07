@@ -1,6 +1,16 @@
 import type { NextPage } from 'next';
 import type { ReactElement, ReactNode } from 'react';
 
+export type ChatProps = {
+  id: string;
+  authorRole: number;
+  content: string;
+  timestamp: string;
+  userId: string;
+  userName: string;
+  chatId: string;
+};
+
 export type NextPageWithLayout<P = {}> = NextPage<P> & {
   authorization?: boolean;
   getLayout?: (page: ReactElement) => ReactNode;

@@ -21,4 +21,6 @@ export const selectedRiskLevelAtom = atom(RiskLevelsList[getRandomIndex(RiskLeve
 
 export const chatsAtom = atom(Chats);
 
+export const chatSessionsAtom = atom<any[]>([]);
+
 
