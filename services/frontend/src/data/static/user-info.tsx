@@ -11,3 +11,17 @@ export const UserInfo = {
     "favoriteSubReddit": "wallstreetbets",
     "favoriteAdvisor": "Jim Cramer"
 };
+
+export interface UserInfoProps {
+    input: string;
+    userId: string;
+    userName: string;
+    chatId: string;
+    firstName: string;
+    lastName: string;
+    age: number;
+    riskLevel: string;
+    annualHouseholdIncome: number;
+    favoriteSubReddit: string;
+    favoriteAdvisor: string;
+}

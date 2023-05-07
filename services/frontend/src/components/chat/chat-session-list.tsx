@@ -3,12 +3,13 @@ import cn from "classnames";
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {Fragment, useEffect, useState} from "react";
 import {Transition} from "@/components/ui/transition";
-import {chatsAtom, userInfoAtom} from "@/data/personalize/store";
+import {chatsAtom, chatSessionsAtom, userInfoAtom} from "@/data/personalize/store";
 import {useAtom} from "jotai";
 import {ChatProps} from "@/types";
+import {UserInfoProps} from "@/data/static/user-info";
 
-export function ChatSessionList({ className }: { className?: string }) {
-    const [chatSessions, setChatSessions] = useState<any[]>([]);
+export function ChatSessionList({ className, setSelectedSession: updateSelectedSession, setChatsAtom: updateChatsAtom, setUserInfoAtom: updateUserInfoAtom }: { className?: string; setSelectedSession: (session: any) => void; setChatsAtom: (chats: ChatProps[]) => void; setUserInfoAtom: (userInfo: UserInfoProps) => void }) {
+    const [chatSessions, setChatSessions] = useAtom(chatSessionsAtom);
     const [selectedSession, setSelectedSession] = useState<any | null>(null);
     const [, setUserInfoAtom] = useAtom(userInfoAtom);
     const [, setChatsAtom] = useAtom(chatsAtom);
@@ -38,7 +39,7 @@ export function ChatSessionList({ className }: { className?: string }) {
         console.dir(currentSession);
         await fetchChatMessages("4d68fa35-571a-4b6a-ae47-bfe47d28ea5d" || currentSession.id);
 
-        setUserInfoAtom(prevUserInfo => ({
+        setUserInfoAtom((prevUserInfo: UserInfoProps) => ({ // Add type to prevUserInfo
             ...prevUserInfo,
             chatId: "52247c33-002b-4888-a560-de3f40cdd198" || currentSession.id,
         }));
@@ -69,6 +70,10 @@ export function ChatSessionList({ className }: { className?: string }) {
                         className="absolute z-20 mt-2 w-full min-w-[150px] origin-top-right rounded-lg bg-white p-3 px-1.5 shadow-large shadow-gray-400/10 ltr:right-0 rtl:left-0 dark:bg-[rgba(0,0,0,0.5)] dark:shadow-gray-900 dark:backdrop-blur"
                     >
                         {chatSessions.map((chat) => {
+                            if (!chat.id) {
+                                console.error('Chat id is undefined', chat);
+                                return null;
+                            }
                             const chatIdParts = chat.id.split("-");
                             const chatLabel = chatIdParts[chatIdParts.length - 1];
 

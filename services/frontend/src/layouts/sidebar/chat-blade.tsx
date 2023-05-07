@@ -1,11 +1,10 @@
 import cn from 'classnames';
 import Scrollbar from '@/components/ui/scrollbar';
-//images
 import Input from "@/components/ui/forms/input";
 import {Chats} from "@/data/static/chats";
 import ChatMessage from "@/components/chat/chat-message";
 import {useAtom} from "jotai";
-import {chatsAtom, userInfoAtom} from "@/data/personalize/store";
+import {chatsAtom, userInfoAtom, chatSessionsAtom} from "@/data/personalize/store";
 import { ChatSessionList } from "@/components/chat/chat-session-list";
 import Button from "@/components/ui/button";
 import React, {useState} from "react";
@@ -20,25 +19,33 @@ type ApiResponse = {
     variables: Variable[];
 };
 
-export default function Sidebar({ className }: { className?: string }) {
+type SidebarProps = {
+    className?: string;
+    setSelectedSession: (session: any) => void;
+    setUserInfoAtom: (userInfo: any) => void;
+};
+
+export default function Sidebar({ className, setSelectedSession, setUserInfoAtom }: SidebarProps) {
     const [chats, setChatsAtom] = useAtom(chatsAtom);
     const [userInfo] = useAtom(userInfoAtom);
+    const [chatSessions, setChatSessionsAtom] = useAtom(chatSessionsAtom);
 
     const [userInput, setUserInput] = useState('');
+    const [loading, setLoading] = useState(false);
 
     // Handle input change
     const handleInputChange = (event: React.FormEvent<HTMLInputElement>) => {
         setUserInput(event.currentTarget.value);
     };
 
-// Handle enter key press
+    // Handle enter key press
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             submitQuestion().then(r => console.log(r));
         }
     };
 
-// Function to send a POST request with the user input
+    // Function to send a POST request with the user input
     async function submitQuestion() {
         const response = await fetch('https://9bd77a1b-ebd4-479e-9a43-03dac6567dfe.mock.pstmn.io/skills/ChatSkill/functions/Chat/invoke', {
             method: 'POST',
@@ -68,23 +75,63 @@ export default function Sidebar({ className }: { className?: string }) {
         };
 
         // Update chatsAtom with the user's message and the response
-        setChatsAtom((prevChats) => [
-            ...prevChats,
-            userInputChat,
-            {
-                id: data.variables.find((v) => v.key === 'chatId').value,
-                content: data.value,
-                timestamp: new Date().toISOString(),
-                userId: data.variables.find((v) => v.key === 'userId').value,
-                userName: data.variables.find((v) => v.key === 'userName').value,
-                chatId: userInfo.chatId,
-                authorRole: 1,
-            },
-        ]);
+        setChatsAtom((prevChats) => {
+            const nextId = prevChats.length + 1;
+            return [
+                ...prevChats,
+                {
+                    ...userInputChat,
+                    id: `${userInfo.chatId}-${nextId}`,
+                },
+                {
+                    id: `${userInfo.chatId}-${nextId + 1}`,
+                    content: data.value,
+                    timestamp: new Date().toISOString(),
+                    userId: "bot",
+                    userName: "bot",
+                    chatId: userInfo.chatId,
+                    authorRole: 1,
+                },
+            ];
+        });
+
 
         // Clear the input field
         setUserInput('');
     }
+
+
+    async function createNewChatSession() {
+        setLoading(true);
+        const response = await fetch(
+            "https://9bd77a1b-ebd4-479e-9a43-03dac6567dfe.mock.pstmn.io/chatSession/create",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId: userInfo.userId,
+                    title: "New Chat Session",
+                }),
+            }
+        );
+
+        const newChatSession = await response.json();
+
+        // Add the new chat session to the chatSessionsAtom
+        setChatSessionsAtom((prevChatSessions: any[]) => [...prevChatSessions, newChatSession]);
+
+        // Set the selectedSession to the new one
+        if (typeof setSelectedSession === 'function') {
+            setSelectedSession(newChatSession);
+        } else {
+            console.error('setSelectedSession is not a function', setSelectedSession);
+        }
+
+        setLoading(false);
+    }
+
 
 
     return (
@@ -96,7 +143,9 @@ export default function Sidebar({ className }: { className?: string }) {
       >
 
       <div className="my-16 mx-5 flex h-full flex-col justify-between overflow-x-hidden rounded-lg bg-transparent sm:mx-6 sm:flex-row lg:mx-0 lg:flex-col lg:p-4 xl:my-0 2xl:p-4">
-          <ChatSessionList className="" />
+          <ChatSessionList className="" setSelectedSession={setSelectedSession} setChatsAtom={setChatsAtom} setUserInfoAtom={setUserInfoAtom} />
+
+
           <Scrollbar>
 
             <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
@@ -135,9 +184,42 @@ export default function Sidebar({ className }: { className?: string }) {
 
           </div>
             <div className="flex-none w-full mt-2 flex justify-center">
-                <Button variant="ghost" className="mt-2 dark:text-white xs:mt-3 mx-auto">
-                    New Chat Session
+                <Button
+                    variant="ghost"
+                    className={`mt-2 dark:text-white xs:mt-3 mx-auto ${
+                        loading ? "opacity-50" : ""
+                    }`}
+                    onClick={createNewChatSession}
+                    disabled={loading}
+                >
+                    {loading ? (
+                        <>
+                            <svg
+                                className="animate-spin h-5 w-5 mr-3 inline-block"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                ></circle>
+                                <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l1-1.647z"
+                                ></path>
+                            </svg>
+                            Creating New Chat Session...
+                        </>
+                    ) : (
+                        "New Chat Session"
+                    )}
                 </Button>
+
             </div>
         </div>
       </div>
