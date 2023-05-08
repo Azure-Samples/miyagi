@@ -16,7 +16,7 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
 
     useEffect(() => {
         async function fetchChatSessions() {
-            const response = await fetch("https://f4b7e98a-6c02-41e7-8c24-e735ae1b5b78.mock.pstmn.io/chatSession/getAllChats/govind-k.copilot-chat");
+            const response = await fetch("https://miyagi-copilot.azurewebsites.net/chatSession/getAllChats/govind-k.copilot-chat");
             const data = await response.json();
             setChatSessions(data);
             console.log("Chat sessions");
@@ -27,7 +27,7 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
     }, []);
 
     async function fetchChatMessages(chatId: string) {
-        const response = await fetch(`https://9bd77a1b-ebd4-479e-9a43-03dac6567dfe.mock.pstmn.io/chatSession/getChatMessages/${chatId}?startIdx=0&count=-1`);
+        const response = await fetch(`https://miyagi-copilot.azurewebsites.net/chatSession/getChatMessages/${chatId}?startIdx=0&count=-1`);
         const data = await response.json();
         setChatsAtom(data as ChatProps[]);
     }

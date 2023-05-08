@@ -20,17 +20,20 @@ spring:
     security:
       protocol: ${KAFKASECURITYPROTOCOL:PLAINTEXT}
   jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+     # dialect: org.hibernate.dialect.MySQL5Dialect
     show-sql: 'true'
+    # database-platform: org.hibernate.dialect.PostgreSQLDialect
   config:
     import: optional:classpath:.env[.properties]
+#  datasource:
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#    password: ${MYSQLPASSWORD}
+#    username: ${MYSQLUSER}
+#    url: ${MYSQLURL}
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    password: ${MYSQLPASSWORD}
-    username: ${MYSQLUSER}
-    url: ${MYSQLURL}
+    url: ${POSTGRESQLURL}
+    username: ${POSTGRESQLUSER}
+    password: ${POSTGRESQLPASSWORD}
   flyway:
     baseline-on-migrate: 'true'
   banner:

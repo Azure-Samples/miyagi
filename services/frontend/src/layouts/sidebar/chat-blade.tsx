@@ -32,6 +32,8 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
 
     const [userInput, setUserInput] = useState('');
     const [loading, setLoading] = useState(false);
+    const [typing, setTyping] = useState(false);
+
 
     // Handle input change
     const handleInputChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -47,7 +49,9 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
 
     // Function to send a POST request with the user input
     async function submitQuestion() {
-        const response = await fetch('https://9bd77a1b-ebd4-479e-9a43-03dac6567dfe.mock.pstmn.io/skills/ChatSkill/functions/Chat/invoke', {
+        setUserInput('');
+        setTyping(true);
+        const response = await fetch('https://miyagi-copilot.azurewebsites.net/skills/ChatSkill/functions/Chat/invoke', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -62,6 +66,8 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
             }),
         });
         const data: ApiResponse = await response.json();
+
+        setTyping(false);
 
         // Create a chat object for the user's message
         const userInputChat = {
@@ -95,16 +101,13 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
             ];
         });
 
-
-        // Clear the input field
-        setUserInput('');
     }
 
 
     async function createNewChatSession() {
         setLoading(true);
         const response = await fetch(
-            "https://9bd77a1b-ebd4-479e-9a43-03dac6567dfe.mock.pstmn.io/chatSession/create",
+            "https://miyagi-copilot.azurewebsites.net/chatSession/create",
             {
                 method: "POST",
                 headers: {
@@ -149,12 +152,20 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
           <Scrollbar>
 
             <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
-              <div id="messages"
-                   className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-                  {chats?.map((chat) => (
-                      <ChatMessage chat={chat} key={chat?.id} />
-                  ))}
-              </div>
+                <div id="messages"
+                     className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+                    {chats?.map((chat) => (
+                        <ChatMessage chat={chat} key={chat?.id} />
+                    ))}
+                    {typing && (
+                        <div className="animate-pulse flex items-center space-x-2">
+                            <div className="h-4 w-4 bg-blue-400 rounded-full"></div>
+                            <div className="h-4 w-4 bg-blue-400 rounded-full"></div>
+                            <div className="h-4 w-4 bg-blue-400 rounded-full"></div>
+                        </div>
+                    )}
+                </div>
+
             </div>
       </Scrollbar>
 
