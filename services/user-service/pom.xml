@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.5</version>
+        <version>3.0.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.microsoft.gbb.miyagi</groupId>
@@ -17,14 +17,13 @@
         <java.version>17</java.version>
         <spring-cloud.version>2022.0.1</spring-cloud.version>
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
-        <spring-boot-maven-plugin.version>3.0.4</spring-boot-maven-plugin.version>
+        <spring-boot-maven-plugin.version>3.0.0</spring-boot-maven-plugin.version>
         <flyway-maven-plugin.version>9.16.0</flyway-maven-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <spring-boot-starter-actuator.version>3.0.4</spring-boot-starter-actuator.version>
+        <spring-boot-starter-actuator.version>3.0.0</spring-boot-starter-actuator.version>
         <mysql-connector-j.version>8.0.32</mysql-connector-j.version>
         <micronaut-micrometer-registry-prometheus.version>4.8.2</micronaut-micrometer-registry-prometheus.version>
-        <springdoc-openapi-starter-webmvc-ui.version>.</springdoc-openapi-starter-webmvc-ui.version>
-        <spring-boot-starter-version>3.0.5</spring-boot-starter-version>
+        <spring-boot-starter-version>3.0.0</spring-boot-starter-version>
         <spring-cloud-starter-version>4.0.2</spring-cloud-starter-version>
     </properties>
     <dependencies>
@@ -119,7 +118,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2${springdoc-openapi-starter-webmvc-ui.version}0.4</version>
+            <version>2.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -141,6 +140,11 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.azure.spring</groupId>
+            <artifactId>spring-cloud-azure-starter-jdbc-postgresql</artifactId>
+            <version>6.0.0-beta.4</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -150,6 +154,12 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.azure.spring</groupId>
+                <artifactId>spring-cloud-azure-dependencies</artifactId>
+                <version>6.0.0-beta.4</version>
+                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
