@@ -15,7 +15,13 @@ import {FavoriteAdvisorSelector} from "@/components/personalize/selectors/fin-ad
 import {RiskTolerance} from "@/components/personalize/selectors/risk-tolerance-list";
 import {LinkAccounts} from "@/components/personalize/selectors/link-accounts";
 import {useAtom} from "jotai";
-import {assetsDataAtom, investmentsDataAtom, selectedAdvisorAtom, userInfoAtom} from "@/data/personalize/store";
+import {
+    assetsDataAtom,
+    investmentsDataAtom,
+    loadingPersonalizeAtom,
+    selectedAdvisorAtom,
+    userInfoAtom
+} from "@/data/personalize/store";
 import {formatRequestData} from "@/data/utils/format-request-data";
 
 
@@ -43,14 +49,14 @@ export default function PersonalizeDrawer() {
     const { isPersonalizeOpen, closePersonalize } = usePersonalizeDrawer();
     const personalizeMutation = usePersonalize();
     const [, setFetchedData] = useAtom(investmentsDataAtom);
-    const [loading, setLoading] = useState(false);
+    const [loadingPersonalize, setLoadingPersonalizeAtom] = useAtom(loadingPersonalizeAtom);
 
     const [userInfo] = useAtom(userInfoAtom);
     const [investmentsInfo, setInvestmentsDataAtom] = useAtom(investmentsDataAtom);
     const [assetsInfo, setAssetsDataAtom] = useAtom(assetsDataAtom);
 
     const handlePersonalize = async () => {
-        setLoading(true);
+        setLoadingPersonalizeAtom(true);
         try {
             // Format data from assetsInfo and investmentsInfo
             const { portfolio, stocks } = formatRequestData(assetsInfo, investmentsInfo);
@@ -89,7 +95,7 @@ export default function PersonalizeDrawer() {
             toast.error('Failed to fetch personalization');
             closePersonalize();
         } finally {
-            setLoading(false);
+            setLoadingPersonalizeAtom(false);
         }
     };
 
@@ -152,11 +158,11 @@ export default function PersonalizeDrawer() {
                                         size="large"
                                         shape="rounded"
                                         fullWidth={true}
-                                        className={`mx-auto mt-8 text-lg bg-indigo-500 ${loading ? 'opacity-50' : ''}`}
+                                        className={`mx-auto mt-8 text-lg bg-indigo-500 ${loadingPersonalize ? 'opacity-50' : ''}`}
                                         onClick={handlePersonalize}
-                                        disabled={loading}
+                                        disabled={loadingPersonalize}
                                     >
-                                        {loading ? (
+                                        {loadingPersonalize ? (
                                             <>
                                                 <svg
                                                     className="animate-spin h-5 w-5 mr-3 inline-block"

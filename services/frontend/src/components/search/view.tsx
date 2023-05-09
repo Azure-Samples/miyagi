@@ -54,7 +54,7 @@ const suggestions = [
   }
 ];
 
-export function SearchFrom({ placeholder = 'Semantic Search, powered by Azure Cognitive Search' }: SearchFromProps) {
+export function SearchFrom({ placeholder = 'Neural Search - more than just a keyword lookup, powered by Azure Cognitive Search' }: SearchFromProps) {
   const { closeModal } = useModal();
   let [showSuggestion, setShowSuggestion] = useState(false);
   const ref = useRef<HTMLDivElement>(null);

@@ -38,10 +38,23 @@ public class UserProfileSkill
     {
         var userId = context.Variables.ContainsKey(UserId) ? context[UserId] : DefaultUserId;
         context.Log.LogDebug("Returning hard coded age for {0}", userId);
-        // invoke a service to get the age of the user, given the userId
-        return userId;
-    }
 
+        int parsedUserId;
+        int age;
+
+        if (int.TryParse(userId, out parsedUserId))
+        {
+            age = parsedUserId > 100 ? 20 + (parsedUserId % 81) : parsedUserId;
+        }
+        else
+        {
+            age = int.Parse(DefaultUserId);
+        }
+
+        // invoke a service to get the age of the user, given the userId
+        return age.ToString();
+    }
+    
     /// <summary>
     ///     Lookup User's annual income given UserId.
     /// </summary>
