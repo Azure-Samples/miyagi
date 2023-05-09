@@ -5,8 +5,10 @@ import Scrollbar from '@/components/ui/scrollbar';
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {useBreakpoint} from '@/lib/hooks/use-breakpoint';
 import {useIsMounted} from '@/lib/hooks/use-is-mounted';
-import {investmentsDataAtom} from "@/data/personalize/store";
+import {investmentsDataAtom, loadingPersonalizeAtom} from "@/data/personalize/store";
+import Skeleton from '@/components/ui/skeleton';
 import {useAtom} from "jotai";
+
 
 const COLUMNS = [
   {
@@ -73,15 +75,21 @@ const COLUMNS = [
   },
   {
     Header: () => (
-      <div className="ltr:ml-auto ltr:text-right rtl:mr-auto rtl:text-left">
-        GPT Recommendation
-      </div>
+        <div className="ltr:ml-auto ltr:text-right rtl:mr-auto rtl:text-left">
+          GPT Recommendation
+        </div>
     ),
     accessor: 'gptRecommendation',
     // @ts-ignore
-    Cell: ({ cell: { value } }) => (
-      <div className="ltr:text-right rtl:text-left">{value}</div>
-    ),
+    Cell: ({ cell: { value } }) => {
+      const [loadingPersonalize] = useAtom(loadingPersonalizeAtom);
+
+      return loadingPersonalize ? (
+          <Skeleton className="!h-4 !w-full" animation />
+      ) : (
+          <div className="ltr:text-right rtl:text-left">{value}</div>
+      );
+    },
     minWidth: 150,
     maxWidth: 200,
   },

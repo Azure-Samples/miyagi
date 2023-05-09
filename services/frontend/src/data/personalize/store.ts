@@ -23,4 +23,6 @@ export const chatsAtom = atom(Chats);
 
 export const chatSessionsAtom = atom<any[]>([]);
 
+export const loadingPersonalizeAtom = atom(false);
+
 
