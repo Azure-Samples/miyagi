@@ -11,12 +11,12 @@ import {UserInfoProps} from "@/data/static/user-info";
 export function ChatSessionList({ className, setSelectedSession: updateSelectedSession, setChatsAtom: updateChatsAtom, setUserInfoAtom: updateUserInfoAtom }: { className?: string; setSelectedSession: (session: any) => void; setChatsAtom: (chats: ChatProps[]) => void; setUserInfoAtom: (userInfo: UserInfoProps) => void }) {
     const [chatSessions, setChatSessions] = useAtom(chatSessionsAtom);
     const [selectedSession, setSelectedSession] = useState<any | null>(null);
-    const [, setUserInfoAtom] = useAtom(userInfoAtom);
+    const [userInfo, setUserInfoAtom] = useAtom(userInfoAtom);
     const [, setChatsAtom] = useAtom(chatsAtom);
 
     useEffect(() => {
         async function fetchChatSessions() {
-            const response = await fetch("https://miyagi-copilot.azurewebsites.net/chatSession/getAllChats/govind-k.copilot-chat");
+            const response = await fetch(`${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chatSession/getAllChats/${userInfo.userName}`);
             const data = await response.json();
             setChatSessions(data);
             console.log("Chat sessions");
@@ -27,7 +27,7 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
     }, []);
 
     async function fetchChatMessages(chatId: string) {
-        const response = await fetch(`https://miyagi-copilot.azurewebsites.net/chatSession/getChatMessages/${chatId}?startIdx=0&count=-1`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chatSession/getChatMessages/${chatId}?startIdx=0&count=-1`);
         const data = await response.json();
         setChatsAtom(data as ChatProps[]);
     }

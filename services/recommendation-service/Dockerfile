@@ -1,19 +1,19 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /source
-
-# copy csproj and restore as distinct layers
-COPY ./*.csproj .
-COPY nuget.config .
-COPY ./*.csproj .
-RUN dotnet restore --use-current-runtime --configfile nuget.config 
-
-# copy everything else and build app
-COPY ./ ./
-RUN dotnet publish --use-current-runtime --self-contained false --no-restore -o /app
-
-
-# final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-COPY --from=build /app ./app
+EXPOSE 80
+
+ENV ASPNETCORE_URLS=http://+:80
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /src
+COPY . .
+WORKDIR "/src"
+RUN dotnet build "GBB.Miyagi.RecommendationService.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "GBB.Miyagi.RecommendationService.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "GBB.Miyagi.RecommendationService.dll"]
