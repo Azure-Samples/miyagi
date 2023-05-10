@@ -1,6 +1,7 @@
-# Data Prep - Private data prep service
+# Recommendation Service in Python
 
-This service aggregates and cleanses data for Miyagi's financial advisor, mimicking private data
+This service aggregates and cleanses data for Miyagi's financial advisor, mimicking private data. In addition, it also
+replicates the dotnet recommendation-service's functionality to highlight Semantic Kernel's Python SDK.
 
 ## Getting Started
 To get started, you'll need to have the following installed and provisioned:
