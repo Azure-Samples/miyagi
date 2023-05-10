@@ -14,17 +14,17 @@ const COLUMNS = [
       <div className="ltr:text-right rtl:text-left">{value}</div>
     ),
     minWidth: 160,
-    maxWidth: 220,
+    maxWidth: 180,
   },
   {
-    Header: () => <div className="ltr:ml-auto rtl:mr-auto">Category</div>,
+    Header: () => <div className="ltr:ml-auto rtl:mr-auto">GPT Category</div>,
     accessor: 'category',
     // @ts-ignore
     Cell: ({ cell: { value } }) => (
       <div className="ltr:text-right rtl:text-left">{value}</div>
     ),
     minWidth: 100,
-    maxWidth: 180,
+    maxWidth: 220,
   },
   {
     Header: () => <div className="ltr:ml-auto rtl:mr-auto">Description</div>,

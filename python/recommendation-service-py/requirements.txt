@@ -4,5 +4,6 @@ pydantic>=1.10.7
 asyncpraw>=7.7.0
 azure-storage-blob>=12.16.0
 setuptools==67.7.2
-qdrant-client==1.1.6
-openai==0.27.5
+qdrant-client>=1.1.7
+openai>=0.27.6
+semantic-kernel>=0.2.7.dev0

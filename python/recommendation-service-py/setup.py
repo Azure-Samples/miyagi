@@ -7,13 +7,14 @@ setup(
     packages=find_packages(),
     install_requires=[
         "uvicorn>=0.22.0",
-        "openai>=0.27.5",
+        "openai>=0.27.6",
         "fastapi>=0.95.1",
         "pydantic>=1.10.7",
         "asyncpraw>=7.7.0",
         "pypdf>=3.8.0",
-        "azure-storage-blob>=12.16.0",
-        "qdrant-client>=1.1.6"
+        "storage-storage-blob>=12.16.0",
+        "memory-client>=1.1.7",
+        "semantic-kernel>=0.2.7.dev0"
     ],
     extras_require={
         "dev": [
