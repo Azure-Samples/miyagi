@@ -5,7 +5,7 @@ along with vector stores and connectors.
 
 ## Overview
 
-![Recommendation Service](../../ancillary/images/sk-memory-orchestration.png)
+![Recommendation Service](../../assets/images/sk-memory-orchestration.png)
 
 ## Getting Started
 
