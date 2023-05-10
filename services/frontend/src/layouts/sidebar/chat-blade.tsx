@@ -51,7 +51,7 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
     async function submitQuestion() {
         setUserInput('');
         setTyping(true);
-        const response = await fetch('${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/skills/ChatSkill/functions/Chat/invoke', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/skills/ChatSkill/functions/Chat/invoke`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
