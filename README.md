@@ -22,14 +22,16 @@ Embark on a journey to transform your applications into cutting-edge, intelligen
 
 Due to the rapid pace of advancements in foundation models, we are incrementally implementing use cases for Miyagi in the experiments folder. So far, we have the following implemented:
 
-1. [Knowledge Graph memory using Langchain's entity cache](./assets/experiments/langchain/Memory_Usecases.ipynb)
-2. [Qdrant vector store for embeddings via Langchain](./assets/experiments/langchain/qdrant_miyagi_example)
-3. [MS Graph API intent invoked via Semantic Kernel's skills](./assets/experiments/semantic-kernel/ms-graph-chain)
-4. [Miyagi prompt engineered chat interaction](./assets/experiments/langchain/chat) using LangChain's PromptTemplate 
-5. [Azure OpenAI GPT-3.5 basic flow](./assets/experiments/az-openai)
-6. [GPT-3.5-turbo and Whisper-1 usage to transcribe audio and demonstrate few-shot example](./assets/experiments/gpt-3.5-turbo)
-7. Reliability & Verifiability of model output (Responsible AI: Grounding, Retrieval augmented Generation (RaG) and Alignment) - coming soon
-8. [DeepSpeed Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat) MiyagiGPT (BYO Weights w/ RLHF - Reinforcement Learning from Human Feedback) - coming soon
+1. [MVP with Personalize (Synthesis via Semantic Kernel) and Chat on Azure Container Apps](https://agentmiyagi.com)
+1. [Miyagi ChatGPT Plugin](./python/chatgpt-plugin-miyagi)
+1. [Knowledge Graph memory using Langchain's entity cache](./usecases/langchain/Memory_Usecases.ipynb)
+1. [Qdrant vector store for embeddings via Langchain](./usecases/langchain/qdrant_miyagi_example)
+1. [MS Graph API intent invoked via Semantic Kernel's skills](./usecases/semantic-kernel/ms-graph-chain)
+1. [Miyagi prompt engineered chat interaction](./usecases/langchain/chat) using LangChain's PromptTemplate 
+1. [Azure OpenAI GPT-3.5 basic flow](./usecases/az-openai)
+1. [GPT-3.5-turbo and Whisper-1 usage to transcribe audio and demonstrate few-shot example](./usecases/gpt-3.5-turbo)
+1. Reliability & Verifiability of model output (Responsible AI: Grounding, Retrieval augmented Generation (RaG) and Alignment) - coming soon
+1. [DeepSpeed Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat) MiyagiGPT (BYO Weights w/ RLHF - Reinforcement Learning from Human Feedback) - coming soon
 
 ### Frontend
 Interaction with foundation models is more than chat. This sample shows a few use cases 
