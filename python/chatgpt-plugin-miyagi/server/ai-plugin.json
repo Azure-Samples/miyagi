@@ -1,0 +1,19 @@
+{
+    "schema_version": "v1",
+    "name_for_model": "azure_sample_miyagi",
+    "name_for_human": "MiyagiGPT",
+    "description_for_model": "Plugin to fetch finance information and advise on investments",
+    "description_for_human": "Plugin for demonstrating Azure hosting options for ChatGPT plugins",
+    "auth": {
+      "type": "none"
+    },
+    "api": {
+      "type": "openapi",
+      "url": "http://localhost:8000/.well-known/openapi.yaml"
+    },
+    "logo_url": "http://localhost:8000/.well-known/logo.png",
+    "contact_email": "gok@microsoft.com",
+    "legal_info_url": "gok@microsoft.com"
+  }
+  
+  
