@@ -1,12 +1,12 @@
-import {Listbox} from "@headlessui/react";
+import { Listbox } from "@headlessui/react";
 import cn from "classnames";
-import {ChevronDownIcon} from "@heroicons/react/24/outline";
-import {Fragment, useEffect, useState} from "react";
-import {Transition} from "@/components/ui/transition";
-import {chatsAtom, chatSessionsAtom, userInfoAtom} from "@/data/personalize/store";
-import {useAtom} from "jotai";
-import {ChatProps} from "@/types";
-import {UserInfoProps} from "@/data/static/user-info";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { Fragment, useEffect, useState } from "react";
+import { Transition } from "@/components/ui/transition";
+import { chatsAtom, chatSessionsAtom, userInfoAtom } from "@/data/personalize/store";
+import { useAtom } from "jotai";
+import { ChatProps } from "@/types";
+import { UserInfoProps } from "@/data/static/user-info";
 
 export function ChatSessionList({ className, setSelectedSession: updateSelectedSession, setChatsAtom: updateChatsAtom, setUserInfoAtom: updateUserInfoAtom }: { className?: string; setSelectedSession: (session: any) => void; setChatsAtom: (chats: ChatProps[]) => void; setUserInfoAtom: (userInfo: UserInfoProps) => void }) {
     const [chatSessions, setChatSessions] = useAtom(chatSessionsAtom);
@@ -37,11 +37,11 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
         setSelectedSession(currentSession);
         console.log("Selected current session");
         console.dir(currentSession);
-        await fetchChatMessages("4d68fa35-571a-4b6a-ae47-bfe47d28ea5d" || currentSession.id);
+        await fetchChatMessages(currentSession.id || `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}`);
 
         setUserInfoAtom((prevUserInfo: UserInfoProps) => ({ // Add type to prevUserInfo
             ...prevUserInfo,
-            chatId: "52247c33-002b-4888-a560-de3f40cdd198" || currentSession.id,
+            chatId: currentSession.id || `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}`,
         }));
     }
 
@@ -84,11 +84,10 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
                                 >
                                     {({ selected }) => (
                                         <div
-                                            className={`block cursor-pointer rounded-lg px-3 py-2 text-sm font-medium text-gray-900 transition dark:text-white  ${
-                                                selected
-                                                    ? "my-1 bg-gray-100 dark:bg-gray-700"
-                                                    : "hover:bg-gray-50 dark:hover:bg-gray-700"
-                                            }`}
+                                            className={`block cursor-pointer rounded-lg px-3 py-2 text-sm font-medium text-gray-900 transition dark:text-white  ${selected
+                                                ? "my-1 bg-gray-100 dark:bg-gray-700"
+                                                : "hover:bg-gray-50 dark:hover:bg-gray-700"
+                                                }`}
                                         >
                                             {chatLabel}
                                         </div>

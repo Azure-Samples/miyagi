@@ -2,7 +2,7 @@ export const UserInfo = {
     "input": "How to allocate portfolio?",
     "userId": "5966",
     "userName": "govind-k.copilot-chat",
-    "chatId": "52247c33-002b-4888-a560-de3f40cdd198",
+    "chatId": process.env.NEXT_PUBLIC_CHAT_ID,
     "firstName": "Govind",
     "lastName": "Kamtamneni",
     "age": 50,
