@@ -31,16 +31,24 @@ builder.Services.AddSingleton<IKernel>(provider =>
         .WithLogger(ConsoleLogger.Log)
         .Configure(c =>
         {
-            c.AddAzureTextCompletionService(
-                Env.Var("AZURE_OPENAI_SERVICE_ID"),
-                Env.Var("AZURE_OPENAI_DEPLOYMENT_NAME"),
-                Env.Var("AZURE_OPENAI_ENDPOINT"),
-                Env.Var("AZURE_OPENAI_KEY"));
-            c.AddAzureTextEmbeddingGenerationService(
-                Env.Var("AZURE_OPENAI_EMBEDDINGS_SERVICE_ID"),
-                Env.Var("AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT_NAME"),
-                Env.Var("AZURE_OPENAI_EMBEDDINGS_ENDPOINT"),
-                Env.Var("AZURE_OPENAI_EMBEDDINGS_KEY"));
+            if (Env.Var("USE_OPEN_AI") != null)
+            {
+                c.AddOpenAITextEmbeddingGenerationService("ada", "text-embedding-ada-002", Env.Var("OPENAI_KEY"));
+                c.AddOpenAITextCompletionService("davinci", "text-davinci-003", Env.Var("OPENAI_KEY"));
+            }
+            else
+            {
+                c.AddAzureTextCompletionService(
+                    Env.Var("AZURE_OPENAI_SERVICE_ID"),
+                    Env.Var("AZURE_OPENAI_DEPLOYMENT_NAME"),
+                    Env.Var("AZURE_OPENAI_ENDPOINT"),
+                    Env.Var("AZURE_OPENAI_KEY"));
+                c.AddAzureTextEmbeddingGenerationService(
+                    Env.Var("AZURE_OPENAI_EMBEDDINGS_SERVICE_ID"),
+                    Env.Var("AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT_NAME"),
+                    Env.Var("AZURE_OPENAI_EMBEDDINGS_ENDPOINT"),
+                    Env.Var("AZURE_OPENAI_EMBEDDINGS_KEY"));
+            }
         })
         // TODO: Fix bug w/ Qdrant.WithMemoryStorage(memoryStore)
         .WithMemoryStorage(new VolatileMemoryStore())

@@ -9,6 +9,7 @@ export async function POST(request: Request) {
     const res = await fetch(RECCOMMENDATION_SERVICE_URL, {
         method: 'POST',
         headers: { 'Content-type': `application/json` },
+        duplex: 'half',
         body
     });
 
