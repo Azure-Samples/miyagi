@@ -37,6 +37,8 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 Interaction with foundation models is more than chat. This sample shows a few use cases 
 ![frontend](./assets/images/wip-ui.png)
 
+<p align="left"><img src="assets/images/plugin.png" width=50% height=50% /></p>
+
 ### Architecture
 
 #### High-level logical architecture
@@ -51,11 +53,11 @@ Interaction with foundation models is more than chat. This sample shows a few us
 
 ![round-trip](./assets/images/sk-round-trip.png)
 
-![embedding](./assets/images/embeddings.png)
+<p align="left"><img src="assets/images/embeddings.png" width=30% height=30% /></p>
 
 #### 30k foot view
 
-![azure-basic](./assets/images/basic-arch.png)
+<p align="left"><img src="assets/images/basic-arch.png" width=30% height=30% /></p>
 
 #### Initial ideation for EDA + SK flow
 
