@@ -33,8 +33,8 @@ builder.Services.AddSingleton<IKernel>(provider =>
         {
             if (Env.Var("USE_OPEN_AI") != null)
             {
-                c.AddOpenAITextEmbeddingGenerationService("ada", "text-embedding-ada-002", Env.Var("OPENAI_KEY"));
-                c.AddOpenAITextCompletionService("davinci", "text-davinci-003", Env.Var("OPENAI_KEY"));
+                c.AddOpenAITextEmbeddingGenerationService("ada", "text-embedding-ada-002", Env.Var("OPENAI_API_KEY"));
+                c.AddOpenAITextCompletionService("davinci", "text-davinci-003", Env.Var("OPENAI_API_KEY"));
             }
             else
             {

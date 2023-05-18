@@ -49,6 +49,8 @@ Interaction with foundation models is more than chat. This sample shows a few us
 
 #### In-context learning flow
 
+![round-trip](./assets/images/sk-round-trip.png)
+
 ![embedding](./assets/images/embeddings.png)
 
 #### 30k foot view
