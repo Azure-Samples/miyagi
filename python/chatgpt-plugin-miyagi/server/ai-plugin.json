@@ -1,7 +1,7 @@
 {
     "schema_version": "v1",
     "name_for_model": "azure_sample_miyagi",
-    "name_for_human": "MiyagiGPT",
+    "name_for_human": "Miyagi",
     "description_for_model": "Plugin to fetch finance information and advise on investments",
     "description_for_human": "Plugin for demonstrating Azure hosting options for ChatGPT plugins",
     "auth": {

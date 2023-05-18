@@ -22,3 +22,15 @@ user authentication and will be able to answer questions about the user's portfo
     poetry install && poetry run dev 
     ```
 1. Install the plugin from [Bing](https://bing.com) or [ai.com](https://ai.com).
+
+#### ChatGPT
+
+1. Go to [ai.com](https://ai.com) and from New Chat, under GPT-4, select Plugins
+1. From the Plugin store dialog, Click on `Develop your own plugin`
+1. Under Domain, enter `http://localhost:8000` and click on `Find Manifest`
+![find-manifest](../../assets/images/plugins/find-manifest.png)
+1. Install localhost plugin
+![install-plugin](../../assets/images/plugins/install-plugin.png)
+1. Select plugin and interact
+![plugin](../../assets/images/plugin.png)
+![interact](../../assets/images/plugins/interact.png)
