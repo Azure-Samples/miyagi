@@ -89,7 +89,7 @@ This will be similar to [reddog](https://reddog-solutions.com) product [image ge
 - [AKS](https://azure.microsoft.com/en-us/products/kubernetes-service) / [ACA](https://azure.microsoft.com/en-us/products/container-apps)
 - [Azure Monitor](https://learn.microsoft.com/en-us/azure/azure-monitor/)
 - [Cosmos DB](https://azure.microsoft.com/en-us/products/cosmos-db/)
-- [Azure DB for PostgreSQL](https://azure.microsoft.com/en-us/products/postgresql)
+- [Azure Database for PostgreSQL](https://azure.microsoft.com/en-us/products/postgresql)
 - [Azure Redis Cache](https://azure.microsoft.com/en-us/products/cache)
 - [Azure Storage](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction)
 - [Apache Kafka on Azure Event Hubs](https://learn.microsoft.com/en-us/azure/event-hubs/azure-event-hubs-kafka-overview)
