@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GBB.Miyagi.OrderService", "order-service\GBB.Miyagi.OrderService.csproj", "{914EEFCA-4ADE-47A8-8955-66BEFB1F37D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopilotChatWebApi", "copilot-chat-api\CopilotChatWebApi.csproj", "{4A984836-EACE-42AA-AE14-CEDA5FA563CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GBB.Miyagi.RecommendationService", "recommendation-service\GBB.Miyagi.RecommendationService.csproj", "{4F711B0C-7CF6-4E2C-B425-54072548D310}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GBB.Miyagi.OrderService", "order-service\GBB.Miyagi.OrderService.csproj", "{AE2AC2BA-5E17-423E-843E-043A621B1ED2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GBB.Miyagi.RecommendationService", "recommendation-service\GBB.Miyagi.RecommendationService.csproj", "{F8FEED64-7C48-4D5E-B2DB-EA473AA3F867}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{914EEFCA-4ADE-47A8-8955-66BEFB1F37D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{914EEFCA-4ADE-47A8-8955-66BEFB1F37D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{914EEFCA-4ADE-47A8-8955-66BEFB1F37D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{914EEFCA-4ADE-47A8-8955-66BEFB1F37D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F711B0C-7CF6-4E2C-B425-54072548D310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4F711B0C-7CF6-4E2C-B425-54072548D310}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4F711B0C-7CF6-4E2C-B425-54072548D310}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4F711B0C-7CF6-4E2C-B425-54072548D310}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A984836-EACE-42AA-AE14-CEDA5FA563CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A984836-EACE-42AA-AE14-CEDA5FA563CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A984836-EACE-42AA-AE14-CEDA5FA563CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A984836-EACE-42AA-AE14-CEDA5FA563CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE2AC2BA-5E17-423E-843E-043A621B1ED2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE2AC2BA-5E17-423E-843E-043A621B1ED2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE2AC2BA-5E17-423E-843E-043A621B1ED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE2AC2BA-5E17-423E-843E-043A621B1ED2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8FEED64-7C48-4D5E-B2DB-EA473AA3F867}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8FEED64-7C48-4D5E-B2DB-EA473AA3F867}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8FEED64-7C48-4D5E-B2DB-EA473AA3F867}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8FEED64-7C48-4D5E-B2DB-EA473AA3F867}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
