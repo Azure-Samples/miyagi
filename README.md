@@ -53,11 +53,17 @@ Interaction with foundation models is more than chat. This sample shows a few us
 
 ![round-trip](./assets/images/sk-round-trip.png)
 
-<p align="left"><img src="assets/images/embeddings.png" width=30% height=30% /></p>
+<p align="left"><img src="assets/images/embeddings.png" width=40% height=40% /></p>
 
 #### 30k foot view
 
 <p align="left"><img src="assets/images/basic-arch.png" width=30% height=30% /></p>
+
+
+
+#### OSS Pre-trained Foundation Models
+![aml-miyagi-dolly](./assets/images/aml-miyagi-dolly.png)
+
 
 #### Initial ideation for EDA + SK flow
 
