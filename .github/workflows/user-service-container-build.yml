@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'services/user-service/**'
+      - 'java/user-service/**'
   workflow_dispatch:
 
 env:
@@ -42,6 +42,6 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: services/user-service
+        context: java/user-service
         push: true
         tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/user-service:${{ env.short_sha }}
