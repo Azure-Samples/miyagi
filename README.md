@@ -88,6 +88,8 @@ This will be similar to [reddog](https://reddog-solutions.com) product [image ge
 - [Azure HuggingFace Inference Endpoints](https://azure.microsoft.com/en-us/solutions/hugging-face-on-azure)
 - [Jarvis](https://github.com/microsoft/JARVIS)
 - [LangChain](https://github.com/hwchase17/langchain#readme)
+- [Jina](https://github.com/jina-ai/jina)
+- [Azure AI](https://azure.microsoft.com/en-us/solutions/ai/#overview)
 - [Foundation Models from CogServices](https://azure.microsoft.com/en-us/blog/announcing-a-renaissance-in-computer-vision-ai-with-microsofts-florence-foundation-model/)
 - [Qdrant](https://qdrant.tech/solutions/)
 - [Microsoft DeepSpeed Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat)
