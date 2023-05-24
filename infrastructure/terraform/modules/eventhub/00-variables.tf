@@ -23,6 +23,6 @@ variable "capacity" {
 variable "hubs" {
   type = list(object ({
     partition_count = optional(number, 2)
-    message_retention = optiona(number, 1)
+    message_retention = optional(number, 1)
   }))
 }
