@@ -16,5 +16,5 @@ output "connection_strings" {
 }
 
 output "hubs" {
-  value = azurerm_eventhub.default[*]
+  value = azurerm_eventhub.default
 }

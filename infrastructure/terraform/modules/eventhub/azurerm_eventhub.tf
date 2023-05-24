@@ -7,11 +7,11 @@ resource "azurerm_eventhub_namespace" "default" {
 }
 
 resource "azurerm_eventhub" "default" {
-  for_each = var.hubs
+  count = length(var.hubs)
 
-  name                = "${var.base_name}-EventHub-${each.key}"
+  name                = "${var.base_name}-EventHub-${count.index}"
   namespace_name      = azurerm_eventhub_namespace.default.name
   resource_group_name = var.resource_group.name
-  partition_count     = each.value.partition_count
-  message_retention   = each.value.message_retention
+  partition_count = var.hubs[count.index].partition_count
+  message_retention = var.hubs[count.index].message_retention
 }
