@@ -11,7 +11,6 @@ on:
 env:
   WORKSPACE: ${{ github.ref_name }}
   REPOSITORY: ${{ github.repository }}
-  IS_PIPELINE: "true"
 
 jobs:
   build:
@@ -22,7 +21,8 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Set TF Backend
-      if: ${{ env.IS_PIPELINE == 'true' }}
+      if: ${{ github.ref == 'rk/infra-automation' }}
+      env: 
       shell: bash
       run: |
         cat <<EOF > state.tf
