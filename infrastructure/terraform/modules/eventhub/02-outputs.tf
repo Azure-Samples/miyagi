@@ -1,5 +1,7 @@
 output "name" {
-  value = azurerm_eventhub.default.name
+  value = {
+    for index, hub in azurerm_eventhub.default : index => hub.name
+  }
 }
 
 output "resource_group" {
@@ -14,5 +16,5 @@ output "connection_strings" {
 }
 
 output "hubs" {
-  value = azurerm_eventhub.default[*]
+  value = azurerm_eventhub.default
 }
