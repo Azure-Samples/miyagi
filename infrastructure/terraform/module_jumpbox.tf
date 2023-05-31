@@ -8,5 +8,5 @@ module "jumpbox" {
   subnet_id = azurerm_subnet.jumpbox.id
   myip = local.myip
   admin_username = var.admin_username
-  public_key = local.public_key
+  public_key = azurerm_ssh_public_key.default.public_key
 }
