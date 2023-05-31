@@ -1,6 +1,3 @@
 [submodule "semantic-kernel"]
 	path = semantic-kernel
 	url = https://github.com/microsoft/semantic-kernel
-[submodule "jarvis"]
-	path = jarvis
-	url = https://github.com/microsoft/JARVIS

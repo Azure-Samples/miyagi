@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'services/frontend/**'
+      - 'typescript/frontend/**'
   workflow_dispatch:
 
 env:
@@ -38,6 +38,6 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: services/frontend
+        context: typescript/frontend
         push: true
         tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/frontend-service:${{ env.short_sha }}

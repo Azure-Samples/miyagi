@@ -1,0 +1,61 @@
+spring:
+  application:
+      name: user-service
+  kafka:
+    topic:
+      name: ${KAFKATOPICNAME}
+      group: ${KAFKATOPICGROUP:user-service}
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        sasl:
+          mechanism: ${KAFKASASLMECHANISM:PLAIN}
+          jaas:
+            config: ${KAFKASASLJAASCONFIG}
+        spring:
+          json:
+            type:
+              mapping: userprofile:com.microsoft.gbb.miyagi.orderservice.entity.UserProfile
+      bootstrap-servers: ${KAFKABOOTSTRAPSERVERS:localhost:9092}
+    security:
+      protocol: ${KAFKASECURITYPROTOCOL:PLAINTEXT}
+  jpa:
+     # dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: 'true'
+    # database-platform: org.hibernate.dialect.PostgreSQLDialect
+  config:
+    import: optional:classpath:.env[.properties]
+#  datasource:
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#    password: ${MYSQLPASSWORD}
+#    username: ${MYSQLUSER}
+#    url: ${MYSQLURL}
+  datasource:
+    url: ${POSTGRESQLURL}
+    username: ${POSTGRESQLUSER}
+    password: ${POSTGRESQLPASSWORD}
+  flyway:
+    baseline-on-migrate: 'true'
+  banner:
+    location: static/banner.txt
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    enabled: false
+springdoc:
+  swagger-ui:
+    enabled: 'true'
+    path: /swagger
+  api-docs:
+    path: /api-docs
+endpoints:
+  sk-base-url: ${SK_BASE_URL:http://localhost:7071}
+  execute-plan: ${SK_BASE_URL:http://localhost:7071}/api/planner/execute/{maxSteps?}
+  invoke-function: ${SK_BASE_URL:http://localhost:7071}/api/skills/{skillName}/invoke/{functionName}
+  sk-ping: ${SK_BASE_URL:http://localhost:7071}/api/ping
+topic:
+  name:
+    producer: ${KAFKATOPICNAME}
+server:
+  port: '8901'
