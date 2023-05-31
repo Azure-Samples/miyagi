@@ -26,6 +26,5 @@ RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/s
 
 RUN curl -LO https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip \
     && unzip terraform_1.4.6_linux_amd64.zip \
-    && mv linux_amd64/terraform /usr/local/bin/terraform \
-    && rm linux_amd64 \
+    && mv terraform \
     && rm terraform_1.4.6_linux_amd64.zip
