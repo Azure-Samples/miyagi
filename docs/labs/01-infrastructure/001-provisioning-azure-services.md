@@ -6,24 +6,24 @@ In this section we'll go through the steps needed to provision/deploy the necess
 
 1. Log in to Azure CLI
 
-Assuming your organization or demo environment does not enforce any Multi Factor Authentication or Device security policies you can run the following command:
+    Assuming your organization or demo environment does not enforce any Multi Factor Authentication or Device security policies you can run the following command:
 
-```bash
-az login
-```
+    ```bash
+    az login
+    ```
 
 2. Run Terraform
 
-```bash
-# Change directory to Terraform from the repo root
-cd infrastructure/terraform
+    ```bash
+    # Change directory to Terraform from the repo root
+    cd infrastructure/terraform
 
-# Initialize and setup required plguins/providers/modules for the project
-terraform init
+    # Initialize and setup required plguins/providers/modules for the project
+    terraform init
 
-# Plan a deployment - this will define what services will be deployed into your environment
-terraform plan -out tfplan
+    # Plan a deployment - this will define what services will be deployed into your environment
+    terraform plan -out tfplan
 
-# Apply the plan
-terraform apply tfplan
-```
+    # Apply the plan
+    terraform apply tfplan
+    ```
