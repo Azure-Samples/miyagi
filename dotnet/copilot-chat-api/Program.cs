@@ -51,7 +51,15 @@ public sealed class Program
             .AddAuthorization(builder.Configuration)
             .AddEndpointsApiExplorer()
             .AddSwaggerGen()
-            .AddCors()
+            .AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyHeader();
+                });
+            })
             .AddControllers();
 
         // Configure middleware and endpoints
