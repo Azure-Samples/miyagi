@@ -11,7 +11,7 @@ setup(
         "fastapi>=0.95.1",
         "pydantic>=1.10.7",
         "asyncpraw>=7.7.0",
-        "guidance">="0.0.57"
+        "guidance>=0.0.57"
         "memory-client>=1.1.7",
         "semantic-kernel>=0.2.7.dev0"
     ],

@@ -32,9 +32,9 @@ resource "random_string" "suffix" {
 	upper 	= false
 }
 
-# data "http" "myip" {
-#   url = "https://ipv4.icanhazip.com/"
-# }
+data "http" "myip" {
+  url = "https://ipv4.icanhazip.com/"
+}
 
 locals {
   suffix = var.suffix !="" ? var.suffix : random_string.suffix.result
@@ -46,6 +46,5 @@ locals {
 
   address_space = "10.0.0.0/16"
 
-  # myip = trimspace(data.http.myip.response_body)
-  myip = "167.220.148.149"
+  myip = trimspace(data.http.myip.response_body)
 }

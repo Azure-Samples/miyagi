@@ -367,3 +367,9 @@ MigrationBackup/
 *.tfvars
 tfplan
 *.tfplan
+
+# Certificates
+*.pem
+*.crt
+*.pub
+id_rsa
