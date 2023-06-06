@@ -5,3 +5,4 @@ class Orchestrator(Enum):
     GUIDANCE = 'guidance'
     SEMANTICKERNEL = 'semantickernel'
     PROMPTFLOW = 'promptflow'
+    LANGCHAIN = 'langchain'
