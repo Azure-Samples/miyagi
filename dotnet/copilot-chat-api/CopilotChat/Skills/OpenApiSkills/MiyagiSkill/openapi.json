@@ -1,0 +1,227 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Miyagi-Skills",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "servers": [
+    {
+      "url": "localhost"
+    },
+    {
+      "url": "http://localhost"
+    }
+  ],
+  "paths": {
+    "/classify": {
+      "post": {
+        "summary": "classify-expenses",
+        "description": "classify-expenses",
+        "operationId": "classifyExpenses",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "type": "string",
+                        "example": "grocery"
+                      },
+                      "price": {
+                        "type": "string",
+                        "example": "23.33"
+                      },
+                      "vendor": {
+                        "type": "string",
+                        "example": "Costco"
+                      }
+                    }
+                  },
+                  "orchestrator": {
+                    "type": "string",
+                    "example": "promptflow"
+                  }
+                }
+              },
+              "example": {
+                "data": {
+                  "description": "grocery",
+                  "price": "23.33",
+                  "vendor": "Costco"
+                },
+                "orchestrator": "promptflow"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/personalize": {
+      "post": {
+        "summary": "personalize",
+        "description": "personalize",
+        "operationId": "personalize",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "portfolio": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "allocation": {
+                          "type": "number",
+                          "example": 0.5
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Stocks"
+                        }
+                      }
+                    },
+                    "example": [
+                      {
+                        "allocation": 0.5,
+                        "name": "Stocks"
+                      },
+                      {
+                        "allocation": 0.3,
+                        "name": "Bonds"
+                      },
+                      {
+                        "allocation": 0.1,
+                        "name": "Cash"
+                      },
+                      {
+                        "allocation": 0.1,
+                        "name": "HomeEquity"
+                      }
+                    ]
+                  },
+                  "stocks": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "allocation": {
+                          "type": "number",
+                          "example": 0.3
+                        },
+                        "symbol": {
+                          "type": "string",
+                          "example": "MSFT"
+                        }
+                      }
+                    },
+                    "example": [
+                      {
+                        "allocation": 0.3,
+                        "symbol": "MSFT"
+                      },
+                      {
+                        "allocation": 0.1,
+                        "symbol": "ACN"
+                      },
+                      {
+                        "allocation": 0.3,
+                        "symbol": "JPM"
+                      },
+                      {
+                        "allocation": 0.3,
+                        "symbol": "PEP"
+                      }
+                    ]
+                  },
+                  "userInfo": {
+                    "type": "object",
+                    "properties": {
+                      "favoriteAdvisor": {
+                        "type": "string",
+                        "example": "Jim Cramer"
+                      },
+                      "favoriteSubReddit": {
+                        "type": "string",
+                        "example": "finance"
+                      },
+                      "riskLevel": {
+                        "type": "string",
+                        "example": "aggressive"
+                      },
+                      "userId": {
+                        "type": "string",
+                        "example": "50"
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "portfolio": [
+                  {
+                    "allocation": 0.5,
+                    "name": "Stocks"
+                  },
+                  {
+                    "allocation": 0.3,
+                    "name": "Bonds"
+                  },
+                  {
+                    "allocation": 0.1,
+                    "name": "Cash"
+                  },
+                  {
+                    "allocation": 0.1,
+                    "name": "HomeEquity"
+                  }
+                ],
+                "stocks": [
+                  {
+                    "allocation": 0.3,
+                    "symbol": "MSFT"
+                  },
+                  {
+                    "allocation": 0.1,
+                    "symbol": "ACN"
+                  },
+                  {
+                    "allocation": 0.3,
+                    "symbol": "JPM"
+                  },
+                  {
+                    "allocation": 0.3,
+                    "symbol": "PEP"
+                  }
+                ],
+                "userInfo": {
+                  "favoriteAdvisor": "Jim Cramer",
+                  "favoriteSubReddit": "finance",
+                  "riskLevel": "aggressive",
+                  "userId": "50"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}

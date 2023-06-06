@@ -1,5 +1,7 @@
 # Semantic Kernel Service - CopilotChat
-
+> **Note**
+> Repurposed [Microsoft/SemanticKernel](https://github.com/microsoft/semantic-kernel/tree/main/samples/apps/copilot-chat-app)
+> to address Miyagi's idiosyncractic intelligent interactions. 
 This ASP.Net web application provides a web service hosting the Semantic Kernel, enabling secure
 and modular access to its features for the Copilot Chat application without embedding kernel code and settings,
 while allowing user interfaces to be developed using frontend frameworks such as React and Angular.

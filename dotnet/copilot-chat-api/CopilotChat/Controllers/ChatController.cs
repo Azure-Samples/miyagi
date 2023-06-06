@@ -162,6 +162,15 @@ public class ChatController : ControllerBase, IDisposable
             planner.Kernel.ImportSkill(new CalendarSkill(new OutlookCalendarConnector(graphServiceClient)), "calendar");
             planner.Kernel.ImportSkill(new EmailSkill(new OutlookMailConnector(graphServiceClient)), "email");
         }
+        
+        // Miyagi
+        if (!string.IsNullOrWhiteSpace(openApiSkillsAuthHeaders.GithubAuthentication))
+        {
+            this._logger.LogInformation("Enabling Miyagi skill.");
+            await planner.Kernel.ImportOpenApiSkillFromFileAsync(
+                skillName: "MiyagiSkill",
+                filePath: Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "CopilotChat", "Skills", "OpenApiSkills/MiyagiSkill/openapi.json"));
+        }
     }
 
     /// <summary>
