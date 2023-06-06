@@ -17,7 +17,7 @@ guidance.llm = guidance.llms.OpenAI(
 )
 
 
-def guidance_classify(expense_input: ExpenseInput):
+async def guidance_classify(expense_input: ExpenseInput):
     # pre-define valid expense categories
     valid_categories = ["Learning", "Housing", "Utilities", "Clothing", "Transportation"]
 

@@ -14,5 +14,8 @@ class Settings(BaseSettings):
     openai_api_base = os.getenv("OPENAI_API_BASE")
     openai_api_key = os.getenv("OPENAI_API_KEY")
 
+    pf_url = os.getenv("PF_URL")
+    pf_api_key = os.getenv("PF_API_KEY")
+
 
 settings = Settings()
