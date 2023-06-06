@@ -5,16 +5,24 @@ import guidance
 from data.expense_data import ExpenseInput
 from settings import settings
 
-classify_llm = guidance.llms.AzureOpenAI(
-    model="gpt-4-0314",
-    client_id=settings.openai_api_key,
-    endpoint=settings.openai_api_base)
 
-async def guidance_classify(expense_input: ExpenseInput):
+guidance.llm = guidance.llms.OpenAI(
+    'text-davinci-003',
+    api_type='azure',
+    api_key=settings.openai_api_key,
+    api_base=settings.openai_api_base,
+    api_version='2023-05-15',
+    deployment_id='gk-davinci-003',
+    caching=True
+)
+
+
+def guidance_classify(expense_input: ExpenseInput):
     # pre-define valid expense categories
     valid_categories = ["Learning", "Housing", "Utilities", "Clothing", "Transportation"]
 
-    classify = guidance(f"""
+    # define the prompt
+    classify = guidance("""
             {{#system~}}
             You are an expense classifier that responds back in valid JSON. \n
             Classify the expense, given the description, vendor name, and price. Include a \
@@ -31,8 +39,10 @@ async def guidance_classify(expense_input: ExpenseInput):
                 "name": "{{gen 'name'}}",
                 "category": "{{select 'category' options=valid_categories}}",
                 "justification": "{{gen 'justification'}}"
-            }```""", llm=classify_llm)
+            }```""")
 
-    output = classify(expense_input=expense_input)
+    # execute the prompt
+    output = classify(expense_input=expense_input, valid_categories=valid_categories)
     logging.info('Classified %s', output)
+
     return output

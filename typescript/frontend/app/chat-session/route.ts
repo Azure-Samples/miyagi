@@ -8,7 +8,10 @@ export async function GET(request: Request) {
     console.dir(userId)
     const res = await fetch(RECCOMMENDATION_SERVICE_URL, {
         method: 'POST',
-        headers: { 'Content-type': `application/json` }
+        headers: {
+            'Content-type': `application/json`,
+            'x-sk-api-key': `${process.env.NEXT_PUBLIC_SK_API_KEY}`
+        }
     });
 
     const data = await res.json();
