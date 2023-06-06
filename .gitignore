@@ -373,3 +373,7 @@ tfplan
 *.crt
 *.pub
 id_rsa
+.vscode/
+python/expense-classification-guidance/.env
+
+python/expense-classification-guidance/.idea/

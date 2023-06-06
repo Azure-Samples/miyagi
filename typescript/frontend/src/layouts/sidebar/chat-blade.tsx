@@ -82,7 +82,8 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
         const response = await fetch(`${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/skills/ChatSkill/functions/Chat/invoke`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-type': `application/json`,
+                'x-sk-api-key': `${process.env.NEXT_PUBLIC_SK_API_KEY}`
             },
             body: JSON.stringify({
                 input: userInput,

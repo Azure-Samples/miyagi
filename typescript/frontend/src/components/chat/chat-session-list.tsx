@@ -16,7 +16,15 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
 
     useEffect(() => {
         async function fetchChatSessions() {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chatSession/getAllChats/${userInfo.userName}`);
+            const chatSessionUrl = `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chatSession/getAllChats/${userInfo.userName}`;
+            console.log(chatSessionUrl);
+            const response = await fetch(chatSessionUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-type': `application/json`,
+                    'x-sk-api-key': `${process.env.NEXT_PUBLIC_SK_API_KEY}`
+                }
+            });
             const data = await response.json();
             setChatSessions(data);
             console.log("Chat sessions");
@@ -27,7 +35,14 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
     }, []);
 
     async function fetchChatMessages(chatId: string) {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chatSession/getChatMessages/${chatId}?startIdx=0&count=-1`);
+        const chatMsgEndpoint = `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chatSession/getChatMessages/${chatId}?startIdx=0&count=-1`
+        const response = await fetch(chatMsgEndpoint, {
+            method: 'GET',
+            headers: {
+                'Content-type': `application/json`,
+                'x-sk-api-key': `${process.env.NEXT_PUBLIC_SK_API_KEY}`
+            }
+        });
         const data = await response.json();
         setChatsAtom(data as ChatProps[]);
     }

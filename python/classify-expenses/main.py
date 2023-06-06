@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 
-from routes.main import router as reddit_router
+from routes.main import router
 from settings import Settings
 
 logging.getLogger("aiohttp").setLevel(logging.ERROR)
@@ -23,7 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(reddit_router)
+app.include_router(router)
 
 
 @app.get("/health")
