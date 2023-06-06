@@ -12,8 +12,8 @@ async def classify_expense(expense_input: ExpenseInput):
     elif orchestrator == Orchestrator.SEMANTICKERNEL:
         # classify using semantickernel orchestrator
         pass
-    elif orchestrator == Orchestrator.LANGCHAIN:
-        # classify using langchain orchestrator
+    elif orchestrator == Orchestrator.PROMPTFLOW:
+        # classify using langchain via promptflow
         pass
     else:
         raise ValueError(f"Invalid orchestrator: {orchestrator}")
