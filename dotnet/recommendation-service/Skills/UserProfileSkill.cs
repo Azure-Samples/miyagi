@@ -21,8 +21,9 @@ public class UserProfileSkill
     /// </summary>
     public const string UserId = "UserId";
 
-    private const string DefaultUserId = "50";
+    private const string DefaultUserId = "40";
     private const int DefaultAnnualHouseholdIncome = 150000;
+    private const int Normalize = 81;
 
     /// <summary>
     ///     Lookup User's age for a given UserId.
@@ -44,7 +45,7 @@ public class UserProfileSkill
 
         if (int.TryParse(userId, out parsedUserId))
         {
-            age = parsedUserId > 100 ? 20 + (parsedUserId % 81) : parsedUserId;
+            age = parsedUserId > 100 ? (parsedUserId % Normalize) : parsedUserId;
         }
         else
         {

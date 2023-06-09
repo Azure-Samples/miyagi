@@ -194,7 +194,7 @@ public class RecommendationsController : ControllerBase
         var text = await streamReader.ReadToEndAsync();
 
         // Save the text to Qdrant
-        var memoryCollectionName = Env.Var("QDRANT_MEMORY_COLLECTION");
+        var memoryCollectionName = Env.Var("MEMORY_COLLECTION");
         var key = await _kernel.Memory.SaveInformationAsync(memoryCollectionName, id: subRedditBlobInfo.BlobName,
             text: text);
 

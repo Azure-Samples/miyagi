@@ -18,6 +18,8 @@ For someone who is {{UserProfileSkill.GetUserAge $userId}} years old, with {{Use
 Return well-formed JSON with a "gptRecommendation" property containing {{$voice}}'s' recommendation in a creative and funny tone.
 Example: {"portfolio":[{"symbol":"MSFT","gptRecommendation":"Booyah! Hold on, steady growth! Diversify, though!"},{"symbol":"PEP","gptRecommendation":"Buy, buy, buy! Solid dividends, sweet stability!"}]}
 
-Zeitgeist to consider: reddit wisdom of crowds opinions for: {{recall $tickers}}
+Zeitgeist to consider: 
+current inflation and mortgage rates: {{$bingResults}}
+reddit wisdom of crowds opinions: {{recall "investment advise"}
 
 +++++
