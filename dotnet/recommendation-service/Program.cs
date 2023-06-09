@@ -24,9 +24,6 @@ builder.Services.AddSingleton(x => new BlobServiceClient(Env.Var("AZURE_STORAGE_
 // Register the required services
 builder.Services.AddSingleton<IKernel>(provider =>
 {
-    var qdrantPort = int.Parse(Env.Var("QDRANT_PORT"), CultureInfo.InvariantCulture);
-    var memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), qdrantPort, 1536, ConsoleLogger.Log);
-
     var kernel = Kernel.Builder
         .WithLogger(ConsoleLogger.Log)
         .Configure(c =>
@@ -50,7 +47,7 @@ builder.Services.AddSingleton<IKernel>(provider =>
                     Env.Var("AZURE_OPENAI_EMBEDDINGS_KEY"));
             }
         })
-        // TODO: Fix bug w/ Qdrant.WithMemoryStorage(memoryStore)
+        // swap with pgvector, acs, redis etc.
         .WithMemoryStorage(new VolatileMemoryStore())
         .Configure(c => c.SetDefaultHttpRetryConfig(new HttpRetryConfig
         {

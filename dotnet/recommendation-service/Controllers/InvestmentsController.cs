@@ -3,6 +3,7 @@ using GBB.Miyagi.RecommendationService.Models;
 using GBB.Miyagi.RecommendationService.Skills;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Connectors.AI.OpenAI.Tokenizers;
 using Microsoft.SemanticKernel.CoreSkills;
 using Microsoft.SemanticKernel.KernelExtensions;
 using Microsoft.SemanticKernel.Orchestration;
@@ -53,7 +54,20 @@ public class InvestmentsController : ControllerBase
         context[TextMemorySkill.LimitParam] = "3";
         context.Set("tickers", miyagiContext.Stocks?.Select(s => s.Symbol).ToList().ToString());
 
-        _kernel.Log.LogDebug("Context: {0}", context.ToString());
+        // ========= Log token count, which determines cost =========
+        var numTokens = GPT3Tokenizer.Encode(context.ToString()).Count;
+        _kernel.Log.LogDebug("Number of Tokens: {N}", numTokens);
+        _kernel.Log.LogDebug("Context: {S}", context.ToString());
+        
+        // ========= Prometheus - RaG with current data =========
+        // // TODO: Swap Bing Web Search with News Search.
+        var search = _kernel.ImportSkill(_webSearchEngineSkill, "bing");
+        var bingResult = await _kernel.RunAsync(
+            "Inflation and mortgage interest rates",
+            search["SearchAsync"]
+        );
+        context.Set("bingResult", bingResult.Result);
+        _kernel.Log.LogDebug("Bing Result: {S}", bingResult.Result);
 
         // ========= Orchestrate with LLM using context, connector, and memory =========
         var result = await _kernel.RunAsync(
@@ -61,17 +75,10 @@ public class InvestmentsController : ControllerBase
             userProfileSkill["GetUserAge"],
             userProfileSkill["GetAnnualHouseholdIncome"],
             advisorSkill["InvestmentAdvise"]);
-        _kernel.Log.LogDebug("Result: {0}", result.Result);
-
+        _kernel.Log.LogDebug("Result: {S}", result.Result);
+        numTokens = GPT3Tokenizer.Encode(result.Result).Count;
+        _kernel.Log.LogDebug("Number of Tokens: {N}", numTokens);
         var output = result.Result.Replace("\n", "");
-
-        // TODO: Swap Bing Web Search with News Search.
-        var search = _kernel.ImportSkill(_webSearchEngineSkill, "bing");
-        var bingResult = await _kernel.RunAsync(
-            "MSFT news",
-            search["SearchAsync"]
-        );
-        _kernel.Log.LogDebug("Bing result: {0}", bingResult.Result);
 
         return Content(output, "application/json");
     }
