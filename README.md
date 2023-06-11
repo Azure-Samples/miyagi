@@ -10,10 +10,8 @@ Project Miyagi serves as the foundation for an [envisioning workshop](https://gi
 
 > **Note**  
 > *Work in Progress*. Meanwhile, signup at [intelligentapp.dev](https://intelligentapp.dev) for updates and checkout our related repo that showcases Generative AI capabilities for cloud-native, event-driven microservices: [Azure/reddog-solutions](https://github.com/Azure/reddog-solutions#readme). 
-> For a preview, see our [video walkthrough of our app](https://www.youtube.com/watch?v=V8dlEvXdGEM&t=108s)
-> <p align="left"><a href="http://www.youtube.com/watch?feature=player_embedded&v=V8dlEvXdGEM&t=108s" target="_blank"><img src="assets/images/video_recording.png" 
-alt="IMAGE ALT TEXT HERE" width="40%" height="40%" border="10" /></a></p> 
->
+> For a preview, see our [video walkthrough of our app](https://www.youtube.com/watch?v=V8dlEvXdGEM&t=108s) 
+> <a href="http://www.youtube.com/watch?feature=player_embedded&v=V8dlEvXdGEM&t=108s" target="_blank"><img src="assets/images/video_recording.png" alt="Miyagi walkthrough" width="40%" height="40%" border="10" /></a>
 
 
 The project also includes examples of usage for popular frameworks and orchestrators like [Semantic Kernel](https://github.com/microsoft/semantic-kernel), [Guidance](https://github.com/microsoft/guidance), [Promptflow](https://promptflow.azurewebsites.net/overview-what-is-prompt-flow.html), [LlamaIndex](https://github.com/jerryjliu/llama_index), [LangChain](https://github.com/hwchase17/langchain#readme), [Jarvis](https://github.com/microsoft/JARVIS), vector stores ([Qdrant](https://qdrant.tech/), [Chroma](https://www.trychroma.com/), [Milvus](https://milvus.io/docs), [Pinecone](https://www.pinecone.io/)), and generative image utilities such as [DreamFusion](https://huggingface.co/thegovind/reddogpillmodel512) and [ControlNet](https://github.com/lllyasviel/ControlNet). Additionally, it features foundation Models from Azure OpenAI and [Cognitive Services](https://azure.microsoft.com/en-us/blog/announcing-a-renaissance-in-computer-vision-ai-with-microsofts-florence-foundation-model). Utilize this project to gain insights as you modernize and transform your applications with AI and fine-tune your private data to build your own Copilot.
