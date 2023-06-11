@@ -11,7 +11,7 @@ Project Miyagi serves as the foundation for an [envisioning workshop](https://gi
 > **Note**  
 > *Work in Progress*. Meanwhile, signup at [intelligentapp.dev](https://intelligentapp.dev) for updates and checkout our related repo that showcases Generative AI capabilities for cloud-native, event-driven microservices: [Azure/reddog-solutions](https://github.com/Azure/reddog-solutions#readme). 
 >
-> For a preview, see our [video walkthrough of our app](https://www.youtube.com/watch?v=V8dlEvXdGEM&t=108s) 
+> To preview our sample, catch the [recording on CosmosDB TV Show](https://www.youtube.com/watch?v=V8dlEvXdGEM&t=108s)
 >
 > <p align="left"><a href="http://www.youtube.com/watch?feature=player_embedded&v=V8dlEvXdGEM&t=108s" target="_blank"><img src="assets/images/video_recording.png" alt="Miyagi walkthrough" width="40%" height="40%" border="10" /></a></p> 
 
