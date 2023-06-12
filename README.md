@@ -1,4 +1,4 @@
-# Project Miyagi - Intelligent App Sample
+# Project Miyagi - Envisioning sample for [Copilot stack](https://news.microsoft.com/source/features/ai/microsoft-outlines-framework-for-building-ai-apps-and-copilots-expands-ai-plugin-ecosystem/)
 
 >  “start with the customer experience and work backwards for the technology” - Steve Jobs
 >
@@ -6,7 +6,7 @@
 
 <p align="center"><img src="assets/images/1.png" width=20% height=20% /></p>
 
-Project Miyagi serves as the foundation for an [envisioning workshop](https://github.com/Azure-Samples/intelligent-app-workshop) that reimagines the design, development, and deployment of intelligent applications. It demonstrates that integrating intelligence transcends a simple chat interface and permeates every aspect of the end-user experience, utilizing enriched data to generate personalized interactions and effectively address individual needs. Through a comprehensive exploration of a financial coaching use case, Miyagi offers hands-on experience with cutting-edge programming paradigms that harness the power of foundation models in every workflow. Additionally, it introduces traditional software engineers to emerging design patterns in prompt engineering (chain-of-thought, few-shot, in-context), vectorization for long-term memory, and the affordances provided by LLMs.
+Project Miyagi serves as the foundation for an [envisioning workshop](https://github.com/Azure-Samples/intelligent-app-workshop) that reimagines the design, development, and deployment of intelligent applications using Microsoft's [Copilot stack](https://news.microsoft.com/source/features/ai/microsoft-outlines-framework-for-building-ai-apps-and-copilots-expands-ai-plugin-ecosystem/). It demonstrates that integrating intelligence transcends a simple chat interface and permeates every aspect of the end-user experience, utilizing enriched data to generate personalized interactions and effectively address individual needs. Through a comprehensive exploration of a financial coaching use case, Miyagi offers hands-on experience with cutting-edge programming paradigms that harness the power of foundation models in every workflow. Additionally, it introduces traditional software engineers to emerging design patterns in prompt engineering (chain-of-thought, few-shot, in-context), vectorization for long-term memory, and the affordances provided by LLMs.
 
 > **Note**  
 > *Work in Progress*. Meanwhile, signup at [intelligentapp.dev](https://intelligentapp.dev) for updates and checkout our related repo that showcases Generative AI capabilities for cloud-native, event-driven microservices: [Azure/reddog-solutions](https://github.com/Azure/reddog-solutions#readme). 
@@ -94,13 +94,13 @@ This will be similar to [reddog](https://reddog-solutions.com) product [image ge
   - text-embedding-ada-002
 - [Semantic Kernel](https://github.com/microsoft/semantic-kernel)
 - [Guidance](https://github.com/microsoft/guidance)
+- [AzureML Promptflow](https://promptflow.azurewebsites.net/overview-what-is-prompt-flow.html)
 - [Llama Index](https://github.com/jerryjliu/llama_index)
 - [AzureML Foundation model catalog](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-use-foundation-models?view=azureml-api-2)
 - [Jarvis](https://github.com/microsoft/JARVIS)
 - [LangChain](https://github.com/hwchase17/langchain#readme)
 - [Jina](https://github.com/jina-ai/jina)
 - [Azure AI](https://azure.microsoft.com/en-us/solutions/ai/#overview)
-- [Azure ML Prompt Flow and RAI](https://techcommunity.microsoft.com/t5/ai-machine-learning-blog/harness-the-power-of-large-language-models-with-azure-machine/ba-p/3828459)
 - [Qdrant](https://qdrant.tech/solutions/)
 - [Microsoft DeepSpeed Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat)
 - [Azure Web PubSub](https://azure.microsoft.com/en-us/products/web-pubsub)
