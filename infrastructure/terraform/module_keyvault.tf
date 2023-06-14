@@ -7,4 +7,7 @@ module "keyvault" {
   base_name         = "${local.base_name}-${count.index}"
   resource_group    = azurerm_resource_group.default
   
+  admin_objects_ids = [
+    data.azurerm_client_config.current.object_id
+  ]
 }
