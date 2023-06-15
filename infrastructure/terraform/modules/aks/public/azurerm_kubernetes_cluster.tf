@@ -20,9 +20,11 @@ resource azurerm_kubernetes_cluster default {
 	
 	dns_prefix = var.base_name
 	private_cluster_enabled = false
+	oidc_issuer_enabled 		= true
+  	workload_identity_enabled 	= true
 	
-  api_server_access_profile {
-    authorized_ip_ranges = [
+  	api_server_access_profile {
+    	authorized_ip_ranges = [
         "${var.myip}/32"
     ]
   }
@@ -30,11 +32,11 @@ resource azurerm_kubernetes_cluster default {
 	default_node_pool {
 		name                = "systemnp01"
 		vm_size             = "Standard_D4s_v3"
-    os_disk_type 			= "Ephemeral"
-    os_disk_size_gb 		= "100"
+    	os_disk_type 			= "Ephemeral"
+    	os_disk_size_gb 		= "100"
 		vnet_subnet_id      = var.subnet_id
 		node_count = 3
-    only_critical_addons_enabled = true
+    	only_critical_addons_enabled = true
 	}
 
 	identity {
