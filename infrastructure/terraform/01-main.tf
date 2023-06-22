@@ -36,6 +36,8 @@ resource "random_string" "suffix" {
 #   url = "https://ipv4.icanhazip.com/"
 # }
 
+data "azurerm_client_config" "current" {}
+
 locals {
   suffix = var.suffix !="" ? var.suffix : random_string.suffix.result
   base_name = "miyagi-${local.suffix}"
