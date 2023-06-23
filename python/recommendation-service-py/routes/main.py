@@ -26,7 +26,7 @@ async def fetch_comments_route(subreddit_input: SubredditInput):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-    return {"detail": "Comments successfully fetched and stored in Azure Storage Files"}
+    return {"detail": "Comments successfully fetched and stored in Azure BLOB"}
 
 
 @router.post("/store_comments_in_qdrant")
