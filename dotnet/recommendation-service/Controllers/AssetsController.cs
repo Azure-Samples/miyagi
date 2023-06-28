@@ -1,58 +1,68 @@
 using System.Text.Json;
-using GBB.Miyagi.RecommendationService.Models;
-using GBB.Miyagi.RecommendationService.Skills;
+using GBB.Miyagi.RecommendationService.models;
+using GBB.Miyagi.RecommendationService.plugins;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.KernelExtensions;
+using Microsoft.SemanticKernel.Connectors.AI.OpenAI.Tokenizers;
 using Microsoft.SemanticKernel.Orchestration;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
+/// <summary>
+/// The controller below is used to recommend asset allocation to the user, given their preferences.
+///   Usage: POST /assets with miyagiContext as the JSON body
+/// </summary>
 [ApiController]
 [Route("recommendations")]
 public class AssetsController : ControllerBase
 {
     private readonly IKernel _kernel;
+    private const string DefaultRiskLevel = "moderate";
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AssetsController"/> class.
+    /// </summary>
     public AssetsController(IKernel kernel)
     {
         _kernel = kernel;
     }
 
+    /// <summary>
+    /// Returns the recommended asset allocation for the user.
+    /// </summary>
+    /// <param name="miyagiContext">User preferences.</param>
+    /// <returns>JSON object of LLM response with asset allocation</returns>
     [HttpPost("/assets")]
     public async Task<IActionResult> GetRecommendations([FromBody] MiyagiContext miyagiContext)
     {
-        var skillsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Skills");
-        var advisorSkill = _kernel.ImportSemanticSkillFromDirectory(skillsDirectory, "AdvisorSkill");
+        // ========= Import semantic functions as plugins =========
+        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
+        var advisorPlugin = _kernel.ImportSemanticSkillFromDirectory(pluginsDirectory, "AdvisorPlugin");
 
-        var userProfileSkill = _kernel.ImportSkill(new UserProfileSkill(), "UserProfileSkill");
+        // ========= Import native function  =========
+        var userProfilePlugin = _kernel.ImportSkill(new UserProfilePlugin(), "UserProfilePlugin");
 
+        // ========= Set context variables to populate the prompt  =========
         var context = new ContextVariables();
         context.Set("userId", miyagiContext.UserInfo.UserId);
         context.Set("portfolio", JsonSerializer.Serialize(miyagiContext.Portfolio));
-        context.Set("risk", miyagiContext.UserInfo.RiskLevel);
+        context.Set("risk", miyagiContext.UserInfo.RiskLevel ?? DefaultRiskLevel);
 
-        _kernel.Log.LogDebug("Context: {0}", context.ToString());
+        // ========= Log token count, which determines cost =========
+        var numTokens = GPT3Tokenizer.Encode(context.ToString()).Count;
+        _kernel.Log.LogDebug("Number of Tokens: {N}", numTokens);
+        _kernel.Log.LogDebug("Context: {S}", context.ToString());
 
+        // ========= Chain and orchestrate with LLM =========
         var result = await _kernel.RunAsync(
             context,
-            userProfileSkill["GetUserAge"],
-            userProfileSkill["GetAnnualHouseholdIncome"],
-            advisorSkill["PortfolioAllocation"]);
+            userProfilePlugin["GetUserAge"],
+            userProfilePlugin["GetAnnualHouseholdIncome"],
+            advisorPlugin["PortfolioAllocation"]);
 
         _kernel.Log.LogDebug("Result: {0}", result.Result);
 
         var output = result.Result.Replace("\n", "").Replace("\r", "").Replace(" ", "");
-
-        /*// Deserialize the result JSON string into a PortfolioRecommendations object
-        var recommendations = JsonConvert.DeserializeObject<PortfolioRecommendations>(result.Result);
-
-        // You can now access and manipulate the recommendations object as needed
-        // For example, you can print the name and recommendation for each asset in the portfolio
-        foreach (var asset in recommendations.Portfolio)
-        {
-            Console.WriteLine($"Name: {asset.Name}, GPT Recommendation: {asset.GptRecommendation}");
-        }*/
 
         return Content(output, "application/json");
     }

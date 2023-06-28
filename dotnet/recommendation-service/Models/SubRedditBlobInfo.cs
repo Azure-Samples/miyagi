@@ -1,4 +1,4 @@
-﻿namespace GBB.Miyagi.RecommendationService.Models;
+﻿namespace GBB.Miyagi.RecommendationService.models;
 
 public class SubRedditBlobInfo
 {

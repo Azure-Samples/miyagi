@@ -1,16 +1,20 @@
 using System.Text.Json;
-using GBB.Miyagi.RecommendationService.Models;
-using GBB.Miyagi.RecommendationService.Skills;
+using GBB.Miyagi.RecommendationService.models;
+using GBB.Miyagi.RecommendationService.plugins;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AI.OpenAI.Tokenizers;
-using Microsoft.SemanticKernel.CoreSkills;
-using Microsoft.SemanticKernel.KernelExtensions;
 using Microsoft.SemanticKernel.Orchestration;
+using Microsoft.SemanticKernel.Skills.Core;
 using Microsoft.SemanticKernel.Skills.Web;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
+/// <summary>
+/// The static plan below is meant to emulate a plan generated from the following request:
+///   "Summarize the content of cheese.txt and send me an email with the summary and a link to the file.
+///    Then add a reminder to follow-up next week."
+/// </summary>
 [ApiController]
 [Route("recommendations")]
 public class InvestmentsController : ControllerBase
@@ -34,7 +38,7 @@ public class InvestmentsController : ControllerBase
         // TODO: Replace local filesystem with Azure Blob Storage
         var skillsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Skills");
         var advisorSkill = _kernel.ImportSemanticSkillFromDirectory(skillsDirectory, "AdvisorSkill");
-        var userProfileSkill = _kernel.ImportSkill(new UserProfileSkill(), "UserProfileSkill");
+        var userProfileSkill = _kernel.ImportSkill(new UserProfilePlugin(), "UserProfileSkill");
 
         // ========= Fetch memory from vector store using recall =========
         

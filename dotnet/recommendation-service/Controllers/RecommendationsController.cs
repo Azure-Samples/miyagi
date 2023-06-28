@@ -1,11 +1,10 @@
 using System.Text.Json;
 using Azure.Storage.Blobs;
-using GBB.Miyagi.RecommendationService.Models;
+using GBB.Miyagi.RecommendationService.models;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.Memory.Qdrant;
-using Microsoft.SemanticKernel.KernelExtensions;
 using Microsoft.SemanticKernel.Orchestration;
 using Microsoft.SemanticKernel.Skills.Web;
 

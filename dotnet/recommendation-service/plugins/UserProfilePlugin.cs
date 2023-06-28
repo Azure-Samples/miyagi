@@ -3,7 +3,7 @@
 using Microsoft.SemanticKernel.Orchestration;
 using Microsoft.SemanticKernel.SkillDefinition;
 
-namespace GBB.Miyagi.RecommendationService.Skills;
+namespace GBB.Miyagi.RecommendationService.plugins;
 
 /// <summary>
 ///     UserProfileSkill shows a native skill example to look user info given userId.
@@ -14,7 +14,7 @@ namespace GBB.Miyagi.RecommendationService.Skills;
 ///     SKContext["userId"] = "000"
 ///     {{UserProfileSkill.GetUserAge $userId }} => {userProfile}
 /// </example>
-public class UserProfileSkill
+public class UserProfilePlugin
 {
     /// <summary>
     ///     Name of the context variable used for UserId.
