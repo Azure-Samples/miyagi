@@ -15,16 +15,16 @@
     <description>user-service</description>
     <properties>
         <java.version>17</java.version>
-        <spring-cloud.version>2022.0.1</spring-cloud.version>
-        <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
-        <spring-boot-maven-plugin.version>3.0.0</spring-boot-maven-plugin.version>
-        <flyway-maven-plugin.version>9.16.0</flyway-maven-plugin.version>
+        <spring-cloud.version>2022.0.3</spring-cloud.version>
+        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+        <spring-boot-maven-plugin.version>3.1.1</spring-boot-maven-plugin.version>
+        <flyway-maven-plugin.version>9.20.0</flyway-maven-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <spring-boot-starter-actuator.version>3.0.0</spring-boot-starter-actuator.version>
-        <mysql-connector-j.version>8.0.32</mysql-connector-j.version>
-        <micronaut-micrometer-registry-prometheus.version>4.8.2</micronaut-micrometer-registry-prometheus.version>
-        <spring-boot-starter-version>3.0.0</spring-boot-starter-version>
-        <spring-cloud-starter-version>4.0.2</spring-cloud-starter-version>
+        <spring-boot-starter-actuator.version>3.1.1</spring-boot-starter-actuator.version>
+        <mysql-connector-j.version>8.0.33</mysql-connector-j.version>
+        <micronaut-micrometer-registry-prometheus.version>4.8.3</micronaut-micrometer-registry-prometheus.version>
+        <spring-boot-starter-version>3.1.1</spring-boot-starter-version>
+        <spring-cloud-starter-version>4.0.3</spring-cloud-starter-version>
     </properties>
     <dependencies>
         <dependency>
@@ -212,7 +212,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>3.6.0</version>
                 <executions>
                     <execution>
                         <id>copy-agent</id>
