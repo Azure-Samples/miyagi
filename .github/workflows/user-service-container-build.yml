@@ -22,14 +22,11 @@ jobs:
       image: ${{ steps.main.outputs.image }}
       repository: ${{ steps.main.outputs.repository }}  
     steps:
-  
     - name: Checkout code
       uses: actions/checkout@v3
-
     - name: Set short_sha
       id: vars
       run: echo "short_sha=$(git rev-parse --short HEAD)" >> ${GITHUB_ENV}
-
     - name: Login to GHCR
       uses: docker/login-action@v1
       with:
@@ -39,6 +36,18 @@ jobs:
     - name: downcase env.REPOSITORY
       run: |
         echo "REPOSITORY=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: 'maven'
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v4.5
+      with:
+        maven-version: 3.8.2
+    - name: Build with Maven
+      run: mvn -B package --file ./java/user-service/pom.xml -DskipTests
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
