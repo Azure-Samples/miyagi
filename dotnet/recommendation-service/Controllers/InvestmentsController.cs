@@ -36,9 +36,9 @@ public class InvestmentsController : ControllerBase
         // ========= Import Advisor skill from local filesystem =========
 
         // TODO: Replace local filesystem with Azure Blob Storage
-        var skillsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Skills");
-        var advisorSkill = _kernel.ImportSemanticSkillFromDirectory(skillsDirectory, "AdvisorSkill");
-        var userProfileSkill = _kernel.ImportSkill(new UserProfilePlugin(), "UserProfileSkill");
+        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
+        var advisorPlugin = _kernel.ImportSemanticSkillFromDirectory(pluginsDirectory, "AdvisorPlugin");
+        var userProfilePlugin = _kernel.ImportSkill(new UserProfilePlugin(), "UserProfilePlugin");
 
         // ========= Fetch memory from vector store using recall =========
         
@@ -65,20 +65,18 @@ public class InvestmentsController : ControllerBase
         
         // ========= Prometheus - RaG with current data =========
         // // TODO: Swap Bing Web Search with News Search.
-        var search = _kernel.ImportSkill(_webSearchEngineSkill, "bing");
-        var bingResult = await _kernel.RunAsync(
-            "Inflation and mortgage interest rates",
-            search["SearchAsync"]
-        );
+        _kernel.ImportSkill(_webSearchEngineSkill, "bing");
+        var question = "What is the current inflation rate?";
+        var bingResult = await _kernel.Func("bing", "search").InvokeAsync(question);
         context.Set("bingResult", bingResult.Result);
         _kernel.Log.LogDebug("Bing Result: {S}", bingResult.Result);
 
         // ========= Orchestrate with LLM using context, connector, and memory =========
         var result = await _kernel.RunAsync(
             context,
-            userProfileSkill["GetUserAge"],
-            userProfileSkill["GetAnnualHouseholdIncome"],
-            advisorSkill["InvestmentAdvise"]);
+            userProfilePlugin["GetUserAge"],
+            userProfilePlugin["GetAnnualHouseholdIncome"],
+            advisorPlugin["InvestmentAdvise"]);
         _kernel.Log.LogDebug("Result: {S}", result.Result);
         numTokens = GPT3Tokenizer.Encode(result.Result).Count;
         _kernel.Log.LogDebug("Number of Tokens: {N}", numTokens);

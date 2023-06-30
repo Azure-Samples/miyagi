@@ -77,16 +77,19 @@ internal static class KernelBuilderExtensions
         {
             case ServiceTypes.AzureOpenAI:
                 kernelBuilder.WithAzureTextEmbeddingGenerationService(
-                    deploymentName: kernelSettings.DeploymentOrModelId,
+                    deploymentName: kernelSettings.EmbeddingDeploymentOrModelId,
                     endpoint: kernelSettings.Endpoint,
                     apiKey: kernelSettings.ApiKey,
-                    serviceId: kernelSettings.ServiceId);
+                    serviceId: kernelSettings.EmbeddingServiceId
+                );
                 break;
             case ServiceTypes.OpenAI:
-                kernelBuilder.WithOpenAITextEmbeddingGenerationService(modelId: kernelSettings.DeploymentOrModelId,
-                apiKey: kernelSettings.ApiKey,
-                orgId: kernelSettings.OrgId,
-                serviceId: kernelSettings.ServiceId);
+                kernelBuilder.WithOpenAITextEmbeddingGenerationService(
+                    modelId: kernelSettings.EmbeddingDeploymentOrModelId,
+                    apiKey: kernelSettings.ApiKey,
+                    orgId: kernelSettings.OrgId,
+                    serviceId: kernelSettings.EmbeddingDeploymentOrModelId
+                );
                 break;
             default:
                 throw new ArgumentException($"Invalid service type value: {kernelSettings.ServiceType}");

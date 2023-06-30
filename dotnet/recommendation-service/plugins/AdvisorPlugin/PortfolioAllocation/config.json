@@ -4,7 +4,7 @@
   "description": "Gives financial advise on how to allocate portfolio, given a risk tolerance and a set of assets",
   "completion": {
     "max_tokens": 512,
-    "temperature": 0.4,
+    "temperature": 0.8,
     "top_p": 1.0,
     "presence_penalty": 0.0,
     "frequency_penalty": 0.0

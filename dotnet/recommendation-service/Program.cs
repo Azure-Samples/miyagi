@@ -2,6 +2,7 @@ using System.Globalization;
 using Azure.Storage.Blobs;
 using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.Utils;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.Memory.Qdrant;
 using Microsoft.SemanticKernel.Memory;
@@ -28,8 +29,10 @@ builder.Services.AddSingleton<IKernel>(provider =>
     // initialize the kernel
     var kernelSettings = KernelSettings.LoadSettings();
     IKernel kernel = new KernelBuilder()
-            .WithCompletionService(kernelSettings)
-            // swap with pgvector, acs, redis etc.
+        .WithLogger(NullLogger.Instance)
+        .WithCompletionService(kernelSettings)
+        .WithEmbeddingGenerationService(kernelSettings)
+        // swap with pgvector, acs, redis etc.
         .WithMemoryStorage(new VolatileMemoryStore())
         .Configure(c => c.SetDefaultHttpRetryConfig(new HttpRetryConfig
         {

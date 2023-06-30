@@ -299,3 +299,5 @@ __pycache__/
 *.db-shm
 *.db-wal
 /.tye
+
+appsettings.json
