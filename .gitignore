@@ -377,3 +377,5 @@ id_rsa
 python/expense-classification-guidance/.env
 
 python/expense-classification-guidance/.idea/
+
+dotnet/recommendation-service/appsettings.json

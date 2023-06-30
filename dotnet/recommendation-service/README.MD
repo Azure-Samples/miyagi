@@ -14,6 +14,7 @@ Set the following environment variables:
 ```bash
 dotnet user-secrets set "BING_API_KEY" ""
 dotnet user-secrets set "deploymentOrModelId" ""
+dotnet user-secrets set "embeddingDeploymentOrModelId" ""
 dotnet user-secrets set "endpoint" "https://{}.openai.azure.com/"
 dotnet user-secrets set "apiKey" ""
 dotnet user-secrets set "QDRANT_ENDPOINT" "http://localhost"

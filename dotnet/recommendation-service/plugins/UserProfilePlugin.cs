@@ -6,13 +6,13 @@ using Microsoft.SemanticKernel.SkillDefinition;
 namespace GBB.Miyagi.RecommendationService.plugins;
 
 /// <summary>
-///     UserProfileSkill shows a native skill example to look user info given userId.
+///     UserProfilePlugin shows a native skill example to look user info given userId.
 /// </summary>
 /// <example>
-///     Usage: kernel.ImportSkill("UserProfileSkill", new UserProfileSkill());
+///     Usage: kernel.ImportSkill("UserProfilePlugin", new UserProfilePlugin());
 ///     Examples:
 ///     SKContext["userId"] = "000"
-///     {{UserProfileSkill.GetUserAge $userId }} => {userProfile}
+///     {{UserProfilePlugin.GetUserAge $userId }} => {userProfile}
 /// </example>
 public class UserProfilePlugin
 {
@@ -29,10 +29,10 @@ public class UserProfilePlugin
     ///     Lookup User's age for a given UserId.
     /// </summary>
     /// <example>
-    ///     SKContext[UserProfileSkill.UserId] = "000"
+    ///     SKContext[UserProfilePlugin.UserId] = "000"
     /// </example>
     /// <param name="context">Contains the context variables.</param>
-    [SKFunction("Given a userId, find user age")]
+    [SKFunction("Given a userId, get user age")]
     [SKFunctionName("GetUserAge")]
     [SKFunctionContextParameter(Name = UserId, Description = "UserId", DefaultValue = DefaultUserId)]
     public string GetUserAge(SKContext context)
@@ -60,10 +60,10 @@ public class UserProfilePlugin
     ///     Lookup User's annual income given UserId.
     /// </summary>
     /// <example>
-    ///     SKContext[UserProfileSkill.UserId] = "000"
+    ///     SKContext[UserProfilePlugin.UserId] = "000"
     /// </example>
     /// <param name="context">Contains the context variables.</param>
-    [SKFunction("Given a userId, find user age")]
+    [SKFunction("Given a userId, get user annual household income")]
     [SKFunctionName("GetAnnualHouseholdIncome")]
     [SKFunctionContextParameter(Name = UserId, Description = "UserId", DefaultValue = DefaultUserId)]
     public string GetAnnualHouseholdIncome(SKContext context)
