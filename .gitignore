@@ -379,3 +379,5 @@ python/expense-classification-guidance/.env
 python/expense-classification-guidance/.idea/
 
 dotnet/recommendation-service/appsettings.json
+
+dotnet/copilot-chat-api/data/
