@@ -3,9 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-# chat logs
-/data/*.json
-
 # User-specific files
 *.suo
 *.user
@@ -302,3 +299,5 @@ __pycache__/
 *.db-shm
 *.db-wal
 /.tye
+
+appsettings.Development.json

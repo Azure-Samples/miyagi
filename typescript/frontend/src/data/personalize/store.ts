@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 import {TopInvestmentsData} from "@/data/static/top-investments-data";
-import {AdvisorsList, RiskLevelsList, SubredditsList} from "@/data/static/personalize";
+import {AdvisorsList, RiskLevelsList, BooksList} from "@/data/static/personalize";
 import {UserInfo} from "@/data/static/user-info";
 import {AssetsData} from "@/data/static/assetsData";
 import {Chats} from "@/data/static/chats";
@@ -15,7 +15,7 @@ const getRandomIndex = (arrayLength: number) => Math.floor(Math.random() * array
 
 export const selectedAdvisorAtom = atom(AdvisorsList[getRandomIndex(AdvisorsList.length)]);
 
-export const selectedSubRedditAtom = atom(SubredditsList[getRandomIndex(SubredditsList.length)]);
+export const selectedBookAtom = atom(BooksList[getRandomIndex(BooksList.length)]);
 
 export const selectedRiskLevelAtom = atom(RiskLevelsList[getRandomIndex(RiskLevelsList.length)]);
 

@@ -10,7 +10,7 @@ import Image from "@/components/ui/image";
 import {usePersonalizeDrawer} from "@/components/personalize/personalize-context";
 import {BingNews} from "@/components/icons/bing";
 import {usePersonalize} from "@/hooks/usePersonalize";
-import {SubRedditSelector} from "@/components/personalize/selectors/subreddit-list";
+import {FavoriteBookSelector} from "@/components/personalize/selectors/book-list";
 import {FavoriteAdvisorSelector} from "@/components/personalize/selectors/fin-advisor-list";
 import {RiskTolerance} from "@/components/personalize/selectors/risk-tolerance-list";
 import {LinkAccounts} from "@/components/personalize/selectors/link-accounts";
@@ -150,7 +150,7 @@ export default function PersonalizeDrawer() {
                                 <div className="pb-8">
                                     <B2CLogin/>
                                     <LinkAccounts/>
-                                    <SubRedditSelector/>
+                                    <FavoriteBookSelector/>
                                     <FavoriteAdvisorSelector/>
                                     <RiskTolerance/>
 

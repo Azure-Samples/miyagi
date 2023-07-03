@@ -6,7 +6,7 @@ export interface MiyagiContext {
         userName?: string;
         chatId?: string;
         riskLevel?: string;
-        favoriteSubReddit?: string;
+        favoriteBook?: string;
         favoriteAdvisor?: string;
     };
     portfolio?: Portfolio[];
@@ -51,7 +51,7 @@ export interface PersonalizeRequestData {
     age: number;
     riskLevel: string;
     annualHouseholdIncome: number;
-    favoriteSubReddit: string;
+    favoriteBook: string;
     portfolio: string[];
 }
 

@@ -1,0 +1,173 @@
+A Random Walk Down Wall Street isaA classic guide that blends history, economics, market theory, and behavioral finance to offer practical and actionable advice for investing and achieving financial freedom. Malkiel’s central message is abundantly clear – begin a consistent savings plan as early as possible and invest the core of your portfolio in low-cost, broad-based index funds.
+
+Buy this book on Amazon (Must read)
+
+Access My Searchable Collection of 100+ Book Notes
+
+Key Takeaways
+Why do you need to invest?
+“…is clear that if we are to cope with even a mild inflation, we must undertake investment strategies that maintain our real purchasing power; otherwise, we are doomed to an ever-decreasing standard of living.”
+
+If there is inflation of 2% every year, that means that you need at least a 2% return on your capital to maintain your real purchasing power. If you get no return by leaving your money in an account with no interest, your money is becoming less valuable over time. So you need an investment strategy that, at the very least, keeps up with inflation.
+
+What are the investing theories
+The firm foundation theory: companies have an intrinsic value. They valued based on the net present value of their current and future cash flows. This is the theory Buffet and Munger have used to build Berkshire Hathaway.
+Castle in the sky theory: companies have psychological value. Their value is about how others perceive their value. This theory is purported by Keynes. It’s also exhibited by the many periods of “irrational exuberance” that we’ve been through in history.
+Finances Bubbles
+The many financial bubbles (periods of irrational exuberance) demonstrate how asset bubbles continue to form throughout time. A few examples
+
+Dutch tulip craze of the 1600s
+The British South Sea Company
+1929 stock market bubble 
+Conglomerate boom of the 1960s
+Blue chip company booms of the 1970s
+1980s biotech craze
+Japan in the 80s/90s
+2000s dot com bubble
+2008 real estate bubble
+All of these periods of irrational exuberance share similar characteristics. There are new technologies, business opportunities, or unique valuation criteria that lead to positive feedback loops that drive stock prices through the roof. Then there’s a 50-90% crash.
+
+Technical Analysis (Castle in the Sky Theory)
+Often called “chartists,” people in this camp believe that there are times to buy/sell stocks based on their price movements. This theory suggests that stock values are roughly 90% psychological, and 10% rational. Often traders, rather than long-term investors.
+Two important assumptions for this theory: all news is priced into stocks, and stocks move in trends.
+When you look at whether prices actually move in trends, you see that price movement don’t tell you info that will allow you to reliably beat the market, or a simple buy and hold strategy. Chartists don’t want to accept this theory because it puts their entire art in question. Plus, the randomness of prices is hard to accept.
+Fundamental Analysis
+Fundamentalists select stocks based on a firm foundation of estimated intrinsic value. This theory suggests that sock values are roughly 90% rational and 10% psychological.
+Stocks increase in value with four signals
+Expected growth rate (P/E signal of this)
+Expected dividend payout
+Degree of risk
+Level of market interest rates
+Rational
+Buy companies with average expected earnings growth for 5+ years
+Never pay more than foundation of value
+Look for good stories of growth
+The problem is that no one can reliably assess value. There are many factors for that, so the firm foundation theory does not work reliably.
+Efficient market hypothesis
+Technical and fundamental analysis don’t work. All information is already priced into the market.
+
+What is investing risk?
+The probability that a security will decrease in value. The greater the risk, the greater the variance. Risk is the variance in the standard deviation of returns.
+Beta is systemic or market risk – it measures how a stock moves with the overall market. 
+Unsystematic risk – risk associated with a particular company
+Diversification cannot eliminate systemic risk, but it can reduce unsystemic risk.
+Modern portfolio theory
+Diversification leads to good returns with lower risk. It works when you have assets that are not perfectly correlated. For example, foreign stocks are not perfectly correlated with domestic stocks, so adding them to your portfolio can lower risk while maintaining good returns. Assets have become increasingly correlated in recent years, but as long as they are not perfectly correlated, portfolio theory is still helpful.
+
+Incentives to understand
+Buy/Sell Ratings: Securities analysts have a heavy bias toward “buy ratings.” Something like 10:1, and it even got to 100:1 during the dot com bubble. Analysts work at banks that have corporate clients that would get pissed with a low rating. So incentives are aligned to favor buy ratings.
+CNBC mostly has market bulls. Sourpus skeptics don’t lead to high ratings.
+Good investments don’t change the world. They make and sustain profits.
+Avoiding mistakes is more important than picking the big winners.
+Markets can be irrational, but true value is always recognized. Market is a weighing, not a voting machine.
+Investors are emotional – greedy, gambling, hope, fear – they’re not immune to this.
+Lessons from behavioral finance
+“While a stock selling at $30 might be “worth only $15,” it would be a good buy if some greater fools would be willing to pay $60 for the stock at some future time.”
+
+The efficient market hypothesis is built on the idea that investors are rational. Rational investors are individuals who make decisions that maximize their wealth, but are constrained by their individual risk tolerance. Behavioral finance questions the idea of the rational investors, highlighting that there are at least four factors causing irrational investor behavior:
+
+Overconfidence
+
+Investors are overconfident about their beliefs/abilities and overoptimistic about their assessments of the future. Investors also tend to overestimate their own skill and deny the role of chance in their outcomes. Most investors are too precise in their confidence intervals.
+
+Typically, investors attribute good outcomes to their own abilities (hindsight bias). They also attribute bad outcomes to external events.
+
+One manifestation of overconfidence is the consistent overvaluing of growth stocks.
+
+Biased Judgments
+
+Investors have a number of mechanisms that cause them to assume a greater degree of control than they have in reality. Most investors fail to properly weight probability and use base rates.
+
+Herd Mentality
+
+“There is nothing so disturbing to one’s well-being and judgment as to see a friend get rich.” We all get lured into tales of people making money through investing and of the hot new stock that we need to invest in. This tendency to get swept up in speculative, get-rich-quick schemes is representative of how we get lost in herd mentality when making investment decisions.
+
+Loss Aversion
+
+Losses hurt more than the joy we receive from equivalent gains. The pain we feel with a $100 loss is about the same as the joy we get from a $250 gain. Loss aversion explains why so many investors sell the winners and hold on to the losers. Especially when we face a sure loss, we will hold on to losers for even longer. Losses also tap into the emotions of pride and regret. It’s tough to talk about your losses, while it’s sexy to blab about your gains.
+
+Even if market participants are irrational, it doesn’t mean the market is not efficient. That’s highlighted by the difficulty of consistently finding arbitrage opportunities in the market.
+
+How to avoid the pitfalls of investor irrationality
+
+“What is hard to avoid is the alluring temptation to throw your money away on short, get-rich-quick speculative binges.”
+
+Avoid herd behavior
+Avoid overtrading
+Sell losers, not the winners
+Don’t buy into IPOs or trust “hot tips”
+Everyone wants to earn more with less effort. At times, there are “get-rich-quick” schemes or trends that are incredibly tempting, but the best we can do is avoid these dangerous traps. It’s easier said than done.
+
+How stocks and bonds are valued.
+The value of a stock is determined by 3 factors:
+
+Initial dividend yield
+Growth rate of earnings
+Changes in valuation in terms of P/E or price/dividend ratios
+The value of a bond is determined by 2 factors:
+
+Initial yield to maturity at time of purchase
+Changes in interest rates (yields) if you don’t hold bond to maturity
+When interest rates/inflation are lower, higher P/Es and lower dividend yields are somewhat justified. The Schiller CAPE index is a good way to see how the market is priced
+
+Asset allocation principles
+History shows that risk and return are related
+The risk of investing in stocks/bonds depends on the time you hold the assets. The longer the holding period, the lower the likely variance in asset returns.
+Dollar cost averaging can be a useful, though controversial, technique to reduce risk.
+Rebalancing can reduce risk, and in some circumstances, increase investment returns.
+You must distinguish between your attitude toward and your capacity for risk. The risks you can afford to take depend on your total financial situation, including the types and sources of your income exclusive of investment income.
+Other rules
+
+Specific needs require dedicated specific assets. If you need $30,000 for a house downpayment in 2 years, you will need an investment vehicle that matches your need for that capital at that time.
+Recognize risk tolerance. In general, your investments should never disturb your sleep. So invest up to your sleeping point – the point at which you can handle the day to day variance and still sleep just fine.
+Persistent savings in regular amounts, no matter how small, pays off.
+Portfolio for your mid-twenties
+Cash (5%)
+Bonds (15%)
+Stocks (70%)
+Real estate (10%)
+Invest in index-funds (low cost), and get international exposure. The US is only one third of the world economy, and other areas are growing quickly. If you hold bonds, make sure you do it in a tax-deferred retirement account.
+
+4% rule
+When you retire, spend no more than 4% of your investments annually to secure your nest egg. In most cases, this will allow you to make it through the point at which you die.
+
+Rules to stock picking
+Confine stock purchases to companies that appear able to sustain above-average earnings growth for at least five years. Growth increases, earnings, dividends, and likely the multiple the market will pay for those earnings.
+Never pay more for a stock than can reasonably justified by a firm foundation of value. No perfect measure, but look at how stock trades relative to market and growth potential. Avoid stocks with many years of high growth priced in.
+It helps to buy stocks with the kinds of stories of anticipated growth on which investors can build castles in the air. Try to be where other investors will be a few months from now. Look for castle in the air stories that rest on a firm foundation.
+Trade as little as possible. Ride the winners and sell the losers. Sell before end of each calendar year any stocks on which you have a loss. Wait if it will win, but don’t have patience for losing stocks. Losses can help tax burden.
+According to efficient market theory, you aren’t likely to win even with these sensible rules. That said, those with a penchant for speculation, may still enjoy the game and not want to give it up.
+
+Consider investing in China
+China is underweighted in most international indices. That’s because 1) local shares only available to Chinese citizens are not counted and 2) shares owned by the Chinese government (large % of float) are not counted. So to capture China’s growth, which may be worth doing, you will need to invest in an index fund of Chinese companies.
+
+Consider YAO (all Chinese companies available to international investors); HAO (small-capitalization index fund with more entrepreneurial companies) and TAO (Chinese real estate fund.)
+
+Rule of 72
+“A useful rule, called “the rule of 72,” provides a shortcut way to determine how long it takes for money to double. Take the interest rate you earn and divide it into the number 72, and you get the number of years it will take to double your money. For example, if the interest rate is 15 percent, it takes a bit less than five years for your money to double (72 divided by 15 = 4.8 years).”
+
+Interesting math hack.
+
+On stock market trends
+“Over short holding periods, there is some evidence of momentum in the stock market. Increases in stock prices are slightly more likely to be followed by further increases than by price declines. For longer holding periods, reversion to the mean appears to be present. When large price increases have been experienced over a period of months or years, such increases are often followed by sharp reversals.”
+
+In the long run, reversion to the mean will play out.
+
+What to invest in
+“The core of every portfolio should consist of low-cost, tax-efficient, broad-based index funds.”
+
+The above summaries Malkiel’s entire point: we cannot consistently beat the market or achieve outsized returns, so invest in low-cost, tax-efficient, broad-based index funds. Not only is it simple, but it’s likely to give you the best outcome as an individual investor.
+
+“The single most important thing you can do to achieve financial security is to begin a regular savings program and to start it as early as possible.”
+
+And because of the power of compound interest, we should begin this savings and investment program as early as possible.
+
+Portfolio composition
+“The longer the time period over which you can hold on to your investments, the greater should be the share of common stocks in your portfolio.”
+
+If you have a multi-decade investment horizon, you should be heavily invested in stocks. While stocks are more volatile than other asset classes over short investment horizons, in the long run, you’re likely to get a good return.
+
+Avoid these investments
+“…suggest that investors never buy actively managed funds with expense ratios above 50 basis points (½ of 1 percent) and with turnover of more than 50 percent.”
+
+Malkiel advocates for investing in index funds. Avoid actively managed funds with high expense ratios and turnover. These funds are everywhere, and they consistently underperform index funds.
