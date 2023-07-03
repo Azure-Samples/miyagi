@@ -1,9 +1,7 @@
-export const SubredditsList = [
-    {id: 1, name: 'personalfinance'},
-    {id: 2, name: 'wallstreetbets'},
-    {id: 3, name: 'ValueInvesting'},
-    {id: 4, name: 'investing'},
-    {id: 5, name: '💎🙌Superstonk🚀🦍'},
+export const BooksList = [
+    {id: 1, name: 'common-stocks', description: 'Common Stocks and Uncommon Profits'},
+    {id: 2, name: 'intelligent-investor', description: 'The Intelligent Investor'},
+    {id: 3, name: 'random-walk', description: 'A Random Walk Down Wall Street'}
 ];
 export const RiskLevelsList = [
     {id: 1, name: 'Moderate'},

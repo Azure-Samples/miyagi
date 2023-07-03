@@ -9,6 +9,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AI.OpenAI.Tokenizers;
 using Microsoft.SemanticKernel.Orchestration;
 using Microsoft.SemanticKernel.Planning;
+using Microsoft.SemanticKernel.TemplateEngine;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
@@ -41,7 +42,7 @@ public class AssetsController : ControllerBase
     {
         var log = ConsoleLogger.Log;
         log?.BeginScope("AssetsController.GetRecommendations");
-        log?.LogDebug("*****************************************************");
+        log?.LogDebug("*************************************");
         Stopwatch sw = new();
         sw.Start();
         // ========= Import semantic functions as plugins =========
@@ -56,8 +57,7 @@ public class AssetsController : ControllerBase
         context.Variables.Set("userId", miyagiContext.UserInfo.UserId);
         context.Variables.Set("portfolio", JsonSerializer.Serialize(miyagiContext.Portfolio));
         context.Variables.Set("risk", miyagiContext.UserInfo.RiskLevel ?? DefaultRiskLevel);
-
-        log?.LogDebug("Context: {S}", context.ToString());
+        
         // ========= Chain and orchestrate with LLM =========
         var plan = new Plan("Execute userProfilePlugin and then advisorPlugin");
         plan.AddSteps(userProfilePlugin["GetUserAge"],
@@ -65,13 +65,19 @@ public class AssetsController : ControllerBase
             advisorPlugin["PortfolioAllocation"]);
 
         // Execute plan
-        context.Variables.Update("Using the userId, get user age and household income, and then get the recommended asset allocation");
-        log?.LogDebug("Plan: {S}", plan.Description);
+        var ask = "Using the userId, get user age and household income, and then get the recommended asset allocation";
+        context.Variables.Update(ask);
+        log?.LogDebug("Planner steps: {N}", plan.Steps.Count);
         var result = await plan.InvokeAsync(context);
 
         // ========= Log token count, which determines cost =========
-        var numTokens = GPT3Tokenizer.Encode(result.ToString()).Count;
+        var promptRenderer = new PromptTemplateEngine();
+        var renderedPrompt = await promptRenderer.RenderAsync(
+            ask,
+            context);
+        var numTokens = GPT3Tokenizer.Encode(renderedPrompt).Count;
         log?.LogDebug("Number of Tokens: {N}", numTokens);
+        log?.LogDebug("Rendered Prompt: {S}", renderedPrompt);
         log?.LogDebug("Result: {S}", result.Result);
         if (result.Variables.TryGetValue("stepCount", out string? stepCount))
         {
@@ -84,7 +90,7 @@ public class AssetsController : ControllerBase
         }
 
         log?.LogDebug("Time Taken: {N}", sw.Elapsed);
-        log?.LogDebug("*****************************************************");
+        log?.LogDebug("*************************************");
 
         var output = result.Result.Replace("\n", "").Replace("\r", "").Replace(" ", "");
 

@@ -51,3 +51,9 @@ export interface KeyValueListProp {
   name: string;
 }
 
+export interface KeyValueDescProp {
+  id: number;
+  name: string;
+  description: string;
+}
+

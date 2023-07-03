@@ -1,0 +1,158 @@
+SYNOPSIS
+This book will not teach you how to beat the market. However, it will teach you how to reduce risk, protect your capital from loss and reliably generate sustainable returns over the long run. Warren Buffett calls the Intelligent Investor ""by far the best book on investing ever written.""
+
+Benjamin's proven value investing approach replaces risky attempts to project future share prices with sound investments based on the underlying value of the company's tangible assets.
+
+The Intelligent Investor by Benjamin Graham gives you everything you need to equip yourself with the investor's mindset necessary to avoid the panic of market fluctuations that plague the ordinary investor. Don't be ordinary. Be intelligent.
+
+TOP 20 INSIGHTS
+There are two kinds of investors. Defensive investors aim to protect their capital from losses, generate decent returns and minimize frequent decisions. Enterprising investors devote most of their time to manage their portfolios actively. An enterprising investor does not take more risks than a defensive investor but invests more in stock selection.
+Part-time investors should stick to defensive investment strategies. Defensive investors can achieve a decent result with minimum effort and capability. However, even a marginal improvement from this result is challenging and requires extraordinary knowledge and skill. An attempt to outsmart the market by spending a little extra time and effort will primarily result in below-average gains.
+Confusing speculation with investment can be a costly mistake. Speculators buy hot stocks based on future growth prospects. In contrast, investment is made on a thorough analysis of the underlying business to ensure the safety of principal and adequate — but not extraordinary — gain. Invest in a stock only when you can comfortably own it without following its daily share price.
+If you cannot resist the urge to bet on the next big growth stock, set strict limits on speculation. Keep a separate speculative account with less than 10% of your capital for speculative activities. Never mix money from the investment account and speculation account.
+It's a risky idea to speculate on high-growth industries, and high-growth stocks are a risky idea. The growth prospects for a business do not necessarily result in profits for investors. Because these stocks are often overpriced, growth may not result in proportional returns. Only eight of the largest 150 companies on the Fortune 500 list managed to grow earnings by at least 15% over two decades.
+Graham strongly urges investors to stay away from Initial Public Offerings. IPOs often happen in bull markets and lead to inflated valuations. When the bear market begins, these overheated speculative stocks are the first to crash and cause severe losses. An investor who bought every IPO at its public closing price and held on for three years, from 1980 to 2001, would have underperformed the market by 23% annually. A sure way to predict the end of a bull market is when the stocks of new nondescript small businesses are priced higher than reputed medium-sized companies. The bull run of the 1980s saw over 4000 stocks created. This lead to the 1987 crash. IPOs dried up between 1988 to 1990, which lead to the 90's bull market. During this time, over 5000 new stocks were created, which led to the 2001 crash of the dot com bubble.
+It is dangerous for ordinary investors to time the market. Value investors instead identify and invest in large, conservatively financed companies whose present value as estimated by tangible assets is substantially below their current stock prices. There is no attempt to predict an uncertain future, and there is enough margin to absorb unfavorable developments.
+Never buy any security far above its tangible asset value. Though outstanding companies are often worth several times their tangible asset value, the investor becomes too dependent on stock market fluctuations. In contrast, an investor who purchases stocks close to tangible asset value can ignore market fluctuations, confident that he has bought an interest in a sound business for a reasonable price.
+Price and value are two different concepts. Think of Mr. Market as an irrational investor in a business you also invested in. He frequently changes his mind and quotes wildly different prices for your share. His behavior will hardly change your fundamental perception about the value of the business. However, you would gladly buy when his price is far lower than the business value and sell when his price is far higher than the business value.
+The start of a bear market is good news for intelligent investors. They recognize that stocks become riskier as their prices rise and less risky as their prices crash. A bear market is a considerably safer time to buy stocks close to their asset value and build sustainable wealth.
+A defensive investor's portfolio must have 50% in high-grade bonds and 50% in common stocks irrespective of market conditions. Doing so will prevent them from buying excess shares in a bull market and rushing into bonds in the bear market. Once they set up their portfolio, the defensive investor checks every six months to rebalance it if market change alters this ratio by over 5%.
+Enterprising investors' confidence in their professional analysis may reduce their stock component to 25% when the markets are dangerously high and raise their stock component to 75% at the bottom of a bear market. However, a minimum of 25% in bonds is essential as it will give investors the cushion to hold on to stocks even through the worst bear markets.
+Purchase only tax-free municipal bonds unless you fall in the lowest tax bracket. Choose bonds that mature in five to 10 years as they remain relatively stable with interest rate fluctuations. Bond funds are an excellent choice for individual investors as they offer cheap and easy diversification to minimize risk.
+Both Graham and Warren Buffet recommend index funds as the best long-term bet for defensive investors. Index funds own a cross-section of the entire market without any stock selection. While they may be unglamorous and show steady returns compared to more aggressive funds, index funds have low risk and have historically outperformed most mutual funds over 20 year periods.
+If you enjoy stock selection, make the index fund the foundation of your portfolio and experiment with around 10% of funds. Buy only stocks priced below 22.5 times the average 12-month earnings. The stock price must not be higher than 1.5 times the book value. If the book value multiplier is low, the earnings multiplier can be higher. But the product of the multiplier of earnings and multiplier of book value should not exceed 22.5.
+Do not be swayed by home bias. Familiarity often prevents investors from doing the required due diligence before picking a stock. Many average investors make the mistake of buying familiar stocks or stocks of their own companies. On average, 401(k) investors keep between 25% to 30% of their retirement assets in their company's stock.
+Graham insists on using a multi-year average of past returns to calculate Price/Earnings ratio. Consider a company that earned $0.50 per share over six years but earned $3 over the last 12 months. At 25 times the P/E ratio based on the last year, the stock would be valued at $75. In contrast, valued at 25 times the average earnings over the past seven years, the stock would be valued at just $21.43.
+Prevention of losses takes priority over improving gains. Assume an investor buys a stock at the peak of a bull market that can generate 5% above average market returns. The bull market ends, and the stock drops by 50% the following year. Even if the stock gains 10% every year, it will take beyond 16 years to overtake market returns.
+The margin of safety is essential to ensure against loss and improve upside potential. The stock price must be substantially lower than its underlying tangible asset value. In 1973, Warren Buffet invested in The Washington Post when it was priced at $83 million, and its assets were worth at least $400 million. The investment had both a substantial margin of safety and massive growth potential.
+Graham designed his approach to craft a reliable portfolio that requires minimum maintenance and offers maximum odds of a steady return. By sticking to a formula for investment decisions, the defensive investor gives up the risk of speculating on stock movements and gains steady returns. After the initial curation, if the investor trades more than twice a year, it is a clear sign something has gone wrong.
+[widget]
+SUMMARY
+Price and value are two different concepts, and stock prices frequently don't reflect a company's actual value. More risk does not necessarily correlate with more gain. On the contrary, a substantial margin of safety and the difference between stock price and fundamental asset value can protect against loss while improving potential upside. Value investing can help you create a core portfolio that frees you from the need to track market prices and guarantee maximum odds of a steady return.
+
+Graham's value investing approach is a reliable, risk-free path to protecting one's investments and generating decent stock market returns. It replaces risky speculation on future stock prices with a systematic way to derisk investments and build wealth.
+
+Investors and speculators
+It is essential to distinguish investment from speculation. An investment, according to Graham, is based on thorough analysis that promises both safeties of principal and an adequate return. Three components of this definition are essential:
+
+Base purchases on a thorough analysis of a company's underlying businesses.
+Focus on preventing severe losses.
+Seek "adequate" and not extraordinary gains.
+Speculators, on the other hand, buy stocks based on projected future growth in price. Every nonprofessional who operates on margin or buys "hot" stocks is effectively speculating or gambling. Speculation lowers the odds of building wealth. Do not speculate under the illusion that you are making an investment decision. If you wish to speculate, put aside a small portion of the capital (below 10%) in a separate fund.
+
+Speculative approaches that don't work
+1. Betting on growth stocks
+
+Many investors fall for the allure of growth stocks. Just because a growth stock performed better than average in the past and is projected to do so into the future doesn't mean it will — it's a risk.
+
+There is no foolproof way to select and concentrate on the most promising companies in the most reliable industries.
+Common stocks with good records sell for a corresponding premium. The investor may be right about the company's prospects and yet not benefit because he has probably overpaid for the stock.
+Unusually rapid growth cannot continue forever because the increase in size makes subsequent growth more difficult. From 1960 to 1999, only 8 of the largest 150 companies on the Fortune 500 list managed to grow earnings by at least 15% over two decades. Between 1992 to December 2002, funds investing in large growth companies underperformed the stock market by an average of 3.7 percentage points every year.
+Growth stocks swing wildly, giving rise to a highly speculative risk element. The more the stock advances, the higher the frenzy, the riskier it becomes. Experienced investors have had their investments wiped out speculating on hot Airline stocks in the 1950s and booming Internet stocks during the Dotcom Bubble.
+Avoiding a loss takes priority over improving gains. To make up for a 95% loss in value requires the investor to make an astounding gain of 1900%.
+[widget]
+2. Initial public offerings
+
+Graham warns investors to avoid purchasing Initial Public Offerings (IPOs), particularly in bull markets — for two reasons. First, IPOs offer a higher built-in commission, leading to a harder sell. Second, new issues are nearly always sold near the peak of a bull market. The initial IPOs in a rising market lead to profits fuelling a frenzy for subsequent IPOs. A clear sign of the end of a bull market is when IPOs of small and nondescript companies have stock values higher than medium-sized enterprises with a long history. Since the prices of these new stocks usually crash to new lows, Graham warns investors to stay away from this kind of costly speculation.
+
+In the 1980's bull market, 4000 stocks flooded the market, leading to the crash of 1987. IPOs dried up between 1988 -1990, contributing to the 90's bull market where nearly 5000 new stocks were listed. After the Dotcom bubble, only 88 companies issued IPOs in 2001. An investor who bought every IPO at its public closing price from 1980 to 2001 would have underperformed the market by more than 23% annually.
+
+resource image
+Defensive and enterprising investors
+
+There are two types of investors, according to Graham: Defensive and Enterprising Investors.
+
+Defensive investors primarily seek to avoid losses, generate a decent return and minimize time spent on the stock market by creating a portfolio that virtually runs on autopilot.
+
+The Enterprising investor is willing to devote more time and effort to researching securities, hoping to make a better average return than the passive investor over the long term. Graham's enterprising investor is not someone willing to take more risks than the defensive investor. Playing with risk is the domain of a speculator. The enterprising investor must have sufficient knowledge of securities to consider his investments equivalent to a full-time business.
+
+The enterprising approach is physically and intellectually taxing, while the passive approach is emotionally demanding, asking the investor to do nothing for years. There is no room for a middle ground between a defensive and enterprising investor. An ordinary investor can achieve a decent result with minimal effort, but even a marginal improvement on this result requires extraordinary knowledge and skill. Putting a little more time and effort to improve outcomes through stock selection is sure to result in below-average returns. Therefore, most investors must recognize that they are defensive investors and should use suitable strategies.
+
+[widget]
+Principles of value investing
+The predictive and protective approaches
+
+Investors can take advantage of market swings in two ways. Prediction involves estimating the future growth of a company's earnings through mathematical methods. Speculators attempt to time the market by buying based on growth predictions and selling based on predicted declines. Projection is dangerous because the future is uncertain, and inflation, economic recessions, pandemics and geopolitical upheavals often arrive without warning. Graham argues that it is a fool's errand for an ordinary investor to attempt making money by timing the market.
+
+Graham advocates for a protection-based approach that does not try to time the market. Value investors should identify and invest in large, conservatively financed companies whose present value (as estimated by tangible assets) is substantially below their current stock prices. A protection-based approach creates a margin to absorb unfavorable developments in the future. The focus is on ensuring tangible value in purchasing the stock at current prices
+
+Think like a partner
+
+A shareholder can see themselves as the buyer and seller of shares whose prices vary by the moment or as a minority partner in a private business whose value depends on the assets and profits of the enterprise. While many companies are worth far more than their net assets, the buyers of their stock become dependent on the stock market fluctuations.
+
+Investors should limit themselves to securities currently selling for not that far above their tangible asset value for both practical and psychological reasons. When an investor pays well above net asset value for a share, they become a speculator dependent on the vagaries of the stock market to generate a profit. However, an investor who buys shares near the net-asset value of a company can consider themselves the part-owner of a sound and expanding business acquired at a reasonable price. Unlike the speculator who paid high multiples of earnings and tangible assets, they can take a detached view and ignore stock market fluctuations. This conservative policy is likely to work out better than risky investments based on anticipated growth.
+
+Meet Mr. Market
+
+Graham gives the allegory of Mr. Market to illustrate the investor's ideal attitude to the stock market. Imagine you paid $1000 to buy a small share in a private business. One of the partners, Mr. Market, tells you every day what your share is worth and offers to buy or sell additional interest in the business. Unlike a private buyer, Mr. Market often quotes exuberantly high values or absurdly low ones. Given this situation, there is no way a sensible investor will rely on Mr. Market to understand the underlying value of their shareholding. However, they would be more than happy to buy from Mr. Market when he quotes meager rates and sell to Mr. Market when he quotes relatively high rates.
+
+Similarly, a defensive investor who has made a value-based investment based on sound business fundamentals will ignore the stock market valuation apart from taking advantage of its swings. Graham goes so far as to say that the single biggest reason investors fail is that they pay too much attention to what the stock market is currently doing. Intelligent investors should be comfortable holding their stocks even if they don't see the daily stock market prices for years. Experiments have shown that investors who received frequent news updates about their stocks earned half the returns of investors who received no information at all.
+
+resource image
+[widget]
+A defensive investor's stock portfolio
+Asset allocation
+
+Graham suggests a mechanical 50-50 split between stocks and bonds for defensive investors to guard against over-purchasing shares in a bull market and rushing into bonds in a bear market. The only action they should take is to rebalance their portfolio every six months if market developments alter this 50-50 ratio by over 5%.
+
+On the other hand, enterprising investors can increase their stocks up to 75% when markets are low and reduce it up to 25% when markets are at their peak. However, a minimum of 25% in bonds is necessary to give investors the peace of mind to hold onto stocks in the worst bear markets.
+
+Bonds
+
+Unless investors are in the lowest tax bracket, they should purchase only tax-free municipal bonds. The only place to own taxable bonds is inside the 401(k) account. As interest rates rise, short-term bonds fall less than long-term bonds. But when interest rates fall, a long-term bond will outperform short-term ones. Therefore, to avoid guessing interest rates, it's best to buy bonds that mature in five to 10 years as they remain relatively stable. Bond funds are a better idea than individual bonds as they offer an easy way to diversify and reduce risk.
+
+Mutual funds
+
+A defensive investor can follow two approaches to stock selection. First, they can rely on a diversified cross-section of the market through an index fund. Second, they can create a quantitatively tested portfolio of reliable stocks.
+
+Mutual funds are a fantastic way for a defensive investor to capture the upside of diversified stock ownership without the effort of actively monitoring one's portfolio. A defensive investor's best long-term bet is to invest in index funds that own all stocks in the market without trying to select the "best" stocks. The low trading costs and operating expenditures mean that an index fund will outperform most mutual funds over the long run. Both Graham and Warren Buffet recommend index funds as the best choice for individual investors to own stocks. Take advantage of dollar-cost averaging by investing the same amount every month in a portfolio of index funds. This simple practice ensures that you buy more shares when the markets are low than when it is high.
+
+Stock selection
+
+If you enjoy the intellectual challenge of picking stocks, you can make the index fund the foundation of your portfolio and experiment with a small portion of funds (~10%) on stocks. Here are Graham's rules for the defensive investor's stock portfolio:
+
+There should be adequate diversification with a minimum of ten stocks and a maximum of 30. Avoid overexposure to a single industry.
+Each company selected must be significant, prominent and conservatively financed.
+Each company must have ten years of continuous dividend payments.
+The investor must not pay more than 25 times the average earnings over seven years and not more than 20 times the average earnings of the last year.
+Investors must not look for better than average returns by investing in growth stocks. They carry too much risk due to the high speculative element in their prices. Instead, they must confine themselves to large established companies with a history of profitable operations, stable financial conditions and reasonable profit/earnings ratio.
+
+Wall Street calculates the Price/Earnings ratio primarily on next year's earnings. However, Graham insists on calculating the Price/Earnings Ratio based on a multi-year average of past returns, which lowers the odds that an investor will overvalue the company simply because it had an odd profitable year or has high revenue projections. Let's say a company has earned $0.50 per share over six years but earned $3 over the last 12 months. At 25 times the P/E ratio (based on the last year), the stock would be valued at $75. In contrast, valued at 25 times the average earnings over the past seven years, and the stock would be valued at just $21.43.
+
+[widget]
+Stock analysis for defensive investors
+Here are Graham's criteria for stock selection:
+
+Size of the Enterprise:
+Choose companies with at least $2 billion in annual assets to ensure they are large enough to avoid high volatility in stock prices.
+
+Strong Financials
+The company's current assets must be twice the current liabilities to ensure a cushion for difficult times. Long-term debt must not exceed working capital. In 2003, about 120 of the S&P 500 companies met this ratio.
+
+Earnings Stability:
+There must be some earnings for the common stock over the past ten years. 86% of companies in the S&P index had positive earnings every year from 1993 to 2002.
+
+Dividend Record:
+They should have processed uninterrupted payments for at least 20 years. Over 255 companies had paid dividends from 1993 to 2002.
+
+Earnings Growth:
+The company should show a minimum increase of at least 33% in per-share earnings over the past ten years. Over 260 companies met this standard as of 2002.
+
+Moderate Price/Earnings Ratio:
+The stock's current price should not be more than 15 times the average earnings of the past three years. This multiple, adjusted for 2002 levels, is 22.5 times the average earnings of the past three years.
+
+Moderate Ratio of Price to Assets:
+The stock price must not be more than 1.5 times the last book value. If the multiplier of earnings is below 15, it can justify a higher multiplier of assets.
+
+Graham's rule of thumb is that the company's total multiplier of earnings and multiplier of book value should not exceed 22.5. The overall portfolio of stocks must have an earnings/price ratio at least as high as the current bond rate. If you find this degree of analysis difficult, avoid stock picking and invest entirely in index funds.
+
+Graham designed this approach to create a core portfolio that requires minimal maintenance and a maximal chance of a steady return. After curating the initial portfolio, if the investor is trading more than twice a year, it is a clear sign something has gone wrong. The defensive investor wins the race by sitting still. By sticking to an autopilot formula for investment decisions, the defensive investor gives up the risk of speculating on stock movements and worrying about market swings.
+
+resource image
+Margin of safety
+An investor must insist on a margin of safety in every investment to absorb negative changes. This margin of safety is the difference between the percentage of earnings at the price paid and the interest rate on bonds. The price at which you acquire the stock is the crucial determinant of being a good or a bad buy. You should skip even the best company if the price goes too high and consider even the worst company if its stock goes low enough to create a substantial margin of safety.
+
+Assume an investor buys a stock that can grow at 10% per year at a time when the market grows 5% annually — but it's at the height of a bull market, and the stock drops by 50% the following year. Even if the stock continues to perform at 5% above market value, it will take the investor more than 16 years to overtake the market. All because they bought at the wrong price. By refusing to overpay, you minimize chances of wealth destruction.
+
+With value investing, you can achieve satisfactory investment results over the long run with reduced risk and without losing sleep over periodic market fluctuations. All it requires is the discipline to never purchase far above tangible asset value, resist the urge to invest in glamorous growth stocks and replace the mindset of a speculator with the investment approach of a partner.
+

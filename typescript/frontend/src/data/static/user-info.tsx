@@ -8,7 +8,7 @@ export const UserInfo = {
     "age": 50,
     "riskLevel": "aggressive",
     "annualHouseholdIncome": 80000,
-    "favoriteSubReddit": "wallstreetbets",
+    "favoriteBook": "intelligent-investor",
     "favoriteAdvisor": "Jim Cramer"
 };
 
@@ -22,6 +22,6 @@ export interface UserInfoProps {
     age: number;
     riskLevel: string;
     annualHouseholdIncome: number;
-    favoriteSubReddit: string;
+    favoriteBook: string;
     favoriteAdvisor: string;
 }
