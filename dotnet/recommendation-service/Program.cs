@@ -32,7 +32,7 @@ builder.Services.AddSingleton<IKernel>(provider =>
         .WithLogger(NullLogger.Instance)
         .WithCompletionService(kernelSettings)
         .WithEmbeddingGenerationService(kernelSettings)
-        // swap with pgvector, acs, redis etc.
+        // can swap with pgvector, acs, redis etc.
         .WithMemoryStorage(new VolatileMemoryStore())
         .Configure(c => c.SetDefaultHttpRetryConfig(new HttpRetryConfig
         {
