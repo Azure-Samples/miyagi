@@ -28,12 +28,14 @@ builder.Services.AddSingleton<IKernel>(provider =>
 {
     // initialize the kernel
     var kernelSettings = KernelSettings.LoadSettings();
+    var memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), 1536, ConsoleLogger.Log);
+    
     IKernel kernel = new KernelBuilder()
         .WithLogger(NullLogger.Instance)
         .WithCompletionService(kernelSettings)
         .WithEmbeddingGenerationService(kernelSettings)
-        // can swap with pgvector, acs, redis etc.
-        .WithMemoryStorage(new VolatileMemoryStore())
+        // Use QdrantMemoryStore instead of VolatileMemoryStore
+        .WithMemoryStorage(memoryStore)
         .Configure(c => c.SetDefaultHttpRetryConfig(new HttpRetryConfig
         {
             MaxRetryCount = 2,
@@ -47,13 +49,6 @@ builder.Services.AddSingleton<IKernel>(provider =>
         .Build();
 
     return kernel;
-});
-
-builder.Services.AddSingleton<QdrantMemoryStore>(provider =>
-{
-    var qdrantPort = int.Parse(Env.Var("QDRANT_PORT"), CultureInfo.InvariantCulture);
-    var memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), qdrantPort, 1536, ConsoleLogger.Log);
-    return memoryStore;
 });
 
 builder.Services.AddSingleton<BingConnector>(provider =>

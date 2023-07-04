@@ -20,6 +20,7 @@ Example: {"portfolio":[{"symbol":"MSFT","gptRecommendation":"Booyah! Hold on, st
 
 Zeitgeist to consider: 
 current inflation and mortgage rates: {{$bingResults}}
-reddit wisdom of crowds opinions: {{recall "investment advise"}
+
+wisdom of crowds opinions: {{recall "investment advise"}
 
 +++++
