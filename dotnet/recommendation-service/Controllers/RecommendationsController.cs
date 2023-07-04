@@ -15,7 +15,7 @@ namespace GBB.Miyagi.RecommendationService.Controllers;
 public class RecommendationsController : ControllerBase
 {
     private readonly AssetsController _assetsController;
-    private readonly BlobServiceClient _blobServiceClient;
+    
     private readonly InvestmentsController _investmentsController;
     private readonly IKernel _kernel;
     private readonly QdrantMemoryStore _memoryStore;
@@ -23,13 +23,11 @@ public class RecommendationsController : ControllerBase
 
     public RecommendationsController(IKernel kernel,
         QdrantMemoryStore memoryStore,
-        WebSearchEngineSkill webSearchEngineSkill,
-        BlobServiceClient blobServiceClient)
+        WebSearchEngineSkill webSearchEngineSkill)
     {
         _kernel = kernel;
         _memoryStore = memoryStore;
         _webSearchEngineSkill = webSearchEngineSkill;
-        _blobServiceClient = blobServiceClient;
         _assetsController = new AssetsController(kernel);
         _investmentsController = new InvestmentsController(kernel, webSearchEngineSkill);
     }
@@ -171,32 +169,5 @@ public class RecommendationsController : ControllerBase
         return Ok(new { Recommendation = newsResults.Result, Prompt = newPrompt });
     }
 
-    [HttpGet("memory/collections/{containerName}")]
-    public async Task<IActionResult> ListBlobsAsync(string containerName)
-    {
-        var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
-        var blobs = new List<string>();
-
-        await foreach (var blob in containerClient.GetBlobsAsync()) blobs.Add(blob.Name);
-
-        return Ok(blobs);
-    }
-
-    [HttpPost("memory/collections")]
-    public async Task<IActionResult> SendBlobToQdrantAsync([FromBody] SubRedditBlobInfo subRedditBlobInfo)
-    {
-        var containerClient = _blobServiceClient.GetBlobContainerClient(subRedditBlobInfo.ContainerName);
-        var blobClient = containerClient.GetBlobClient(subRedditBlobInfo.BlobName);
-
-        var response = await blobClient.DownloadAsync();
-        using var streamReader = new StreamReader(response.Value.Content);
-        var text = await streamReader.ReadToEndAsync();
-
-        // Save the text to Qdrant
-        var memoryCollectionName = Env.Var("MEMORY_COLLECTION");
-        var key = await _kernel.Memory.SaveInformationAsync(memoryCollectionName, id: subRedditBlobInfo.BlobName,
-            text: text);
-
-        return Ok(new { Id = key });
-    }
+    
 }
