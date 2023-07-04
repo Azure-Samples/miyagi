@@ -16,8 +16,8 @@ public class MemoryController : ControllerBase
 {
     private readonly BlobServiceClient _blobServiceClient;
     private readonly IKernel _kernel;
-    private const int MaxTokensPerParagraph = 100;
-    private const int MaxTokensPerLine = 30;
+    private const int MaxTokensPerParagraph = 160;
+    private const int MaxTokensPerLine = 60;
     
     public MemoryController(IKernel kernel, BlobServiceClient blobServiceClient)
     {
@@ -54,6 +54,9 @@ public class MemoryController : ControllerBase
     [HttpPost("/datasets")]
     public async Task<IActionResult> SaveDatasetAsync([FromBody] DatasetInfo datasetInfo)
     {
+        var log = ConsoleLogger.Log;
+        log?.BeginScope("MemoryController.SaveDatasetAsync");
+        log?.LogInformation($"DatasetInfo: {datasetInfo}");
         string text;
         if (string.IsNullOrEmpty(datasetInfo.BlobContainerName))
         {
@@ -79,6 +82,7 @@ public class MemoryController : ControllerBase
 
         // Chunk, generate embeddings, and persist to vectordb
         var memoryCollectionName = Env.Var("MEMORY_COLLECTION");
+        log?.LogInformation($"Saving dataset {datasetInfo.DataSetName} to memory collection {memoryCollectionName}");
         
         var lines = TextChunker.SplitPlainTextLines(text, MaxTokensPerLine);
         var chunks = TextChunker.SplitPlainTextParagraphs(lines, MaxTokensPerParagraph);
@@ -86,14 +90,16 @@ public class MemoryController : ControllerBase
         for (var i = 0; i < chunks.Count; i++)
         {
             var chunk = chunks[i];
-            await _kernel.Memory.SaveInformationAsync(
+            var key = await _kernel.Memory.SaveInformationAsync(
                 collection: memoryCollectionName,
                 text: chunk,
                 id: $"{datasetInfo.DataSetName}-{i}",
-                description: $"Dataset: {datasetInfo.DataSetName}");
+                description: $"Dataset: {datasetInfo.DataSetName}",
+                additionalMetadata: datasetInfo.Metadata?.ToString());
+            log?.LogInformation($"Saved chunk {i} with text {chunk}");
         }
 
-        return Ok(new { Id = datasetInfo.DataSetName });
+        return Ok(new { datasetInfo.DataSetName, chunks.Count });
     }
 
 }
