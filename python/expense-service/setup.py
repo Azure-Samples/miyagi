@@ -9,7 +9,7 @@ setup(
         "uvicorn>=0.22.0",
         "openai>=0.27.6",
         "fastapi>=0.95.1",
-        "pydantic>=1.10.7",
+        "pydantic>=2.0.1",
         "asyncpraw>=7.7.0",
         "guidance>=0.0.57",
         "memory-client>=1.1.7",
