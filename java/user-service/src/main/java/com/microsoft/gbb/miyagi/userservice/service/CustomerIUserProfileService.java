@@ -17,12 +17,12 @@ import java.util.List;
 @Service
 @Transactional
 @Qualifier("customeruserprofile")
-public class CustomerUserProfileService implements UserProfileService {
+public class CustomerIUserProfileService implements IUserProfileService {
     private final TopicProducer topicProducer;
     private final UserProfileRepository userProfileRepository;
 
-    public CustomerUserProfileService(TopicProducer topicProducer,
-                                      UserProfileRepository userProfileRepository) {
+    public CustomerIUserProfileService(TopicProducer topicProducer,
+                                       UserProfileRepository userProfileRepository) {
         this.topicProducer = topicProducer;
         this.userProfileRepository = userProfileRepository;
     }

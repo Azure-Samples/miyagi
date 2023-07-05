@@ -12,12 +12,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
-class UserProfileGeneratorServiceTest {
-    private UserProfileGeneratorService userProfileGeneratorService;
+class FakerGeneratorServiceTest {
+    private FakerGeneratorService fakerGeneratorService;
 
     @BeforeEach
     void setUp() {
-        userProfileGeneratorService = new UserProfileGeneratorService();
+        fakerGeneratorService = new FakerGeneratorService();
     }
 
     @Test
@@ -43,7 +43,7 @@ class UserProfileGeneratorServiceTest {
         expectedUserProfile.setFinancialProfile(financialProfile);
         expectedUserProfile.setAspirations(aspirations);
 
-        UserProfile actualUserProfile = userProfileGeneratorService.generateFakeUserProfile();
+        UserProfile actualUserProfile = fakerGeneratorService.generateFakeUserProfile();
 
         assertEquals(expectedUserProfile.getClass(), actualUserProfile.getClass());
     }

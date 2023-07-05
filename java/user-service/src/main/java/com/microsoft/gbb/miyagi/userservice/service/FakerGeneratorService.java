@@ -16,11 +16,11 @@ import java.util.List;
  */
 @Slf4j
 @Service
-@Qualifier("userprofilegenerator")
-public class UserProfileGeneratorService {
+@Qualifier("fakergenerator")
+public class FakerGeneratorService implements ISyntheticGeneratorService {
     private final Faker faker;
 
-    public UserProfileGeneratorService() {
+    public FakerGeneratorService() {
         faker = new Faker();
     }
 
@@ -45,7 +45,7 @@ public class UserProfileGeneratorService {
      * Generates a fake financial profile
      * @return a fake financial profile
      */
-    private FinancialProfile generateFakeFinancialProfile() {
+    public FinancialProfile generateFakeFinancialProfile() {
         FinancialProfile financialProfile = new FinancialProfile();
         financialProfile.setAnnualSalary(faker.number().randomDouble(2, 30_000, 200_000));
         financialProfile.setCurrentAssets(faker.number().randomDouble(2, 10_000, 1_000_000));
@@ -59,7 +59,7 @@ public class UserProfileGeneratorService {
      * Generates a fake aspirations profile
      * @return a fake aspirations profile
      */
-    private Aspirations generateFakeAspirations() {
+    public Aspirations generateFakeAspirations() {
         Aspirations aspirations = new Aspirations();
         aspirations.setVacationBucketList(generateRandomCountryList(faker.number().numberBetween(1, 5)));
         aspirations.setHobbies(generateRandomHobbyList(faker.number().numberBetween(1, 5)));
@@ -73,7 +73,7 @@ public class UserProfileGeneratorService {
      * @param count the number of strings to generate
      * @return a list of random strings
      */
-    private List<String> generateRandomHobbyList(int count) {
+    public List<String> generateRandomHobbyList(int count) {
         List<String> randomStrings = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             randomStrings.add(faker.hobby().activity());
@@ -86,7 +86,7 @@ public class UserProfileGeneratorService {
      * @param count the number of strings to generate
      * @return a list of random strings
      */
-    private List<String> generateRandomCountryList(int count) {
+    public List<String> generateRandomCountryList(int count) {
         List<String> randomStrings = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             randomStrings.add(faker.address().country());

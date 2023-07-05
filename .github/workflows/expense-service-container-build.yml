@@ -1,11 +1,11 @@
-name: Memory Service Build and Push to GHCR
+name: Expense Service Build and Push to GHCR
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'python/memory-service/**'
+      - 'python/expense-service/**'
   workflow_dispatch:
 
 env:
@@ -36,6 +36,6 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: python/memory-service
+        context: python/expense-service
         push: true
-        tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/memory-service:${{ env.short_sha }}
+        tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/expense-service:${{ env.short_sha }}

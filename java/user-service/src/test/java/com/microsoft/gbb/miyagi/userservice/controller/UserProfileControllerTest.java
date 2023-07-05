@@ -1,7 +1,7 @@
 package com.microsoft.gbb.miyagi.userservice.controller;
 
 import com.microsoft.gbb.miyagi.userservice.entity.UserProfile;
-import com.microsoft.gbb.miyagi.userservice.service.UserProfileService;
+import com.microsoft.gbb.miyagi.userservice.service.IUserProfileService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 class UserProfileControllerTest {
 
     @Mock
-    private UserProfileService userProfileService;
+    private IUserProfileService IUserProfileService;
 
     @InjectMocks
     private UserProfileController userProfileController;
@@ -26,7 +26,7 @@ class UserProfileControllerTest {
     @Test
     @DisplayName("should throw an exception when the id is not found")
     void getUserProfileByIdWhenIdNotFoundThenThrowException() {
-        when(userProfileService.getUserProfileById(anyLong()))
+        when(IUserProfileService.getUserProfileById(anyLong()))
                 .thenThrow(new RuntimeException("User profile not found"));
         assertThrows(
                 RuntimeException.class,
@@ -38,7 +38,7 @@ class UserProfileControllerTest {
     void getUserProfileByIdWhenIdIsValid() {
         UserProfile userProfile = new UserProfile();
         userProfile.setUserId(1L);
-        when(userProfileService.getUserProfileById(anyLong())).thenReturn(userProfile);
+        when(IUserProfileService.getUserProfileById(anyLong())).thenReturn(userProfile);
 
         UserProfile actualUserProfile = userProfileController.getUserProfileById(1L);
 
