@@ -1,7 +1,7 @@
 package com.microsoft.gbb.miyagi.userservice.controller;
 
 import com.microsoft.gbb.miyagi.userservice.entity.UserProfile;
-import com.microsoft.gbb.miyagi.userservice.service.UserProfileService;
+import com.microsoft.gbb.miyagi.userservice.service.IUserProfileService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +16,10 @@ import java.util.List;
 @RequestMapping("/api/v1/userprofile")
 public class UserProfileController {
 
-    private final UserProfileService userProfileService;
+    private final IUserProfileService IUserProfileService;
 
-    public UserProfileController(UserProfileService userProfileService) {
-        this.userProfileService = userProfileService;
+    public UserProfileController(IUserProfileService IUserProfileService) {
+        this.IUserProfileService = IUserProfileService;
     }
 
     /**
@@ -34,7 +34,7 @@ public class UserProfileController {
     @ResponseStatus(HttpStatus.CREATED)
     @CrossOrigin(origins = "*")
     public ResponseEntity<UserProfile> createNewCustomer(@RequestBody @Valid UserProfile user) {
-        return ResponseEntity.ok(userProfileService.createUserProfile(user));
+        return ResponseEntity.ok(IUserProfileService.createUserProfile(user));
     }
 
     /**
@@ -45,7 +45,7 @@ public class UserProfileController {
      */
     @GetMapping("/{id}")
     public UserProfile getUserProfileById(@PathVariable long id) {
-        return userProfileService.getUserProfileById(id);
+        return IUserProfileService.getUserProfileById(id);
     }
 
     /**
@@ -56,7 +56,7 @@ public class UserProfileController {
      */
     @PutMapping
     public UserProfile updateUserProfile(@RequestBody UserProfile userProfile) {
-        return userProfileService.updateUserProfile(userProfile);
+        return IUserProfileService.updateUserProfile(userProfile);
     }
 
     /**
@@ -67,7 +67,7 @@ public class UserProfileController {
      */
     @DeleteMapping("/{id}")
     public boolean deleteUserProfile(@PathVariable long id) {
-        return userProfileService.deleteUserProfile(id);
+        return IUserProfileService.deleteUserProfile(id);
     }
 
     /**
@@ -77,6 +77,6 @@ public class UserProfileController {
      */
     @GetMapping
     public List<UserProfile> listUserProfiles() {
-        return userProfileService.listUserProfiles();
+        return IUserProfileService.listUserProfiles();
     }
 }

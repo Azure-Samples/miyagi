@@ -28,6 +28,11 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-ai-openai</artifactId>
+            <version>1.0.0-beta.2</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${spring-boot-starter-version}</version>
@@ -161,6 +166,7 @@
                 <version>6.0.0-beta.4</version>
                 <type>pom</type>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 

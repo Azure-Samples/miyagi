@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Interface to define CRUD operations for managing user profiles.
  */
-public interface UserProfileService {
+public interface IUserProfileService {
     /**
      * Creates a new user profile.
      *
