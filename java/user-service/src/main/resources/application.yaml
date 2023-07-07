@@ -1,11 +1,6 @@
 spring:
   application:
       name: user-service
-openai:
-  key: ${AZURE_OPENAI_KEY}
-  endpoint: ${AZURE_OPENAI_ENDPOINT}
-  model:
-    id: ${AZURE_OPENAI_MODEL_ID}
   kafka:
     topic:
       name: ${KAFKATOPICNAME}
@@ -43,6 +38,11 @@ openai:
     baseline-on-migrate: 'true'
   banner:
     location: static/banner.txt
+openai:
+  key: ${AZURE_OPENAI_KEY}
+  endpoint: ${AZURE_OPENAI_ENDPOINT}
+  model:
+    id: ${AZURE_OPENAI_MODEL_ID}
 eureka:
   client:
     register-with-eureka: false

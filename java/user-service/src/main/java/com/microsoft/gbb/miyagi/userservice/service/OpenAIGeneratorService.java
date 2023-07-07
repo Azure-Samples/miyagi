@@ -1,9 +1,7 @@
 package com.microsoft.gbb.miyagi.userservice.service;
 
 import com.azure.ai.openai.OpenAIClient;
-import com.azure.ai.openai.models.Choice;
-import com.azure.ai.openai.models.Completions;
-import com.azure.ai.openai.models.CompletionsOptions;
+import com.azure.ai.openai.models.*;
 import com.microsoft.gbb.miyagi.userservice.config.OpenAIConfig;
 import com.microsoft.gbb.miyagi.userservice.entity.Aspirations;
 import com.microsoft.gbb.miyagi.userservice.entity.FinancialProfile;
@@ -22,6 +20,12 @@ import java.util.List;
 @Service
 @Qualifier("openaigenerator")
 public class OpenAIGeneratorService implements ISyntheticGeneratorService {
+    private static final String META_PROMPT = """
+        You are a synthetic data generator that only returns a
+        single response that is either a string or a number.
+        The number should be parsable as an integer or a double.
+        DO NOT RETURN ANYTHING ELSE.
+        """;
     private final OpenAIClient openAIClient;
     private final OpenAIConfig openAIConfig;
 
@@ -37,7 +41,7 @@ public class OpenAIGeneratorService implements ISyntheticGeneratorService {
         userProfile.setFirstName(getCompletion("Generate a first name"));
         userProfile.setLastName(getCompletion("Generate a last name"));
         userProfile.setCity(getCompletion("Generate a city name"));
-        userProfile.setAge(Integer.parseInt(getCompletion("Generate a number between 18 and 65")));
+        userProfile.setAge(Integer.parseInt(getCompletion("Generate a number between 18 and 65 that is parsable as integer")));
 
         userProfile.setFinancialProfile(generateFakeFinancialProfile());
         userProfile.setAspirations(generateFakeAspirations());
@@ -85,14 +89,34 @@ public class OpenAIGeneratorService implements ISyntheticGeneratorService {
     }
 
     private String getCompletion(String prompt) {
-        List<String> promptList = new ArrayList<>();
+       /* List<String> promptList = new ArrayList<>();
+        promptList.add(META_PROMPT);
         promptList.add(prompt);
 
         Completions completions = openAIClient.getCompletions(openAIConfig.getOpenAIModelId(),
-                                                              new CompletionsOptions(promptList));
+                                                              new CompletionsOptions(promptList));*/
+        List<ChatMessage> chatMessages = new ArrayList<>();
+        chatMessages.add(new ChatMessage(ChatRole.SYSTEM).setContent(META_PROMPT));
+        // one shot example
+        chatMessages.add(new ChatMessage(ChatRole.USER).setContent("Generate a name"));
+        chatMessages.add(new ChatMessage(ChatRole.ASSISTANT).setContent("John Doe"));
+        chatMessages.add(new ChatMessage(ChatRole.USER).setContent(prompt));
 
-        Choice choice = completions.getChoices().get(0);
+        ChatCompletions chatCompletions = openAIClient.getChatCompletions(openAIConfig.getOpenAIModelId(),
+                new ChatCompletionsOptions(chatMessages));
 
-        return choice.getText().trim();
+        System.out.printf("Model ID=%s is created at %d.%n", chatCompletions.getId(), chatCompletions.getCreated());
+        ChatMessage message = null;
+        for (ChatChoice choice : chatCompletions.getChoices()) {
+            message = choice.getMessage();
+            System.out.printf("Index: %d, Chat Role: %s.%n", choice.getIndex(), message.getRole());
+            System.out.println("Message:");
+            System.out.println(message.getContent());
+        }
+/*        Choice choice = completions.getChoices().get(0);
+
+        return choice.getText().trim();*/
+        assert message != null;
+        return message.getContent();
     }
 }
