@@ -51,6 +51,12 @@ builder.Services.AddSingleton<IKernel>(provider =>
     return kernel;
 });
 
+builder.Services.AddSingleton<QdrantMemoryStore>(provider =>
+{
+    var memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), 1536, ConsoleLogger.Log);
+    return memoryStore;
+});
+
 builder.Services.AddSingleton<BingConnector>(provider =>
 {
     var bingConnector = new BingConnector(Env.Var("BING_API_KEY"));
