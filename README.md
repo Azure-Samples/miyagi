@@ -29,12 +29,12 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 
 1. [MVP with Personalize (Synthesis via Semantic Kernel) and Chat on Azure Container Apps](https://agentmiyagi.com)
 1. [Miyagi ChatGPT Plugin](./python/chatgpt-plugin-miyagi)
-1. [Knowledge Graph memory using Langchain's entity cache](./experiments/langchain/Memory_Usecases.ipynb)
-1. [Qdrant vector store for embeddings via Langchain](./experiments/langchain/qdrant_miyagi_example)
-1. [MS Graph API intent invoked via Semantic Kernel's skills](./experiments/semantic-kernel/ms-graph-chain)
-1. [Miyagi prompt engineered chat interaction](./experiments/langchain/chat) using LangChain's PromptTemplate 
-1. [Azure OpenAI GPT-3.5 basic flow](./experiments/az-openai)
-1. [GPT-3.5-turbo and Whisper-1 usage to transcribe audio and demonstrate few-shot example](./experiments/gpt-3.5-turbo)
+1. [Knowledge Graph memory using Langchain's entity cache](./usecases/experiments/langchain/Memory_Usecases.ipynb)
+1. [Qdrant vector store for embeddings via Langchain](./usecases/experiments/langchain/qdrant_miyagi_example)
+1. [MS Graph API intent invoked via Semantic Kernel's skills](./usecases/experiments/semantic-kernel/ms-graph-chain)
+1. [Miyagi prompt engineered chat interaction](./usecases/experiments/langchain/chat) using LangChain's PromptTemplate 
+1. [Azure OpenAI GPT-3.5 basic flow](./usecases/experiments/az-openai)
+1. [GPT-3.5-turbo and Whisper-1 usage to transcribe audio and demonstrate few-shot example](./usecases/experiments/gpt-3.5-turbo)
 1. [DeepSpeed Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat) MiyagiGPT (BYO Weights w/ RLHF - Reinforcement Learning from Human Feedback) - coming soon
 
 ### Frontend
