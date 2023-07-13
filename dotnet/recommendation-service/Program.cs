@@ -28,7 +28,9 @@ builder.Services.AddSingleton<IKernel>(provider =>
 {
     // initialize the kernel
     var kernelSettings = KernelSettings.LoadSettings();
-    var memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), 1536, ConsoleLogger.Log);
+    // Uncomment below line to use Qdrant
+    // var memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), 1536, ConsoleLogger.Log);
+    var memoryStore = new VolatileMemoryStore();
     
     IKernel kernel = new KernelBuilder()
         .WithLogger(NullLogger.Instance)

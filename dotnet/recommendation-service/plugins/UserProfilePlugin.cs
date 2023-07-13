@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using System.ComponentModel;
 using Microsoft.SemanticKernel.Orchestration;
 using Microsoft.SemanticKernel.SkillDefinition;
 
@@ -32,18 +33,18 @@ public class UserProfilePlugin
     ///     SKContext[UserProfilePlugin.UserId] = "000"
     /// </example>
     /// <param name="context">Contains the context variables.</param>
-    [SKFunction("Given a userId, get user age")]
-    [SKFunctionName("GetUserAge")]
-    [SKFunctionContextParameter(Name = UserId, Description = "UserId", DefaultValue = DefaultUserId)]
-    public string GetUserAge(SKContext context)
+    [SKFunction, SKName("GetUserAge"), Description("Given a userId, get user age")]
+    public string GetUserAge(
+        [Description("Unique identifier of a user")] string userId,
+        SKContext context)
     {
-        var userId = context.Variables.ContainsKey(UserId) ? context[UserId] : DefaultUserId;
+        // userId = context.Variables.ContainsKey(UserId) ? context[UserId] : DefaultUserId;
+        userId = string.IsNullOrEmpty(userId) ? DefaultUserId : userId;
         context.Log.LogDebug("Returning hard coded age for {0}", userId);
 
-        int parsedUserId;
         int age;
 
-        if (int.TryParse(userId, out parsedUserId))
+        if (int.TryParse(userId, out var parsedUserId))
         {
             age = parsedUserId > 100 ? (parsedUserId % Normalize) : parsedUserId;
         }
@@ -55,7 +56,7 @@ public class UserProfilePlugin
         // invoke a service to get the age of the user, given the userId
         return age.ToString();
     }
-    
+
     /// <summary>
     ///     Lookup User's annual income given UserId.
     /// </summary>
@@ -63,12 +64,15 @@ public class UserProfilePlugin
     ///     SKContext[UserProfilePlugin.UserId] = "000"
     /// </example>
     /// <param name="context">Contains the context variables.</param>
-    [SKFunction("Given a userId, get user annual household income")]
-    [SKFunctionName("GetAnnualHouseholdIncome")]
-    [SKFunctionContextParameter(Name = UserId, Description = "UserId", DefaultValue = DefaultUserId)]
-    public string GetAnnualHouseholdIncome(SKContext context)
+    [SKFunction,
+     SKName("GetAnnualHouseholdIncome"),
+     Description("Given a userId, get user annual household income")]
+    public string GetAnnualHouseholdIncome(
+        [Description("Unique identifier of a user")] string userId,
+        SKContext context)
     {
-        var userId = context.Variables.ContainsKey(UserId) ? context[UserId] : DefaultUserId;
+        // userId = context.Variables.ContainsKey(UserId) ? context[UserId] : DefaultUserId;
+        userId = string.IsNullOrEmpty(userId) ? DefaultUserId : userId;
         context.Log.LogDebug("Returning userId * randomMultiplier for {0}", userId);
 
         var random = new Random();
