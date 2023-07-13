@@ -85,7 +85,11 @@ This will be similar to [reddog](https://reddog-solutions.com) product [image ge
 
 ## Tech Stack
 
-<TODO>
+### Copilot Stack
+
+![copilot stack](./assets/images/copilot-stack.png)
+
+### Services and capabilities
 
 - [Azure OpenAI](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/models)
   - gpt-4
