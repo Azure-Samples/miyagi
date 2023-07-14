@@ -4,7 +4,7 @@
 >
 >  "Change is the only constant" - Heraclitus
 
-<p align="center"><img src="sandbox/assets/images/1.png" width=20% height=20% /></p>
+<p align="center"><img src="assets/images/1.png" width=20% height=20% /></p>
 
 Project Miyagi serves as the foundation for an [envisioning workshop](https://github.com/Azure-Samples/intelligent-app-workshop) that reimagines the design, development, and deployment of intelligent applications using Microsoft's [Copilot stack](https://news.microsoft.com/source/features/ai/microsoft-outlines-framework-for-building-ai-apps-and-copilots-expands-ai-plugin-ecosystem/). It demonstrates that integrating intelligence transcends a simple chat interface and permeates every aspect of your product experience, utilizing semantic data to generate personalized interactions and effectively address individual needs. Through a comprehensive exploration of generative and discriminative [use cases](https://iappwksp.com/wksp/05-use-cases/), Miyagi offers hands-on experience with cutting-edge programming paradigms that harness the power of foundation models in every workflow. Additionally, it introduces traditional software engineers to emerging design patterns in prompt engineering (chain-of-thought, few-shot, retrieval-augmentation), vectorization for long-term memory, and tools or affordances to augment and ground LLMs.
 
@@ -39,55 +39,55 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 
 ### Frontend
 Interaction with foundation models is more than chat. This sample shows a few use cases 
-![frontend](./sandbox/assets/images/wip-ui.png)
+![frontend](./assets/images/wip-ui.png)
 
-<p align="left"><img src="sandbox/assets/images/plugin.png" width=50% height=50% /></p>
+<p align="left"><img src="assets/images/plugin.png" width=50% height=50% /></p>
 
 ### Architecture
 
 #### High-level logical architecture
 
-![azure](./sandbox/assets/images/wip-azure.png)
+![azure](./assets/images/wip-azure.png)
 
 #### Semantic Kernel Orchestration for Miyagi usecase
 
-![sk-orchestration](./sandbox/assets/images/sk-memory-orchestration.png)
+![sk-orchestration](./assets/images/sk-memory-orchestration.png)
 
 #### In-context learning flow
 
-![round-trip](./sandbox/assets/images/sk-round-trip.png)
+![round-trip](./assets/images/sk-round-trip.png)
 
-<p align="left"><img src="sandbox/assets/images/embeddings.png" width=40% height=40% /></p>
+<p align="left"><img src="assets/images/embeddings.png" width=40% height=40% /></p>
 
 #### 30k foot view
 
-<p align="left"><img src="sandbox/assets/images/basic-arch.png" width=30% height=30% /></p>
+<p align="left"><img src="assets/images/basic-arch.png" width=30% height=30% /></p>
 
 
 #### Prompt Flow
-![prompt-flow](./sandbox/assets/images/prompt-flow-basic.png)
+![prompt-flow](./assets/images/prompt-flow-basic.png)
 
 #### OSS Pre-trained Foundation Models
-![aml-miyagi-dolly](./sandbox/assets/images/aml-miyagi-dolly.png)
-![aml-training](./sandbox/assets/images/aml-finetune.png)
+![aml-miyagi-dolly](./assets/images/aml-miyagi-dolly.png)
+![aml-training](./assets/images/aml-finetune.png)
 
 
 #### Initial ideation for EDA + SK flow
 
-![architecture](./sandbox/assets/images/wip-architecture.png)
+![architecture](./assets/images/wip-architecture.png)
 
 
 
 ### Generative image use case architecture with Dreambooth
 This will be similar to [reddog](https://reddog-solutions.com) product [image generation use case](https://huggingface.co/thegovind/reddogpillmodel512). 
 
-![generative-image](./sandbox/assets/images/wip-dreambooth.png)
+![generative-image](./assets/images/wip-dreambooth.png)
 
 ## Tech Stack
 
 ### Copilot Stack
 
-![copilot stack](./sandbox/assets/images/copilot-stack.png)
+![copilot stack](./assets/images/copilot-stack.png)
 
 ### Services and capabilities
 

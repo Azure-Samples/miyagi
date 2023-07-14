@@ -5,7 +5,7 @@ along with vector stores and connectors. The key aspects of this service will be
 
 ## Overview
 
-![Recommendation Service](../../../sandbox/assets/images/sk-memory-orchestration.png)
+![Recommendation Service](../../../assets/images/sk-memory-orchestration.png)
 
 ## Getting Started
 
