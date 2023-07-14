@@ -47,7 +47,7 @@ Energy Demand: Demand for crude oil may have peaked in 2019 at 100.5 million bar
 
 For informational purposes only and should not be considered investment advice or a recommendation to buy, sell, or hold any particular security. Forecasts are inherently limited and cannot be relied upon.
 
-https://iea.blob.core.windows.net/assets/830fe099-5530-48f2-a7c1-11f35d510983/WorldEnergyOutlook2022.pdf, as of November 2022. https://www.bp.com/en/global/corporate/energy-economics/energy-outlook/oil-demand.html, as of March 2022.
+https://iea.blob.core.windows.net/sandbox/assets/830fe099-5530-48f2-a7c1-11f35d510983/WorldEnergyOutlook2022.pdf, as of November 2022. https://www.bp.com/en/global/corporate/energy-economics/energy-outlook/oil-demand.html, as of March 2022.
 
 Genomic Revolution
 Base Editing: In 2022, thanks to a new form of gene editing, a young girl in the UK with leukemia went from her death bed in May to cancer-free in November. Base editing and multiplexing have the potential to provide more effective CAR-T treatments for patients with otherwise incurable cancers.
