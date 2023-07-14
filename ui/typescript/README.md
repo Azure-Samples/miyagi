@@ -17,7 +17,7 @@ yarn install
 yarn dev
 ```
 ### Screenshots
-<img src="../../assets/images/wip-ui.png" />
+<img src="../../../assets/images/wip-ui.png" />
 
 
 <img src="public/images/readme/1.png" width=30% height=30% />
