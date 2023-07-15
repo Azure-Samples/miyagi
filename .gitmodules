@@ -1,3 +1,0 @@
-[submodule "semantic-kernel"]
-	path = semantic-kernel
-	url = https://github.com/microsoft/semantic-kernel

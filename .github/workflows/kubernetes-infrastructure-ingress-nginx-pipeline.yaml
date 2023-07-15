@@ -20,7 +20,7 @@ jobs:
 
     - name: Run Helm
       shell: bash
-      run: ./infrastructure/kubernetes/manifests/10-infrastructure/ingress-nginx/install.sh
+      run: ./deploy/infrastructure/kubernetes/manifests/10-infrastructure/ingress-nginx/install.sh
 
     - name: Initialize Terraform
       shell: bash
