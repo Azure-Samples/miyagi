@@ -3,6 +3,8 @@
 Microservice that leverages Semantic Kernel to orchestrate the recommendation flow with native and semantic functions,
 along with vector stores and connectors. The key aspects of this service will be distilled in the [Synthesis use case](https://iappwksp.com/wksp/05-use-cases/synthesis/)
 
+> Tip: For advanced deep learning-based recommender systems, checout [microsoft/recommenders](https://github.com/microsoft/recommenders#algorithms) for complex DLRMs.
+
 ## Overview
 
 ![Recommendation Service](../../../assets/images/sk-memory-orchestration.png)
