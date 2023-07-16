@@ -1,8 +1,8 @@
 {
   "endpointType": "text-completion",
   "serviceType": "OpenAI",
-  "serviceId": "text-davinci-003",
-  "deploymentOrModelId": "text-davinci-003",
+  "serviceId": "gpt-35-turbo",
+  "deploymentOrModelId": "gpt-35-turbo",
   "apiKey": "... your OpenAI key ...",
   "orgId": ""
 }

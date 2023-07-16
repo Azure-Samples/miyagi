@@ -2,7 +2,6 @@ using System.Diagnostics;
 using System.Text.Json;
 using GBB.Miyagi.RecommendationService.models;
 using GBB.Miyagi.RecommendationService.plugins;
-using GBB.Miyagi.RecommendationService.utils;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
@@ -14,26 +13,26 @@ using Microsoft.SemanticKernel.TemplateEngine;
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
 /// <summary>
-/// The controller below is used to recommend asset allocation to the user, given their preferences.
-///   Usage: POST /assets with miyagiContext as the JSON body
+///     The controller below is used to recommend asset allocation to the user, given their preferences.
+///     Usage: POST /assets with miyagiContext as the JSON body
 /// </summary>
 [ApiController]
 [Route("recommendations")]
 public class AssetsController : ControllerBase
 {
-    private readonly IKernel _kernel;
     private const string DefaultRiskLevel = "moderate";
+    private readonly IKernel _kernel;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AssetsController"/> class.
+    ///     Initializes a new instance of the <see cref="AssetsController" /> class.
     /// </summary>
     public AssetsController(IKernel kernel)
     {
         _kernel = kernel;
     }
-    
+
     /// <summary>
-    /// Returns the recommended asset allocation for the user using planner.
+    ///     Returns the recommended asset allocation for the user using planner.
     /// </summary>
     /// <param name="miyagiContext">User preferences.</param>
     /// <returns>JSON object of LLM response with asset allocation</returns>
@@ -53,11 +52,11 @@ public class AssetsController : ControllerBase
         var userProfilePlugin = _kernel.ImportSkill(new UserProfilePlugin(), "UserProfilePlugin");
 
         // ========= Set context variables to populate the prompt  =========
-        SKContext context = _kernel.CreateNewContext();
+        var context = _kernel.CreateNewContext();
         context.Variables.Set("userId", miyagiContext.UserInfo.UserId);
         context.Variables.Set("portfolio", JsonSerializer.Serialize(miyagiContext.Portfolio));
         context.Variables.Set("risk", miyagiContext.UserInfo.RiskLevel ?? DefaultRiskLevel);
-        
+
         // ========= Chain and orchestrate with LLM =========
         var plan = new Plan("Execute userProfilePlugin and then advisorPlugin");
         plan.AddSteps(userProfilePlugin["GetUserAge"],
@@ -79,15 +78,10 @@ public class AssetsController : ControllerBase
         log?.LogDebug("Number of Tokens: {N}", numTokens);
         log?.LogDebug("Rendered Prompt: {S}", renderedPrompt);
         log?.LogDebug("Result: {S}", result.Result);
-        if (result.Variables.TryGetValue("stepCount", out string? stepCount))
-        {
-            log?.LogDebug("Steps Taken: {N}", stepCount);
-        }
+        if (result.Variables.TryGetValue("stepCount", out var stepCount)) log?.LogDebug("Steps Taken: {N}", stepCount);
 
-        if (result.Variables.TryGetValue("skillCount", out string? skillCount))
-        {
+        if (result.Variables.TryGetValue("skillCount", out var skillCount))
             log?.LogDebug("Skills Used: {N}", skillCount);
-        }
 
         log?.LogDebug("Time Taken: {N}", sw.Elapsed);
         log?.LogDebug("*************************************");
@@ -96,10 +90,10 @@ public class AssetsController : ControllerBase
 
         return Content(output, "application/json");
     }
-    
+
 
     /// <summary>
-    /// Returns the recommended asset allocation for the user using RunAsync.
+    ///     Returns the recommended asset allocation for the user using RunAsync.
     /// </summary>
     /// <param name="miyagiContext">User preferences.</param>
     /// <returns>JSON object of LLM response with asset allocation</returns>

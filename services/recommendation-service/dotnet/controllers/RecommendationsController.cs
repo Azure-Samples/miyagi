@@ -1,5 +1,4 @@
 using System.Text.Json;
-using Azure.Storage.Blobs;
 using GBB.Miyagi.RecommendationService.models;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +14,7 @@ namespace GBB.Miyagi.RecommendationService.Controllers;
 public class RecommendationsController : ControllerBase
 {
     private readonly AssetsController _assetsController;
-    
+
     private readonly InvestmentsController _investmentsController;
     private readonly IKernel _kernel;
     private readonly QdrantMemoryStore _memoryStore;
@@ -168,6 +167,4 @@ public class RecommendationsController : ControllerBase
 
         return Ok(new { Recommendation = newsResults.Result, Prompt = newPrompt });
     }
-
-    
 }

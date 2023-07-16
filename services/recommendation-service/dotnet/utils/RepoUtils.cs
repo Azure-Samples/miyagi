@@ -7,7 +7,7 @@ namespace GBB.Miyagi.RecommendationService.utils;
 public static class RepoUtils
 {
     /// <summary>
-    /// Scan the local folders from the repo, looking for "plugins" folder.
+    ///     Scan the local folders from the repo, looking for "plugins" folder.
     /// </summary>
     /// <returns>The full path to samples/skills</returns>
     public static string GetSamplePluginsPath()
@@ -29,11 +29,9 @@ public static class RepoUtils
             return found;
         }
 
-        if (!SearchPath(Parent + Path.DirectorySeparatorChar + Folder, out string path)
+        if (!SearchPath(Parent + Path.DirectorySeparatorChar + Folder, out var path)
             && !SearchPath(Folder, out path))
-        {
             throw new Exception("Plugins directory not found. Miyagi needs plugins from the repo to work.");
-        }
 
         return path;
     }

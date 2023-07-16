@@ -1,4 +1,3 @@
-using System.Globalization;
 using Azure.Storage.Blobs;
 using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.Utils;
@@ -22,7 +21,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton(x => new BlobServiceClient(Env.Var("AZURE_STORAGE_CONNECTION_STRING")));
 
 
-
 // Register the required services
 builder.Services.AddSingleton<IKernel>(provider =>
 {
@@ -31,8 +29,8 @@ builder.Services.AddSingleton<IKernel>(provider =>
     // Uncomment below line to use Qdrant
     // var memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), 1536, ConsoleLogger.Log);
     var memoryStore = new VolatileMemoryStore();
-    
-    IKernel kernel = new KernelBuilder()
+
+    var kernel = new KernelBuilder()
         .WithLogger(NullLogger.Instance)
         .WithCompletionService(kernelSettings)
         .WithEmbeddingGenerationService(kernelSettings)

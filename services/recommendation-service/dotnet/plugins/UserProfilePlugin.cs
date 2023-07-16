@@ -33,9 +33,12 @@ public class UserProfilePlugin
     ///     SKContext[UserProfilePlugin.UserId] = "000"
     /// </example>
     /// <param name="context">Contains the context variables.</param>
-    [SKFunction, SKName("GetUserAge"), Description("Given a userId, get user age")]
+    [SKFunction]
+    [SKName("GetUserAge")]
+    [Description("Given a userId, get user age")]
     public string GetUserAge(
-        [Description("Unique identifier of a user")] string userId,
+        [Description("Unique identifier of a user")]
+        string userId,
         SKContext context)
     {
         // userId = context.Variables.ContainsKey(UserId) ? context[UserId] : DefaultUserId;
@@ -45,13 +48,9 @@ public class UserProfilePlugin
         int age;
 
         if (int.TryParse(userId, out var parsedUserId))
-        {
-            age = parsedUserId > 100 ? (parsedUserId % Normalize) : parsedUserId;
-        }
+            age = parsedUserId > 100 ? parsedUserId % Normalize : parsedUserId;
         else
-        {
             age = int.Parse(DefaultUserId);
-        }
 
         // invoke a service to get the age of the user, given the userId
         return age.ToString();
@@ -64,11 +63,12 @@ public class UserProfilePlugin
     ///     SKContext[UserProfilePlugin.UserId] = "000"
     /// </example>
     /// <param name="context">Contains the context variables.</param>
-    [SKFunction,
-     SKName("GetAnnualHouseholdIncome"),
-     Description("Given a userId, get user annual household income")]
+    [SKFunction]
+    [SKName("GetAnnualHouseholdIncome")]
+    [Description("Given a userId, get user annual household income")]
     public string GetAnnualHouseholdIncome(
-        [Description("Unique identifier of a user")] string userId,
+        [Description("Unique identifier of a user")]
+        string userId,
         SKContext context)
     {
         // userId = context.Variables.ContainsKey(UserId) ? context[UserId] : DefaultUserId;

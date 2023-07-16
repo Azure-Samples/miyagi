@@ -8,23 +8,23 @@ using Microsoft.SemanticKernel.Text;
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
 /// <summary>
-/// Controller for hydrating vector database with proprietary datasets
+///     Controller for hydrating vector database with proprietary datasets
 /// </summary>
 [ApiController]
 [Route("memory")]
 public class MemoryController : ControllerBase
 {
-    private readonly BlobServiceClient _blobServiceClient;
-    private readonly IKernel _kernel;
     private const int MaxTokensPerParagraph = 160;
     private const int MaxTokensPerLine = 60;
-    
+    private readonly BlobServiceClient _blobServiceClient;
+    private readonly IKernel _kernel;
+
     public MemoryController(IKernel kernel, BlobServiceClient blobServiceClient)
     {
         _kernel = kernel;
         _blobServiceClient = blobServiceClient;
     }
-    
+
     [HttpGet("/datasets/{containerName?}")]
     public async Task<IActionResult> ListDatasets(string containerName = null)
     {
@@ -62,10 +62,7 @@ public class MemoryController : ControllerBase
         {
             // Read file from local file system
             var filePath = Path.Combine("resources", "sample-datasets", $"{datasetInfo.DataSetName}.txt");
-            if (!System.IO.File.Exists(filePath))
-            {
-                return NotFound($"File {filePath} not found.");
-            }
+            if (!System.IO.File.Exists(filePath)) return NotFound($"File {filePath} not found.");
             using var streamReader = new StreamReader(filePath);
             text = await streamReader.ReadToEndAsync();
         }
@@ -83,7 +80,7 @@ public class MemoryController : ControllerBase
         // Chunk, generate embeddings, and persist to vectordb
         var memoryCollectionName = Env.Var("MEMORY_COLLECTION");
         log?.LogInformation($"Saving dataset {datasetInfo.DataSetName} to memory collection {memoryCollectionName}");
-        
+
         var lines = TextChunker.SplitPlainTextLines(text, MaxTokensPerLine);
         var chunks = TextChunker.SplitPlainTextParagraphs(lines, MaxTokensPerParagraph);
 
@@ -91,15 +88,14 @@ public class MemoryController : ControllerBase
         {
             var chunk = chunks[i];
             var key = await _kernel.Memory.SaveInformationAsync(
-                collection: memoryCollectionName,
-                text: chunk,
-                id: $"{datasetInfo.DataSetName}-{i}",
-                description: $"Dataset: {datasetInfo.DataSetName}",
-                additionalMetadata: datasetInfo.Metadata?.ToString());
+                memoryCollectionName,
+                chunk,
+                $"{datasetInfo.DataSetName}-{i}",
+                $"Dataset: {datasetInfo.DataSetName}",
+                datasetInfo.Metadata?.ToString());
             log?.LogInformation($"Saved chunk {i} with text {chunk}");
         }
 
         return Ok(new { datasetInfo.DataSetName, chunks.Count });
     }
-
 }

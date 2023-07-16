@@ -10,14 +10,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Azure.Storage.Blobs" Version="12.17.0-beta.1" />
-        <PackageReference Include="Confluent.Kafka" Version="2.1.0" />
-        <PackageReference Include="Microsoft.SemanticKernel" Version="0.17.230704.3-preview" />
-        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.Qdrant" Version="0.17.230704.3-preview" />
-        <PackageReference Include="Microsoft.SemanticKernel.Skills.Web" Version="0.17.230704.3-preview" />
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+        <PackageReference Include="Azure.Storage.Blobs" Version="12.17.0-beta.1"/>
+        <PackageReference Include="Confluent.Kafka" Version="2.1.0"/>
+        <PackageReference Include="Microsoft.SemanticKernel" Version="0.17.230711.7-preview"/>
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.Qdrant" Version="0.17.230711.7-preview"/>
+        <PackageReference Include="Microsoft.SemanticKernel.Planning.StepwisePlanner" Version="0.17.230711.7-preview"/>
+        <PackageReference Include="Microsoft.SemanticKernel.Skills.Web" Version="0.17.230711.7-preview"/>
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
     </ItemGroup>
 
 </Project>
