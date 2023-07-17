@@ -14,7 +14,7 @@ This folder contains the microservices that implement the [use cases](https://ia
 | Chat (Q&A) | [sk-copilot-chat-api](../services/sk-copilot-chat-api/) |
 | Synthetic data | [user-service](./user-service/java/) |
 
-### Discriminative 
+### Discriminative (Traditional ML)
 
 | Use Case | Subfolder |
 |----------|-----------|

@@ -2,7 +2,7 @@
 
 >  “Start with the customer experience and work backwards for the technology” - Steve Jobs
 >
->  "Change is the only constant" - Heraclitus
+>  "Change is the only constant" - Ancient wisdom
 
 <p align="center"><img src="assets/images/1.png" width=20% height=20% /></p>
 
