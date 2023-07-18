@@ -35,45 +35,45 @@ public class RecommendationsController : ControllerBase
     [HttpPost("/personalize")]
     public async Task<IActionResult> GetRecommendations([FromBody] MiyagiContext miyagiContext)
     {
-        var assetsResult = await _assetsController.GetRecommendations(miyagiContext) as ContentResult;
-        var investmentsResult = await _investmentsController.GetRecommendations(miyagiContext) as ContentResult;
-
-        if (assetsResult == null || investmentsResult == null)
-            return StatusCode(500,
-                "Failed to get recommendations");
-
         const int maxRetries = 2;
         var currentRetry = 0;
 
-        JsonDocument assetsJson = null;
-        JsonDocument investmentsJson = null;
-
         while (currentRetry <= maxRetries)
+        {
             try
             {
-                var assetsContent = assetsResult.Content;
-                var investmentsContent = investmentsResult.Content;
+                var assetsResult = await _assetsController.GetRecommendations(miyagiContext) as ContentResult;
+                var investmentsResult = await _investmentsController.GetRecommendations(miyagiContext) as JsonResult;
 
-                assetsJson = JsonDocument.Parse(assetsContent);
-                investmentsJson = JsonDocument.Parse(investmentsContent);
+                if (assetsResult == null || investmentsResult == null)
+                {
+                    return StatusCode(500, "Failed to get recommendations");
+                }
 
-                break; // If parsing is successful, break out of the loop
+                var assetsJson = JsonDocument.Parse(assetsResult.Content);
+                var investmentsJson = investmentsResult.Value as JsonDocument;
+
+                var aggregatedResult = new Dictionary<string, JsonElement>
+                {
+                    { "assets", assetsJson.RootElement },
+                    { "investments", investmentsJson.RootElement }
+                };
+
+                return new JsonResult(aggregatedResult);
             }
             catch (JsonException ex)
             {
                 if (currentRetry == maxRetries)
+                {
                     // Handle error gracefully, e.g. return an error response
-                    return BadRequest(new { error = "Failed to parse JSON data" });
+                    return BadRequest(new { error = "Failed to parse JSON data after retries" });
+                }
+
                 currentRetry++;
             }
+        }
 
-        var aggregatedResult = new Dictionary<string, JsonElement>
-        {
-            { "assets", assetsJson.RootElement },
-            { "investments", investmentsJson.RootElement }
-        };
-
-        return new JsonResult(aggregatedResult);
+        return BadRequest(new { error = "Unexpected error occurred during processing recommendations" });
     }
 
     [HttpPost("/personalize/sample")]

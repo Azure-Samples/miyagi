@@ -21,8 +21,8 @@ namespace GBB.Miyagi.RecommendationService.Controllers;
 public class InvestmentsController : ControllerBase
 {
     private readonly IKernel _kernel;
-    private readonly WebSearchEngineSkill _webSearchEngineSkill;
     private readonly string _memoryCollection = Env.Var("MEMORY_COLLECTION");
+    private readonly WebSearchEngineSkill _webSearchEngineSkill;
 
     public InvestmentsController(IKernel kernel, WebSearchEngineSkill webSearchEngineSkill)
     {
@@ -61,29 +61,50 @@ public class InvestmentsController : ControllerBase
         log?.LogDebug("Number of Tokens: {N}", numTokens);
         log?.LogDebug("Context: {S}", context.ToString());
 
-        // ========= Prometheus - RaG with current data =========
-        // // TODO: Swap Bing Web Search with News Search.
-        _kernel.ImportSkill(_webSearchEngineSkill, "bing");
-        var question = "What is the current inflation rate?";
-        var bingResult = await _kernel.Func("bing", "search").InvokeAsync(question);
-        context.Set("bingResult", bingResult.Result);
-        log?.LogDebug("Bing Result: {S}", bingResult.Result);
+        const int maxRetries = 2;
+        for (var currentRetry = 0; currentRetry < maxRetries; currentRetry++)
+            try
+            {
+                // ========= Prometheus - RaG with current data =========
+                _kernel.ImportSkill(_webSearchEngineSkill, "bing");
+                var question = "What is the current inflation rate?";
+                var bingResult = await _kernel.Func("bing", "search").InvokeAsync(question);
+                context.Set("bingResult", bingResult.Result);
+                log?.LogDebug("Bing Result: {S}", bingResult.Result);
 
-        var searchResults = _kernel.Memory.SearchAsync(_memoryCollection, "investment advise", 3, 0.8);
+                var searchResults = _kernel.Memory.SearchAsync(_memoryCollection, "investment advise", 3, 0.8);
 
-        await foreach (var item in searchResults) log?.LogDebug(item.Metadata.Text + " : " + item.Relevance);
+                await foreach (var item in searchResults) log?.LogDebug(item.Metadata.Text + " : " + item.Relevance);
 
-        // ========= Orchestrate with LLM using context, connector, and memory =========
-        var result = await _kernel.RunAsync(
-            context,
-            userProfilePlugin["GetUserAge"],
-            userProfilePlugin["GetAnnualHouseholdIncome"],
-            advisorPlugin["InvestmentAdvise"]);
-        log?.LogDebug("Result: {S}", result.Result);
-        numTokens = GPT3Tokenizer.Encode(result.Result).Count;
-        log?.LogDebug("Number of Tokens: {N}", numTokens);
-        var output = result.Result.Replace("\n", "");
+                // ========= Orchestrate with LLM using context, connector, and memory =========
+                var result = await _kernel.RunAsync(
+                    context,
+                    userProfilePlugin["GetUserAge"],
+                    userProfilePlugin["GetAnnualHouseholdIncome"],
+                    advisorPlugin["InvestmentAdvise"]);
+                log?.LogDebug("Result: {S}", result.Result);
+                numTokens = GPT3Tokenizer.Encode(result.Result).Count;
+                log?.LogDebug("Number of Tokens: {N}", numTokens);
+                var output = result.Result.Replace("\n", "");
 
-        return Content(output, "application/json");
+                var jsonDocument = JsonDocument.Parse(output);
+
+                return new JsonResult(jsonDocument);
+            }
+            catch (JsonException ex)
+            {
+                if (currentRetry == maxRetries - 1)
+                {
+                    // Handle error gracefully, e.g. return an error response
+                    log?.LogError(ex, "Failed to parse JSON data");
+                    return BadRequest(new { error = "Failed to parse JSON data after retrying investments" });
+                }
+
+                // Log the error and proceed to the next iteration to retry
+                log?.LogError(ex, $"Failed to parse JSON data, retry attempt {currentRetry + 1}");
+            }
+
+        log?.LogError("Failed to parse JSON data, returning 400");
+        return BadRequest(new { error = "Unexpected error occurred during processing investments" });
     }
 }

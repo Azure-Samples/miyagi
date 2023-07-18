@@ -1,6 +1,6 @@
 export const BooksList = [
-    {id: 1, name: 'common-stocks', description: 'Common Stocks and Uncommon Profits'},
-    {id: 2, name: 'intelligent-investor', description: 'The Intelligent Investor'},
+    {id: 1, name: 'intelligent-investor', description: 'The Intelligent Investor'},
+    {id: 2, name: 'common-stocks', description: 'Common Stocks and Uncommon Profits'},
     {id: 3, name: 'random-walk', description: 'A Random Walk Down Wall Street'}
 ];
 export const RiskLevelsList = [

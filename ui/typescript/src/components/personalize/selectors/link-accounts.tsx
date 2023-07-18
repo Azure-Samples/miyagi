@@ -71,7 +71,8 @@ export function LinkAccounts() {
     return (
         <div className="px-6 pt-8">
             <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
-                Link Accounts
+                Accounts (<a
+                href="https://github.com/Azure-Samples/miyagi/blob/main/services/user-service/java/src/main/java/com/microsoft/gbb/miyagi/userservice/service/OpenAIGeneratorService.java#L24-L28" target="_blank" className="text-blue-600 cursor-pointer underline">synthetic data w/ GPT</a>)
             </h4>
             <AccountsList/>
 

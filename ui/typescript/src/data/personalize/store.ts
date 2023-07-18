@@ -15,7 +15,7 @@ const getRandomIndex = (arrayLength: number) => Math.floor(Math.random() * array
 
 export const selectedAdvisorAtom = atom(AdvisorsList[getRandomIndex(AdvisorsList.length)]);
 
-export const selectedBookAtom = atom(BooksList[getRandomIndex(BooksList.length)]);
+export const selectedBookAtom = atom(BooksList[0]);
 
 export const selectedRiskLevelAtom = atom(RiskLevelsList[getRandomIndex(RiskLevelsList.length)]);
 
