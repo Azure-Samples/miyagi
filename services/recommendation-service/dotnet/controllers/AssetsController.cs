@@ -45,6 +45,7 @@ public class AssetsController : ControllerBase
         Stopwatch sw = new();
         sw.Start();
         // ========= Import semantic functions as plugins =========
+        log?.LogDebug("Path: {S}", Directory.GetCurrentDirectory());
         var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
         var advisorPlugin = _kernel.ImportSemanticSkillFromDirectory(pluginsDirectory, "AdvisorPlugin");
 

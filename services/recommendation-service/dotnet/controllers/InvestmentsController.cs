@@ -36,7 +36,8 @@ public class InvestmentsController : ControllerBase
         var log = ConsoleLogger.Log;
         log?.BeginScope("MemoryController.SaveDatasetAsync");
         // ========= Import Advisor skill from local filesystem =========
-        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
+        log?.LogDebug("Path: {P}", Directory.GetCurrentDirectory());
+        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
         var advisorPlugin = _kernel.ImportSemanticSkillFromDirectory(pluginsDirectory, "AdvisorPlugin");
         var userProfilePlugin = _kernel.ImportSkill(new UserProfilePlugin(), "UserProfilePlugin");
 
@@ -49,6 +50,7 @@ public class InvestmentsController : ControllerBase
         context.Set("stocks", JsonSerializer.Serialize(miyagiContext.Stocks));
         context.Set("voice", miyagiContext.UserInfo.FavoriteAdvisor);
         context.Set("risk", miyagiContext.UserInfo.RiskLevel);
+        context.Set("semanticQuery", $"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level");
 
         context[TextMemorySkill.CollectionParam] = _memoryCollection;
         //context[TextMemorySkill.KeyParam] = miyagiContext.UserInfo.FavoriteBook;

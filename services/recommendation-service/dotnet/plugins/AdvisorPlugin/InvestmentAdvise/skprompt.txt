@@ -15,8 +15,7 @@ Example: {"portfolio":[{"symbol":"MSFT","gptRecommendation":"Booyah! Hold on, st
 
 current inflation and mortgage rates: {{$bingResults}}
 
-wisdom of crowds opinions: {{recall "investment advise"}
-
+Favorite book's advise: {{recall $semanticQuery}}
 
 System:
 {

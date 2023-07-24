@@ -23,6 +23,7 @@ import {
     userInfoAtom
 } from "@/data/personalize/store";
 import {formatRequestData} from "@/data/utils/format-request-data";
+import {ReasoningEngine} from "@/components/personalize/selectors/reasoning-engine-list";
 
 
 // Component: B2CLogin
@@ -153,6 +154,7 @@ export default function PersonalizeDrawer() {
                                     <FavoriteBookSelector/>
                                     <FavoriteAdvisorSelector/>
                                     <RiskTolerance/>
+                                    <ReasoningEngine/>
 
                                     <Button
                                         size="large"

@@ -35,6 +35,7 @@ public class RecommendationsController : ControllerBase
     [HttpPost("/personalize")]
     public async Task<IActionResult> GetRecommendations([FromBody] MiyagiContext miyagiContext)
     {
+        var log = ConsoleLogger.Log;
         const int maxRetries = 2;
         var currentRetry = 0;
 
@@ -68,7 +69,7 @@ public class RecommendationsController : ControllerBase
                     // Handle error gracefully, e.g. return an error response
                     return BadRequest(new { error = "Failed to parse JSON data after retries" });
                 }
-
+                log?.LogError("Failed to parse JSON data: {S}", ex.Message);
                 currentRetry++;
             }
         }
@@ -95,9 +96,9 @@ public class RecommendationsController : ControllerBase
 
         var web = _kernel.ImportSkill(_webSearchEngineSkill);
 
-        var skillsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Skills");
+        var skillsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
 
-        var advisorSkill = _kernel.ImportSemanticSkillFromDirectory(skillsDirectory, "AdvisorSkill");
+        var advisorSkill = _kernel.ImportSemanticSkillFromDirectory(skillsDirectory, "AdvisorPlugin");
 
         var context = new ContextVariables();
 
