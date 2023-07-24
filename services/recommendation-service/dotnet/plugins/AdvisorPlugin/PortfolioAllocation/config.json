@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "type": "completion",
-  "description": "Gives financial advise on how to allocate portfolio, given a risk tolerance and a set of assets",
+  "description": "Gives financial advise on how to allocate assets, given a risk tolerance",
   "completion": {
     "max_tokens": 512,
     "temperature": 0.8,
