@@ -381,3 +381,5 @@ python/expense-classification-guidance/.idea/
 dotnet/recommendation-service/appsettings.json
 
 dotnet/copilot-chat-api/data/
+
+sandbox/usecases/rag/.env
