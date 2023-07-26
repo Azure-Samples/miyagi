@@ -383,3 +383,5 @@ dotnet/recommendation-service/appsettings.json
 dotnet/copilot-chat-api/data/
 
 sandbox/usecases/rag/.env
+
+sandbox/usecases/rag/dotnet/.env

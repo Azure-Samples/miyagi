@@ -29,6 +29,7 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 
 1. [MVP with Personalize (Synthesis via Semantic Kernel) and Chat on Azure Container Apps](https://agentmiyagi.com).
     1. [Detailed breakdown and implementations](./services/README.md)
+    1. [Quickstart with RaG](./sandbox/usecases/rag/dotnet/Getting-started.ipynb)
 1. [Miyagi ChatGPT Plugin](./services/chatgpt-plugin/python)
 1. [Knowledge Graph memory using Langchain's entity cache](./sandbox/experiments/langchain/Memory_Usecases.ipynb)
 1. [Qdrant vector store for embeddings via Langchain](./sandbox/experiments/langchain/qdrant_miyagi_example)
