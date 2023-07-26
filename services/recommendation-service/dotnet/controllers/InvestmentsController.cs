@@ -10,7 +10,6 @@ using Microsoft.SemanticKernel.Orchestration;
 using Microsoft.SemanticKernel.Planning;
 using Microsoft.SemanticKernel.Skills.Core;
 using Microsoft.SemanticKernel.Skills.Web;
-using Microsoft.SemanticKernel.Skills.Web.Bing;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
