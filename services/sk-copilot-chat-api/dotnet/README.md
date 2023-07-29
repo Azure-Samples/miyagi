@@ -1,6 +1,6 @@
-# Miyagi CopilotChat API - Fork on SK's CopilotChat WebAPI
+# Miyagi CopilotChat API - Fork of SK's chat-copilot WebAPI
 
-This is a [fork of Semantic Kernel's Copilot Chat WebAPI](https://github.com/microsoft/semantic-kernel/tree/main/samples/apps/copilot-chat-app/webapi) with Miyagi skill. 
+This is a [fork of Semantic Kernel's Copilot Chat WebAPI](https://github.com/microsoft/chat-copilot/webapi) with Miyagi skill. 
 
 # Configure your environment
 
@@ -23,7 +23,12 @@ Before you get started, make sure you have the following requirements in place:
 
    > To clean your system of the developer certificate, run `dotnet run dev-certs https --clean`
 
-4. **(Optional)** [Visual Studio Code](http://aka.ms/vscode) or [Visual Studio](http://aka.ms/vsdownload).
+5. **(Optional)** To enable support for uploading image file formats such as png, jpg and tiff, there are two options within the `OcrSupport` section of `./appsettings.json`, the Tesseract open source library and Azure Form Recognizer.
+   - **Tesseract** we have included the [Tesseract](https://www.nuget.org/packages/Tesseract) nuget package.  
+     - You will need to obtain one or more [tessdata language data files](https://github.com/tesseract-ocr/tessdata) such as `eng.traineddata` and add them to your `./data` directory or the location specified in the `OcrSupport:Tesseract:FilePath` location in `./appsettings.json`.  
+     - Set the `Copy to Output Directory` value to `Copy if newer`.
+   - **Azure Form Recognizer** we have included the [Azure.AI.FormRecognizer](https://www.nuget.org/packages/Azure.AI.FormRecognizer) nuget package.  
+     - You will need to obtain an [Azure Form Recognizer](https://azure.microsoft.com/en-us/services/form-recognizer/) resource and add the `OcrSupport:AzureFormRecognizer:Endpoint` and `OcrSupport:AzureFormRecognizer:Key` values to the `./appsettings.json` file.
 
 # Start the WebApi Service
 
@@ -34,7 +39,7 @@ You can start the WebApi service using the command-line, Visual Studio Code, or 
 1. Open a terminal
 2. Change directory to the Copilot Chat webapi project directory.
    ```
-   cd semantic-kernel/samples/apps/copilot-chat-app/webapi
+   cd https://github.com/Azure-Samples/miyagi/tree/main/services/sk-copilot-chat-api/dotnet
    ```
 3. (Optional) Build the service and verify there are no errors.
    ```
@@ -58,10 +63,9 @@ You can start the WebApi service using the command-line, Visual Studio Code, or 
 
 ## Visual Studio (2022 or newer)
 
-1. Open the solution file in Visual Studio 2022 or newer (`semantic-kernel/dotnet/SK-dotnet.sln`).
-2. In the solution explorer expand the `samples` folder.
-3. Right-click on the `CopilotChatWebApi` and select `Set as Startup Project`.
-4. Start debugging by pressing `F5` or selecting the menu item `Debug`->`Start Debugging`.
+1. Open the solution file in Visual Studio 2022 or newer (`CopilotChat.sln`).
+2. In Solution Explorer, right-click on `CopilotChatWebApi` and select `Set as Startup Project`.
+3. Start debugging by pressing `F5` or selecting the menu item `Debug`->`Start Debugging`.
 
 # Enabling Sequential Planner
 If you want to use SequentialPlanner (multi-step) instead ActionPlanner (single-step), we recommend using `gpt-4` or `gpt-3.5-turbo` as the planner model. Using `gpt-3.5-turbo` will require with a relevancy filter. 
@@ -105,11 +109,22 @@ Before you get started, make sure you have the following additional requirements
     Then start the Qdrant container on port `6333` using the `./data/qdrant` folder as the persistent storage location.
 
     ```bash
-    cd /src/semantic-kernel
     mkdir ./data/qdrant
     docker run --name copilotchat -p 6333:6333 -v "$(pwd)/data/qdrant:/qdrant/storage" qdrant/qdrant
     ```
     > To stop the container, in another terminal window run `docker container stop copilotchat; docker container rm copilotchat;`.
+
+# (Optional) Enabling the Azure Cognitive Search Memory Store
+
+Azure Cognitive Search can be used as a persistent memory store for Copilot Chat.
+The service can be used with either its [semantic search](https://learn.microsoft.com/en-us/azure/search/semantic-search-overview)
+or its [vector search](https://learn.microsoft.com/en-us/azure/search/vector-search-overview).
+
+When using semantic search, the service will provide a high-level ingestion mechanism that abstracts away the details of how the data is ingested.
+To use semantic search, make sure to enable the `Semantic Search` feature on your Azure Cognitive Search service.
+
+When using vector search, you have more control over the ingestion but must provide the embeddings to save into the database yourself.
+Contrary to semantic search, vector search makes use of the embedding configuration you set in appsettings.json.
 
 # (Optional) Enable Application Insights telemetry
 

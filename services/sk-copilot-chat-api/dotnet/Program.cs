@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Microsoft. All rights reserved.
 
 using System;
 using System.Linq;
@@ -47,7 +47,8 @@ public sealed class Program
         builder.Services
             .AddCopilotChatOptions(builder.Configuration)
             .AddCopilotChatPlannerServices()
-            .AddPersistentChatStore();
+            .AddPersistentChatStore()
+            .AddPersistentOcrSupport();
 
         // Add SignalR as the real time relay service
         builder.Services.AddSignalR();

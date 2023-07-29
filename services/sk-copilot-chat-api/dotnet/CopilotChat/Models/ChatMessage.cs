@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -111,6 +112,12 @@ public class ChatMessage : IStorageEntity
     public ChatMessageType Type { get; set; }
 
     /// <summary>
+    /// Counts of total token usage used to generate bot response.
+    /// </summary>
+    [JsonPropertyName("tokenUsage")]
+    public Dictionary<string, int>? TokenUsage { get; set; }
+
+    /// <summary>
     /// Create a new chat message. Timestamp is automatically generated.
     /// </summary>
     /// <param name="userId">Id of the user who sent this message</param>
@@ -120,7 +127,16 @@ public class ChatMessage : IStorageEntity
     /// <param name="prompt">The prompt used to generate the message</param>
     /// <param name="authorRole">Role of the author</param>
     /// <param name="type">Type of the message</param>
-    public ChatMessage(string userId, string userName, string chatId, string content, string prompt = "", AuthorRoles authorRole = AuthorRoles.User, ChatMessageType type = ChatMessageType.Message)
+    /// <param name="tokenUsage">Total token usages used to generate bot response</param>
+    public ChatMessage(
+        string userId,
+        string userName,
+        string chatId,
+        string content,
+        string prompt = "",
+        AuthorRoles authorRole = AuthorRoles.User,
+        ChatMessageType type = ChatMessageType.Message,
+        Dictionary<string, int>? tokenUsage = null)
     {
         this.Timestamp = DateTimeOffset.Now;
         this.UserId = userId;
@@ -131,6 +147,7 @@ public class ChatMessage : IStorageEntity
         this.Prompt = prompt;
         this.AuthorRole = authorRole;
         this.Type = type;
+        this.TokenUsage = tokenUsage;
     }
 
     /// <summary>
@@ -139,9 +156,22 @@ public class ChatMessage : IStorageEntity
     /// <param name="chatId">The chat ID that this message belongs to</param>
     /// <param name="content">The message</param>
     /// <param name="prompt">The prompt used to generate the message</param>
-    public static ChatMessage CreateBotResponseMessage(string chatId, string content, string prompt)
+    /// <param name="tokenUsage">Total token usage of response completion</param>
+    public static ChatMessage CreateBotResponseMessage(string chatId, string content, string prompt, Dictionary<string, int>? tokenUsage = null)
     {
-        return new ChatMessage("bot", "bot", chatId, content, prompt, AuthorRoles.Bot, IsPlan(content) ? ChatMessageType.Plan : ChatMessageType.Message);
+        return new ChatMessage("bot", "bot", chatId, content, prompt, AuthorRoles.Bot, IsPlan(content) ? ChatMessageType.Plan : ChatMessageType.Message, tokenUsage);
+    }
+
+    /// <summary>
+    /// Create a new chat message for a document upload.
+    /// </summary>
+    /// <param name="userId">The user ID that uploaded the document</param>
+    /// <param name="userName">The user name that uploaded the document</param>
+    /// <param name="chatId">The chat ID that this message belongs to</param>
+    /// <param name="documentMessageContent">The document message content</param>
+    public static ChatMessage CreateDocumentMessage(string userId, string userName, string chatId, DocumentMessageContent documentMessageContent)
+    {
+        return new ChatMessage(userId, userName, chatId, documentMessageContent.ToString(), string.Empty, AuthorRoles.User, ChatMessageType.Document);
     }
 
     /// <summary>
@@ -153,8 +183,8 @@ public class ChatMessage : IStorageEntity
         var content = this.Content;
         if (this.Type == ChatMessageType.Document)
         {
-            var documentDetails = DocumentMessageContent.FromString(content);
-            content = $"Sent a file named \"{documentDetails?.Name}\" with a size of {documentDetails?.Size}.";
+            var documentMessageContent = DocumentMessageContent.FromString(content);
+            content = (documentMessageContent != null) ? documentMessageContent.ToFormattedString() : "Uploaded documents";
         }
 
         return $"[{this.Timestamp.ToString("G", CultureInfo.CurrentCulture)}] {this.UserName}: {content}";
