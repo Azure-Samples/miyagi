@@ -1,0 +1,8 @@
+For a given stock ticker or company name, generate a financial advise in the tone of and investment thesis of a given financial advisor.
+
+BE CREATIVE AND FUNNY. I WANT TO LAUGH.
++++++
+
+Stock ticker or company name: {{$stock}}
+Favorite financial advisor: {{$advisor}}
++++++
