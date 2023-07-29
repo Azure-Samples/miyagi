@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text.Json;
@@ -64,13 +65,14 @@ public class ExternalInformationSkill
     /// <summary>
     /// Extract relevant additional knowledge using a planner.
     /// </summary>
-    [SKFunction("Acquire external information")]
-    [SKFunctionName("AcquireExternalInformation")]
-    [SKFunctionInput(Description = "The intent to whether external information is needed")]
-    [SKFunctionContextParameter(Name = "tokenLimit", Description = "Maximum number of tokens")]
-    [SKFunctionContextParameter(Name = "proposedPlan", Description = "Previously proposed plan that is approved")]
-    public async Task<string> AcquireExternalInformationAsync(string userIntent, SKContext context)
+    [SKFunction, Description("Acquire external information")]
+    [SKParameter("tokenLimit", "Maximum number of tokens")]
+    [SKParameter("proposedPlan", "Previously proposed plan that is approved")]
+    public async Task<string> AcquireExternalInformationAsync(
+        [Description("The intent to whether external information is needed")] string userIntent,
+        SKContext context)
     {
+        // TODO: [Issue #2106] Calculate planner and plan token usage
         FunctionsView functions = this._planner.Kernel.Skills.GetFunctionsView(true, true);
         if (functions.NativeFunctions.IsEmpty && functions.SemanticFunctions.IsEmpty)
         {
@@ -99,8 +101,8 @@ public class ExternalInformationSkill
             newPlanContext = await plan.InvokeAsync(newPlanContext);
             int tokenLimit =
                 int.Parse(context["tokenLimit"], new NumberFormatInfo()) -
-                Utilities.TokenCount(PromptPreamble) -
-                Utilities.TokenCount(PromptPostamble);
+                TokenUtilities.TokenCount(PromptPreamble) -
+                TokenUtilities.TokenCount(PromptPostamble);
 
             // The result of the plan may be from an OpenAPI skill. Attempt to extract JSON from the response.
             bool extractJsonFromOpenApi =
@@ -121,17 +123,15 @@ public class ExternalInformationSkill
         {
             // Create a plan and set it in context for approval.
             var contextString = string.Join("\n", context.Variables.Where(v => v.Key != "userIntent").Select(v => $"{v.Key}: {v.Value}"));
-            Plan plan = await this._planner.CreatePlanAsync($"Given the following context, accomplish the user intent.\nContext:{contextString}\nUser Intent:{userIntent}");
+            Plan plan = await this._planner.CreatePlanAsync($"Given the following context, accomplish the user intent.\nContext:\n{contextString}\nUser Intent:{userIntent}");
 
             if (plan.Steps.Count > 0)
             {
-                // Parameters stored in plan's top level state
-                this.MergeContextIntoPlan(context.Variables, plan.State);
+                // Parameters stored in plan's top level
+                this.MergeContextIntoPlan(context.Variables, plan.Parameters);
 
-                // TODO: Improve Kernel to give developers option to skip this override 
-                // (i.e., keep functions regardless of whether they're available in the planner's context or not)
                 Plan sanitizedPlan = this.SanitizePlan(plan, context);
-                sanitizedPlan.State.Update(plan.State);
+                sanitizedPlan.Parameters.Update(plan.Parameters);
 
                 this.ProposedPlan = new ProposedPlan(sanitizedPlan, this._planner.PlannerOptions!.Type, PlanState.NoOp);
             }
@@ -239,7 +239,7 @@ public class ExternalInformationSkill
             document = JsonDocument.Parse(jsonContent);
         }
 
-        int jsonContentTokenCount = Utilities.TokenCount(jsonContent);
+        int jsonContentTokenCount = TokenUtilities.TokenCount(jsonContent);
 
         // Return the JSON content if it does not exceed the token limit
         if (jsonContentTokenCount < tokenLimit)
@@ -265,7 +265,7 @@ public class ExternalInformationSkill
             {
                 // Save property name for result interpolation
                 JsonProperty firstProperty = document.RootElement.EnumerateObject().First();
-                tokenLimit -= Utilities.TokenCount(firstProperty.Name);
+                tokenLimit -= TokenUtilities.TokenCount(firstProperty.Name);
                 resultsDescriptor = string.Format(CultureInfo.InvariantCulture, "{0}: ", firstProperty.Name);
 
                 // Extract object to be truncated
@@ -280,7 +280,7 @@ public class ExternalInformationSkill
         {
             foreach (JsonProperty property in document.RootElement.EnumerateObject())
             {
-                int propertyTokenCount = Utilities.TokenCount(property.ToString());
+                int propertyTokenCount = TokenUtilities.TokenCount(property.ToString());
 
                 if (tokenLimit - propertyTokenCount > 0)
                 {
@@ -300,7 +300,7 @@ public class ExternalInformationSkill
         {
             foreach (JsonElement item in document.RootElement.EnumerateArray())
             {
-                int itemTokenCount = Utilities.TokenCount(item.ToString());
+                int itemTokenCount = TokenUtilities.TokenCount(item.ToString());
 
                 if (tokenLimit - itemTokenCount > 0)
                 {

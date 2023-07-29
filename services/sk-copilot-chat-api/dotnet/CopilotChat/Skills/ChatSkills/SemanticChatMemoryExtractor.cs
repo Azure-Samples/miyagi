@@ -87,7 +87,7 @@ internal static class SemanticChatMemoryExtractor
         var remainingToken =
             tokenLimit -
             options.ResponseTokenLimit -
-            Utilities.TokenCount(memoryPrompt); ;
+            TokenUtilities.TokenCount(memoryPrompt); ;
 
         var memoryExtractionContext = Utilities.CopyContextWithVariablesClone(context);
         memoryExtractionContext.Variables.Set("tokenLimit", remainingToken.ToString(new NumberFormatInfo()));
@@ -100,6 +100,10 @@ internal static class SemanticChatMemoryExtractor
             context: memoryExtractionContext,
             settings: CreateMemoryExtractionSettings(options)
         );
+
+        // Get token usage from ChatCompletion result and add to context
+        // Since there are multiple memory types, total token usage is calculated by cumulating the token usage of each memory type.
+        TokenUtilities.GetFunctionTokenUsage(result, context, $"SystemCognitive_{memoryName}");
 
         SemanticChatMemory memory = SemanticChatMemory.FromJson(result.ToString());
         return memory;
@@ -123,11 +127,12 @@ internal static class SemanticChatMemoryExtractor
     {
         var memoryCollectionName = SemanticChatMemoryExtractor.MemoryCollectionName(chatId, memoryName);
 
+        // Search if there is already a memory item that has a high similarity score with the new item.
         var memories = await context.Memory.SearchAsync(
                 collection: memoryCollectionName,
                 query: item.ToFormattedString(),
                 limit: 1,
-                minRelevanceScore: options.SemanticMemoryMinRelevance,
+                minRelevanceScore: options.SemanticMemoryRelevanceUpper,
                 cancellationToken: context.CancellationToken
             )
             .ToListAsync()

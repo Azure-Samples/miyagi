@@ -17,18 +17,18 @@
 
 2. Fill in the required parameters
 
-### Deploying the solution using Azure CLI
+### Deploying the solution using Azure CLI (TODO)
 
-1. Clone the repository. Replace `your-repo-url` with the actual repository URL.
+1. Clone the repository. 
 
     ```bash
-    git clone your-repo-url
+    git clone https://github.com/Azure-Samples/miyagi
     ```
 
 2. Configure and run Deploy scripts (TODO)
 
     ```bash
-    cd your-repo-name/deploy/infrastructure
+    cd miyagi/deploy/infrastructure
     code config.json
     ./deploy.sh
     ```

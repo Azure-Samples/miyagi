@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -11,6 +12,8 @@ using SemanticKernel.Service.CopilotChat.Models;
 using SemanticKernel.Service.CopilotChat.Options;
 using SemanticKernel.Service.CopilotChat.Storage;
 using SemanticKernel.Service.Options;
+using SemanticKernel.Service.Services;
+using Tesseract;
 
 namespace SemanticKernel.Service.CopilotChat.Extensions;
 
@@ -68,13 +71,53 @@ public static class CopilotChatServiceExtensions
             .ValidateOnStart()
             .PostConfigure(TrimStringProperties);
 
+        // OCR support options
+        services.AddOptions<OcrSupportOptions>()
+            .Bind(configuration.GetSection(OcrSupportOptions.PropertyName))
+            .ValidateOnStart()
+            .PostConfigure(TrimStringProperties);
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds persistent OCR support service.
+    /// </summary>
+    /// <exception cref="InvalidOperationException"></exception>
+    public static IServiceCollection AddPersistentOcrSupport(this IServiceCollection services)
+    {
+        OcrSupportOptions ocrSupportConfig = services.BuildServiceProvider().GetRequiredService<IOptions<OcrSupportOptions>>().Value;
+
+        switch (ocrSupportConfig.Type)
+        {
+            case OcrSupportOptions.OcrSupportType.AzureFormRecognizer:
+            {
+                services.AddSingleton<IOcrEngine>(sp => new AzureFormRecognizerOcrEngine(ocrSupportConfig.AzureFormRecognizer!.Endpoint!, new AzureKeyCredential(ocrSupportConfig.AzureFormRecognizer!.Key!)));
+                break;
+            }
+            case OcrSupportOptions.OcrSupportType.Tesseract:
+            {
+                services.AddSingleton<IOcrEngine>(sp => new TesseractEngineWrapper(new TesseractEngine(ocrSupportConfig.Tesseract!.FilePath, ocrSupportConfig.Tesseract!.Language, EngineMode.Default)));
+                break;
+            }
+            case OcrSupportOptions.OcrSupportType.None:
+            {
+                services.AddSingleton<IOcrEngine>(sp => new NullOcrEngine());
+                break;
+            }
+            default:
+            {
+                throw new InvalidOperationException($"Unsupported OcrSupport:Type '{ocrSupportConfig.Type}'");
+            }
+        }
+
         return services;
     }
 
     /// <summary>
     /// Add persistent chat store services.
     /// </summary>
-    public static void AddPersistentChatStore(this IServiceCollection services)
+    public static IServiceCollection AddPersistentChatStore(this IServiceCollection services)
     {
         IStorageContext<ChatSession> chatSessionStorageContext;
         IStorageContext<ChatMessage> chatMessageStorageContext;
@@ -144,6 +187,8 @@ public static class CopilotChatServiceExtensions
         services.AddSingleton<ChatMessageRepository>(new ChatMessageRepository(chatMessageStorageContext));
         services.AddSingleton<ChatMemorySourceRepository>(new ChatMemorySourceRepository(chatMemorySourceStorageContext));
         services.AddSingleton<ChatParticipantRepository>(new ChatParticipantRepository(chatParticipantStorageContext));
+
+        return services;
     }
 
     /// <summary>

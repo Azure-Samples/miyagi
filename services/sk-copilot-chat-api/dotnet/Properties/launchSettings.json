@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "CopilotChatWebApi": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:62618;http://localhost:62619"
+    }
+  }
+}
