@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "description": "Returns financial advise for a stock in the tone of a given financial advisor",
+  "type": "completion",
+  "completion": {
+    "max_tokens": 1000,
+    "temperature": 0.9,
+    "top_p": 0.0,
+    "presence_penalty": 0.0,
+    "frequency_penalty": 0.0
+  },
+  "input": {
+    "parameters": [
+      {
+        "name": "stock",
+        "description": "Stock ticker or company name",
+        "defaultValue": ""
+      },
+      {
+        "name": "advisor",
+        "description": "Favorite financial advisor",
+        "defaultValue": ""
+      }
+    ]
+  }
+}

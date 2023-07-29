@@ -1,0 +1,7 @@
+**/bin
+**/obj
+!azure-function/appsettings.json
+azure-function/local.settings.json
+local.settings.json
+.idea
+bin
