@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "cd .. & husky install"
+    "prepare": "cd .. & cd .. & husky install"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
