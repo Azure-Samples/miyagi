@@ -1,13 +1,12 @@
 using Azure.Storage.Blobs;
 using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.Utils;
-using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.Memory.Qdrant;
 using Microsoft.SemanticKernel.Memory;
-using Microsoft.SemanticKernel.Reliability;
 using Microsoft.SemanticKernel.Skills.Web;
 using Microsoft.SemanticKernel.Skills.Web.Bing;
+using ConsoleLogger = GBB.Miyagi.RecommendationService.config.ConsoleLogger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,21 +30,17 @@ builder.Services.AddSingleton<IKernel>(provider =>
     var memoryStore = new VolatileMemoryStore();
 
     var kernel = new KernelBuilder()
-        .WithLogger(NullLogger.Instance)
+        .WithLoggerFactory(ConsoleLogger.LoggerFactory)
         .WithCompletionService(kernelSettings)
         .WithEmbeddingGenerationService(kernelSettings)
         // Use QdrantMemoryStore instead of VolatileMemoryStore
         .WithMemoryStorage(memoryStore)
-        .Configure(c => c.SetDefaultHttpRetryConfig(new HttpRetryConfig
-        {
-            MaxRetryCount = 2,
-            UseExponentialBackoff = true
-            //  MinRetryDelay = TimeSpan.FromSeconds(2),
-            //  MaxRetryDelay = TimeSpan.FromSeconds(8),
-            //  MaxTotalRetryTime = TimeSpan.FromSeconds(30),
-            //  RetryableStatusCodes = new[] { HttpStatusCode.TooManyRequests, HttpStatusCode.RequestTimeout },
-            //  RetryableExceptions = new[] { typeof(HttpRequestException) }
-        }))
+        .WithRetryBasic(new()
+            {
+                MaxRetryCount = 3,
+                UseExponentialBackoff = true,
+                MinRetryDelay = TimeSpan.FromSeconds(3)
+            })
         .Build();
 
     return kernel;
@@ -53,7 +48,7 @@ builder.Services.AddSingleton<IKernel>(provider =>
 
 builder.Services.AddSingleton<QdrantMemoryStore>(provider =>
 {
-    var memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), 1536, ConsoleLogger.Log);
+    var memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), 1536, ConsoleLogger.LoggerFactory);
     return memoryStore;
 });
 

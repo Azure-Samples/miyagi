@@ -5,9 +5,9 @@ using GBB.Miyagi.RecommendationService.plugins;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Connectors.AI.OpenAI.Tokenizers;
 using Microsoft.SemanticKernel.Orchestration;
 using Microsoft.SemanticKernel.Planning;
+using Microsoft.SemanticKernel.Planning.Stepwise;
 using Microsoft.SemanticKernel.Skills.Core;
 using Microsoft.SemanticKernel.Skills.Web;
 
@@ -45,7 +45,7 @@ public class InvestmentsController : ControllerBase
         _kernel.ImportSkill(new UserProfilePlugin(), "UserProfilePlugin");
 
         // ========= Fetch memory from vector store using recall =========
-        _kernel.ImportSkill(new TextMemorySkill());
+        _kernel.ImportSkill(new TextMemorySkill(_kernel.Memory));
 
         // ========= Set context variables for Advisor skill =========
         var context = new ContextVariables();
@@ -60,11 +60,6 @@ public class InvestmentsController : ControllerBase
         context[TextMemorySkill.RelevanceParam] = "0.8";
         context[TextMemorySkill.LimitParam] = "3";
         context.Set("tickers", miyagiContext.Stocks?.Select(s => s.Symbol).ToList().ToString());
-
-        // ========= Log token count, which determines cost =========
-        var numTokens = GPT3Tokenizer.Encode(context.ToString()).Count;
-        log?.LogDebug("Number of Tokens: {N}", numTokens);
-        log?.LogDebug("Context: {S}", context.ToString());
         
         // ========= Import Bing web search skill to augment current info =========
         _kernel.ImportSkill(_webSearchEngineSkill, "WebSearch");
@@ -76,7 +71,7 @@ public class InvestmentsController : ControllerBase
         Stopwatch sw = new();
         Console.WriteLine("Question: " + ask);
 
-        var plannerConfig = new Microsoft.SemanticKernel.Planning.Stepwise.StepwisePlannerConfig();
+        var plannerConfig = new StepwisePlannerConfig();
         plannerConfig.ExcludedFunctions.Add("PortfolioAllocation");
         plannerConfig.MinIterationTimeMs = 1500;
         plannerConfig.MaxTokens = 3000;
@@ -120,7 +115,7 @@ public class InvestmentsController : ControllerBase
         var userProfilePlugin = _kernel.ImportSkill(new UserProfilePlugin(), "UserProfilePlugin");
 
         // ========= Fetch memory from vector store using recall =========
-        _kernel.ImportSkill(new TextMemorySkill());
+        _kernel.ImportSkill(new TextMemorySkill(_kernel.Memory));
 
         // ========= Set context variables for Advisor skill =========
         var context = new ContextVariables();
@@ -135,10 +130,7 @@ public class InvestmentsController : ControllerBase
         context[TextMemorySkill.RelevanceParam] = "0.8";
         context[TextMemorySkill.LimitParam] = "3";
         context.Set("tickers", miyagiContext.Stocks?.Select(s => s.Symbol).ToList().ToString());
-
-        // ========= Log token count, which determines cost =========
-        var numTokens = GPT3Tokenizer.Encode(context.ToString()).Count;
-        log?.LogDebug("Number of Tokens: {N}", numTokens);
+        
         log?.LogDebug("Context: {S}", context.ToString());
 
         const int maxRetries = 2;
@@ -163,8 +155,6 @@ public class InvestmentsController : ControllerBase
                     userProfilePlugin["GetAnnualHouseholdIncome"],
                     advisorPlugin["InvestmentAdvise"]);
                 log?.LogDebug("Result: {S}", result.Result);
-                numTokens = GPT3Tokenizer.Encode(result.Result).Count;
-                log?.LogDebug("Number of Tokens: {N}", numTokens);
                 var output = result.Result.Replace("\n", "");
 
                 var jsonDocument = JsonDocument.Parse(output);
