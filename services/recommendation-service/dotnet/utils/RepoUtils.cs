@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
 using System.Reflection;
+using Microsoft.ML.Tokenizers;
+using Microsoft.SemanticKernel.Text;
 
 namespace GBB.Miyagi.RecommendationService.utils;
 
@@ -35,4 +37,15 @@ public static class RepoUtils
 
         return path;
     }
+    
+    /// <summary>
+    /// MicrosoftML token counter implementation.
+    /// </summary>
+    private static TextChunker.TokenCounter MicrosoftMLTokenCounter => (string input) =>
+    {
+        Tokenizer tokenizer = new(new Bpe());
+        var tokens = tokenizer.Encode(input).Tokens;
+
+        return tokens.Count;
+    };
 }

@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
 using System.ComponentModel;
+using GBB.Miyagi.RecommendationService.Utils;
+using Microsoft.Extensions.FileSystemGlobbing.Internal.PatternContexts;
 using Microsoft.SemanticKernel.Orchestration;
 using Microsoft.SemanticKernel.SkillDefinition;
 
@@ -41,9 +43,13 @@ public class UserProfilePlugin
         string userId,
         SKContext context)
     {
+        var log = ConsoleLogger.Log;
+        log?.BeginScope("UserProfilePlugin.GetUserAge");
+        
         // userId = context.Variables.ContainsKey(UserId) ? context[UserId] : DefaultUserId;
         userId = string.IsNullOrEmpty(userId) ? DefaultUserId : userId;
-        context.Log.LogDebug("Returning hard coded age for {0}", userId);
+        
+        log?.LogDebug("Returning hard coded age for {S}", userId);
 
         int age;
 
@@ -71,9 +77,12 @@ public class UserProfilePlugin
         string userId,
         SKContext context)
     {
+        var log = ConsoleLogger.Log;
+        log?.BeginScope("UserProfilePlugin.GetAnnualHouseholdIncome");
+        
         // userId = context.Variables.ContainsKey(UserId) ? context[UserId] : DefaultUserId;
         userId = string.IsNullOrEmpty(userId) ? DefaultUserId : userId;
-        context.Log.LogDebug("Returning userId * randomMultiplier for {0}", userId);
+        log?.LogDebug("Returning userId * randomMultiplier for {S}", userId);
 
         var random = new Random();
         var randomMultiplier = random.Next(1000, 8000);
