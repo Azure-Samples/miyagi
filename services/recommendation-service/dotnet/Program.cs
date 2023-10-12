@@ -1,6 +1,7 @@
 using Azure.Storage.Blobs;
 using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.Utils;
+using Microsoft.Azure.Cosmos;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.Memory.Qdrant;
 using Microsoft.SemanticKernel.Memory;
@@ -51,6 +52,11 @@ builder.Services.AddSingleton<QdrantMemoryStore>(provider =>
     var memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), 1536, ConsoleLogger.LoggerFactory);
     return memoryStore;
 });
+
+builder.Services.AddSingleton(x => 
+    new CosmosClient(Env.Var("COSMOS_DB_CONNECTION_STRING")));
+
+builder.Services.AddSingleton<CosmosDbService>();
 
 builder.Services.AddSingleton<BingConnector>(provider =>
 {

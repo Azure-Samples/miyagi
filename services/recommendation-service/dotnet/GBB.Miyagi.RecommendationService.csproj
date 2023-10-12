@@ -12,6 +12,7 @@
     <ItemGroup>
         <PackageReference Include="Azure.Storage.Blobs" Version="12.18.0" />
         <PackageReference Include="Confluent.Kafka" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.35.4" />
         <PackageReference Include="Microsoft.ML.Tokenizers" Version="0.21.0-preview.23266.6" />
         <PackageReference Include="Microsoft.SemanticKernel" Version="0.24.230918.1-preview" />
         <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.AzureCognitiveSearch" Version="0.24.230918.1-preview" />

@@ -1,4 +1,5 @@
 using System.Text.Json;
+using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.models;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.Memory.Qdrant;
 using Microsoft.SemanticKernel.Orchestration;
 using Microsoft.SemanticKernel.Skills.Web;
+using ConsoleLogger = GBB.Miyagi.RecommendationService.Utils.ConsoleLogger;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
@@ -19,16 +21,19 @@ public class RecommendationsController : ControllerBase
     private readonly IKernel _kernel;
     private readonly QdrantMemoryStore _memoryStore;
     private readonly WebSearchEngineSkill _webSearchEngineSkill;
+    private readonly CosmosDbService _cosmosDbService;
 
     public RecommendationsController(IKernel kernel,
         QdrantMemoryStore memoryStore,
-        WebSearchEngineSkill webSearchEngineSkill)
+        WebSearchEngineSkill webSearchEngineSkill,
+        CosmosDbService cosmosDbService)
     {
         _kernel = kernel;
         _memoryStore = memoryStore;
         _webSearchEngineSkill = webSearchEngineSkill;
         _assetsController = new AssetsController(kernel);
         _investmentsController = new InvestmentsController(kernel, webSearchEngineSkill);
+        _cosmosDbService = cosmosDbService;
     }
 
 
@@ -51,15 +56,22 @@ public class RecommendationsController : ControllerBase
                     return StatusCode(500, "Failed to get recommendations");
                 }
 
+                if (assetsResult.Content == null) continue;
                 var assetsJson = JsonDocument.Parse(assetsResult.Content);
                 var investmentsJson = investmentsResult.Value as JsonDocument;
 
+                if (investmentsJson == null) continue;
                 var aggregatedResult = new Dictionary<string, JsonElement>
                 {
                     { "assets", assetsJson.RootElement },
                     { "investments", investmentsJson.RootElement }
                 };
 
+                // Save result to CosmosDB
+                await _cosmosDbService.AddItemAsync(
+                    new { Request = miyagiContext, Response = aggregatedResult },
+                    miyagiContext.UserInfo.UserId);
+                
                 return new JsonResult(aggregatedResult);
             }
             catch (JsonException ex)
