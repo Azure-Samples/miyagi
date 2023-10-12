@@ -4,5 +4,7 @@
   "serviceId": "gpt-35-turbo",
   "deploymentOrModelId": "gpt-35-turbo",
   "endpoint": "https:// ... your endpoint ... .openai.azure.com/",
+  "cosmosDbDatabaseName": "miyagi",
+  "cosmosDbContainerName": "recommendations"
   "apiKey": "... your Azure OpenAI key ..."
 }

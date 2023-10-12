@@ -24,5 +24,5 @@ dotnet user-secrets set "apiKey" ""
 dotnet user-secrets set "QDRANT_ENDPOINT" "http://localhost"
 dotnet user-secrets set "QDRANT_PORT" "6333"
 dotnet user-secrets set "QDRANT_MEMORY_COLLECTION" ""
-
+dotnet user-secrets set "COSMOS_DB_CONNECTION_STRING" ""
 ```

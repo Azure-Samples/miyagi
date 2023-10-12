@@ -1,5 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
+namespace GBB.Miyagi.RecommendationService.config;
+
 internal class KernelSettings
 {
     public const string DefaultConfigFile = "appsettings.json";
@@ -26,6 +28,13 @@ internal class KernelSettings
     [JsonPropertyName("orgId")] public string OrgId { get; set; } = string.Empty;
 
     [JsonPropertyName("logLevel")] public LogLevel? LogLevel { get; set; }
+    
+    [JsonPropertyName("cosmosDbDatabaseName")]
+    public string CosmosDbDatabaseName { get; set; } = string.Empty;
+
+    [JsonPropertyName("cosmosDbContainerName")]
+    public string CosmosDbContainerName { get; set; } = string.Empty;
+
 
     /// <summary>
     ///     Load the kernel settings from settings.json if the file exists and if not attempt to use user secrets.
