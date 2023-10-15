@@ -3,6 +3,7 @@ using GBB.Miyagi.RecommendationService.models;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Text;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
@@ -17,11 +18,11 @@ public class MemoryController : ControllerBase
     private const int MaxTokensPerParagraph = 160;
     private const int MaxTokensPerLine = 60;
     private readonly BlobServiceClient _blobServiceClient;
-    private readonly IKernel _kernel;
+    private readonly ISemanticTextMemory _memory;
 
-    public MemoryController(IKernel kernel, BlobServiceClient blobServiceClient)
+    public MemoryController(ISemanticTextMemory memory, BlobServiceClient blobServiceClient)
     {
-        _kernel = kernel;
+        _memory = memory;
         _blobServiceClient = blobServiceClient;
     }
 
@@ -79,7 +80,8 @@ public class MemoryController : ControllerBase
 
         // Chunk, generate embeddings, and persist to vectordb
         var memoryCollectionName = Env.Var("MEMORY_COLLECTION");
-        log?.LogInformation($"Saving dataset {datasetInfo.DataSetName} to memory collection {memoryCollectionName}");
+        log?.LogInformation("Saving dataset {DataSetName} to memory collection {MemoryCollectionName}",
+            datasetInfo?.DataSetName, memoryCollectionName);
 
         var lines = TextChunker.SplitPlainTextLines(text, MaxTokensPerLine);
         var chunks = TextChunker.SplitPlainTextParagraphs(lines, MaxTokensPerParagraph);
@@ -87,13 +89,13 @@ public class MemoryController : ControllerBase
         for (var i = 0; i < chunks.Count; i++)
         {
             var chunk = chunks[i];
-            var key = await _kernel.Memory.SaveInformationAsync(
+            var key = await _memory.SaveInformationAsync(
                 memoryCollectionName,
                 chunk,
                 $"{datasetInfo.DataSetName}-{i}",
                 $"Dataset: {datasetInfo.DataSetName}",
                 datasetInfo.Metadata?.ToString());
-            log?.LogInformation($"Saved chunk {i} with text {chunk}");
+            log?.LogInformation("Saved chunk {ChunkIndex} with text {Text}", i, chunk);
         }
 
         return Ok(new { datasetInfo.DataSetName, chunks.Count });

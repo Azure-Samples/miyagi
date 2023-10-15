@@ -14,11 +14,12 @@
         <PackageReference Include="Confluent.Kafka" Version="2.2.0" />
         <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.35.4" />
         <PackageReference Include="Microsoft.ML.Tokenizers" Version="0.21.0-preview.23266.6" />
-        <PackageReference Include="Microsoft.SemanticKernel" Version="0.24.230918.1-preview" />
-        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.AzureCognitiveSearch" Version="0.24.230918.1-preview" />
+        <PackageReference Include="Microsoft.SemanticKernel" Version="1.0.0-beta1" />
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.AzureCognitiveSearch" Version="1.0.0-beta1" />
         <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.AzureSearch" Version="0.17.230718.1-preview" />
-        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.Qdrant" Version="0.24.230918.1-preview" />
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.Qdrant" Version="1.0.0-beta1" />
         <PackageReference Include="Microsoft.SemanticKernel.Planning.StepwisePlanner" Version="0.24.230918.1-preview" />
+        <PackageReference Include="Microsoft.SemanticKernel.Plugins.Web" Version="1.0.0-beta1" />
         <PackageReference Include="Microsoft.SemanticKernel.Skills.Web" Version="0.24.230918.1-preview" />
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

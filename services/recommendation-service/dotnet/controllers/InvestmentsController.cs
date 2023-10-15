@@ -5,11 +5,14 @@ using GBB.Miyagi.RecommendationService.plugins;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Orchestration;
 using Microsoft.SemanticKernel.Planning;
 using Microsoft.SemanticKernel.Planning.Stepwise;
-using Microsoft.SemanticKernel.Skills.Core;
-using Microsoft.SemanticKernel.Skills.Web;
+using Microsoft.SemanticKernel.Plugins.Core;
+using Microsoft.SemanticKernel.Plugins.Memory;
+using Microsoft.SemanticKernel.Plugins.Web;
+using Microsoft.SemanticKernel.Plugins.Web.Bing;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
@@ -23,13 +26,13 @@ namespace GBB.Miyagi.RecommendationService.Controllers;
 public class InvestmentsController : ControllerBase
 {
     private readonly IKernel _kernel;
+    private readonly ISemanticTextMemory _memory;
     private readonly string _memoryCollection = Env.Var("MEMORY_COLLECTION");
-    private readonly WebSearchEngineSkill _webSearchEngineSkill;
 
-    public InvestmentsController(IKernel kernel, WebSearchEngineSkill webSearchEngineSkill)
+    public InvestmentsController(IKernel kernel, ISemanticTextMemory memory)
     {
         _kernel = kernel;
-        _webSearchEngineSkill = webSearchEngineSkill;
+        _memory = memory;
     }
 
     
@@ -41,11 +44,11 @@ public class InvestmentsController : ControllerBase
         // ========= Import Advisor skill from local filesystem =========
         log?.LogDebug("Path: {P}", Directory.GetCurrentDirectory());
         var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
-        _kernel.ImportSemanticSkillFromDirectory(pluginsDirectory, "AdvisorPlugin");
-        _kernel.ImportSkill(new UserProfilePlugin(), "UserProfilePlugin");
+        _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
+        _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
 
         // ========= Fetch memory from vector store using recall =========
-        _kernel.ImportSkill(new TextMemorySkill(_kernel.Memory));
+        _kernel.ImportFunctions(new TextMemoryPlugin(_memory));
 
         // ========= Set context variables for Advisor skill =========
         var context = new ContextVariables();
@@ -55,15 +58,14 @@ public class InvestmentsController : ControllerBase
         context.Set("risk", miyagiContext.UserInfo.RiskLevel);
         context.Set("semanticQuery", $"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level");
 
-        context[TextMemorySkill.CollectionParam] = _memoryCollection;
-        //context[TextMemorySkill.KeyParam] = miyagiContext.UserInfo.FavoriteBook;
-        context[TextMemorySkill.RelevanceParam] = "0.8";
-        context[TextMemorySkill.LimitParam] = "3";
+        context[TextMemoryPlugin.CollectionParam] = _memoryCollection;
+        //context[TextMemoryPlugin.KeyParam] = miyagiContext.UserInfo.FavoriteBook;
+        context[TextMemoryPlugin.RelevanceParam] = "0.8";
+        context[TextMemoryPlugin.LimitParam] = "3";
         context.Set("tickers", miyagiContext.Stocks?.Select(s => s.Symbol).ToList().ToString());
         
-        // ========= Import Bing web search skill to augment current info =========
-        _kernel.ImportSkill(_webSearchEngineSkill, "WebSearch");
-        _kernel.ImportSkill(new TimeSkill(), "time");
+        // ========= Import Time Plugin =========
+        _kernel.ImportFunctions(new TimePlugin(), "time");
 
         var ask = "Given stocks, return investment advise, factoring current inflation from search?";
 
@@ -72,7 +74,7 @@ public class InvestmentsController : ControllerBase
         Console.WriteLine("Question: " + ask);
 
         var plannerConfig = new StepwisePlannerConfig();
-        plannerConfig.ExcludedFunctions.Add("PortfolioAllocation");
+        plannerConfig.IncludedFunctions.Add("InvestmentAdvise");
         plannerConfig.MinIterationTimeMs = 1500;
         plannerConfig.MaxTokens = 3000;
 
@@ -82,22 +84,13 @@ public class InvestmentsController : ControllerBase
 
         var result = await plan.InvokeAsync(_kernel.CreateNewContext());
         Console.WriteLine("Result: " + result);
-        if (result.Variables.TryGetValue("stepCount", out string? stepCount))
-        {
-            Console.WriteLine("Steps Taken: " + stepCount);
-        }
-
-        if (result.Variables.TryGetValue("skillCount", out string? skillCount))
-        {
-            Console.WriteLine("Skills Used: " + skillCount);
-        }
 
         Console.WriteLine("Time Taken: " + sw.Elapsed);
         Console.WriteLine("*****************************************************");
 
-        var output = result.Result.Replace("\n", "");
+        var output = result.GetValue<string>()?.Replace("\n", "");
 
-        var jsonDocument = JsonDocument.Parse(output);
+        var jsonDocument = JsonDocument.Parse(output ?? string.Empty);
 
         return new JsonResult(jsonDocument);
 
@@ -111,11 +104,11 @@ public class InvestmentsController : ControllerBase
         // ========= Import Advisor skill from local filesystem =========
         log?.LogDebug("Path: {P}", Directory.GetCurrentDirectory());
         var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
-        var advisorPlugin = _kernel.ImportSemanticSkillFromDirectory(pluginsDirectory, "AdvisorPlugin");
-        var userProfilePlugin = _kernel.ImportSkill(new UserProfilePlugin(), "UserProfilePlugin");
+        var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
+        var userProfilePlugin = _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
 
         // ========= Fetch memory from vector store using recall =========
-        _kernel.ImportSkill(new TextMemorySkill(_kernel.Memory));
+        _kernel.ImportFunctions(new TextMemoryPlugin(_memory));
 
         // ========= Set context variables for Advisor skill =========
         var context = new ContextVariables();
@@ -125,10 +118,10 @@ public class InvestmentsController : ControllerBase
         context.Set("risk", miyagiContext.UserInfo.RiskLevel);
         context.Set("semanticQuery", $"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level");
 
-        context[TextMemorySkill.CollectionParam] = _memoryCollection;
-        //context[TextMemorySkill.KeyParam] = miyagiContext.UserInfo.FavoriteBook;
-        context[TextMemorySkill.RelevanceParam] = "0.8";
-        context[TextMemorySkill.LimitParam] = "3";
+        context[TextMemoryPlugin.CollectionParam] = _memoryCollection;
+        //context[TextMemoryPlugin.KeyParam] = miyagiContext.UserInfo.FavoriteBook;
+        context[TextMemoryPlugin.RelevanceParam] = "0.8";
+        context[TextMemoryPlugin.LimitParam] = "3";
         context.Set("tickers", miyagiContext.Stocks?.Select(s => s.Symbol).ToList().ToString());
         
         log?.LogDebug("Context: {S}", context.ToString());
@@ -137,16 +130,25 @@ public class InvestmentsController : ControllerBase
         for (var currentRetry = 0; currentRetry < maxRetries; currentRetry++)
             try
             {
-                // ========= Prometheus - RaG with current data =========
-                _kernel.ImportSkill(_webSearchEngineSkill, "bing");
+                // ========= Bing Connector - RaG with current data =========
+                var bingConnector = new BingConnector(Env.Var("BING_API_KEY"));
+                _kernel.ImportFunctions(new WebSearchEnginePlugin(bingConnector), "bing");
+                
+                var bingPlugin = _kernel.Functions.GetFunction("bing", "search");
                 var question = "What is the current inflation rate?";
-                var bingResult = await _kernel.Func("bing", "search").InvokeAsync(question);
-                context.Set("bingResult", bingResult.Result);
-                log?.LogDebug("Bing Result: {S}", bingResult.Result);
+                var bingResult = await _kernel.RunAsync(question, bingPlugin);
+                context.Set("bingResult", bingResult.GetValue<string>());
+                log?.LogDebug("Bing Result: {S}", bingResult.GetValue<string>());
 
-                var searchResults = _kernel.Memory.SearchAsync(_memoryCollection, "investment advise", 3, 0.8);
+                var memories = _memory.SearchAsync(collection: _memoryCollection,
+                    query: "investment advise",
+                    limit: 3,
+                    minRelevanceScore: 0.8);
 
-                await foreach (var item in searchResults) log?.LogDebug(item.Metadata.Text + " : " + item.Relevance);
+                await foreach (var memory in memories)
+                    log?.LogInformation("Memory metadata - Id: {Id}, Description: {Description}", memory?.Metadata?.Id,
+                        memory?.Metadata?.Description);
+
 
                 // ========= Orchestrate with LLM using context, connector, and memory =========
                 var result = await _kernel.RunAsync(
@@ -154,10 +156,10 @@ public class InvestmentsController : ControllerBase
                     userProfilePlugin["GetUserAge"],
                     userProfilePlugin["GetAnnualHouseholdIncome"],
                     advisorPlugin["InvestmentAdvise"]);
-                log?.LogDebug("Result: {S}", result.Result);
-                var output = result.Result.Replace("\n", "");
+                log?.LogDebug("Result: {S}", result.GetValue<string>());
+                var output = result.GetValue<string>()?.Replace("\n", "");
 
-                var jsonDocument = JsonDocument.Parse(output);
+                var jsonDocument = JsonDocument.Parse(output ?? string.Empty);
 
                 return new JsonResult(jsonDocument);
             }
