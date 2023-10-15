@@ -34,6 +34,12 @@ internal class KernelSettings
 
     [JsonPropertyName("cosmosDbContainerName")]
     public string CosmosDbContainerName { get; set; } = string.Empty;
+    
+    [JsonPropertyName("azureCognitiveSearchEndpoint")]
+    public string AzureCognitiveSearchEndpoint { get; set; } = string.Empty;
+    
+    [JsonPropertyName("azureCognitiveSearchApiKey")]
+    public string AzureCognitiveSearchApiKey { get; set; } = string.Empty;
 
 
     /// <summary>

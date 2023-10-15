@@ -2,9 +2,8 @@
 
 using System.ComponentModel;
 using GBB.Miyagi.RecommendationService.Utils;
-using Microsoft.Extensions.FileSystemGlobbing.Internal.PatternContexts;
+using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Orchestration;
-using Microsoft.SemanticKernel.SkillDefinition;
 
 namespace GBB.Miyagi.RecommendationService.plugins;
 

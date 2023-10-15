@@ -5,6 +5,7 @@ using GBB.Miyagi.RecommendationService.plugins;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Orchestration;
 using Microsoft.SemanticKernel.Planning;
 using Microsoft.SemanticKernel.TemplateEngine.Prompt;
@@ -21,13 +22,15 @@ public class AssetsController : ControllerBase
 {
     private const string DefaultRiskLevel = "moderate";
     private readonly IKernel _kernel;
+    private readonly ISemanticTextMemory _memory;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="AssetsController" /> class.
     /// </summary>
-    public AssetsController(IKernel kernel)
+    public AssetsController(IKernel kernel, ISemanticTextMemory memory)
     {
         _kernel = kernel;
+        _memory = memory;
     }
 
     /// <summary>
@@ -46,10 +49,10 @@ public class AssetsController : ControllerBase
         // ========= Import semantic functions as plugins =========
         log?.LogDebug("Path: {S}", Directory.GetCurrentDirectory());
         var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
-        var advisorPlugin = _kernel.ImportSemanticSkillFromDirectory(pluginsDirectory, "AdvisorPlugin");
+        var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
 
         // ========= Import native function  =========
-        var userProfilePlugin = _kernel.ImportSkill(new UserProfilePlugin(), "UserProfilePlugin");
+        var userProfilePlugin = _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
 
         // ========= Set context variables to populate the prompt  =========
         var context = _kernel.CreateNewContext();
@@ -75,18 +78,14 @@ public class AssetsController : ControllerBase
             ask,
             context);
         log?.LogDebug("Rendered Prompt: {S}", renderedPrompt);
-        log?.LogDebug("Result: {S}", result.Result);
-        if (result.Variables.TryGetValue("stepCount", out var stepCount)) log?.LogDebug("Steps Taken: {N}", stepCount);
-
-        if (result.Variables.TryGetValue("skillCount", out var skillCount))
-            log?.LogDebug("Skills Used: {N}", skillCount);
+        log?.LogDebug("Result: {S}", result.GetValue<string>());
 
         log?.LogDebug("Time Taken: {N}", sw.Elapsed);
         log?.LogDebug("*************************************");
 
-        var output = result.Result.Replace("\n", "").Replace("\r", "").Replace(" ", "");
+        var output = result.GetValue<string>()?.Replace("\n", "").Replace("\r", "").Replace(" ", "");
 
-        return Content(output, "application/json");
+        return Content(output ?? string.Empty, "application/json");
     }
 
 
@@ -121,10 +120,10 @@ public class AssetsController : ControllerBase
 
         // ========= Log token count, which determines cost =========
         ConsoleLogger.Log.LogDebug("Context: {S}", context.ToString());
-        ConsoleLogger.Log.LogDebug("Result: {0}", result.Result);
+        ConsoleLogger.Log.LogDebug("Result: {S}", result.GetValue<string>());
 
-        var output = result.Result.Replace("\n", "").Replace("\r", "").Replace(" ", "");
+        var output = result.GetValue<string>()?.Replace("\n", "").Replace("\r", "").Replace(" ", "");
 
-        return Content(output, "application/json");
+        return Content(output ?? string.Empty, "application/json");
     }
 }
