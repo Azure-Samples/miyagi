@@ -2,7 +2,6 @@
 using GBB.Miyagi.RecommendationService.models;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Text;
 
@@ -27,7 +26,7 @@ public class MemoryController : ControllerBase
     }
 
     [HttpGet("/datasets/{containerName?}")]
-    public async Task<IActionResult> ListDatasets(string containerName = null)
+    public async Task<IActionResult> ListDatasets(string? containerName = null)
     {
         if (string.IsNullOrEmpty(containerName))
         {
@@ -56,8 +55,8 @@ public class MemoryController : ControllerBase
     public async Task<IActionResult> SaveDatasetAsync([FromBody] DatasetInfo datasetInfo)
     {
         var log = ConsoleLogger.Log;
-        log?.BeginScope("MemoryController.SaveDatasetAsync");
-        log?.LogInformation($"DatasetInfo: {datasetInfo}");
+        log.BeginScope("MemoryController.SaveDatasetAsync");
+        log.LogInformation("DatasetInfo: {@Info}", datasetInfo);
         string text;
         if (string.IsNullOrEmpty(datasetInfo.BlobContainerName))
         {
@@ -80,8 +79,8 @@ public class MemoryController : ControllerBase
 
         // Chunk, generate embeddings, and persist to vectordb
         var memoryCollectionName = Env.Var("MEMORY_COLLECTION");
-        log?.LogInformation("Saving dataset {DataSetName} to memory collection {MemoryCollectionName}",
-            datasetInfo?.DataSetName, memoryCollectionName);
+        log.LogInformation("Saving dataset {DataSetName} to memory collection {MemoryCollectionName}",
+            datasetInfo.DataSetName, memoryCollectionName);
 
         var lines = TextChunker.SplitPlainTextLines(text, MaxTokensPerLine);
         var chunks = TextChunker.SplitPlainTextParagraphs(lines, MaxTokensPerParagraph);
@@ -89,7 +88,7 @@ public class MemoryController : ControllerBase
         for (var i = 0; i < chunks.Count; i++)
         {
             var chunk = chunks[i];
-            var key = await _memory.SaveInformationAsync(
+            await _memory.SaveInformationAsync(
                 memoryCollectionName,
                 chunk,
                 $"{datasetInfo.DataSetName}-{i}",

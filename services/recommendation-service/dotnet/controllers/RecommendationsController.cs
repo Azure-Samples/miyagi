@@ -1,13 +1,9 @@
 using System.Text.Json;
 using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.models;
-using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Connectors.AI.OpenAI;
-using Microsoft.SemanticKernel.Connectors.Memory.Qdrant;
 using Microsoft.SemanticKernel.Memory;
-using Microsoft.SemanticKernel.Orchestration;
 using ConsoleLogger = GBB.Miyagi.RecommendationService.Utils.ConsoleLogger;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
@@ -19,20 +15,13 @@ public class RecommendationsController : ControllerBase
     private readonly AssetsController _assetsController;
 
     private readonly InvestmentsController _investmentsController;
-    private readonly IKernel _kernel;
-    private readonly ISemanticTextMemory _memory;
-    private readonly QdrantMemoryStore _memoryStore;
     private readonly CosmosDbService _cosmosDbService;
 
     public RecommendationsController(IKernel kernel,
         ISemanticTextMemory memory,
-        QdrantMemoryStore memoryStore,
         CosmosDbService cosmosDbService)
     {
-        _kernel = kernel;
-        _memory = memory;
-        _memoryStore = memoryStore;
-        _assetsController = new AssetsController(kernel, memory);
+        _assetsController = new AssetsController(kernel);
         _investmentsController = new InvestmentsController(kernel, memory);
         _cosmosDbService = cosmosDbService;
     }

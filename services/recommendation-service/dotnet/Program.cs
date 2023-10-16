@@ -1,73 +1,24 @@
-using Azure.Storage.Blobs;
 using GBB.Miyagi.RecommendationService.config;
-using GBB.Miyagi.RecommendationService.Utils;
-using Microsoft.Azure.Cosmos;
-using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Connectors.AI.OpenAI;
-using Microsoft.SemanticKernel.Connectors.Memory.AzureCognitiveSearch;
-using Microsoft.SemanticKernel.Connectors.Memory.Qdrant;
-using Microsoft.SemanticKernel.Memory;
-using Microsoft.SemanticKernel.Plugins.Memory;
-using ConsoleLogger = GBB.Miyagi.RecommendationService.config.ConsoleLogger;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// initialize the kernel
+// Load user secrets
+builder.Configuration.AddUserSecrets<Program>();
+
+// Load kernel settings from configuration
 var kernelSettings = KernelSettings.LoadSettings();
+builder.Services.AddSingleton(kernelSettings);
 
-// Add BlobServiceClient to the container
-builder.Services.AddSingleton(x => new BlobServiceClient(Env.Var("AZURE_STORAGE_CONNECTION_STRING")));
+// Add Azure services
+builder.Services.AddAzureServices();
 
-// Register the required services
-builder.Services.AddSingleton<IKernel>(provider =>
-{
-    var kernel =Kernel.Builder
-        .WithLoggerFactory(ConsoleLogger.LoggerFactory)
-        .WithAzureChatCompletionService(
-            kernelSettings.DeploymentOrModelId,
-            kernelSettings.Endpoint,
-            kernelSettings.ApiKey
-        )
-        .Build();
-
-    return kernel;
-});
-
-// add memory store
-builder.Services.AddSingleton<ISemanticTextMemory>(provider =>
-{
-    var memoryBuilder = new MemoryBuilder();
-    memoryBuilder
-        .WithAzureTextEmbeddingGenerationService(
-            kernelSettings.EmbeddingDeploymentOrModelId,
-            kernelSettings.Endpoint,
-            kernelSettings.ApiKey
-        )
-        .WithMemoryStore(
-            new AzureCognitiveSearchMemoryStore(
-                kernelSettings.AzureCognitiveSearchEndpoint,
-                kernelSettings.AzureCognitiveSearchApiKey
-            ));
-
-    var memoryStore = memoryBuilder.Build();
-    return memoryStore;
-});
-
-builder.Services.AddSingleton<QdrantMemoryStore>(provider =>
-{
-    var memoryStore = new QdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), 1536, ConsoleLogger.LoggerFactory);
-    return memoryStore;
-});
-
-builder.Services.AddSingleton(x => 
-    new CosmosClient(Env.Var("COSMOS_DB_CONNECTION_STRING")));
-
-builder.Services.AddSingleton<CosmosDbService>();
+// Add Semantic Kernel services
+builder.Services.AddSkServices();
 
 var app = builder.Build();
 
@@ -76,7 +27,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseCors();
-// app.UseHttpsRedirection(); // TODO: Issue with Next.js to use https redirection
+// app.UseHttpsRedirection(); // Issue with Next.js to use https redirection
 
 app.Map("/", () => Results.Redirect("/swagger"));
 

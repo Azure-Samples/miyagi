@@ -5,7 +5,6 @@ using GBB.Miyagi.RecommendationService.plugins;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Orchestration;
 using Microsoft.SemanticKernel.Planning;
 using Microsoft.SemanticKernel.TemplateEngine.Prompt;
@@ -22,15 +21,13 @@ public class AssetsController : ControllerBase
 {
     private const string DefaultRiskLevel = "moderate";
     private readonly IKernel _kernel;
-    private readonly ISemanticTextMemory _memory;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="AssetsController" /> class.
     /// </summary>
-    public AssetsController(IKernel kernel, ISemanticTextMemory memory)
+    public AssetsController(IKernel kernel)
     {
         _kernel = kernel;
-        _memory = memory;
     }
 
     /// <summary>
@@ -42,12 +39,12 @@ public class AssetsController : ControllerBase
     public async Task<IActionResult> GetRecommendations([FromBody] MiyagiContext miyagiContext)
     {
         var log = ConsoleLogger.Log;
-        log?.BeginScope("AssetsController.GetRecommendations");
-        log?.LogDebug("*************************************");
+        log.BeginScope("AssetsController.GetRecommendations");
+        log.LogDebug("*************************************");
         Stopwatch sw = new();
         sw.Start();
         // ========= Import semantic functions as plugins =========
-        log?.LogDebug("Path: {S}", Directory.GetCurrentDirectory());
+        log.LogDebug("Path: {S}", Directory.GetCurrentDirectory());
         var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
         var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
 
@@ -69,7 +66,7 @@ public class AssetsController : ControllerBase
         // Execute plan
         var ask = "Using the userId, get user age and household income, and then get the recommended asset allocation";
         context.Variables.Update(ask);
-        log?.LogDebug("Planner steps: {N}", plan.Steps.Count);
+        log.LogDebug("Planner steps: {N}", plan.Steps.Count);
         var result = await plan.InvokeAsync(context);
 
         // ========= Log token count, which determines cost =========
@@ -77,11 +74,11 @@ public class AssetsController : ControllerBase
         var renderedPrompt = await promptRenderer.RenderAsync(
             ask,
             context);
-        log?.LogDebug("Rendered Prompt: {S}", renderedPrompt);
-        log?.LogDebug("Result: {S}", result.GetValue<string>());
+        log.LogDebug("Rendered Prompt: {S}", renderedPrompt);
+        log.LogDebug("Result: {S}", result.GetValue<string>());
 
-        log?.LogDebug("Time Taken: {N}", sw.Elapsed);
-        log?.LogDebug("*************************************");
+        log.LogDebug("Time Taken: {N}", sw.Elapsed);
+        log.LogDebug("*************************************");
 
         var output = result.GetValue<string>()?.Replace("\n", "").Replace("\r", "").Replace(" ", "");
 
@@ -99,10 +96,10 @@ public class AssetsController : ControllerBase
     {
         // ========= Import semantic functions as plugins =========
         var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
-        var advisorPlugin = _kernel.ImportSemanticSkillFromDirectory(pluginsDirectory, "AdvisorPlugin");
+        var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
 
         // ========= Import native function  =========
-        var userProfilePlugin = _kernel.ImportSkill(new UserProfilePlugin(), "UserProfilePlugin");
+        var userProfilePlugin = _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
 
         // ========= Set context variables to populate the prompt  =========
         var context = new ContextVariables();

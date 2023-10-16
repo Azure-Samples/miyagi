@@ -10,7 +10,7 @@ public class CosmosDbService
     {
         var kernelSettings = KernelSettings.LoadSettings();
         _container = cosmosClient.GetContainer(
-            kernelSettings.CosmosDbDatabaseName, 
+            kernelSettings.CosmosDbName, 
             kernelSettings.CosmosDbContainerName);
     }
 

@@ -1,8 +1,6 @@
 {
-  "endpointType": "text-completion",
-  "serviceType": "AzureOpenAI",
-  "serviceId": "gpt-35-turbo",
-  "deploymentOrModelId": "gpt-35-turbo",
+  "deploymentOrModelId": "gpt-4",
+  "embeddingDeploymentOrModelId": "text-embedding-ada-002",
   "endpoint": "https:// ... your endpoint ... .openai.azure.com/",
   "cosmosDbDatabaseName": "miyagi",
   "cosmosDbContainerName": "recommendations"
