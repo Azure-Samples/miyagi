@@ -40,9 +40,9 @@ public class InvestmentsController : ControllerBase
     public async Task<IActionResult> GetRecommendationsWithPlanner([FromBody] MiyagiContext miyagiContext)
     {
         var log = ConsoleLogger.Log;
-        log?.BeginScope("InvestmentController.GetRecommendationsAsync");
+        log.BeginScope("InvestmentController.GetRecommendationsAsync");
         // ========= Import Advisor skill from local filesystem =========
-        log?.LogDebug("Path: {P}", Directory.GetCurrentDirectory());
+        log.LogDebug("Path: {P}", Directory.GetCurrentDirectory());
         var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
         _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
         _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
@@ -100,9 +100,9 @@ public class InvestmentsController : ControllerBase
     public async Task<IActionResult> GetRecommendations([FromBody] MiyagiContext miyagiContext)
     {
         var log = ConsoleLogger.Log;
-        log?.BeginScope("InvestmentController.GetRecommendationsAsync");
+        log.BeginScope("InvestmentController.GetRecommendationsAsync");
         // ========= Import Advisor skill from local filesystem =========
-        log?.LogDebug("Path: {P}", Directory.GetCurrentDirectory());
+        log.LogDebug("Path: {P}", Directory.GetCurrentDirectory());
         var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
         var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
         var userProfilePlugin = _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
@@ -124,7 +124,7 @@ public class InvestmentsController : ControllerBase
         context[TextMemoryPlugin.LimitParam] = "3";
         context.Set("tickers", miyagiContext.Stocks?.Select(s => s.Symbol).ToList().ToString());
         
-        log?.LogDebug("Context: {S}", context.ToString());
+        log.LogDebug("Context: {S}", context.ToString());
 
         const int maxRetries = 2;
         for (var currentRetry = 0; currentRetry < maxRetries; currentRetry++)
@@ -137,8 +137,8 @@ public class InvestmentsController : ControllerBase
                 var bingPlugin = _kernel.Functions.GetFunction("bing", "search");
                 var question = "What is the current inflation rate?";
                 var bingResult = await _kernel.RunAsync(question, bingPlugin);
-                context.Set("bingResult", bingResult.GetValue<string>());
-                log?.LogDebug("Bing Result: {S}", bingResult.GetValue<string>());
+                context.Set("bingResults", bingResult.GetValue<string>());
+                log.LogDebug("Bing Result: {S}", bingResult.GetValue<string>());
 
                 var memories = _memory.SearchAsync(collection: _memoryCollection,
                     query: "investment advise",
@@ -146,8 +146,8 @@ public class InvestmentsController : ControllerBase
                     minRelevanceScore: 0.8);
 
                 await foreach (var memory in memories)
-                    log?.LogInformation("Memory metadata - Id: {Id}, Description: {Description}", memory?.Metadata?.Id,
-                        memory?.Metadata?.Description);
+                    log.LogInformation("Memory metadata - Id: {Id}, Description: {Description}", memory.Metadata.Id,
+                        memory.Metadata.Description);
 
 
                 // ========= Orchestrate with LLM using context, connector, and memory =========
@@ -156,7 +156,7 @@ public class InvestmentsController : ControllerBase
                     userProfilePlugin["GetUserAge"],
                     userProfilePlugin["GetAnnualHouseholdIncome"],
                     advisorPlugin["InvestmentAdvise"]);
-                log?.LogDebug("Result: {S}", result.GetValue<string>());
+                log.LogDebug("Result: {S}", result.GetValue<string>());
                 var output = result.GetValue<string>()?.Replace("\n", "");
 
                 var jsonDocument = JsonDocument.Parse(output ?? string.Empty);
@@ -168,15 +168,15 @@ public class InvestmentsController : ControllerBase
                 if (currentRetry == maxRetries - 1)
                 {
                     // Handle error gracefully, e.g. return an error response
-                    log?.LogError(ex, "Failed to parse JSON data");
+                    log.LogError(ex, "Failed to parse JSON data");
                     return BadRequest(new { error = "Failed to parse JSON data after retrying investments" });
                 }
 
                 // Log the error and proceed to the next iteration to retry
-                log?.LogError(ex, $"Failed to parse JSON data, retry attempt {currentRetry + 1}");
+                log.LogError(ex, "Failed to parse JSON data, retry attempt {CurrentRetry}", currentRetry + 1);
             }
 
-        log?.LogError("Failed to parse JSON data, returning 400");
+        log.LogError("Failed to parse JSON data, returning 400");
         return BadRequest(new { error = "Unexpected error occurred during processing investments" });
     }
 }
