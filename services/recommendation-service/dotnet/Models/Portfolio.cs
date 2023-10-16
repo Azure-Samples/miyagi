@@ -1,4 +1,4 @@
-﻿namespace GBB.Miyagi.RecommendationService.models;
+﻿namespace GBB.Miyagi.RecommendationService.Models;
 
 public class Portfolio
 {

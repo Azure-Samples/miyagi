@@ -1,4 +1,5 @@
 using GBB.Miyagi.RecommendationService.config;
+using GBB.Miyagi.RecommendationService.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using Azure.Identity;
 using Azure.Storage.Blobs;
+using GBB.Miyagi.RecommendationService.config;
 using Microsoft.Azure.Cosmos;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AI.OpenAI;
@@ -8,7 +9,7 @@ using Microsoft.SemanticKernel.Connectors.Memory.AzureCognitiveSearch;
 using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Plugins.Memory;
 
-namespace GBB.Miyagi.RecommendationService.config;
+namespace GBB.Miyagi.RecommendationService.Extensions;
 
 public static class ServiceExtensions
 {

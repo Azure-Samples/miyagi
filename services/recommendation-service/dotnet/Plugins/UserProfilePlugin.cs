@@ -5,7 +5,7 @@ using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Orchestration;
 
-namespace GBB.Miyagi.RecommendationService.plugins;
+namespace GBB.Miyagi.RecommendationService.Plugins;
 
 /// <summary>
 ///     UserProfilePlugin shows a native skill example to look user info given userId.

@@ -1,6 +1,6 @@
 using System.Text.Json;
 using GBB.Miyagi.RecommendationService.config;
-using GBB.Miyagi.RecommendationService.models;
+using GBB.Miyagi.RecommendationService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Memory;
