@@ -4,7 +4,7 @@ using System.Reflection;
 using Microsoft.ML.Tokenizers;
 using Microsoft.SemanticKernel.Text;
 
-namespace GBB.Miyagi.RecommendationService.utils;
+namespace GBB.Miyagi.RecommendationService.Utils;
 
 public static class RepoUtils
 {
