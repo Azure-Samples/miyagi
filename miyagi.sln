@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{4917A484-D33C-4429-AEAF-507CD6B7D192}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "order-service", "order-service", "{07FD8517-5692-451D-B9E4-CBC59B72CA73}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GBB.Miyagi.OrderService", "services\order-service\dotnet\GBB.Miyagi.OrderService.csproj", "{9D21D778-B900-4DCF-80B9-A4482675F2DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "recommendation-service", "recommendation-service", "{A065C56B-3E3B-480C-B178-A57A8F76034F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GBB.Miyagi.RecommendationService", "services\recommendation-service\dotnet\GBB.Miyagi.RecommendationService.csproj", "{E07F4B6D-FB94-45BF-B295-8DFD5A378BB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sk-copilot-chat-api", "sk-copilot-chat-api", "{16657138-8CA1-4BFA-A96C-FD05697CF32C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopilotChatWebApi", "services\sk-copilot-chat-api\dotnet\CopilotChatWebApi.csproj", "{7EF44F14-C077-4876-947A-33CC43397722}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "chatgpt-plugin", "chatgpt-plugin", "{9BE5EAFF-9A28-4FBC-B719-B248F97E2A50}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet", "dotnet", "{4F37E433-3706-42BD-A094-72D07E638DE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sk-chatgpt-azure-function", "services\chatgpt-plugin\dotnet\azure-function\sk-chatgpt-azure-function.csproj", "{E40E45E0-BE73-4CCD-B81A-6E9DB05C861A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "semantic-functions-generator", "services\chatgpt-plugin\dotnet\semantic-functions-generator\semantic-functions-generator.csproj", "{364D0B6B-69EE-4E65-AC49-9078C253E687}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D21D778-B900-4DCF-80B9-A4482675F2DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D21D778-B900-4DCF-80B9-A4482675F2DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D21D778-B900-4DCF-80B9-A4482675F2DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D21D778-B900-4DCF-80B9-A4482675F2DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E07F4B6D-FB94-45BF-B295-8DFD5A378BB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E07F4B6D-FB94-45BF-B295-8DFD5A378BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E07F4B6D-FB94-45BF-B295-8DFD5A378BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E07F4B6D-FB94-45BF-B295-8DFD5A378BB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EF44F14-C077-4876-947A-33CC43397722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EF44F14-C077-4876-947A-33CC43397722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EF44F14-C077-4876-947A-33CC43397722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EF44F14-C077-4876-947A-33CC43397722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E40E45E0-BE73-4CCD-B81A-6E9DB05C861A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E40E45E0-BE73-4CCD-B81A-6E9DB05C861A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E40E45E0-BE73-4CCD-B81A-6E9DB05C861A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E40E45E0-BE73-4CCD-B81A-6E9DB05C861A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{364D0B6B-69EE-4E65-AC49-9078C253E687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{364D0B6B-69EE-4E65-AC49-9078C253E687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{364D0B6B-69EE-4E65-AC49-9078C253E687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{364D0B6B-69EE-4E65-AC49-9078C253E687}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{07FD8517-5692-451D-B9E4-CBC59B72CA73} = {4917A484-D33C-4429-AEAF-507CD6B7D192}
+		{9D21D778-B900-4DCF-80B9-A4482675F2DA} = {07FD8517-5692-451D-B9E4-CBC59B72CA73}
+		{A065C56B-3E3B-480C-B178-A57A8F76034F} = {4917A484-D33C-4429-AEAF-507CD6B7D192}
+		{E07F4B6D-FB94-45BF-B295-8DFD5A378BB9} = {A065C56B-3E3B-480C-B178-A57A8F76034F}
+		{16657138-8CA1-4BFA-A96C-FD05697CF32C} = {4917A484-D33C-4429-AEAF-507CD6B7D192}
+		{7EF44F14-C077-4876-947A-33CC43397722} = {16657138-8CA1-4BFA-A96C-FD05697CF32C}
+		{9BE5EAFF-9A28-4FBC-B719-B248F97E2A50} = {4917A484-D33C-4429-AEAF-507CD6B7D192}
+		{4F37E433-3706-42BD-A094-72D07E638DE0} = {9BE5EAFF-9A28-4FBC-B719-B248F97E2A50}
+		{E40E45E0-BE73-4CCD-B81A-6E9DB05C861A} = {4F37E433-3706-42BD-A094-72D07E638DE0}
+		{364D0B6B-69EE-4E65-AC49-9078C253E687} = {4F37E433-3706-42BD-A094-72D07E638DE0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C0E7AD46-1416-4180-83C0-DF49BD758743}
+	EndGlobalSection
+EndGlobal

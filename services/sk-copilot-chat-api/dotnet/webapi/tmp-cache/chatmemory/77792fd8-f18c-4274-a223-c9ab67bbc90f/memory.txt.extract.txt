@@ -1,0 +1,1 @@
+Data Access Limitations: Cannot independently verify information or access real-time data from the internet
