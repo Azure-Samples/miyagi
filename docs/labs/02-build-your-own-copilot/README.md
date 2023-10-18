@@ -16,6 +16,7 @@
 7. Install python 3.11 (https://www.python.org/downloads/)
 8. Install jq (https://stedolan.github.io/jq/download/)
 
+
 ## 2. Clone and run myagi locally
 
 1. Create a new folder for the workshop
