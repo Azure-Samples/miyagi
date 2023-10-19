@@ -186,7 +186,7 @@ Go back to the ui -> click personalize button -> select financial advisor. You s
 
 ### 2.9 TODO: Deploy Apps to Azure Container Apps
 
-### 2.10 Expose Open AI through APIM
+### 2.10 TODO: Expose Open AI through APIM
 
 
 
