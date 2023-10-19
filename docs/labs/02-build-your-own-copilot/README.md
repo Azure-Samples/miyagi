@@ -30,9 +30,11 @@
 5. Clone this repo
    
    ```
-    git clone https://github.com/Azure-Samples/miyagi.git
+    git clone -b ap/docs-and-iaac https://github.com/Azure-Samples/miyagi.git
 
    ```
+   **Note:** the above branch is temporary. Soon you will be using the main branch.
+   
 ### 2.1 Provision Azure Services required for the workshop
 
 1. Change folder to miyagi/deploy/infrastructure/cli
@@ -54,6 +56,12 @@
    ```
    Note: If you are setting up the workshop just for you, make sure you set the value of resourceGroupCount to 1
 4. Wait until the script completes. It will take less than 10 minutes to complete.
+
+5. Bump up the capacity for Open AI model deployments
+
+   By default the Open AI model are deployed with 1K Tokens per minute (TPM) capacity. This is not enough for the workshop. You will need to bump up the capacity to 20K Tokens per minute. You can do this by going to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Open AI resource -> Overview -> Click Go to Azure OpenAI Studio -> Deployments -> Select the deployment for gpt-35-turbo model -> Click Edit Deployment -> Advanced Options -> Slide the TPM slider to 20K -> Click Save and close.
+   
+   Repeat the same steps for the deployment for text-embedding-ada-002 model.
 
 ### 2.2 Setup configuration for myagi app
 
@@ -90,14 +98,29 @@
    ```
         dotnet user-secrets set "USE_OPEN_AI" "False"
         dotnet user-secrets set "serviceType" "AzureOpenAI"
-        dotnet user-secrets set "AZURE_SEARCH_ENDPOINT" "<Azure Cognitive Search endpoint from previous section step 10 >"
-        dotnet user-secrets set "AZURE_SEARCH_API_KEY" "<Azure Cognitive Search api key from previous section step 10 >"
         dotnet user-secrets set "BING_API_KEY" "<Your Bing API Key>"
         dotnet user-secrets set "MEMORY_COLLECTION" "miyagi-embeddings"
-        dotnet user-secrets set "QDRANT_PORT" "6333"
-        dotnet user-secrets set "QDRANT_ENDPOINT" "<Qdrant endpoint>"
-
+        dotnet user-secrets set "deploymentOrModelId" "<Your Open AI Completions model Deployment Id>"
+        dotnet user-secrets set "embeddingDeploymentOrModelId" "<Your Open AI Embeddings model Deployment Id>"
+        dotnet user-secrets set "endpoint" "<Your Open AI Endpoint>" 
+        dotnet user-secrets set "apiKey" "<Your Open AI API Key>"
+        dotnet user-secrets set "COSMOS_DB_CONNECTION_STRING" "<Cosmos DB Connection String>"
+       
    ```
+   Use the following instructions to get the values for the arguments to the dotnet user-secrets set command
+
+   > **Bing API Key:** This will be provided to you during the workshop.
+
+   > **Open AI Endpoint:** Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Open AI resource -> Select Keys and Endpoint -> Copy the value of Endpoint.
+
+   > **Open AI API Key:** Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Open AI resource -> Select Keys and Endpoint -> Copy the value of key1.
+
+   > **Cosmos DB Connection String:** Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Cosmos DB resource -> Keys -> Copy the value of the Cosmos DB Connection String.
+
+   > **Completions model Deployment Id:** Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Open AI resource -> Overview -> Click Go to Azure OpenAI Studio -> Deployments -> Copy the value of the deployment name for gpt-35-turbo model.
+
+   > **Embeddings model Deployment Id:** Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Open AI resource -> Overview -> Click Go to Azure OpenAI Studio -> Deployments -> Copy the value of the deployment name for text-embedding-ada-002 model.
+
 ### 2.4 Understanding implementation of the recommendation service
 
 Recommendation service implements RAG pattern using Semantic Kernel SDK. The details of the implementation are captured in the Jupyter notebook in the folder miyagi/sandbox/usecases/rag/dotnet. You can open the notebook in VSCode and run the cells to understand step by step details of how the Recommendation Service is implemented. Pay special attention to how RAG pattern is implemented using Semantic Kernel. Select kernel as .NET Interactive in the top right corner of the notebook.
@@ -160,6 +183,10 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
 ### 2.8 Explore the recommendation service
 
 Go back to the ui -> click personalize button -> select financial advisor. You should see the recommendations from the recommendation service in the Top Stocks widget.
+
+### 2.9 TODO: Deploy Apps to Azure Container Apps
+
+### 2.10 Expose Open AI through APIM
 
 
 
