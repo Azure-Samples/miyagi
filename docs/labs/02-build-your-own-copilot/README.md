@@ -8,6 +8,8 @@
     2. Polyglot Notebooks (https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
     3. Semantic Kernel (https://marketplace.visualstudio.com/items?itemName=ms-semantic-kernel.semantic-kernel)
     4. Prompt flow for VSCode (https://marketplace.visualstudio.com/items?itemName=prompt-flow.prompt-flow)
+    5. Azure Container Apps (https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurecontainerapps)
+    6. Docker Extension (https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 
 3. Install Azure CLI (https://docs.microsoft.com/en-us/cli/azure/install-azure-cli), min version 2.53.0
 4. Install PowerShell (https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.1)
@@ -15,6 +17,8 @@
 6. Install .NET 7.0 SDK (https://dotnet.microsoft.com/download/dotnet/7.0)
 7. Install python 3.11 (https://www.python.org/downloads/)
 8. Install jq (https://stedolan.github.io/jq/download/)
+9. Install Postman (https://www.postman.com/downloads/)
+
 
 
 ## 2. Clone and run myagi locally
@@ -26,7 +30,8 @@
 5. Clone this repo
    
    ```
-    git clone https://github.com/ajai-d/miyagi.git
+    git clone https://github.com/Azure-Samples/miyagi.git
+
    ```
 ### 2.1 Provision Azure Services required for the workshop
 
@@ -95,7 +100,7 @@
    ```
 ### 2.4 Understanding implementation of the recommendation service
 
-Recommendation service implements RAG pattern using Semantic Kernel SDK. The details of the implementation are captured in the Jupyter notebook in the folder miyagi/sandbox/usecases/rag/dotnet. You can open the notebook in VSCode and run the cells to understand the implementation. Select kernel as .NET Interactive in the top right corner of the notebook.
+Recommendation service implements RAG pattern using Semantic Kernel SDK. The details of the implementation are captured in the Jupyter notebook in the folder miyagi/sandbox/usecases/rag/dotnet. You can open the notebook in VSCode and run the cells to understand step by step details of how the Recommendation Service is implemented. Pay special attention to how RAG pattern is implemented using Semantic Kernel. Select kernel as .NET Interactive in the top right corner of the notebook.
 
 ### 2.5 Run myagi frontend locally
 
@@ -128,7 +133,31 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
    ```
    Get the port from the logs in the terminal. You should see the swagger page for the recommendation service.
 
-### 2.7 Explore the recommendation service
+### 2.7 Vectorize and persist embeddings in Azure Cognitive Search
+1. Open Postman -> Click import -> select Files -> select the file miyagi/services/recommendation-service/dotnet/setup/hydate.postman_collection.json
+2.  Click hydrate -> GET 7288/datasets -> Click Send. You should see the following response
+    ```
+    [
+    "resources\\sample-datasets\\common-stocks-uncommon-profits.txt",
+    "resources\\sample-datasets\\intelligent-investor.txt",
+    "resources\\sample-datasets\\random-walk-down-wall-street.txt"
+    ]
+    ```
+3.  Click hydrate -> POST save 7288/datasets -> Click Send. You should see the following response
+    ```
+      {
+      "metadata": {
+         "userId": "50",
+         "riskLevel": "aggressive",
+         "favoriteSubReddit": "finance",
+         "favoriteAdvisor": "Jim Cramer"
+      },
+      "dataSetName": "intelligent-investor"
+
+      }
+    ```
+
+### 2.8 Explore the recommendation service
 
 Go back to the ui -> click personalize button -> select financial advisor. You should see the recommendations from the recommendation service in the Top Stocks widget.
 
