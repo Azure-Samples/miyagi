@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "a6a96b6e-ecfa-4255-8fcc-320ec182c351",
+		"name": "hydrate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28637755"
+	},
+	"item": [
+		{
+			"name": "7288/datasets",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:7288/datasets",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7288",
+					"path": [
+						"datasets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save 7288/datasets",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"metadata\": {\r\n        \"userId\": \"50\",\r\n        \"riskLevel\": \"aggressive\",\r\n        \"favoriteSubReddit\": \"finance\",\r\n        \"favoriteAdvisor\": \"Jim Cramer\"\r\n    },\r\n    \"dataSetName\": \"intelligent-investor\"\r\n\r\n}"
+				},
+				"url": {
+					"raw": "https://localhost:7288/datasets",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7288",
+					"path": [
+						"datasets"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
