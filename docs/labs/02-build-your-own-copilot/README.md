@@ -194,9 +194,9 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
 
 Go back to the ui -> click personalize button -> select financial advisor. You should see the recommendations from the recommendation service in the Top Stocks widget.
 
-### 2.9 TODO: Deploy Apps to Azure Container Apps
+## 3. TODO: Deploy Apps to Azure Container Apps
 
-### 2.10 TODO: Expose Open AI through APIM
+## 4. TODO: Expose Open AI through APIM
 
 
 
