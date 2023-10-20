@@ -148,7 +148,7 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
     ```
 4. Open a browser and navigate to
    ```
-     http://localhost:<port>
+     http://localhost:<port> Default port is 4001
    ```
    Get the port from the logs in the terminal. You should see the myagi app running locally.
    
