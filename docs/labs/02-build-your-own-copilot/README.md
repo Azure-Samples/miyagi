@@ -94,11 +94,8 @@
 
 7. Create a new file named .env in myagi/sandbox/usecases/rag/dotnet
 8. Copy paste the contents of rag/.env.local.example into .env and save the file
-9. Copy the values of OPenAI endpoint and key1 from step 6 into the .env file and save the file
-10. Get the Azure Cognitive Search endpoint and the api key
-    > Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Azure Cognitive Search resource -> Select Keys -> Copy the value of Primary Admin Key and paste it into the .env file as the value of the variable "SEARCH_API_KEY"
+9. Copy the values from Step 6 into the .env file and save the file
 
-    > Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Azure Cognitive Search resource -> Overview -> Copy the value of Url and paste it into the .env file as the value of the variable "SEARCH_ENDPOINT"
 
 ### 2.3 Setup .NET secrets
 
