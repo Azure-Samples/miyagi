@@ -81,10 +81,10 @@
 
    > Copy the value of the deployment name for text-embedding-ada-002 model and paste it into the appsettings.json file as the value of the variable "embeddingDeploymentOrModelId"
 
-   > Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select Azure Cognitive Search resource -> Keys -> Copy the value of the Primary Admin Key and paste it into the appsettings.json file as the value of the variable "azureCognitiveSearchApiKey"
-
    > Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select Azure Cognitive Search resource -> Overview -> Copy the value of the Url and paste it into the appsettings.json file as the value of the variable "azureCognitiveSearchEndpoint"
 
+   > Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select Azure Cognitive Search resource -> Keys -> Copy the value of the Primary Admin Key and paste it into the appsettings.json file as the value of the variable "azureCognitiveSearchApiKey"
+   
    > Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Cosmos DB resource -> Overview -> Copy the value of the Url and paste it into the appsettings.json file as the value of the variable "cosmosDbUri"
 
    > Leave the cosmosDbName as "miyagi" and the cosmosDbContainer name as "recommendations"
