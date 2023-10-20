@@ -89,7 +89,7 @@
 
    > Leave the cosmosDbName as "miyagi" and the cosmosDbContainer name as "recommendations"
 
-   > Set the blobServiceUri tp https://<storageservicename>.blob.core.windows.net/
+   > Set the blobServiceUri tp https://yourstorageservicename.blob.core.windows.net/
 
 
 7. Create a new file named .env in myagi/sandbox/usecases/rag/dotnet
