@@ -87,9 +87,9 @@
 
    > Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Cosmos DB resource -> Overview -> Copy the value of the Url and paste it into the appsettings.json file as the value of the variable "cosmosDbUri"
 
-  > Leave the cosmosDbName as "miyagi" and the cosmosDbContainer name as "recommendations"
+   > Leave the cosmosDbName as "miyagi" and the cosmosDbContainer name as "recommendations"
 
-  > Set the blobServiceUri tp https://<storageservicename>.blob.core.windows.net/
+   > Set the blobServiceUri tp https://<storageservicename>.blob.core.windows.net/
 
 
 7. Create a new file named .env in myagi/sandbox/usecases/rag/dotnet
