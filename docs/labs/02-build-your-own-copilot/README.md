@@ -162,7 +162,7 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
     ```
 4. Open a browser and navigate to
    ```
-     http://localhost:<port>/swagger/index.html
+     http://localhost:<port>/swagger/index.html Default port is 5224
    ```
    Get the port from the logs in the terminal. You should see the swagger page for the recommendation service.
 
