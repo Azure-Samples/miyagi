@@ -6,8 +6,8 @@
       }
     },
     "AllowedHosts": "*",
-    "deploymentOrModelId": "ajmiyagi1-CompletionModel-1",
-    "embeddingDeploymentOrModelId": "ajmiyagi1-EmbeddingModel-1",
+    "deploymentOrModelId": "<Id of the completions model you deployed>",
+    "embeddingDeploymentOrModelId": "<Id of the embedding model you deployed>",
     "endpoint": "<Your Open AI Endpoint>",
     "apiKey": "<Your OpenAI API Key>",
     "azureCognitiveSearchEndpoint": "<Your Cognitive Search Endpoint>",
