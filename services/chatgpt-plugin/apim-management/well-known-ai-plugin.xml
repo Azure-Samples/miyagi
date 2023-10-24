@@ -1,0 +1,51 @@
+<!--
+    This supports the wellknown endpoint for a OpenAI plugin.
+-->
+<policies>
+    <inbound>
+        <base />
+        <return-response>
+            <set-status code="200" reason="OK" />
+            <set-header name="Content-Type" exists-action="override">
+                <value>application/json</value>
+            </set-header>
+            <set-body>@{
+
+                var apiInfo = new JObject();
+                                
+                // Metadata
+                apiInfo.Add("schema_version","v1");
+                apiInfo.Add("name_for_human","Miyagi calculator");
+                apiInfo.Add("name_for_model","calculator");
+                apiInfo.Add("description_for_human","Perform arithmetic operations");
+                apiInfo.Add("description_for_model", "Use the Calculator plugin to perform basic arithmetic operations");
+                apiInfo.Add("contact_email", "frank@rizzo.com");
+                apiInfo.Add("logo_url", "https://raw.githubusercontent.com/Azure-Samples/miyagi/main/assets/images/1.png");
+                apiInfo.Add("legal_info_url", "http://example.com/legal");
+
+                // Auth
+                var authType = new JObject();
+                authType.Add("type", "none");                
+                apiInfo.Add("auth", authType);
+
+                // API
+                var apiDetails = new JObject();
+                apiDetails.Add("type", "openapi");
+                apiDetails.Add("url", "https://{{apim-service-name}}.azure-api.net/openai.yaml");
+                apiInfo.Add("api", apiDetails);                             
+                
+                return apiInfo.ToString();
+                
+            }</set-body>
+        </return-response>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
