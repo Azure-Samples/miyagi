@@ -21,7 +21,7 @@
 
 
 
-## 2. Clone and run myagi locally
+## 2. Clone and run miyagi locally
 
 1. Create a new folder for the workshop
 2. Open Visual Studio Code
@@ -52,7 +52,7 @@
 3. Run the following command to create the Azure resources needed for the workshop. The script will create a resource group for each of the workshop participants, and will create the required resources in each resource group. You will need to provide a subscription id, and optionally a resource group prefix, location, and the number of resource groups you want. The script will default to the values below if not provided.
    
    ```
-    ./deploy.ps1  -resourceGroupPrefix "<myagi>" -location "<eastus2>" -resourceGroupCount "<1>" -subscriptionId "<your subscription id>"
+    ./deploy.ps1  -resourceGroupPrefix "<miyagi>" -location "<eastus2>" -resourceGroupCount "<1>" -subscriptionId "<your subscription id>"
    ```
    Note: If you are setting up the workshop just for you, make sure you set the value of resourceGroupCount to 1
 4. Wait until the script completes. It will take less than 10 minutes to complete.
@@ -63,12 +63,12 @@
    
    Repeat the same steps for the deployment for text-embedding-ada-002 model.
 
-### 2.2 Setup configuration for myagi app
+### 2.2 Setup configuration for miyagi app
 
-1. Create a new file called .env in myagi/ui/typescript
+1. Create a new file called .env in miyagi/ui/typescript
 2. Copy paste the contents of .env.local.example into .env and save the file
 3. You will setup the values for the variables in the workshop [ this will be updated later]
-4. Create a new file named appsettings.json in myagi/services/recommendation-service/dotnet
+4. Create a new file named appsettings.json in miyagi/services/recommendation-service/dotnet
 5. Copy paste the contents of appsettings.json.example into appsettings.json and save the file
 6. Update appsettings.json with the values for the variables below. You can get the values from the Azure Portal.
    > Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Open AI resource -> Select Keys and Endpoint
@@ -92,7 +92,7 @@
    > Set the blobServiceUri tp https://yourstorageservicename.blob.core.windows.net/
 
 
-7. Create a new file named .env in myagi/sandbox/usecases/rag/dotnet
+7. Create a new file named .env in miyagi/sandbox/usecases/rag/dotnet
 8. Copy paste the contents of rag/.env.local.example into .env and save the file
 9. Copy the values from Step 6 into the .env file and save the file
 
@@ -100,7 +100,7 @@
 ### 2.3 Setup .NET secrets
 
 1. Open a new terminal: Terminal -> New Terminal (or Ctrl + Shift + `)
-2. Change folder to myagi/services/recommendation-service/dotnet
+2. Change folder to miyagi/services/recommendation-service/dotnet
 3. Run the following command to set the secrets for the recommendation service. You will need to provide the values for the variables below.
    
    ```
@@ -135,10 +135,10 @@
 
 Recommendation service implements RAG pattern using Semantic Kernel SDK. The details of the implementation are captured in the Jupyter notebook in the folder miyagi/sandbox/usecases/rag/dotnet. You can open the notebook in VSCode and run the cells to understand step by step details of how the Recommendation Service is implemented. Pay special attention to how RAG pattern is implemented using Semantic Kernel. Select kernel as .NET Interactive in the top right corner of the notebook.
 
-### 2.5 Run myagi frontend locally
+### 2.5 Run miyagi frontend locally
 
 1. Open a new terminal: Terminal -> New Terminal (or Ctrl + Shift + `)
-2. Change folder to myagi/ui/typescript
+2. Change folder to miyagi/ui/typescript
 3. Run the following command to install the dependencies
    
     ```
@@ -150,11 +150,11 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
    ```
      http://localhost:<port>
    ```
-   Get the port from the logs in the terminal. You should see the myagi app running locally.
+   Get the port from the logs in the terminal. You should see the miyagi app running locally.
    
 ### 2.6 Run recommendation service locally
 1. Open a new terminal: Terminal -> New Terminal (or Ctrl + Shift + `)
-2. Change folder to myagi/services/recommendation-service/dotnet
+2. Change folder to miyagi/services/recommendation-service/dotnet
 3. Run the following command to run the recommendation service locally
     ```
      dotnet build
