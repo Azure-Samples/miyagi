@@ -148,7 +148,7 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
     ```
 4. Open a browser and navigate to
    ```
-     http://localhost:<port>
+     http://localhost:<port> Default port is 4001
    ```
    Get the port from the logs in the terminal. You should see the miyagi app running locally.
    
@@ -162,7 +162,7 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
     ```
 4. Open a browser and navigate to
    ```
-     http://localhost:<port>/swagger/index.html
+     http://localhost:<port>/swagger/index.html Default port is 5224
    ```
    Get the port from the logs in the terminal. You should see the swagger page for the recommendation service.
 
@@ -194,9 +194,9 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
 
 Go back to the ui -> click personalize button -> select financial advisor. You should see the recommendations from the recommendation service in the Top Stocks widget.
 
-### 2.9 TODO: Deploy Apps to Azure Container Apps
+## 3. TODO: Deploy Apps to Azure Container Apps
 
-### 2.10 TODO: Expose Open AI through APIM
+## 4. TODO: Expose Open AI through APIM
 
 
 
