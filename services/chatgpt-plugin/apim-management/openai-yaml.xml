@@ -1,0 +1,29 @@
+<!--
+    This returns a OpenAPI specification for an API.
+-->
+<policies>
+    <inbound>
+        <base />
+        <send-request mode="new" response-variable-name="result" timeout="300" ignore-error="false">
+            <set-url>@("https://management.azure.com/subscriptions/{{subscription-id}}/resourceGroups/{{resource-group-name}}/providers/Microsoft.ApiManagement/service/{{service-id}}/apis/" + context.Api.Id + "?export=true&format=openapi&api-version=2022-09-01-preview")</set-url>
+            <set-method>GET</set-method>
+            <authentication-managed-identity resource="https://management.azure.com/" />
+        </send-request>
+        <return-response>
+            <set-status code="200" reason="OK" />
+            <set-header name="Content-Type" exists-action="override">
+                <value>application/yaml</value>
+            </set-header>
+            <set-body>@((string)(((IResponse)context.Variables["result"]).Body.As<JObject>()["value"]))</set-body>
+        </return-response>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
