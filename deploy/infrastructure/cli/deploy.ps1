@@ -1,5 +1,5 @@
 param (
-    [string]$resourceGroupPrefix = "myagi-1",
+    [string]$resourceGroupPrefix = "miyagi1",
     [string]$location = "eastus",
     [string]$resourceGroupCount = 1,
     [string]$subscriptionId = "SubscriptionId is required"
@@ -28,7 +28,9 @@ $skipAzureContainerApps = "false"
 $skipAzureContainerRegistry = "false"
 $skipAPIM = "false"
 
+# strip - from resourceGroupPrefix
 
+$resourceGroupPrefix = $resourceGroupPrefix.Replace("-","");
 
 # create resource groups in a loop for rgIndex
 # if skipRg is true, skip creating resource group
