@@ -18,16 +18,16 @@ Write-Host "subscriptionId: $subscriptionId"
 $rgIndex = $resourceGroupCount
 
 # set all these to false the first time you run this script. After that you can set them to true to skip creating resources that already exist
-$skipRg = "false"
-$skipOpenAI = "false"
-$skipEmbeddingModelDeployment = "false"
-$skipCompletionModelDeployment = "false"
-$skipcognitiveSearch = "false"
-$skipCosmosDB = "false"
-$skipBlobStorage = "false"
-$skipAzureContainerApps = "false"
-$skipAzureContainerRegistry = "false"
-$skipAPIM = "false"
+$skipRg = $false
+$skipOpenAI = $false
+$skipEmbeddingModelDeployment = $false
+$skipCompletionModelDeployment = $false
+$skipcognitiveSearch = $false
+$skipCosmosDB = $false
+$skipBlobStorage = $false
+$skipAzureContainerApps = $false
+$skipAzureContainerRegistry = $false
+$skipAPIM = $false
 
 # strip - from resourceGroupPrefix
 
@@ -36,7 +36,7 @@ $resourceGroupPrefix = $resourceGroupPrefix.Replace("-","");
 # create resource groups in a loop for rgIndex
 # if skipRg is true, skip creating resource group
 
-if ($skipRg -eq "true") {
+if ($skipRg) {
     Write-Host "Skipping resource group creation"
 }
 else {
@@ -90,7 +90,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
     
     # if skipCompletionModelDeployment is true, skip completion model deployment
 
-    if ($skipCompletionModelDeployment -eq "true") {
+    if ($skipCompletionModelDeployment) {
         Write-Host "Skipping completion model deployment"
     }
     else {
@@ -111,7 +111,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
 
     # if skipCosmosDB is false, create CosmosDB account called miyagi with a container called recommendations
 
-    if ($skipCosmosDB -eq "true") {
+    if ($skipCosmosDB) {
         Write-Host "Skipping CosmosDB account creation"
     }
     else {
@@ -144,7 +144,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
 
     # if skipBlobStorage is false, create blob storage account with a container called miyagi
 
-    if ($skipBlobStorage -eq "true") {
+    if ($skipBlobStorage) {
         Write-Host "Skipping blob storage account creation"
     }
     else {
@@ -169,7 +169,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
 
     # if skipAzureContainerRegistry is false, create Azure Container Registry called miyagi
 
-    if ($skipAzureContainerRegistry -eq "true") {
+    if ($skipAzureContainerRegistry) {
         Write-Host "Skipping Azure Container Registry creation"
     }
     else {
@@ -211,7 +211,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
 
     # if skipcognitiveSearch is false, create cognitive search service with semantic search capability
 
-    if ($skipcognitiveSearch -eq "true") {
+    if ($skipcognitiveSearch) {
         Write-Host "Skipping cognitive search service creation"
     }
     else {
@@ -223,15 +223,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
         --template-file "bicep/search-service.bicep" `
         --parameters "searchServiceName=$resourceGroupPrefix-acs-$i"
             
-
     }
-
-  
-
-
-
- 
-
 }
 
 
