@@ -1,0 +1,20 @@
+{
+    "Logging": {
+      "LogLevel": {
+        "Default": "Trace",
+        "Microsoft.AspNetCore": "Trace"
+      }
+    },
+    "AllowedHosts": "*",
+    "deploymentOrModelId": "<Id of the completions model you deployed>",
+    "embeddingDeploymentOrModelId": "<Id of the embedding model you deployed>",
+    "endpoint": "<Your Open AI Endpoint>",
+    "apiKey": "<Your OpenAI API Key>",
+    "azureCognitiveSearchEndpoint": "<Your Cognitive Search Endpoint>",
+    "azureCognitiveSearchApiKey": "<Your Cognitive Search API Key>",
+    "cosmosDbUri": "<Your Cosmos DB URI>",
+    "cosmosDbName": "miyagi",
+    "blobServiceUri": "<Your blobServiceUri>",
+    "cosmosDbContainerName": "recommendations",
+    "logLevel": "Trace"
+  }
