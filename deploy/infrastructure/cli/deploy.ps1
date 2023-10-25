@@ -222,16 +222,13 @@ for ($i = 1; $i -le $rgIndex; $i++) {
 
         az containerapp up --name $containerapp  `
         --resource-group "$resourceGroupPrefix-rg-$i" `
-        --location centralus `
+        --location $location `
         --environment "$resourceGroupPrefix-env" `
         --image mcr.microsoft.com/azuredocs/containerapps-helloworld:latest `
         --target-port 80 `
         --ingress external `
         --query properties.configuration.ingress.fqdn `
 
-
-        
-        
     }
 
     # if skipcognitiveSearch is false, create cognitive search service with semantic search capability
