@@ -7,7 +7,9 @@ import { useAtom } from "jotai";
 import { chatsAtom, userInfoAtom, chatSessionsAtom } from "@/data/personalize/store";
 import { ChatSessionList } from "@/components/chat/chat-session-list";
 import Button from "@/components/ui/button";
+
 import React, { useState } from "react";
+import moment from "moment";
 
 type Variable = {
     key: string;
@@ -63,7 +65,7 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
             userId: userInfo.userId,
             userName: userInfo.userName,
             chatId: userInfo.chatId,
-            authorRole: 0,
+            messageType: "0",
         };
 
         // Update chatsAtom with the user's message first
@@ -79,17 +81,15 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
         });
 
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/skills/ChatSkill/functions/Chat/invoke`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chats/${userInfo.chatId}/messages`, {
             method: 'POST',
             headers: {
-                'Content-type': `application/json`,
-                'x-sk-api-key': `${process.env.NEXT_PUBLIC_SK_API_KEY}`
+                'Content-type': `application/json`
             },
             body: JSON.stringify({
                 input: userInput,
                 variables: [
-                    { key: 'userId', value: userInfo.userId },
-                    { key: 'userName', value: userInfo.userName },
+                    { key: 'messageType', value: userInfo.messageType },
                     { key: 'chatId', value: userInfo.chatId },
                 ],
             }),
@@ -111,26 +111,27 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
                     userId: "bot",
                     userName: "bot",
                     chatId: userInfo.chatId,
-                    authorRole: 1,
+                    messageType: "1",
                 },
             ];
         });
     }
 
 
+    const currentTimestamp = moment().format('MM/DD/YYYY, h:mm:ss A');
+    const titleWithTimestamp = `Miyagi chat @ ${currentTimestamp}`;
 
     async function createNewChatSession() {
         setLoading(true);
         const response = await fetch(
-            "${process.env.COPILOT_CHAT_BASE_URL}/chatSession/create",
+            `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chats`,
             {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    userId: userInfo.userId,
-                    title: "New Chat Session",
+                    title: titleWithTimestamp,
                 }),
             }
         );

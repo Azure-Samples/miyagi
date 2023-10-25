@@ -3,7 +3,7 @@ import type { ReactElement, ReactNode } from 'react';
 
 export type ChatProps = {
   id: string;
-  authorRole: number;
+  messageType: string;
   content: string;
   timestamp: string;
   userId: string;
