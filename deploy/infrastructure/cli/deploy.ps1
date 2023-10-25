@@ -2,7 +2,8 @@ param (
     [string]$resourceGroupPrefix = "miyagi1",
     [string]$location = "eastus",
     [string]$resourceGroupCount = 1,
-    [string]$subscriptionId = "SubscriptionId is required"
+    [Parameter(Mandatory = $true)]
+    [string]$subscriptionId
 )
 
 # print variables
