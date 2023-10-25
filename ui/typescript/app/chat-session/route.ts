@@ -3,14 +3,13 @@ import { NextResponse } from 'next/server';
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId');
-    const RECCOMMENDATION_SERVICE_URL = `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chatSession/getAllChats/${userId}`
+    const RECCOMMENDATION_SERVICE_URL = `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chats`
     console.log("Request body: ");
     console.dir(userId)
     const res = await fetch(RECCOMMENDATION_SERVICE_URL, {
         method: 'POST',
         headers: {
-            'Content-type': `application/json`,
-            'x-sk-api-key': `${process.env.NEXT_PUBLIC_SK_API_KEY}`
+            'Content-type': `application/json`
         }
     });
 

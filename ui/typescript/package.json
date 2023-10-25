@@ -27,6 +27,7 @@
     "js-cookie": "^3.0.1",
     "little-state-machine": "^4.8.0",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "next": "^13.3.0",
     "next-pwa": "^5.6.0",
     "next-seo": "^6.0.0",
