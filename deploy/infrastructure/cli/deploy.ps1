@@ -6,6 +6,22 @@ param (
     [string]$subscriptionId
 )
 
+# Generate a unique suffix based on a hash of the subscription ID and the resource group, just like uniqueString() would do for ARM templates
+# It delivers similar results but is *not* the exact hash that uniqueString() would deliver
+function Get-UniqueString {
+    param($subscriptionId, $resourceGroup)
+    $hasher = [System.Security.Cryptography.HashAlgorithm]::Create('sha256') 
+    $hash = $hasher.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($subscriptionId + "-" + $resourceGroup)) 
+    $bytes = @()
+    for ($i = 1; $i -lt $hash.Length; $i++) { 
+        $charByte = (($hash[$i] % 26) + [byte][char]'a')
+        $bytes = $bytes + $charByte
+    }
+    $uniqueSuffix = [System.Text.Encoding]::UTF8.GetString($bytes)
+    Write-Output $uniqueSuffix.Substring(0, [System.Math]::Min(13, $uniqueSuffix.Length))
+}
+
+
 # print variables
 
 Write-Host "resourceGroupPrefix: $resourceGroupPrefix"
@@ -28,6 +44,7 @@ $skipBlobStorage = $false
 $skipAzureContainerApps = $false
 $skipAzureContainerRegistry = $false
 $skipAPIM = $false
+
 
 # strip - from resourceGroupPrefix
 
@@ -148,18 +165,24 @@ for ($i = 1; $i -le $rgIndex; $i++) {
         Write-Host "Skipping blob storage account creation"
     }
     else {
+        $resourceGroup = $resourceGroupPrefix + "-rg-" + $i
+        $uniqueSuffix = Get-UniqueString -subscriptionId $subscriptionId -resourceGroup $resourceGroup
+
+        $storageaccount = -join($resourceGroupPrefix,"blobstorge",$i,$uniqueSuffix)
         
-        $storageaccount = -join($resourceGroupPrefix,"blobstorge",$i)
-        Write-Host "Creating blob storage account $storageaccount in $resourceGroupPrefix-rg-$i"
+        # Storage accounts can have a max of 24 characters. If the account name is longer than 24 characters, truncate it
+        $storageaccount = $storageaccount.Substring(0, [System.Math]::Min(24, $storageaccount.Length))
+
+        Write-Host "Creating blob storage account $storageaccount in $resourceGroup"
         
         az storage account create `
             --name $storageaccount `
-            --resource-group "$resourceGroupPrefix-rg-$i" `
+            --resource-group $resourceGroup `
             --location $location `
             --sku "Standard_LRS" `
             --subscription $subscriptionId
 
-        Write-Host "Creating blob storage container miyagi in $resourceGroupPrefix-rg-$i"
+        Write-Host "Creating blob storage container miyagi in $resourceGroup"
         
         az storage container create `
             --name "miyagi" `
@@ -173,13 +196,15 @@ for ($i = 1; $i -le $rgIndex; $i++) {
         Write-Host "Skipping Azure Container Registry creation"
     }
     else {
-        
-        $containerregistry = -join($resourceGroupPrefix,"acr",$i)
-        Write-Host "Creating Azure Container Registry $containerregistry in $resourceGroupPrefix-rg-$i"
+        $resourceGroup = $resourceGroupPrefix + "-rg-" + $i
+        $uniqueSuffix = Get-UniqueString -subscriptionId $subscriptionId -resourceGroup $resourceGroup
+
+        $containerregistry = -join($resourceGroupPrefix,"acr",$i,$uniqueSuffix)
+        Write-Host "Creating Azure Container Registry $containerregistry in $resourceGroup"
         
         az acr create `
             --name $containerregistry `
-            --resource-group "$resourceGroupPrefix-rg-$i" `
+            --resource-group $resourceGroup `
             --location $location `
             --sku "Basic" `
             --subscription $subscriptionId
