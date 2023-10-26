@@ -68,7 +68,7 @@ else {
 
 for ($i = 1; $i -le $rgIndex; $i++) {
     # if skipRg is true, skip creating resource group
-    if ($skipOpenAI -eq "true") {
+    if ($skipOpenAI) {
         Write-Host "Skipping OpenAI resource creation"
     }
     else {
@@ -85,7 +85,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
     
     # if skipEmbeddingModelDeployment is true, skip embedding model deployment
 
-    if ($skipEmbeddingModelDeployment -eq "true") {
+    if ($skipEmbeddingModelDeployment) {
         Write-Host "Skipping embedding model deployment"
     }
     else {
