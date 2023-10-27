@@ -6,7 +6,6 @@ export const UserInfo = {
     "firstName": "Govind",
     "lastName": "Kamtamneni",
     "age": 50,
-    "messageType": "0",
     "riskLevel": "aggressive",
     "annualHouseholdIncome": 80000,
     "favoriteBook": "intelligent-investor",
