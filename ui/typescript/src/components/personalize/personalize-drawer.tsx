@@ -19,7 +19,7 @@ import {
     assetsDataAtom,
     investmentsDataAtom,
     loadingPersonalizeAtom,
-    selectedAdvisorAtom,
+    selectedAdvisorAtom, selectedRiskLevelAtom,
     userInfoAtom
 } from "@/data/personalize/store";
 import {formatRequestData} from "@/data/utils/format-request-data";
@@ -53,18 +53,25 @@ export default function PersonalizeDrawer() {
     const [loadingPersonalize, setLoadingPersonalizeAtom] = useAtom(loadingPersonalizeAtom);
 
     const [userInfo] = useAtom(userInfoAtom);
+    const [currentRiskLevel] = useAtom(selectedRiskLevelAtom);
+    const [currentFavoriteAdvisor] = useAtom(selectedAdvisorAtom);
     const [investmentsInfo, setInvestmentsDataAtom] = useAtom(investmentsDataAtom);
     const [assetsInfo, setAssetsDataAtom] = useAtom(assetsDataAtom);
 
     const handlePersonalize = async () => {
         setLoadingPersonalizeAtom(true);
         try {
-            // Format data from assetsInfo and investmentsInfo
             const { portfolio, stocks } = formatRequestData(assetsInfo, investmentsInfo);
 
-            // Fetch data from atoms
+            const updatedUserInfo = {
+                ...userInfo,
+                riskLevel: currentRiskLevel.name,
+                favoriteAdvisor: currentFavoriteAdvisor.name,
+            };
+
+            // Create the requestData object
             const requestData = {
-                userInfo,
+                userInfo: updatedUserInfo,
                 portfolio,
                 stocks,
             };

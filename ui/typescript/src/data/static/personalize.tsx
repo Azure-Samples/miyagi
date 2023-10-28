@@ -22,5 +22,5 @@ export const AdvisorsList = [
 export const ReasoningEngineListData = [
     {id: 1, name: 'GPT-35-turbo'},
     {id: 2, name: 'Fine-tuned Llama-2-7B'},
-    {id: 3, name: 'Llama-2-13B'},
+    {id: 3, name: 'GPT-4'},
 ];
