@@ -6,6 +6,6 @@ export const Chats = [
         userId: 'bot',
         userName: 'bot',
         chatId: '',
-        messageType: "1"
+        authorRole: 1
     }
 ]

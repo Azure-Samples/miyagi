@@ -65,7 +65,7 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
             userId: userInfo.userId,
             userName: userInfo.userName,
             chatId: userInfo.chatId,
-            messageType: "0",
+            authorRole: 0,
         };
 
         // Update chatsAtom with the user's message first
@@ -89,7 +89,7 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
             body: JSON.stringify({
                 input: userInput,
                 variables: [
-                    { key: 'messageType', value: userInfo.messageType },
+                    { key: 'messageType', value: userInfo.authorRole.toString() },
                     { key: 'chatId', value: userInfo.chatId },
                 ],
             }),
@@ -111,7 +111,7 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
                     userId: "bot",
                     userName: "bot",
                     chatId: userInfo.chatId,
-                    messageType: "1",
+                    authorRole: 1,
                 },
             ];
         });

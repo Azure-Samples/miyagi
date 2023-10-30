@@ -9,38 +9,39 @@ import {ChatProps} from "@/types";
 
 export default function ChatMessage({ chat }: { chat: ChatProps }) {
   const {
-    userName,
+    authorRole,
     content
   } = chat ?? {};
+
   return (
       <div className="chat-content">
         <div className={cn('flex items-end ', {
           'justify-end':
-              userName !== Chats[0].userName,
+              authorRole !== Chats[0].authorRole,
         })}>
           <div className={cn('flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 ', {
             'items-end':
-                userName !== Chats[0].userName,
+                authorRole !== Chats[0].authorRole,
             'items-start':
-                userName == Chats[0].userName,
+                authorRole === Chats[0].authorRole,
           })}>
             <div><span
                 className={cn('px-4 py-2 rounded-lg inline-block  ', {
                   'rounded-br-none bg-blue-600 text-white':
-                      userName !== Chats[0].userName,
+                      authorRole !== Chats[0].authorRole,
                   'rounded-bl-none bg-gray-300 text-gray-600':
-                      userName == Chats[0].userName,
+                      authorRole === Chats[0].authorRole,
                 })}>{content}</span>
             </div>
           </div>
           <Image
               width={10} height={10}
-              src={(userName == Chats[0].userName) ? miyagilogo : usericon}
+              src={(authorRole == Chats[0].authorRole) ? miyagilogo : usericon}
               alt="Actor" className={cn('w-6 h-6 rounded-full  ', {
             'order-2':
-                userName !== Chats[0].userName,
+                authorRole !== Chats[0].authorRole,
             'order-1':
-                userName == Chats[0].userName,
+                authorRole === Chats[0].authorRole,
           })} />
         </div>
       </div>
