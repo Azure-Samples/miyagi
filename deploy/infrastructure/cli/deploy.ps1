@@ -2,8 +2,25 @@ param (
     [string]$resourceGroupPrefix = "miyagi1",
     [string]$location = "eastus",
     [string]$resourceGroupCount = 1,
-    [string]$subscriptionId = "SubscriptionId is required"
+    [Parameter(Mandatory = $true)]
+    [string]$subscriptionId
 )
+
+# Generate a unique suffix based on a hash of the subscription ID and the resource group, just like uniqueString() would do for ARM templates
+# It delivers similar results but is *not* the exact hash that uniqueString() would deliver
+function Get-UniqueString {
+    param($subscriptionId, $resourceGroup)
+    $hasher = [System.Security.Cryptography.HashAlgorithm]::Create('sha256') 
+    $hash = $hasher.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($subscriptionId + "-" + $resourceGroup)) 
+    $bytes = @()
+    for ($i = 1; $i -lt $hash.Length; $i++) { 
+        $charByte = (($hash[$i] % 26) + [byte][char]'a')
+        $bytes = $bytes + $charByte
+    }
+    $uniqueSuffix = [System.Text.Encoding]::UTF8.GetString($bytes)
+    Write-Output $uniqueSuffix.Substring(0, [System.Math]::Min(13, $uniqueSuffix.Length))
+}
+
 
 # print variables
 
@@ -17,16 +34,17 @@ Write-Host "subscriptionId: $subscriptionId"
 $rgIndex = $resourceGroupCount
 
 # set all these to false the first time you run this script. After that you can set them to true to skip creating resources that already exist
-$skipRg = "false"
-$skipOpenAI = "false"
-$skipEmbeddingModelDeployment = "false"
-$skipCompletionModelDeployment = "false"
-$skipcognitiveSearch = "false"
-$skipCosmosDB = "false"
-$skipBlobStorage = "false"
-$skipAzureContainerApps = "false"
-$skipAzureContainerRegistry = "false"
-$skipAPIM = "false"
+$skipRg = $false
+$skipOpenAI = $false
+$skipEmbeddingModelDeployment = $false
+$skipCompletionModelDeployment = $false
+$skipcognitiveSearch = $false
+$skipCosmosDB = $false
+$skipBlobStorage = $false
+$skipAzureContainerApps = $false
+$skipAzureContainerRegistry = $false
+$skipAPIM = $false
+
 
 # strip - from resourceGroupPrefix
 
@@ -35,7 +53,7 @@ $resourceGroupPrefix = $resourceGroupPrefix.Replace("-","");
 # create resource groups in a loop for rgIndex
 # if skipRg is true, skip creating resource group
 
-if ($skipRg -eq "true") {
+if ($skipRg) {
     Write-Host "Skipping resource group creation"
 }
 else {
@@ -50,7 +68,7 @@ else {
 
 for ($i = 1; $i -le $rgIndex; $i++) {
     # if skipRg is true, skip creating resource group
-    if ($skipOpenAI -eq "true") {
+    if ($skipOpenAI) {
         Write-Host "Skipping OpenAI resource creation"
     }
     else {
@@ -67,7 +85,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
     
     # if skipEmbeddingModelDeployment is true, skip embedding model deployment
 
-    if ($skipEmbeddingModelDeployment -eq "true") {
+    if ($skipEmbeddingModelDeployment) {
         Write-Host "Skipping embedding model deployment"
     }
     else {
@@ -89,7 +107,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
     
     # if skipCompletionModelDeployment is true, skip completion model deployment
 
-    if ($skipCompletionModelDeployment -eq "true") {
+    if ($skipCompletionModelDeployment) {
         Write-Host "Skipping completion model deployment"
     }
     else {
@@ -110,7 +128,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
 
     # if skipCosmosDB is false, create CosmosDB account called miyagi with a container called recommendations
 
-    if ($skipCosmosDB -eq "true") {
+    if ($skipCosmosDB) {
         Write-Host "Skipping CosmosDB account creation"
     }
     else {
@@ -143,22 +161,28 @@ for ($i = 1; $i -le $rgIndex; $i++) {
 
     # if skipBlobStorage is false, create blob storage account with a container called miyagi
 
-    if ($skipBlobStorage -eq "true") {
+    if ($skipBlobStorage) {
         Write-Host "Skipping blob storage account creation"
     }
     else {
+        $resourceGroup = $resourceGroupPrefix + "-rg-" + $i
+        $uniqueSuffix = Get-UniqueString -subscriptionId $subscriptionId -resourceGroup $resourceGroup
+
+        $storageaccount = -join($resourceGroupPrefix,"blobstorge",$i,$uniqueSuffix)
         
-        $storageaccount = -join($resourceGroupPrefix,"blobstorge",$i)
-        Write-Host "Creating blob storage account $storageaccount in $resourceGroupPrefix-rg-$i"
+        # Storage accounts can have a max of 24 characters. If the account name is longer than 24 characters, truncate it
+        $storageaccount = $storageaccount.Substring(0, [System.Math]::Min(24, $storageaccount.Length))
+
+        Write-Host "Creating blob storage account $storageaccount in $resourceGroup"
         
         az storage account create `
             --name $storageaccount `
-            --resource-group "$resourceGroupPrefix-rg-$i" `
+            --resource-group $resourceGroup `
             --location $location `
             --sku "Standard_LRS" `
             --subscription $subscriptionId
 
-        Write-Host "Creating blob storage container miyagi in $resourceGroupPrefix-rg-$i"
+        Write-Host "Creating blob storage container miyagi in $resourceGroup"
         
         az storage container create `
             --name "miyagi" `
@@ -168,17 +192,19 @@ for ($i = 1; $i -le $rgIndex; $i++) {
 
     # if skipAzureContainerRegistry is false, create Azure Container Registry called miyagi
 
-    if ($skipAzureContainerRegistry -eq "true") {
+    if ($skipAzureContainerRegistry) {
         Write-Host "Skipping Azure Container Registry creation"
     }
     else {
-        
-        $containerregistry = -join($resourceGroupPrefix,"acr",$i)
-        Write-Host "Creating Azure Container Registry $containerregistry in $resourceGroupPrefix-rg-$i"
+        $resourceGroup = $resourceGroupPrefix + "-rg-" + $i
+        $uniqueSuffix = Get-UniqueString -subscriptionId $subscriptionId -resourceGroup $resourceGroup
+
+        $containerregistry = -join($resourceGroupPrefix,"acr",$i,$uniqueSuffix)
+        Write-Host "Creating Azure Container Registry $containerregistry in $resourceGroup"
         
         az acr create `
             --name $containerregistry `
-            --resource-group "$resourceGroupPrefix-rg-$i" `
+            --resource-group $resourceGroup `
             --location $location `
             --sku "Basic" `
             --subscription $subscriptionId
@@ -196,21 +222,18 @@ for ($i = 1; $i -le $rgIndex; $i++) {
 
         az containerapp up --name $containerapp  `
         --resource-group "$resourceGroupPrefix-rg-$i" `
-        --location centralus `
+        --location $location `
         --environment "$resourceGroupPrefix-env" `
         --image mcr.microsoft.com/azuredocs/containerapps-helloworld:latest `
         --target-port 80 `
         --ingress external `
         --query properties.configuration.ingress.fqdn `
 
-
-        
-        
     }
 
     # if skipcognitiveSearch is false, create cognitive search service with semantic search capability
 
-    if ($skipcognitiveSearch -eq "true") {
+    if ($skipcognitiveSearch) {
         Write-Host "Skipping cognitive search service creation"
     }
     else {
@@ -222,15 +245,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
         --template-file "bicep/search-service.bicep" `
         --parameters "searchServiceName=$resourceGroupPrefix-acs-$i"
             
-
     }
-
-  
-
-
-
- 
-
 }
 
 

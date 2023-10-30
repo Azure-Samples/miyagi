@@ -16,12 +16,13 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
 
     useEffect(() => {
         async function fetchChatSessions() {
-            const chatSessionUrl = `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chats/${userInfo.chatId}/messages`;
+            const chatSessionUrl = `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chatSession/getAllChats/${userInfo.userName}`;
             console.log(chatSessionUrl);
             const response = await fetch(chatSessionUrl, {
                 method: 'GET',
                 headers: {
-                    'Content-type': `application/json`
+                    'Content-type': `application/json`,
+                    'x-sk-api-key': `${process.env.NEXT_PUBLIC_SK_API_KEY}`
                 }
             });
             const data = await response.json();
@@ -34,11 +35,12 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
     }, []);
 
     async function fetchChatMessages(chatId: string) {
-        const chatMsgEndpoint = `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chats/${chatId}/messages?startIdx=0&count=-1`
+        const chatMsgEndpoint = `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chatSession/getChatMessages/${chatId}?startIdx=0&count=-1`
         const response = await fetch(chatMsgEndpoint, {
             method: 'GET',
             headers: {
-                'Content-type': `application/json`
+                'Content-type': `application/json`,
+                'x-sk-api-key': `${process.env.NEXT_PUBLIC_SK_API_KEY}`
             }
         });
         const data = await response.json();
@@ -50,11 +52,11 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
         setSelectedSession(currentSession);
         console.log("Selected current session");
         console.dir(currentSession);
-        await fetchChatMessages(currentSession.chatId || `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}`);
+        await fetchChatMessages(currentSession.id || `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}`);
 
         setUserInfoAtom((prevUserInfo: UserInfoProps) => ({ // Add type to prevUserInfo
             ...prevUserInfo,
-            chatId: currentSession.chatId || `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}`,
+            chatId: currentSession.id || `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}`,
         }));
     }
 
