@@ -88,8 +88,7 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
             body: JSON.stringify({
                 input: userInput,
                 variables: [
-                    { key: 'userId', value: userInfo.userId },
-                    { key: 'userName', value: userInfo.userName },
+                    { key: 'messageType', value: userInfo.authorRole.toString() },
                     { key: 'chatId', value: userInfo.chatId },
                 ],
             }),

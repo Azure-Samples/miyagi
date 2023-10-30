@@ -16,6 +16,7 @@ export function FinancialAdvisorList({
     className?: string;
 }) {
     const [selectedItem, setSelectedAdvisorAtom] = useAtom(selectedAdvisorAtom);
+
     return (
         <div className="relative w-full lg:w-auto">
             <Listbox value={selectedItem} onChange={setSelectedAdvisorAtom}>
