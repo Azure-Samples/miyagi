@@ -30,7 +30,7 @@
 5. Clone this repo
    
    ```
-    git clone -b ap/docs-and-iaac https://github.com/Azure-Samples/miyagi.git
+    git clone https://github.com/Azure-Samples/miyagi.git
 
    ```
    **Note:** the above branch is temporary. Soon you will be using the main branch.
@@ -178,16 +178,10 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
     ```
 3.  Click hydrate -> POST save 7288/datasets -> Click Send. You should see the following response
     ```
-      {
-      "metadata": {
-         "userId": "50",
-         "riskLevel": "aggressive",
-         "favoriteSubReddit": "finance",
-         "favoriteAdvisor": "Jim Cramer"
-      },
-      "dataSetName": "intelligent-investor"
-
-      }
+    {
+    "dataSetName": "intelligent-investor",
+    "count": 46
+    }
     ```
 
 ### 2.8 Explore the recommendation service
