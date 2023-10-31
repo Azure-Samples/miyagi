@@ -16,8 +16,7 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
 
     useEffect(() => {
         async function fetchChatSessions() {
-            const chatSessionUrl = `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chats/${userInfo.chatId}/messages`;
-            console.log(chatSessionUrl);
+            const chatSessionUrl = `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chats`;
             const response = await fetch(chatSessionUrl, {
                 method: 'GET',
                 headers: {
@@ -26,12 +25,17 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
             });
             const data = await response.json();
             setChatSessions(data);
-            console.log("Chat sessions");
-            console.dir(chatSessions);
-            console.dir(selectedSession);
+
+            // Set the first session as selected
+            if (data.length > 0) {
+                const firstChatSession = data[0];
+                setSelectedSession(firstChatSession);
+                await fetchChatMessages(firstChatSession.id);
+            }
         }
         fetchChatSessions().then(r => console.log(r));
     }, []);
+
 
     async function fetchChatMessages(chatId: string) {
         const chatMsgEndpoint = `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chats/${chatId}/messages?startIdx=0&count=-1`
@@ -50,11 +54,11 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
         setSelectedSession(currentSession);
         console.log("Selected current session");
         console.dir(currentSession);
-        await fetchChatMessages(currentSession.chatId || `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}`);
+        await fetchChatMessages(currentSession.id);
 
         setUserInfoAtom((prevUserInfo: UserInfoProps) => ({ // Add type to prevUserInfo
             ...prevUserInfo,
-            chatId: currentSession.chatId || `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}`,
+            chatId: currentSession.id,
         }));
     }
 
