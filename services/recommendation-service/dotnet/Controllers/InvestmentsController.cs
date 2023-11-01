@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using System.Text.Json;
+using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.Models;
 using GBB.Miyagi.RecommendationService.Plugins;
-using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Memory;
@@ -13,6 +13,7 @@ using Microsoft.SemanticKernel.Plugins.Core;
 using Microsoft.SemanticKernel.Plugins.Memory;
 using Microsoft.SemanticKernel.Plugins.Web;
 using Microsoft.SemanticKernel.Plugins.Web.Bing;
+using ConsoleLogger = GBB.Miyagi.RecommendationService.Utils.ConsoleLogger;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
@@ -27,7 +28,7 @@ public class InvestmentsController : ControllerBase
 {
     private readonly IKernel _kernel;
     private readonly ISemanticTextMemory _memory;
-    private readonly string _memoryCollection = Env.Var("MEMORY_COLLECTION");
+    private readonly KernelSettings _kernelSettings = KernelSettings.LoadSettings();
 
     public InvestmentsController(IKernel kernel, ISemanticTextMemory memory)
     {
@@ -46,6 +47,7 @@ public class InvestmentsController : ControllerBase
         var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
         _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
         _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
+        var memoryCollection = _kernelSettings.CollectionName;
 
         // ========= Fetch memory from vector store using recall =========
         _kernel.ImportFunctions(new TextMemoryPlugin(_memory));
@@ -58,7 +60,7 @@ public class InvestmentsController : ControllerBase
         context.Set("risk", miyagiContext.UserInfo.RiskLevel);
         context.Set("semanticQuery", $"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level");
 
-        context[TextMemoryPlugin.CollectionParam] = _memoryCollection;
+        context[TextMemoryPlugin.CollectionParam] = memoryCollection;
         //context[TextMemoryPlugin.KeyParam] = miyagiContext.UserInfo.FavoriteBook;
         context[TextMemoryPlugin.RelevanceParam] = "0.8";
         context[TextMemoryPlugin.LimitParam] = "3";
@@ -106,7 +108,7 @@ public class InvestmentsController : ControllerBase
         var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
         var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
         var userProfilePlugin = _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
-
+        var memoryCollection = _kernelSettings.CollectionName;
         // ========= Fetch memory from vector store using recall =========
         _kernel.ImportFunctions(new TextMemoryPlugin(_memory));
 
@@ -118,7 +120,7 @@ public class InvestmentsController : ControllerBase
         context.Set("risk", miyagiContext.UserInfo.RiskLevel);
         context.Set("semanticQuery", $"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level");
 
-        context[TextMemoryPlugin.CollectionParam] = _memoryCollection;
+        context[TextMemoryPlugin.CollectionParam] = memoryCollection;
         //context[TextMemoryPlugin.KeyParam] = miyagiContext.UserInfo.FavoriteBook;
         context[TextMemoryPlugin.RelevanceParam] = "0.8";
         context[TextMemoryPlugin.LimitParam] = "3";
@@ -131,7 +133,7 @@ public class InvestmentsController : ControllerBase
             try
             {
                 // ========= Bing Connector - RaG with current data =========
-                var bingConnector = new BingConnector(Env.Var("BING_API_KEY"));
+                var bingConnector = new BingConnector(_kernelSettings.BingApiKey);
                 _kernel.ImportFunctions(new WebSearchEnginePlugin(bingConnector), "bing");
                 
                 var bingPlugin = _kernel.Functions.GetFunction("bing", "search");
@@ -140,7 +142,7 @@ public class InvestmentsController : ControllerBase
                 context.Set("bingResults", bingResult.GetValue<string>());
                 log.LogDebug("Bing Result: {S}", bingResult.GetValue<string>());
 
-                var memories = _memory.SearchAsync(collection: _memoryCollection,
+                var memories = _memory.SearchAsync(collection: memoryCollection,
                     query: "investment advise",
                     limit: 3,
                     minRelevanceScore: 0.8);

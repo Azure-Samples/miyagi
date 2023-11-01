@@ -32,6 +32,12 @@ internal class KernelSettings
     [JsonPropertyName("azureCognitiveSearchApiKey")]
     public string AzureCognitiveSearchApiKey { get; set; } = string.Empty;
 
+    [JsonPropertyName("collectionName")] 
+    public string CollectionName { get; set; } = string.Empty;
+    
+    [JsonPropertyName("bingApiKey")] 
+    public string BingApiKey { get; set; } = string.Empty;
+    
     [JsonPropertyName("cosmosDbName")] 
     public string CosmosDbName { get; set; } = string.Empty;
     
