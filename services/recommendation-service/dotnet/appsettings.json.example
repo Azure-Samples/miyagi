@@ -16,5 +16,6 @@
     "cosmosDbName": "miyagi",
     "blobServiceUri": "<Your blobServiceUri>",
     "cosmosDbContainerName": "recommendations",
+    "comosDbConnectionString": "<Your Cosmos DB Connection String>",
     "logLevel": "Trace"
   }

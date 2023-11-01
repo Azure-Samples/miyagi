@@ -8,35 +8,41 @@ internal class KernelSettings
 
     [JsonPropertyName("deploymentOrModelId")]
     public string DeploymentOrModelId { get; set; } = string.Empty;
-    
-    [JsonPropertyName("blobServiceUri")]
-    public string BlobServiceUri { get; set; } = string.Empty;
+
+    [JsonPropertyName("blobServiceUri")] public string BlobServiceUri { get; set; } = string.Empty;
 
     [JsonPropertyName("embeddingDeploymentOrModelId")]
     public string EmbeddingDeploymentOrModelId { get; set; } = string.Empty;
 
-    [JsonPropertyName("endpoint")] public string Endpoint { get; set; } = string.Empty;
+    [JsonPropertyName("endpoint")] 
+    public string Endpoint { get; set; } = string.Empty;
 
-    [JsonPropertyName("apiKey")] public string ApiKey { get; set; } = string.Empty;
+    [JsonPropertyName("apiKey")] 
+    public string ApiKey { get; set; } = string.Empty;
 
-    [JsonPropertyName("orgId")] public string OrgId { get; set; } = string.Empty;
+    [JsonPropertyName("orgId")] 
+    public string OrgId { get; set; } = string.Empty;
 
-    [JsonPropertyName("logLevel")] public LogLevel? LogLevel { get; set; }
+    [JsonPropertyName("logLevel")] 
+    public LogLevel? LogLevel { get; set; }
+
+    [JsonPropertyName("azureCognitiveSearchEndpoint")]
+    public string AzureCognitiveSearchEndpoint { get; set; } = string.Empty;
+
+    [JsonPropertyName("azureCognitiveSearchApiKey")]
+    public string AzureCognitiveSearchApiKey { get; set; } = string.Empty;
+
+    [JsonPropertyName("cosmosDbName")] 
+    public string CosmosDbName { get; set; } = string.Empty;
     
-    [JsonPropertyName("cosmosDbUri")]
+    [JsonPropertyName("cosmosDbUri")] 
     public string CosmosDbUri { get; set; } = string.Empty;
 
     [JsonPropertyName("cosmosDbContainerName")]
     public string CosmosDbContainerName { get; set; } = string.Empty;
     
-    [JsonPropertyName("azureCognitiveSearchEndpoint")]
-    public string AzureCognitiveSearchEndpoint { get; set; } = string.Empty;
-    
-    [JsonPropertyName("azureCognitiveSearchApiKey")]
-    public string AzureCognitiveSearchApiKey { get; set; } = string.Empty;
-
-    [JsonPropertyName("cosmosDbName")]
-    public string CosmosDbName { get; set; } = string.Empty;
+    [JsonPropertyName("cosmosDbConnectionString")] 
+    public string CosmosDbConnectionString { get; set; } = string.Empty;
 
 
     /// <summary>

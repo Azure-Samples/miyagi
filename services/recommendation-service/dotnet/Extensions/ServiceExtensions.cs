@@ -22,8 +22,8 @@ public static class ServiceExtensions
     public static void AddAzureServices(this IServiceCollection services)
     {
         var kernelSettings = GetKernelSettings(services.BuildServiceProvider());
-        var serviceProvider = services.BuildServiceProvider();
-        var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+        // var serviceProvider = services.BuildServiceProvider();
+        // var configuration = serviceProvider.GetRequiredService<IConfiguration>();
         
         TokenCredential credential = new DefaultAzureCredential();
         
@@ -46,7 +46,7 @@ public static class ServiceExtensions
         // );
 
         CosmosClient cosmosClient = new(
-            connectionString: configuration["COSMOS_DB_CONNECTION_STRING"]!
+            connectionString: kernelSettings.CosmosDbConnectionString
         );
         services.AddSingleton(_ => cosmosClient);
         services.AddSingleton<CosmosDbService>();
