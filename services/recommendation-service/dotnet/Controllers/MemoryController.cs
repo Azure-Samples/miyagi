@@ -1,9 +1,10 @@
 ﻿using Azure.Storage.Blobs;
+using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.Models;
-using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Text;
+using ConsoleLogger = GBB.Miyagi.RecommendationService.Utils.ConsoleLogger;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
@@ -18,6 +19,7 @@ public class MemoryController : ControllerBase
     private const int MaxTokensPerLine = 60;
     private readonly BlobServiceClient _blobServiceClient;
     private readonly ISemanticTextMemory _memory;
+    private readonly KernelSettings _kernelSettings = KernelSettings.LoadSettings();
 
     public MemoryController(ISemanticTextMemory memory, BlobServiceClient blobServiceClient)
     {
@@ -78,7 +80,7 @@ public class MemoryController : ControllerBase
         }
 
         // Chunk, generate embeddings, and persist to vectordb
-        var memoryCollectionName = Env.Var("MEMORY_COLLECTION");
+        var memoryCollectionName = _kernelSettings.CollectionName;
         log.LogInformation("Saving dataset {DataSetName} to memory collection {MemoryCollectionName}",
             datasetInfo.DataSetName, memoryCollectionName);
 
