@@ -44,7 +44,7 @@ public class InvestmentsController : ControllerBase
         log.BeginScope("InvestmentController.GetRecommendationsAsync");
         // ========= Import Advisor skill from local filesystem =========
         log.LogDebug("Path: {P}", Directory.GetCurrentDirectory());
-        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
+        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
         _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
         _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
         var memoryCollection = _kernelSettings.CollectionName;
@@ -105,7 +105,7 @@ public class InvestmentsController : ControllerBase
         log.BeginScope("InvestmentController.GetRecommendationsAsync");
         // ========= Import Advisor skill from local filesystem =========
         log.LogDebug("Path: {P}", Directory.GetCurrentDirectory());
-        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
+        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
         var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
         var userProfilePlugin = _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
         var memoryCollection = _kernelSettings.CollectionName;

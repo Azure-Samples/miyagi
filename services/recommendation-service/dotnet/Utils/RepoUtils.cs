@@ -9,13 +9,13 @@ namespace GBB.Miyagi.RecommendationService.Utils;
 public static class RepoUtils
 {
     /// <summary>
-    ///     Scan the local folders from the repo, looking for "Plugins" folder.
+    ///     Scan the local folders from the repo, looking for "plugins" folder.
     /// </summary>
     /// <returns>The full path to samples/skills</returns>
     public static string GetSamplePluginsPath()
     {
         const string Parent = "";
-        const string Folder = "Plugins";
+        const string Folder = "plugins";
 
         bool SearchPath(string pathToFind, out string result, int maxAttempts = 10)
         {

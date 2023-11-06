@@ -45,7 +45,7 @@ public class AssetsController : ControllerBase
         sw.Start();
         // ========= Import semantic functions as plugins =========
         log.LogDebug("Path: {S}", Directory.GetCurrentDirectory());
-        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
+        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
         var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
 
         // ========= Import native function  =========
@@ -95,7 +95,7 @@ public class AssetsController : ControllerBase
     public async Task<IActionResult> GetRecommendationsRunAsync([FromBody] MiyagiContext miyagiContext)
     {
         // ========= Import semantic functions as plugins =========
-        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
+        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
         var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
 
         // ========= Import native function  =========

@@ -21,6 +21,13 @@ builder.Services.AddAzureServices();
 // Add Semantic Kernel services
 builder.Services.AddSkServices();
 
+// Explicitly configure Kestrel to only use HTTP
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    // Remove the HTTPS endpoint if it's there
+    serverOptions.ListenAnyIP(80); // Listen on port 80 for HTTP
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
