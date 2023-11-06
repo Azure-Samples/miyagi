@@ -18,6 +18,6 @@
     "collectionName": "miyagi-embeddings",
     "bingApiKey": "<Your Bing API Key>",
     "cosmosDbContainerName": "recommendations",
-    "comosDbConnectionString": "<Your Cosmos DB Connection String>",
+    "cosmosDbConnectionString": "<Your Cosmos DB Connection String>",
     "logLevel": "Trace"
   }
