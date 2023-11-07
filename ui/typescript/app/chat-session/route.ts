@@ -3,10 +3,10 @@ import { NextResponse } from 'next/server';
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId');
-    const RECCOMMENDATION_SERVICE_URL = `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chats`
+    const chatsUrl = `${process.env.NEXT_PUBLIC_COPILOT_CHAT_BASE_URL}/chats`
     console.log("Request body: ");
     console.dir(userId)
-    const res = await fetch(RECCOMMENDATION_SERVICE_URL, {
+    const res = await fetch(chatsUrl, {
         method: 'POST',
         headers: {
             'Content-type': `application/json`

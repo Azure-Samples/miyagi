@@ -76,18 +76,33 @@ export default function PersonalizeDrawer() {
                 stocks,
             };
 
-            const response = await personalizeMutation.mutateAsync(requestData);
-            console.log('Successfully got personalization');
+            const response = await fetch(`${process.env.NEXT_PUBLIC_RECCOMMENDATION_SERVICE_URL}/personalize`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            });
+
             console.dir(response);
+
+            if (!response.ok) {
+                console.error('HTTP error: ', response);
+                toast.error('Failed to fetch personalization. Try again later.');
+            }
+
+            const responseData = await response.json();
+            console.log('Successfully got personalization');
+            console.dir(responseData);
             toast.success('Personalization successful');
 
             // Extract the relevant data from the response
-            const updatedAssetData = response.assets.portfolio.map((item, index) => ({
+            const updatedAssetData = responseData.assets.portfolio.map((item, index) => ({
                 ...assetsInfo[index],
                 gptRecommendation: item.gptRecommendation,
             }));
 
-            const updatedInvestmentData = response.investments.portfolio.map((item, index) => ({
+            const updatedInvestmentData = responseData.investments.portfolio.map((item, index) => ({
                 ...investmentsInfo[index],
                 gptRecommendation: item.gptRecommendation,
             }));
@@ -106,6 +121,7 @@ export default function PersonalizeDrawer() {
             setLoadingPersonalizeAtom(false);
         }
     };
+
 
     return (
         <Transition appear show={isPersonalizeOpen} as={Fragment}>

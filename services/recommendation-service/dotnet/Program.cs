@@ -21,11 +21,16 @@ builder.Services.AddAzureServices();
 // Add Semantic Kernel services
 builder.Services.AddSkServices();
 
-// Explicitly configure Kestrel to only use HTTP
-builder.WebHost.ConfigureKestrel(serverOptions =>
+// Configure CORS to allow specific origins from KernelSettings
+builder.Services.AddCors(options =>
 {
-    // Remove the HTTPS endpoint if it's there
-    serverOptions.ListenAnyIP(80); // Listen on port 80 for HTTP
+    options.AddPolicy(name: "MiyagiAllowSpecificOrigins",
+        policy =>
+        {
+            policy.WithOrigins(kernelSettings.CorsAllowedOrigins)
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
 });
 
 var app = builder.Build();
@@ -34,8 +39,10 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseCors();
+app.UseCors("MiyagiAllowSpecificOrigins");
 // app.UseHttpsRedirection(); // Issue with Next.js to use https redirection
+
+app.UseRouting();
 
 app.Map("/", () => Results.Redirect("/swagger"));
 

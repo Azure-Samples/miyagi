@@ -50,6 +50,9 @@ internal class KernelSettings
     [JsonPropertyName("cosmosDbConnectionString")] 
     public string CosmosDbConnectionString { get; set; } = string.Empty;
 
+    [JsonPropertyName("corsAllowedOrigins")]
+    public string[] CorsAllowedOrigins { get; set; } = Array.Empty<string>();
+
 
     /// <summary>
     ///     Load the kernel settings from settings.json if the file exists and if not attempt to use user secrets.
