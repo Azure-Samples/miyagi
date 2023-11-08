@@ -45,7 +45,7 @@ public class AssetsController : ControllerBase
         sw.Start();
         // ========= Import semantic functions as plugins =========
         log.LogDebug("Path: {S}", Directory.GetCurrentDirectory());
-        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
+        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
         var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
 
         // ========= Import native function  =========
