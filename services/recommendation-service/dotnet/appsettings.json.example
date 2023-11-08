@@ -19,7 +19,7 @@
     "bingApiKey": "<Your Bing API Key>",
     "cosmosDbContainerName": "recommendations",
     "cosmosDbConnectionString": "<Your Cosmos DB Connection String>",
-    "logLevel": "Trace"
+    "logLevel": "Trace",
        "CorsAllowedOrigins": [
       "http://localhost:4001",
       "http://localhost:3000"
