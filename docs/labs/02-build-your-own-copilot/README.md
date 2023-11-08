@@ -65,12 +65,9 @@
 
 ### 2.2 Setup configuration for miyagi app
 
-1. Create a new file called .env in miyagi/ui/typescript
-2. Copy paste the contents of .env.local.example into .env and save the file
-3. You will setup the values for the variables in the workshop [ this will be updated later]
-4. Create a new file named appsettings.json in miyagi/services/recommendation-service/dotnet
-5. Copy paste the contents of appsettings.json.example into appsettings.json and save the file
-6. Update appsettings.json with the values for the variables below. You can get the values from the Azure Portal.
+1. Create a new file named appsettings.json in miyagi/services/recommendation-service/dotnet
+2. Copy paste the contents of appsettings.json.example into appsettings.json and save the file
+3. Update appsettings.json with the values for the variables below. You can get the values from the Azure Portal.
    > Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Open AI resource -> Select Keys and Endpoint
 
    > Copy the values of the Language API endpoint and the key1 into "endpoint" and "apikey" in the appsettings.json file and save the file
@@ -89,47 +86,17 @@
 
    > Leave the cosmosDbName as "miyagi" and the cosmosDbContainer name as "recommendations"
 
-   > Set the blobServiceUri tp https://yourstorageservicename.blob.core.windows.net/
+   > Leave the collectionName as "miyagi-embeddings",
 
+   > Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Cosmos DB resource -> Keys -> Copy the value of the Primary Connection String and paste it into the appsettings.json file as the value of the variable "cosmosDbConnectionString"
 
-7. Create a new file named .env in miyagi/sandbox/usecases/rag/dotnet
-8. Copy paste the contents of rag/.env.local.example into .env and save the file
-9. Copy the values from Step 6 into the .env file and save the file
+   > Set the blobServiceUri to https://[yourstorageservicename].blob.core.windows.net/
 
+   > Bing API Key will be provided by the workshop organizers  
 
-### 2.3 Setup .NET secrets
-
-1. Open a new terminal: Terminal -> New Terminal (or Ctrl + Shift + `)
-2. Change folder to miyagi/services/recommendation-service/dotnet
-3. Run the following command to set the secrets for the recommendation service. You will need to provide the values for the variables below.
-   
-   ```
-        dotnet user-secrets set "USE_OPEN_AI" "False"
-        dotnet user-secrets set "serviceType" "AzureOpenAI"
-        dotnet user-secrets set "BING_API_KEY" "<Your Bing API Key>"
-        dotnet user-secrets set "MEMORY_COLLECTION" "miyagi-embeddings"
-        dotnet user-secrets set "deploymentOrModelId" "<Your Open AI Completions model Deployment Id>"
-        dotnet user-secrets set "embeddingDeploymentOrModelId" "<Your Open AI Embeddings model Deployment Id>"
-        dotnet user-secrets set "endpoint" "<Your Open AI Endpoint>" 
-        dotnet user-secrets set "apiKey" "<Your Open AI API Key>"
-        dotnet user-secrets set "COSMOS_DB_CONNECTION_STRING" "<Cosmos DB Connection String>"
-       
-   ```
-   Use the following instructions to get the values for the arguments to the dotnet user-secrets set command
-
-   > **Bing API Key:** This will be provided to you during the workshop.
-
-   > **Open AI Endpoint:** Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Open AI resource -> Select Keys and Endpoint -> Copy the value of Endpoint.
-
-   > **Open AI API Key:** Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Open AI resource -> Select Keys and Endpoint -> Copy the value of key1.
-
-   > **Completions model Deployment Id:** Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Open AI resource -> Overview -> Click Go to Azure OpenAI Studio -> Deployments -> Copy the value of the deployment name for gpt-35-turbo model.
-
-   > **Embeddings model Deployment Id:** Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Open AI resource -> Overview -> Click Go to Azure OpenAI Studio -> Deployments -> Copy the value of the deployment name for text-embedding-ada-002 model.
-
-   > **Cosmos DB Connection String:** Go to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Cosmos DB resource -> Keys -> Copy the value of the Cosmos DB Connection String.
-
-
+4. Create a new file named .env in miyagi/sandbox/usecases/rag/dotnet
+5. Copy paste the contents of rag/.env.local.example into .env and save the file
+6. Copy the values from Step 3 into the .env file and save the file
 
 ### 2.4 Understanding implementation of the recommendation service
 
