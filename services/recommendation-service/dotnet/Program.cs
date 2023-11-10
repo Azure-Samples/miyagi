@@ -21,13 +21,19 @@ builder.Services.AddAzureServices();
 // Add Semantic Kernel services
 builder.Services.AddSkServices();
 
-// Configure CORS to allow specific origins from KernelSettings
+// Read additional CORS origins from the environment variable
+var envCorsOrigins = Environment.GetEnvironmentVariable("ENV_CORS_ORIGINS")?.Split(',') ?? Array.Empty<string>();
+
+// Combine CORS origins from kernel settings and the environment variable
+var allCorsOrigins = kernelSettings.CorsAllowedOrigins.Union(envCorsOrigins).ToArray();
+
+// Configure CORS to allow specific origins from KernelSettings and environment variables
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "MiyagiAllowSpecificOrigins",
         policy =>
         {
-            policy.WithOrigins(kernelSettings.CorsAllowedOrigins)
+            policy.WithOrigins(allCorsOrigins)
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
@@ -42,7 +48,6 @@ app.UseSwaggerUI();
 app.UseCors("MiyagiAllowSpecificOrigins");
 // app.UseHttpsRedirection(); // Issue with Next.js to use https redirection
 
-app.UseRouting();
 
 app.Map("/", () => Results.Redirect("/swagger"));
 
