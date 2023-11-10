@@ -7,7 +7,7 @@ ENV ASPNETCORE_URLS=http://+:80
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY . .
-WORKDIR "/src"
+WORKDIR /src
 RUN dotnet build "GBB.Miyagi.RecommendationService.csproj" -c Release -o /app/build
 
 FROM build AS publish
