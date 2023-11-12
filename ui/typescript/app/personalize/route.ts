@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
     console.dir(request);
-    const personalizeUrl = `${process.env.NEXT_PUBLIC_RECCOMMENDATION_SERVICE_URL}/personalize`
+    const personalizeUrl = `${process.env.NEXT_PUBLIC_RECCOMMENDATION_SERVICE_URL?.replace(/\/+$/, '')}/personalize`
     const { body } = request
     console.log("Request body: ");
     console.dir(body)
