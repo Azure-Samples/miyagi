@@ -76,7 +76,7 @@ export default function PersonalizeDrawer() {
                 stocks,
             };
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_RECCOMMENDATION_SERVICE_URL}/personalize`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_RECCOMMENDATION_SERVICE_URL?.replace(/\/+$/, '')}/personalize`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
