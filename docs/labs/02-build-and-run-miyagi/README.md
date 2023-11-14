@@ -1,4 +1,4 @@
-# Steps: Build Your Own Copilot workshop
+# Steps: Build and deploy Miyagi
 
 ## 1. Setup Local Environment
 
