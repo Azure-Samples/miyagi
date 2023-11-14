@@ -387,3 +387,5 @@ sandbox/usecases/rag/.env
 sandbox/usecases/rag/dotnet/.env
 
 sandbox/notebooks/prompt-engineering/dotnet/.env
+
+sandbox/prompt-engineering/notebooks/prompt-engineering/dotnet/.env
