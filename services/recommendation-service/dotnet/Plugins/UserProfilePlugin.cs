@@ -3,7 +3,6 @@
 using System.ComponentModel;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Orchestration;
 
 namespace GBB.Miyagi.RecommendationService.Plugins;
 
@@ -33,14 +32,10 @@ public class UserProfilePlugin
     /// <example>
     ///     SKContext[UserProfilePlugin.UserId] = "000"
     /// </example>
-    /// <param name="context">Contains the context variables.</param>
-    [SKFunction]
-    [SKName("GetUserAge")]
-    [Description("Given a userId, get user age")]
+    [KernelFunction, Description("Given a userId, get user age")]
     public string GetUserAge(
         [Description("Unique identifier of a user")]
-        string userId,
-        SKContext context)
+        string userId)
     {
         var log = ConsoleLogger.Log;
         log?.BeginScope("UserProfilePlugin.GetUserAge");
@@ -67,14 +62,10 @@ public class UserProfilePlugin
     /// <example>
     ///     SKContext[UserProfilePlugin.UserId] = "000"
     /// </example>
-    /// <param name="context">Contains the context variables.</param>
-    [SKFunction]
-    [SKName("GetAnnualHouseholdIncome")]
-    [Description("Given a userId, get user annual household income")]
+    [KernelFunction, Description("Given a userId, get user annual household income")]
     public string GetAnnualHouseholdIncome(
         [Description("Unique identifier of a user")]
-        string userId,
-        SKContext context)
+        string userId)
     {
         var log = ConsoleLogger.Log;
         log?.BeginScope("UserProfilePlugin.GetAnnualHouseholdIncome");

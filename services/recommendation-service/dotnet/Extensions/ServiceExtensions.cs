@@ -4,10 +4,10 @@ using Azure.Storage.Blobs;
 using GBB.Miyagi.RecommendationService.config;
 using Microsoft.Azure.Cosmos;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Connectors.AI.OpenAI;
 using Microsoft.SemanticKernel.Connectors.Memory.AzureCognitiveSearch;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
-using Microsoft.SemanticKernel.Plugins.Memory;
+using Microsoft.SemanticKernel.Plugins.Core;
 
 namespace GBB.Miyagi.RecommendationService.Extensions;
 
@@ -56,15 +56,19 @@ public static class ServiceExtensions
     {
         var kernelSettings = GetKernelSettings(services.BuildServiceProvider());
 
-        services.AddSingleton<IKernel>(_ =>
+        services.AddSingleton<Kernel>(_ =>
         {
-            var kernel = Kernel.Builder
-                .WithLoggerFactory(ConsoleLogger.LoggerFactory)
-                .WithAzureChatCompletionService(
-                    kernelSettings.DeploymentOrModelId,
-                    kernelSettings.Endpoint,
-                    kernelSettings.ApiKey)
-                .Build();
+            services = new ServiceCollection();
+            services.AddLogging(c => c.AddConsole().SetMinimumLevel(LogLevel.Information));
+            services.AddHttpClient();
+            services.AddKernel().AddAzureOpenAIChatCompletion(
+                deploymentName: kernelSettings.DeploymentOrModelId,
+                endpoint: kernelSettings.Endpoint,
+                apiKey: kernelSettings.ApiKey,
+                modelId: kernelSettings.DeploymentOrModelId);
+            services.AddSingleton<KernelPlugin>(sp => KernelPluginFactory.CreateFromType<TimePlugin>(serviceProvider: sp));
+            services.AddSingleton<KernelPlugin>(sp => KernelPluginFactory.CreateFromType<HttpPlugin>(serviceProvider: sp));
+            var kernel = services.BuildServiceProvider().GetRequiredService<Kernel>();
 
             return kernel;
         });
@@ -73,7 +77,7 @@ public static class ServiceExtensions
         {
             var memoryBuilder = new MemoryBuilder();
             memoryBuilder
-                .WithAzureTextEmbeddingGenerationService(
+                .WithAzureOpenAITextEmbeddingGeneration(
                     kernelSettings.EmbeddingDeploymentOrModelId,
                     kernelSettings.Endpoint,
                     kernelSettings.ApiKey)

@@ -5,8 +5,6 @@ using GBB.Miyagi.RecommendationService.Plugins;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Orchestration;
-using Microsoft.SemanticKernel.Planning;
 using Microsoft.SemanticKernel.TemplateEngine.Prompt;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
@@ -20,12 +18,12 @@ namespace GBB.Miyagi.RecommendationService.Controllers;
 public class AssetsController : ControllerBase
 {
     private const string DefaultRiskLevel = "moderate";
-    private readonly IKernel _kernel;
+    private readonly Kernel _kernel;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="AssetsController" /> class.
     /// </summary>
-    public AssetsController(IKernel kernel)
+    public AssetsController(Kernel kernel)
     {
         _kernel = kernel;
     }
@@ -46,16 +44,18 @@ public class AssetsController : ControllerBase
         // ========= Import semantic functions as plugins =========
         log.LogDebug("Path: {S}", Directory.GetCurrentDirectory());
         var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
-        var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
+        var advisorPlugin = _kernel.ImportPluginFromPromptDirectory(pluginsDirectory, "AdvisorPlugin");
 
         // ========= Import native function  =========
         var userProfilePlugin = _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
 
         // ========= Set context variables to populate the prompt  =========
-        var context = _kernel.CreateNewContext();
-        context.Variables.Set("userId", miyagiContext.UserInfo.UserId);
-        context.Variables.Set("portfolio", JsonSerializer.Serialize(miyagiContext.Portfolio));
-        context.Variables.Set("risk", miyagiContext.UserInfo.RiskLevel ?? DefaultRiskLevel);
+        var arguments = new KernelArguments()
+        {
+            ["userId"] = miyagiContext.UserInfo.UserId,
+            ["portfolio"] = JsonSerializer.Serialize(miyagiContext.Portfolio),
+            ["risk"] = miyagiContext.UserInfo.RiskLevel ?? DefaultRiskLevel
+        };
 
         // ========= Chain and orchestrate with LLM =========
         var plan = new Plan("Execute userProfilePlugin and then advisorPlugin");
@@ -67,18 +67,34 @@ public class AssetsController : ControllerBase
         var ask = "Using the userId, get user age and household income, and then get the recommended asset allocation";
         context.Variables.Update(ask);
         log.LogDebug("Planner steps: {N}", plan.Steps.Count);
-        var result = await plan.InvokeAsync(context);
+        var result = await plan.InvokeAsync(arguments);
 
         // ========= Log token count, which determines cost =========
-        var promptRenderer = new PromptTemplateEngine();
-        var renderedPrompt = await promptRenderer.RenderAsync(
-            ask,
-            context);
-        log.LogDebug("Rendered Prompt: {S}", renderedPrompt);
-        log.LogDebug("Result: {S}", result.GetValue<string>());
+        // Handler which is called before a function is invoked
+        void MyInvokingHandler(object? sender, FunctionInvokingEventArgs e)
+        {
+            Console.WriteLine($"Invoking {e.Function.Name}");
+        }
 
-        log.LogDebug("Time Taken: {N}", sw.Elapsed);
-        log.LogDebug("*************************************");
+        // Handler which is called after a prompt is rendered
+        void MyRenderedHandler(object? sender, PromptRenderedEventArgs e)
+        {
+            Console.WriteLine($"Prompt sent to model: {e.RenderedPrompt}");
+        }
+
+        // Handler which is called after a function is invoked
+        void MyInvokedHandler(object? sender, FunctionInvokedEventArgs e)
+        {
+            if (e.Result.Metadata is not null && e.Result.Metadata.ContainsKey("Usage"))
+            {
+                Console.WriteLine($"Token usage: {e.Result.Metadata?["Usage"]?.AsJson()}");
+            }
+        }
+        
+        // Add the handlers to the kernel
+        _kernel.FunctionInvoking += MyInvokingHandler;
+        _kernel.PromptRendered += MyRenderedHandler;
+        _kernel.FunctionInvoked += MyInvokedHandler;
 
         var output = result.GetValue<string>()?.Replace("\n", "").Replace("\r", "").Replace(" ", "");
 

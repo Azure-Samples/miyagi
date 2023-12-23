@@ -17,7 +17,7 @@ public class RecommendationsController : ControllerBase
     private readonly InvestmentsController _investmentsController;
     private readonly CosmosDbService _cosmosDbService;
 
-    public RecommendationsController(IKernel kernel,
+    public RecommendationsController(Kernel kernel,
         ISemanticTextMemory memory,
         CosmosDbService cosmosDbService)
     {
