@@ -1,12 +1,9 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+﻿using System.Reflection;
 
-using System.IO;
-using System.Reflection;
-using RepoUtils;
-
-namespace Resources;
+namespace GBB.Miyagi.RecommendationService.Resources;
 
 /// <summary>
+/// From SK
 /// Resource helper to load resources embedded in the assembly. By default we embed only
 /// text files, so the helper is limited to returning text.
 ///
@@ -24,12 +21,12 @@ internal static class EmbeddedResource
     {
         // Get the current assembly. Note: this class is in the same assembly where the embedded resources are stored.
         Assembly? assembly = typeof(EmbeddedResource).GetTypeInfo().Assembly;
-        if (assembly == null) { throw new ConfigurationException($"[{s_namespace}] {fileName} assembly not found"); }
+        if (assembly == null) { throw new Exception($"[{s_namespace}] {fileName} assembly not found"); }
 
         // Resources are mapped like types, using the namespace and appending "." (dot) and the file name
         var resourceName = $"{s_namespace}." + fileName;
         using Stream? resource = assembly.GetManifestResourceStream(resourceName);
-        if (resource == null) { throw new ConfigurationException($"{resourceName} resource not found"); }
+        if (resource == null) { throw new Exception($"{resourceName} resource not found"); }
 
         // Return the resource content, in text format.
         using var reader = new StreamReader(resource);
@@ -40,7 +37,7 @@ internal static class EmbeddedResource
     {
         // Get the current assembly. Note: this class is in the same assembly where the embedded resources are stored.
         Assembly? assembly = typeof(EmbeddedResource).GetTypeInfo().Assembly;
-        if (assembly == null) { throw new ConfigurationException($"[{s_namespace}] {fileName} assembly not found"); }
+        if (assembly == null) { throw new Exception($"[{s_namespace}] {fileName} assembly not found"); }
 
         // Resources are mapped like types, using the namespace and appending "." (dot) and the file name
         var resourceName = $"{s_namespace}." + fileName;

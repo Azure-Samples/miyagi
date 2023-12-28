@@ -6,7 +6,6 @@ using GBB.Miyagi.RecommendationService.Plugins;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Memory;
-using Microsoft.SemanticKernel.Orchestration;
 using Microsoft.SemanticKernel.Planning;
 using Microsoft.SemanticKernel.Planning.Stepwise;
 using Microsoft.SemanticKernel.Plugins.Core;
@@ -26,11 +25,11 @@ namespace GBB.Miyagi.RecommendationService.Controllers;
 [Route("recommendations")]
 public class InvestmentsController : ControllerBase
 {
-    private readonly IKernel _kernel;
+    private readonly Kernel _kernel;
     private readonly ISemanticTextMemory _memory;
     private readonly KernelSettings _kernelSettings = KernelSettings.LoadSettings();
 
-    public InvestmentsController(IKernel kernel, ISemanticTextMemory memory)
+    public InvestmentsController(Kernel kernel, ISemanticTextMemory memory)
     {
         _kernel = kernel;
         _memory = memory;
@@ -45,11 +44,12 @@ public class InvestmentsController : ControllerBase
         // ========= Import Advisor skill from local filesystem =========
         log.LogDebug("Path: {P}", Directory.GetCurrentDirectory());
         var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
-        _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
-        _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
+        _kernel.ImportPluginFromPromptDirectory(pluginsDirectory, "AdvisorPlugin");
+        _kernel.Plugins.AddFromType<UserProfilePlugin>();
         var memoryCollection = _kernelSettings.CollectionName;
 
         // ========= Fetch memory from vector store using recall =========
+        _kernel.Plugins.AddFromType<TextMemoryPlugin>()
         _kernel.ImportFunctions(new TextMemoryPlugin(_memory));
 
         // ========= Set context variables for Advisor skill =========
