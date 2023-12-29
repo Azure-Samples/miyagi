@@ -47,7 +47,7 @@ public class AssetsController : ControllerBase
         var advisorPlugin = _kernel.ImportPluginFromPromptDirectory(pluginsDirectory, "AdvisorPlugin");
 
         // ========= Import native function  =========
-        var userProfilePlugin = _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
+        _kernel.Plugins.AddFromType<UserProfilePlugin>();
 
         // ========= Set context variables to populate the prompt  =========
         var arguments = new KernelArguments()
