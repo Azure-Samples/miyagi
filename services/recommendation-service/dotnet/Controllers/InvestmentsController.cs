@@ -1,17 +1,14 @@
-using System.Diagnostics;
+using System.Reflection;
 using System.Text.Json;
 using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.Models;
 using GBB.Miyagi.RecommendationService.Plugins;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
-using Microsoft.SemanticKernel.Planning;
-using Microsoft.SemanticKernel.Planning.Stepwise;
-using Microsoft.SemanticKernel.Plugins.Core;
-using Microsoft.SemanticKernel.Plugins.Memory;
-using Microsoft.SemanticKernel.Plugins.Web;
-using Microsoft.SemanticKernel.Plugins.Web.Bing;
+using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
 using ConsoleLogger = GBB.Miyagi.RecommendationService.Utils.ConsoleLogger;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
@@ -26,13 +23,11 @@ namespace GBB.Miyagi.RecommendationService.Controllers;
 public class InvestmentsController : ControllerBase
 {
     private readonly Kernel _kernel;
-    private readonly ISemanticTextMemory _memory;
     private readonly KernelSettings _kernelSettings = KernelSettings.LoadSettings();
 
     public InvestmentsController(Kernel kernel, ISemanticTextMemory memory)
     {
         _kernel = kernel;
-        _memory = memory;
     }
 
     
@@ -42,59 +37,8 @@ public class InvestmentsController : ControllerBase
         var log = ConsoleLogger.Log;
         log.BeginScope("InvestmentController.GetRecommendationsAsync");
         // ========= Import Advisor skill from local filesystem =========
-        log.LogDebug("Path: {P}", Directory.GetCurrentDirectory());
-        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
-        _kernel.ImportPluginFromPromptDirectory(pluginsDirectory, "AdvisorPlugin");
-        _kernel.Plugins.AddFromType<UserProfilePlugin>();
-        var memoryCollection = _kernelSettings.CollectionName;
 
-        // ========= Fetch memory from vector store using recall =========
-        _kernel.Plugins.AddFromType<TextMemoryPlugin>()
-        _kernel.ImportFunctions(new TextMemoryPlugin(_memory));
-
-        // ========= Set context variables for Advisor skill =========
-        var context = new ContextVariables();
-        context.Set("userId", miyagiContext.UserInfo.UserId);
-        context.Set("stocks", JsonSerializer.Serialize(miyagiContext.Stocks));
-        context.Set("voice", miyagiContext.UserInfo.FavoriteAdvisor);
-        context.Set("risk", miyagiContext.UserInfo.RiskLevel);
-        context.Set("semanticQuery", $"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level");
-
-        context[TextMemoryPlugin.CollectionParam] = memoryCollection;
-        //context[TextMemoryPlugin.KeyParam] = miyagiContext.UserInfo.FavoriteBook;
-        context[TextMemoryPlugin.RelevanceParam] = "0.8";
-        context[TextMemoryPlugin.LimitParam] = "3";
-        context.Set("tickers", miyagiContext.Stocks?.Select(s => s.Symbol).ToList().ToString());
-        
-        // ========= Import Time Plugin =========
-        _kernel.ImportFunctions(new TimePlugin(), "time");
-
-        var ask = "Given stocks, return investment advise, factoring current inflation from search?";
-
-        Console.WriteLine("*****************************************************");
-        Stopwatch sw = new();
-        Console.WriteLine("Question: " + ask);
-
-        var plannerConfig = new StepwisePlannerConfig();
-        plannerConfig.IncludedFunctions.Add("InvestmentAdvise");
-        plannerConfig.MinIterationTimeMs = 1500;
-        plannerConfig.MaxTokens = 3000;
-
-        StepwisePlanner planner = new(_kernel, plannerConfig);
-        sw.Start();
-        var plan = planner.CreatePlan(ask);
-
-        var result = await plan.InvokeAsync(_kernel.CreateNewContext());
-        Console.WriteLine("Result: " + result);
-
-        Console.WriteLine("Time Taken: " + sw.Elapsed);
-        Console.WriteLine("*****************************************************");
-
-        var output = result.GetValue<string>()?.Replace("\n", "");
-
-        var jsonDocument = JsonDocument.Parse(output ?? string.Empty);
-
-        return new JsonResult(jsonDocument);
+        return null;
 
     }
     
@@ -104,65 +48,52 @@ public class InvestmentsController : ControllerBase
         var log = ConsoleLogger.Log;
         log.BeginScope("InvestmentController.GetRecommendationsAsync");
         // ========= Import Advisor skill from local filesystem =========
-        log.LogDebug("Path: {P}", Directory.GetCurrentDirectory());
-        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
-        var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
-        var userProfilePlugin = _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
-        var memoryCollection = _kernelSettings.CollectionName;
-        // ========= Fetch memory from vector store using recall =========
-        _kernel.ImportFunctions(new TextMemoryPlugin(_memory));
-
-        // ========= Set context variables for Advisor skill =========
-        var context = new ContextVariables();
-        context.Set("userId", miyagiContext.UserInfo.UserId);
-        context.Set("stocks", JsonSerializer.Serialize(miyagiContext.Stocks));
-        context.Set("voice", miyagiContext.UserInfo.FavoriteAdvisor);
-        context.Set("risk", miyagiContext.UserInfo.RiskLevel);
-        context.Set("semanticQuery", $"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level");
-
-        context[TextMemoryPlugin.CollectionParam] = memoryCollection;
-        //context[TextMemoryPlugin.KeyParam] = miyagiContext.UserInfo.FavoriteBook;
-        context[TextMemoryPlugin.RelevanceParam] = "0.8";
-        context[TextMemoryPlugin.LimitParam] = "3";
-        context.Set("tickers", miyagiContext.Stocks?.Select(s => s.Symbol).ToList().ToString());
         
-        log.LogDebug("Context: {S}", context.ToString());
+        // Load prompts
+        var prompts = _kernel.CreatePluginFromPromptDirectory("Prompts");
+
+        // Load prompt from YAML
+        const string promptYaml = "Prompts.InvestmentAdvise.prompt.yaml";
+        using StreamReader reader = new(Assembly.GetExecutingAssembly().GetManifestResourceStream(promptYaml)!);
+        KernelFunction investmentAdvise = _kernel.CreateFunctionFromPromptYaml(
+            await reader.ReadToEndAsync(),
+            promptTemplateFactory: new HandlebarsPromptTemplateFactory()
+        );
+        
+        // Create few-shot examples
+        List<ChatHistory> fewShotExamples = [
+            [
+                new ChatMessageContent(AuthorRole.User, @"{""stocks"":[{""symbol"":""MSFT"",""allocation"":0.6},{""symbol"":""ACN"",""allocation"":0.4}]}"),
+                new ChatMessageContent(AuthorRole.Assistant, @"{""portfolio"":[{""symbol"":""MSFT"",""gptRecommendation"":""Booyah! Hold on, steady growth! Diversify, though!""},{""symbol"":""ACN"",""gptRecommendation"":""Buy! Services will see a boom!""}]}")
+            ]
+        ];
+        
+        // Add arguments for context
+        const string defaultRiskLevel = "Conservative";
+        var arguments = new KernelArguments
+        {
+            ["userId"] = miyagiContext.UserInfo.UserId,
+            ["stocks"] = JsonSerializer.Serialize(miyagiContext.Stocks),
+            ["risk"] = miyagiContext.UserInfo.RiskLevel ?? defaultRiskLevel,
+            ["fewShotExamples"] = fewShotExamples,
+            ["voice"] = miyagiContext.UserInfo.FavoriteAdvisor,
+            ["semanticQuery"] = $"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level"
+        };
+
+        _kernel.Plugins.AddFromType<UserProfilePlugin>();
+        
+        // Call LLM with function calling
+        OpenAIPromptExecutionSettings settings = new() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };
+        var result = await _kernel.InvokeAsync(
+            investmentAdvise,
+            arguments
+        );
 
         const int maxRetries = 2;
         for (var currentRetry = 0; currentRetry < maxRetries; currentRetry++)
             try
             {
-                // ========= Bing Connector - RaG with current data =========
-                var bingConnector = new BingConnector(_kernelSettings.BingApiKey);
-                _kernel.ImportFunctions(new WebSearchEnginePlugin(bingConnector), "bing");
-                
-                var bingPlugin = _kernel.Functions.GetFunction("bing", "search");
-                var question = "What is the current inflation rate?";
-                var bingResult = await _kernel.RunAsync(question, bingPlugin);
-                context.Set("bingResults", bingResult.GetValue<string>());
-                log.LogDebug("Bing Result: {S}", bingResult.GetValue<string>());
-
-                var memories = _memory.SearchAsync(collection: memoryCollection,
-                    query: "investment advise",
-                    limit: 3,
-                    minRelevanceScore: 0.8);
-
-                await foreach (var memory in memories)
-                    log.LogInformation("Memory metadata - Id: {Id}, Description: {Description}", memory.Metadata.Id,
-                        memory.Metadata.Description);
-
-
-                // ========= Orchestrate with LLM using context, connector, and memory =========
-                var result = await _kernel.RunAsync(
-                    context,
-                    userProfilePlugin["GetUserAge"],
-                    userProfilePlugin["GetAnnualHouseholdIncome"],
-                    advisorPlugin["InvestmentAdvise"]);
-                log.LogDebug("Result: {S}", result.GetValue<string>());
-                var output = result.GetValue<string>()?.Replace("\n", "");
-
-                var jsonDocument = JsonDocument.Parse(output ?? string.Empty);
-
+                var jsonDocument = JsonDocument.Parse(result.GetValue<string>() ?? string.Empty);
                 return new JsonResult(jsonDocument);
             }
             catch (JsonException ex)

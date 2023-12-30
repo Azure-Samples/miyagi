@@ -8,6 +8,8 @@ using Microsoft.SemanticKernel.Connectors.Memory.AzureCognitiveSearch;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Plugins.Core;
+using Microsoft.SemanticKernel.Plugins.Memory;
+using MemoryBuilder = Microsoft.SemanticKernel.Memory.MemoryBuilder;
 
 namespace GBB.Miyagi.RecommendationService.Extensions;
 
@@ -59,7 +61,7 @@ public static class ServiceExtensions
         services.AddSingleton<Kernel>(_ =>
         {
             services = new ServiceCollection();
-            services.AddLogging(c => c.AddConsole().SetMinimumLevel(LogLevel.Information));
+            services.AddLogging(c => c.AddConsole().SetMinimumLevel(LogLevel.Trace));
             services.AddHttpClient();
             services.AddKernel().AddAzureOpenAIChatCompletion(
                 deploymentName: kernelSettings.DeploymentOrModelId,
@@ -67,7 +69,7 @@ public static class ServiceExtensions
                 apiKey: kernelSettings.ApiKey,
                 modelId: kernelSettings.DeploymentOrModelId);
             services.AddSingleton<KernelPlugin>(sp => KernelPluginFactory.CreateFromType<TimePlugin>(serviceProvider: sp));
-            services.AddSingleton<KernelPlugin>(sp => KernelPluginFactory.CreateFromType<HttpPlugin>(serviceProvider: sp));
+            services.AddSingleton<KernelPlugin>(sp => KernelPluginFactory.CreateFromType<TextMemoryPlugin>(serviceProvider: sp));
             var kernel = services.BuildServiceProvider().GetRequiredService<Kernel>();
 
             return kernel;

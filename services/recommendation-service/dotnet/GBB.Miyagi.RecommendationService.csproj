@@ -7,6 +7,7 @@
         <UserSecretsId>bd429db3-8c0d-4763-b704-73f6c76148e8</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <PublishRelease>true</PublishRelease>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -23,7 +24,6 @@
         <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.0.1-alpha" />
         <PackageReference Include="Microsoft.SemanticKernel.Plugins.OpenApi" Version="1.0.1-alpha" />
         <PackageReference Include="Microsoft.SemanticKernel.Plugins.Web" Version="1.0.1-alpha" />
-        <PackageReference Include="Microsoft.SemanticKernel.PromptTemplate.Handlebars" Version="1.0.0-rc3" />
         <PackageReference Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.0.1" />
         <PackageReference Include="Microsoft.SemanticKernel.Skills.Web" Version="0.24.230918.1-preview" />
         <PackageReference Include="Microsoft.SemanticKernel.Yaml" Version="1.0.1" />
@@ -38,6 +38,10 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </None>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <EmbeddedResource Include="Prompts\**\*.yaml" />
     </ItemGroup>
 
 </Project>
