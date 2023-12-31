@@ -18,10 +18,10 @@ public class MemoryController : ControllerBase
     private const int MaxTokensPerParagraph = 160;
     private const int MaxTokensPerLine = 60;
     private readonly BlobServiceClient _blobServiceClient;
-    private readonly ISemanticTextMemory _memory;
+    private readonly SemanticTextMemory _memory;
     private readonly KernelSettings _kernelSettings = KernelSettings.LoadSettings();
 
-    public MemoryController(ISemanticTextMemory memory, BlobServiceClient blobServiceClient)
+    public MemoryController(SemanticTextMemory memory, BlobServiceClient blobServiceClient)
     {
         _memory = memory;
         _blobServiceClient = blobServiceClient;

@@ -3,11 +3,13 @@ using System.Text.Json;
 using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.Models;
 using GBB.Miyagi.RecommendationService.Plugins;
+using GBB.Miyagi.RecommendationService.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
+using Microsoft.SemanticKernel.Plugins.Memory;
 using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
 using ConsoleLogger = GBB.Miyagi.RecommendationService.Utils.ConsoleLogger;
 
@@ -24,23 +26,14 @@ public class InvestmentsController : ControllerBase
 {
     private readonly Kernel _kernel;
     private readonly KernelSettings _kernelSettings = KernelSettings.LoadSettings();
+    private SemanticTextMemory _memory;
 
-    public InvestmentsController(Kernel kernel, ISemanticTextMemory memory)
+    public InvestmentsController(Kernel kernel, SemanticTextMemory memory)
     {
         _kernel = kernel;
+        _memory = memory;
     }
-
     
-    [HttpPost("/v2/investments")]
-    public async Task<IActionResult> GetRecommendationsWithPlanner([FromBody] MiyagiContext miyagiContext)
-    {
-        var log = ConsoleLogger.Log;
-        log.BeginScope("InvestmentController.GetRecommendationsAsync");
-        // ========= Import Advisor skill from local filesystem =========
-
-        return null;
-
-    }
     
     [HttpPost("/investments")]
     public async Task<IActionResult> GetRecommendations([FromBody] MiyagiContext miyagiContext)
@@ -53,12 +46,15 @@ public class InvestmentsController : ControllerBase
         var prompts = _kernel.CreatePluginFromPromptDirectory("Prompts");
 
         // Load prompt from YAML
-        const string promptYaml = "Prompts.InvestmentAdvise.prompt.yaml";
-        using StreamReader reader = new(Assembly.GetExecutingAssembly().GetManifestResourceStream(promptYaml)!);
+        var promptYaml = EmbeddedResource.Read("Prompts.InvestmentAdvise.prompt.yaml");
+        //using StreamReader reader = new(Assembly.GetExecutingAssembly().GetManifestResourceStream("prompts.InvestmentAdvise.prompt.yaml")!);
         KernelFunction investmentAdvise = _kernel.CreateFunctionFromPromptYaml(
-            await reader.ReadToEndAsync(),
-            promptTemplateFactory: new HandlebarsPromptTemplateFactory()
+            promptYaml,
+            new HandlebarsPromptTemplateFactory()
         );
+        
+        // Import TextMemoryPlugin
+        _kernel.ImportPluginFromObject(new TextMemoryPlugin(_memory));
         
         // Create few-shot examples
         List<ChatHistory> fewShotExamples = [
@@ -77,7 +73,9 @@ public class InvestmentsController : ControllerBase
             ["risk"] = miyagiContext.UserInfo.RiskLevel ?? defaultRiskLevel,
             ["fewShotExamples"] = fewShotExamples,
             ["voice"] = miyagiContext.UserInfo.FavoriteAdvisor,
-            ["semanticQuery"] = $"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level"
+            ["semanticQuery"] = $"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level",
+            [TextMemoryPlugin.CollectionParam] = _kernelSettings.CollectionName,
+            [TextMemoryPlugin.RelevanceParam] = "0.8"
         };
 
         _kernel.Plugins.AddFromType<UserProfilePlugin>();
@@ -111,5 +109,16 @@ public class InvestmentsController : ControllerBase
 
         log.LogError("Failed to parse JSON data, returning 400");
         return BadRequest(new { error = "Unexpected error occurred during processing investments" });
+    }
+    
+        [HttpPost("/v2/investments")]
+    public async Task<IActionResult> GetRecommendationsWithPlanner([FromBody] MiyagiContext miyagiContext)
+    {
+        var log = ConsoleLogger.Log;
+        log.BeginScope("InvestmentController.GetRecommendationsAsync");
+        // ========= Import Advisor skill from local filesystem =========
+
+        return null;
+
     }
 }

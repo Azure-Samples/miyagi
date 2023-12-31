@@ -18,7 +18,7 @@ public class RecommendationsController : ControllerBase
     private readonly CosmosDbService _cosmosDbService;
 
     public RecommendationsController(Kernel kernel,
-        ISemanticTextMemory memory,
+        SemanticTextMemory memory,
         CosmosDbService cosmosDbService)
     {
         // _assetsController = new AssetsController(kernel);

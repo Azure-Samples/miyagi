@@ -8,6 +8,8 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <PublishRelease>true</PublishRelease>
         <LangVersion>latest</LangVersion>
+        <!-- Suppress: "Declare types in namespaces", "Require ConfigureAwait", "Experimental" -->
+    <NoWarn>CA1050,CA1707,CA2007,VSTHRD111,CS1591,RCS1110,CA5394,SKEXP0001,SKEXP0002,SKEXP0003,SKEXP0004,SKEXP0010,SKEXP0011,,SKEXP0012,SKEXP0020,SKEXP0021,SKEXP0022,SKEXP0023,SKEXP0024,SKEXP0025,SKEXP0026,SKEXP0027,SKEXP0028,SKEXP0029,SKEXP0030,SKEXP0031,SKEXP0032,SKEXP0040,SKEXP0041,SKEXP0042,SKEXP0050,SKEXP0051,SKEXP0052,SKEXP0053,SKEXP0054,SKEXP0055,SKEXP0060,SKEXP0061,SKEXP0101,SKEXP0102</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,11 +19,13 @@
         <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.37.0" />
         <PackageReference Include="Microsoft.ML.Tokenizers" Version="0.21.0" />
         <PackageReference Include="Microsoft.SemanticKernel" Version="1.0.1" />
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.AzureAISearch" Version="1.0.0-rc3" />
         <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.AzureCognitiveSearch" Version="1.0.0-rc2" />
         <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.AzureSearch" Version="0.17.230718.1-preview" />
         <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.Qdrant" Version="1.0.0-rc3" />
         <PackageReference Include="Microsoft.SemanticKernel.Planning.StepwisePlanner" Version="0.24.230918.1-preview" />
         <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.0.1-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.Plugins.Memory" Version="1.0.1-alpha" />
         <PackageReference Include="Microsoft.SemanticKernel.Plugins.OpenApi" Version="1.0.1-alpha" />
         <PackageReference Include="Microsoft.SemanticKernel.Plugins.Web" Version="1.0.1-alpha" />
         <PackageReference Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.0.1" />
@@ -42,6 +46,7 @@
     
     <ItemGroup>
         <EmbeddedResource Include="Prompts\**\*.yaml" />
+        <EmbeddedResource Include="Resources\Prompts\InvestmentAdvise.prompt.yaml" />
     </ItemGroup>
 
 </Project>
