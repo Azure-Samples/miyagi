@@ -17,8 +17,8 @@ public class RecommendationsController : ControllerBase
     private readonly InvestmentsController _investmentsController;
     private readonly CosmosDbService _cosmosDbService;
 
-    public RecommendationsController(IKernel kernel,
-        ISemanticTextMemory memory,
+    public RecommendationsController(Kernel kernel,
+        SemanticTextMemory memory,
         CosmosDbService cosmosDbService)
     {
         _assetsController = new AssetsController(kernel);
@@ -38,16 +38,15 @@ public class RecommendationsController : ControllerBase
         {
             try
             {
-                var assetsResult = await _assetsController.GetRecommendations(miyagiContext) as ContentResult;
+                var assetsResult = await _assetsController.GetRecommendations(miyagiContext) as JsonResult;
                 var investmentsResult = await _investmentsController.GetRecommendations(miyagiContext) as JsonResult;
 
                 if (assetsResult == null || investmentsResult == null)
                 {
                     return StatusCode(500, "Failed to get recommendations");
                 }
-
-                if (assetsResult.Content == null) continue;
-                var assetsJson = JsonDocument.Parse(assetsResult.Content);
+                
+                var assetsJson = assetsResult.Value as JsonDocument;
                 var investmentsJson = investmentsResult.Value as JsonDocument;
 
                 if (investmentsJson == null) continue;

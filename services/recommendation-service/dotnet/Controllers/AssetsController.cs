@@ -2,12 +2,11 @@ using System.Diagnostics;
 using System.Text.Json;
 using GBB.Miyagi.RecommendationService.Models;
 using GBB.Miyagi.RecommendationService.Plugins;
+using GBB.Miyagi.RecommendationService.Resources;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Orchestration;
-using Microsoft.SemanticKernel.Planning;
-using Microsoft.SemanticKernel.TemplateEngine.Prompt;
+using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
@@ -20,18 +19,18 @@ namespace GBB.Miyagi.RecommendationService.Controllers;
 public class AssetsController : ControllerBase
 {
     private const string DefaultRiskLevel = "moderate";
-    private readonly IKernel _kernel;
+    private readonly Kernel _kernel;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="AssetsController" /> class.
     /// </summary>
-    public AssetsController(IKernel kernel)
+    public AssetsController(Kernel kernel)
     {
         _kernel = kernel;
     }
 
     /// <summary>
-    ///     Returns the recommended asset allocation for the user using planner.
+    ///     Returns the recommended asset allocation for the user.
     /// </summary>
     /// <param name="miyagiContext">User preferences.</param>
     /// <returns>JSON object of LLM response with asset allocation</returns>
@@ -41,86 +40,55 @@ public class AssetsController : ControllerBase
         var log = ConsoleLogger.Log;
         log.BeginScope("AssetsController.GetRecommendations");
         log.LogDebug("*************************************");
-        Stopwatch sw = new();
-        sw.Start();
-        // ========= Import semantic functions as plugins =========
-        log.LogDebug("Path: {S}", Directory.GetCurrentDirectory());
-        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
-        var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
+        
+        // Load prompts
+        var prompts = _kernel.CreatePluginFromPromptDirectory("Prompts");
 
-        // ========= Import native function  =========
-        var userProfilePlugin = _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
+        // Load prompt from YAML
+        var promptYaml = EmbeddedResource.Read("Prompts.AssetAllocationAdvise.prompt.yaml");
+        
+        // Add arguments for context
+        const string defaultRiskLevel = "Conservative";
+        var arguments = new KernelArguments
+        {
+            ["userId"] = miyagiContext.UserInfo.UserId,
+            ["portfolio"] = JsonSerializer.Serialize(miyagiContext.Portfolio),
+            ["risk"] = miyagiContext.UserInfo.RiskLevel ?? defaultRiskLevel
+        };
+        
+        
+        //using StreamReader reader = new(Assembly.GetExecutingAssembly().GetManifestResourceStream("prompts.InvestmentAdvise.prompt.yaml")!);
+        KernelFunction investmentAdvise = _kernel.CreateFunctionFromPromptYaml(
+            promptYaml,
+            new HandlebarsPromptTemplateFactory()
+        );
+        
+        var result = await _kernel.InvokeAsync(
+            investmentAdvise,
+            arguments
+        );
+        
+        const int maxRetries = 2;
+        for (var currentRetry = 0; currentRetry < maxRetries; currentRetry++)
+            try
+            {
+                var jsonDocument = JsonDocument.Parse(result.GetValue<string>() ?? string.Empty);
+                return new JsonResult(jsonDocument);
+            }
+            catch (JsonException ex)
+            {
+                if (currentRetry == maxRetries - 1)
+                {
+                    // Handle error gracefully, e.g. return an error response
+                    log.LogError(ex, "Failed to parse JSON data");
+                    return BadRequest(new { error = "Failed to parse JSON data after retrying asset allocation" });
+                }
 
-        // ========= Set context variables to populate the prompt  =========
-        var context = _kernel.CreateNewContext();
-        context.Variables.Set("userId", miyagiContext.UserInfo.UserId);
-        context.Variables.Set("portfolio", JsonSerializer.Serialize(miyagiContext.Portfolio));
-        context.Variables.Set("risk", miyagiContext.UserInfo.RiskLevel ?? DefaultRiskLevel);
+                // Log the error and proceed to the next iteration to retry
+                log.LogError(ex, "Failed to parse JSON data, retry attempt {CurrentRetry}", currentRetry + 1);
+            }
 
-        // ========= Chain and orchestrate with LLM =========
-        var plan = new Plan("Execute userProfilePlugin and then advisorPlugin");
-        plan.AddSteps(userProfilePlugin["GetUserAge"],
-            userProfilePlugin["GetAnnualHouseholdIncome"],
-            advisorPlugin["PortfolioAllocation"]);
-
-        // Execute plan
-        var ask = "Using the userId, get user age and household income, and then get the recommended asset allocation";
-        context.Variables.Update(ask);
-        log.LogDebug("Planner steps: {N}", plan.Steps.Count);
-        var result = await plan.InvokeAsync(context);
-
-        // ========= Log token count, which determines cost =========
-        var promptRenderer = new PromptTemplateEngine();
-        var renderedPrompt = await promptRenderer.RenderAsync(
-            ask,
-            context);
-        log.LogDebug("Rendered Prompt: {S}", renderedPrompt);
-        log.LogDebug("Result: {S}", result.GetValue<string>());
-
-        log.LogDebug("Time Taken: {N}", sw.Elapsed);
-        log.LogDebug("*************************************");
-
-        var output = result.GetValue<string>()?.Replace("\n", "").Replace("\r", "").Replace(" ", "");
-
-        return Content(output ?? string.Empty, "application/json");
-    }
-
-
-    /// <summary>
-    ///     Returns the recommended asset allocation for the user using RunAsync.
-    /// </summary>
-    /// <param name="miyagiContext">User preferences.</param>
-    /// <returns>JSON object of LLM response with asset allocation</returns>
-    [HttpPost("/assets-async")]
-    public async Task<IActionResult> GetRecommendationsRunAsync([FromBody] MiyagiContext miyagiContext)
-    {
-        // ========= Import semantic functions as plugins =========
-        var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
-        var advisorPlugin = _kernel.ImportSemanticFunctionsFromDirectory(pluginsDirectory, "AdvisorPlugin");
-
-        // ========= Import native function  =========
-        var userProfilePlugin = _kernel.ImportFunctions(new UserProfilePlugin(), "UserProfilePlugin");
-
-        // ========= Set context variables to populate the prompt  =========
-        var context = new ContextVariables();
-        context.Set("userId", miyagiContext.UserInfo.UserId);
-        context.Set("portfolio", JsonSerializer.Serialize(miyagiContext.Portfolio));
-        context.Set("risk", miyagiContext.UserInfo.RiskLevel ?? DefaultRiskLevel);
-
-        Console.WriteLine("Context: {0}", context);
-        // ========= Chain and orchestrate with LLM =========
-        var result = await _kernel.RunAsync(
-            context,
-            userProfilePlugin["GetUserAge"],
-            userProfilePlugin["GetAnnualHouseholdIncome"],
-            advisorPlugin["PortfolioAllocation"]);
-
-        // ========= Log token count, which determines cost =========
-        ConsoleLogger.Log.LogDebug("Context: {S}", context.ToString());
-        ConsoleLogger.Log.LogDebug("Result: {S}", result.GetValue<string>());
-
-        var output = result.GetValue<string>()?.Replace("\n", "").Replace("\r", "").Replace(" ", "");
-
-        return Content(output ?? string.Empty, "application/json");
+        log.LogError("Failed to parse JSON data, returning 400");
+        return BadRequest(new { error = "Unexpected error occurred during processing asset allocation" });
     }
 }

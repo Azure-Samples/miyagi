@@ -18,10 +18,10 @@ public class MemoryController : ControllerBase
     private const int MaxTokensPerParagraph = 160;
     private const int MaxTokensPerLine = 60;
     private readonly BlobServiceClient _blobServiceClient;
-    private readonly ISemanticTextMemory _memory;
+    private readonly SemanticTextMemory _memory;
     private readonly KernelSettings _kernelSettings = KernelSettings.LoadSettings();
 
-    public MemoryController(ISemanticTextMemory memory, BlobServiceClient blobServiceClient)
+    public MemoryController(SemanticTextMemory memory, BlobServiceClient blobServiceClient)
     {
         _memory = memory;
         _blobServiceClient = blobServiceClient;
@@ -33,7 +33,7 @@ public class MemoryController : ControllerBase
         if (string.IsNullOrEmpty(containerName))
         {
             // Read files from local file system
-            var directoryPath = Path.Combine("resources", "sample-datasets");
+            var directoryPath = Path.Combine("Resources", "sample-datasets");
             if (Directory.Exists(directoryPath))
             {
                 var files = Directory.GetFiles(directoryPath, "*.txt");
@@ -63,7 +63,7 @@ public class MemoryController : ControllerBase
         if (string.IsNullOrEmpty(datasetInfo.BlobContainerName))
         {
             // Read file from local file system
-            var filePath = Path.Combine("resources", "sample-datasets", $"{datasetInfo.DataSetName}.txt");
+            var filePath = Path.Combine("Resources", "sample-datasets", $"{datasetInfo.DataSetName}.txt");
             if (!System.IO.File.Exists(filePath)) return NotFound($"File {filePath} not found.");
             using var streamReader = new StreamReader(filePath);
             text = await streamReader.ReadToEndAsync();

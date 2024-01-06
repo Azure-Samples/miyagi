@@ -1,28 +1,35 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>bd429db3-8c0d-4763-b704-73f6c76148e8</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <PublishRelease>true</PublishRelease>
+        <LangVersion>preview</LangVersion>
+        <!-- Suppress: "Declare types in namespaces", "Require ConfigureAwait", "Experimental" -->
+    <NoWarn>CA1050,CA1707,CA2007,VSTHRD111,CS1591,RCS1110,CA5394,SKEXP0001,SKEXP0002,SKEXP0003,SKEXP0004,SKEXP0010,SKEXP0011,,SKEXP0012,SKEXP0020,SKEXP0021,SKEXP0022,SKEXP0023,SKEXP0024,SKEXP0025,SKEXP0026,SKEXP0027,SKEXP0028,SKEXP0029,SKEXP0030,SKEXP0031,SKEXP0032,SKEXP0040,SKEXP0041,SKEXP0042,SKEXP0050,SKEXP0051,SKEXP0052,SKEXP0053,SKEXP0054,SKEXP0055,SKEXP0060,SKEXP0061,SKEXP0101,SKEXP0102</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Azure.Identity" Version="1.10.2" />
-        <PackageReference Include="Azure.Storage.Blobs" Version="12.18.0" />
-        <PackageReference Include="Confluent.Kafka" Version="2.2.0" />
-        <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.35.4" />
-        <PackageReference Include="Microsoft.ML.Tokenizers" Version="0.21.0-preview.23266.6" />
-        <PackageReference Include="Microsoft.SemanticKernel" Version="1.0.0-beta1" />
-        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.AzureCognitiveSearch" Version="1.0.0-beta1" />
-        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.AzureSearch" Version="0.17.230718.1-preview" />
-        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Memory.Qdrant" Version="1.0.0-beta1" />
+        <PackageReference Include="Azure.Identity" Version="1.10.4" />
+        <PackageReference Include="Azure.Storage.Blobs" Version="12.20.0-beta.1" />
+        <PackageReference Include="Confluent.Kafka" Version="2.3.0" />
+        <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.37.1" />
+        <PackageReference Include="Microsoft.ML.Tokenizers" Version="0.21.0" />
+        <PackageReference Include="Microsoft.SemanticKernel" Version="1.0.1" />
+        <PackageReference Include="Microsoft.SemanticKernel.Abstractions" Version="1.0.1" />
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureAISearch" Version="1.0.1-alpha" />
         <PackageReference Include="Microsoft.SemanticKernel.Planning.StepwisePlanner" Version="0.24.230918.1-preview" />
-        <PackageReference Include="Microsoft.SemanticKernel.Plugins.Web" Version="1.0.0-beta1" />
+        <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.0.1-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.Plugins.Memory" Version="1.0.1-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.Plugins.OpenApi" Version="1.0.1-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.Plugins.Web" Version="1.0.1-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.0.1" />
         <PackageReference Include="Microsoft.SemanticKernel.Skills.Web" Version="0.24.230918.1-preview" />
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+        <PackageReference Include="Microsoft.SemanticKernel.Yaml" Version="1.0.1" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
         <None Update="Plugins\AdvisorPlugin\InvestmentAdvise\skprompt.txt">
@@ -33,6 +40,12 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </None>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <EmbeddedResource Include="Prompts\**\*.yaml" />
+        <EmbeddedResource Include="Resources\Prompts\AssetAllocationAdvise.prompt.yaml" />
+        <EmbeddedResource Include="Resources\Prompts\InvestmentAdvise.prompt.yaml" />
     </ItemGroup>
 
 </Project>

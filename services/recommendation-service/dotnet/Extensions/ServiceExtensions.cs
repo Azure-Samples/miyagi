@@ -2,12 +2,13 @@
 using Azure.Identity;
 using Azure.Storage.Blobs;
 using GBB.Miyagi.RecommendationService.config;
+using GBB.Miyagi.RecommendationService.Plugins;
 using Microsoft.Azure.Cosmos;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Connectors.AI.OpenAI;
-using Microsoft.SemanticKernel.Connectors.Memory.AzureCognitiveSearch;
+using Microsoft.SemanticKernel.Connectors.AzureAISearch;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
-using Microsoft.SemanticKernel.Plugins.Memory;
+using Microsoft.SemanticKernel.Plugins.Core;
 
 namespace GBB.Miyagi.RecommendationService.Extensions;
 
@@ -56,34 +57,40 @@ public static class ServiceExtensions
     {
         var kernelSettings = GetKernelSettings(services.BuildServiceProvider());
 
-        services.AddSingleton<IKernel>(_ =>
+        services.AddSingleton<Kernel>(_ =>
         {
-            var kernel = Kernel.Builder
-                .WithLoggerFactory(ConsoleLogger.LoggerFactory)
-                .WithAzureChatCompletionService(
-                    kernelSettings.DeploymentOrModelId,
-                    kernelSettings.Endpoint,
-                    kernelSettings.ApiKey)
-                .Build();
+            services = new ServiceCollection();
+            services.AddLogging(c => c.AddConsole().SetMinimumLevel(LogLevel.Trace));
+            services.AddHttpClient();
+            services.AddKernel().AddAzureOpenAIChatCompletion(
+                deploymentName: kernelSettings.DeploymentOrModelId,
+                endpoint: kernelSettings.Endpoint,
+                apiKey: kernelSettings.ApiKey,
+                modelId: kernelSettings.DeploymentOrModelId);
+            services.AddSingleton<KernelPlugin>(sp => KernelPluginFactory.CreateFromType<TimePlugin>(serviceProvider: sp));
+            services.AddSingleton<KernelPlugin>(sp => KernelPluginFactory.CreateFromType<UserProfilePlugin>(serviceProvider: sp));
+            var kernel = services.BuildServiceProvider().GetRequiredService<Kernel>();
 
             return kernel;
         });
             
-        services.AddSingleton<ISemanticTextMemory>(_ =>
+        services.AddSingleton<SemanticTextMemory>(_ =>
         {
-            var memoryBuilder = new MemoryBuilder();
-            memoryBuilder
-                .WithAzureTextEmbeddingGenerationService(
-                    kernelSettings.EmbeddingDeploymentOrModelId,
-                    kernelSettings.Endpoint,
-                    kernelSettings.ApiKey)
-                .WithMemoryStore(
-                    new AzureCognitiveSearchMemoryStore(
-                        kernelSettings.AzureCognitiveSearchEndpoint,
-                        kernelSettings.AzureCognitiveSearchApiKey));
+            // Azure AI Search Vector DB - a store that persists data in a hosted Azure AI Search database
+            IMemoryStore store = new AzureAISearchMemoryStore(
+                kernelSettings.AzureCognitiveSearchEndpoint, kernelSettings.AzureCognitiveSearchApiKey);
+            
+            // Create an embedding generator to use for semantic memory.
+            var embeddingGenerator = new AzureOpenAITextEmbeddingGenerationService(
+                kernelSettings.EmbeddingDeploymentOrModelId, 
+                kernelSettings.Endpoint,
+                kernelSettings.ApiKey,
+                kernelSettings.EmbeddingDeploymentOrModelId);
 
-            var memoryStore = memoryBuilder.Build();
-            return memoryStore;
+            // The combination of the text embedding generator and the memory store makes up the 'SemanticTextMemory' object used to
+            // store and retrieve memories.
+            SemanticTextMemory textMemory = new(store, embeddingGenerator);
+            return textMemory;
         });
     }
         
