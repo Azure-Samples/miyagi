@@ -12,7 +12,7 @@ namespace GBB.Miyagi.RecommendationService.Controllers;
 [Route("recommendations")]
 public class RecommendationsController : ControllerBase
 {
-    // private readonly AssetsController _assetsController;
+    private readonly AssetsController _assetsController;
 
     private readonly InvestmentsController _investmentsController;
     private readonly CosmosDbService _cosmosDbService;
@@ -21,7 +21,7 @@ public class RecommendationsController : ControllerBase
         SemanticTextMemory memory,
         CosmosDbService cosmosDbService)
     {
-        // _assetsController = new AssetsController(kernel);
+        _assetsController = new AssetsController(kernel);
         _investmentsController = new InvestmentsController(kernel, memory);
         _cosmosDbService = cosmosDbService;
     }
@@ -38,22 +38,21 @@ public class RecommendationsController : ControllerBase
         {
             try
             {
-                // var assetsResult = await _assetsController.GetRecommendations(miyagiContext) as ContentResult;
+                var assetsResult = await _assetsController.GetRecommendations(miyagiContext) as JsonResult;
                 var investmentsResult = await _investmentsController.GetRecommendations(miyagiContext) as JsonResult;
 
-                // if (assetsResult == null || investmentsResult == null)
-                // {
-                //     return StatusCode(500, "Failed to get recommendations");
-                // }
-                //
-                // if (assetsResult.Content == null) continue;
-                // var assetsJson = JsonDocument.Parse(assetsResult.Content);
+                if (assetsResult == null || investmentsResult == null)
+                {
+                    return StatusCode(500, "Failed to get recommendations");
+                }
+                
+                var assetsJson = assetsResult.Value as JsonDocument;
                 var investmentsJson = investmentsResult.Value as JsonDocument;
 
                 if (investmentsJson == null) continue;
                 var aggregatedResult = new Dictionary<string, JsonElement>
                 {
-                    // { "assets", assetsJson.RootElement },
+                    { "assets", assetsJson.RootElement },
                     { "investments", investmentsJson.RootElement }
                 };
 

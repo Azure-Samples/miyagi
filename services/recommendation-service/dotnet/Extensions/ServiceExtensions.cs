@@ -2,15 +2,13 @@
 using Azure.Identity;
 using Azure.Storage.Blobs;
 using GBB.Miyagi.RecommendationService.config;
+using GBB.Miyagi.RecommendationService.Plugins;
 using Microsoft.Azure.Cosmos;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Connectors.Memory.AzureAISearch;
-using Microsoft.SemanticKernel.Connectors.Memory.AzureCognitiveSearch;
+using Microsoft.SemanticKernel.Connectors.AzureAISearch;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Plugins.Core;
-using Microsoft.SemanticKernel.Plugins.Memory;
-using MemoryBuilder = Microsoft.SemanticKernel.Memory.MemoryBuilder;
 
 namespace GBB.Miyagi.RecommendationService.Extensions;
 
@@ -70,6 +68,7 @@ public static class ServiceExtensions
                 apiKey: kernelSettings.ApiKey,
                 modelId: kernelSettings.DeploymentOrModelId);
             services.AddSingleton<KernelPlugin>(sp => KernelPluginFactory.CreateFromType<TimePlugin>(serviceProvider: sp));
+            services.AddSingleton<KernelPlugin>(sp => KernelPluginFactory.CreateFromType<UserProfilePlugin>(serviceProvider: sp));
             var kernel = services.BuildServiceProvider().GetRequiredService<Kernel>();
 
             return kernel;

@@ -52,9 +52,19 @@ public class InvestmentsController : ControllerBase
             promptYaml,
             new HandlebarsPromptTemplateFactory()
         );
+
+        KernelPlugin memoryPlugin;
         
-        // Import TextMemoryPlugin
-        _kernel.ImportPluginFromObject(new TextMemoryPlugin(_memory));
+        // Check if TextMemoryPlugin already exists in the kernel
+        if (!_kernel.Plugins.Any(p => p.Name == "TextMemoryPlugin"))
+        {
+            // Import TextMemoryPlugin only if it's not already present
+            memoryPlugin = _kernel.ImportPluginFromObject(new TextMemoryPlugin(_memory));
+        }
+        else
+        {
+            memoryPlugin = _kernel.Plugins["TextMemoryPlugin"];
+        }
         
         // Create few-shot examples
         List<ChatHistory> fewShotExamples = [
@@ -64,6 +74,24 @@ public class InvestmentsController : ControllerBase
             ]
         ];
         
+        /*
+         * Resolve issue with Handlebars ProcessPositionalArguments issue with parameter parsing for TextMemoryPlugin-recall
+         * In prompt template for handlebars, the following is not working:
+         * {{TextMemoryPlugin-recall semanticQuery, miyagi-embeddings, 0.8, 3}}
+         *
+         * Meanwhile, use this alternative approach
+         */
+        CancellationToken cancellationToken = default;
+        var memories = await _kernel.InvokeAsync(memoryPlugin["Recall"], new()
+        {
+            [TextMemoryPlugin.InputParam] = $"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level",
+            [TextMemoryPlugin.CollectionParam] = _kernelSettings.CollectionName,
+            [TextMemoryPlugin.LimitParam] = "2",
+            [TextMemoryPlugin.RelevanceParam] = "0.8",
+        }, cancellationToken);
+
+        Console.WriteLine($"Memories: {memories.GetValue<string>()}");
+        Console.WriteLine();
         // Add arguments for context
         const string defaultRiskLevel = "Conservative";
         var arguments = new KernelArguments
@@ -75,10 +103,11 @@ public class InvestmentsController : ControllerBase
             ["voice"] = miyagiContext.UserInfo.FavoriteAdvisor,
             ["semanticQuery"] = $"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level",
             [TextMemoryPlugin.CollectionParam] = _kernelSettings.CollectionName,
-            [TextMemoryPlugin.RelevanceParam] = "0.8"
+            [TextMemoryPlugin.RelevanceParam] = "0.8",
+            [TextMemoryPlugin.InputParam] = "Investment advise",
+            [TextMemoryPlugin.LimitParam] = "2",
+            ["memories"] = memories.GetValue<string>()
         };
-
-        _kernel.Plugins.AddFromType<UserProfilePlugin>();
         
         // Call LLM with function calling
         OpenAIPromptExecutionSettings settings = new() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };

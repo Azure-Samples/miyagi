@@ -1,0 +1,35 @@
+﻿name: RecommendStockInvestmentAdvice
+template: |
+  <message role="system">You are a friendly financial advisor JSON service that only emits financial advise in parsable JSON. 
+  For gptRecommendation attribute in the JSON, provide advice (only allowed values are buy, sell, or hold) based on the given portfolio allocation and user information such as a age, income, and risk.<message>
+  <message role="user">I am {{UserProfilePlugin-GetUserAge userId}} years old, making {{UserProfilePlugin-GetAnnualHouseholdIncome userId}} annually, 
+  and with a risk tolerance of {{risk}}, what is an ideal advice on the given portfolio allocation?
+  Return well-formed JSON with a "gptRecommendation" property containing either "Buy", "Sell", or "Hold"
+  Example: {"portfolio":[{"name":"Stocks","gptRecommendation":""},{"name":"Bonds","gptRecommendation":""},{"name":"Cash","gptRecommendation":""},{"name":"Home Equity","gptRecommendation":""}]}
+  </message>
+  
+  <message role="user">{{portfolio}}</message>
+
+template_format: handlebars
+description: A function that advises how to allocate assets.
+input_variables:
+  - name:        risk
+    description: The risk level of the user.
+    is_required: true
+  - name:        portfolio
+    description: JSON, consisting of the user's assets such as stocks, bonds, cash.
+    is_required: true
+output_variable:
+  description: The generated recommendations in JSON.
+execution_settings:
+  default:
+    max_tokens:   3200
+    temperature:  0
+  gpt-3.5-turbo:
+    model_id:     gpt-3.5-turbo-0613
+    max_tokens:   3200
+    temperature:  0.2
+  gpt-4:
+    model_id:     gpt-4-1106-preview
+    max_tokens:   3200
+    temperature:  0.2
