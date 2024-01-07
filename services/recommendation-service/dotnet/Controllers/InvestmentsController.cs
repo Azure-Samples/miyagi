@@ -1,8 +1,6 @@
-using System.Reflection;
 using System.Text.Json;
 using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.Models;
-using GBB.Miyagi.RecommendationService.Plugins;
 using GBB.Miyagi.RecommendationService.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
