@@ -3,7 +3,8 @@ param (
     [string]$location = "eastus",
     [string]$resourceGroupCount = 1,
     [Parameter(Mandatory = $true)]
-    [string]$subscriptionId
+    [string]$subscriptionId,
+    [string]$deploymentType = "aca"
 )
 
 # Generate a unique suffix based on a hash of the subscription ID and the resource group, just like uniqueString() would do for ARM templates
@@ -28,6 +29,7 @@ Write-Host "resourceGroupPrefix: $resourceGroupPrefix"
 Write-Host "location: $location"
 Write-Host "resourceGroupCount: $resourceGroupCount"
 Write-Host "subscriptionId: $subscriptionId"
+Write-Host "deploymentType: $deploymentType"
 
 # set rgIndex to resourceGroupCount
 
@@ -42,6 +44,7 @@ $skipcognitiveSearch = $false
 $skipCosmosDB = $false
 $skipBlobStorage = $false
 $skipAzureContainerApps = $false
+$skipAKS = $false
 $skipAzureContainerRegistry = $false
 $skipAPIM = $false
 
@@ -212,7 +215,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
 
     # if skipAzureContainerApps is false, create Azure Container Apps with a container called miyagi
 
-    if ($skipAzureContainerApps -eq "true") {
+    if ($skipAzureContainerApps -eq "true" -or $deploymentType -eq "aks") {
         Write-Host "Skipping Azure Container App creation"
     }
     else {
@@ -229,6 +232,22 @@ for ($i = 1; $i -le $rgIndex; $i++) {
         --ingress external `
         --query properties.configuration.ingress.fqdn `
 
+    }
+
+    # if skipAKS is false, create AKS cluster with ACR connectivity
+    if($skipAKS -eq "true" -or $deploymentType -eq "aca" ) {
+        Write-Host "Skipping AKS creation"
+    }
+    else {
+        $clusterName = -join($resourceGroupPrefix,"aks", "miyagi",$i)
+        Write-Host "Creating AKS Cluster $clusterName in $resourceGroupPrefix-rg-$i"
+
+        az aks create -n $clusterName -g "$resourceGroupPrefix-rg-$i" `
+        --location $location `
+        --network-plugin azure `
+        --network-plugin-mode overlay `
+        --pod-cidr 192.168.0.0/16 `
+        --attach-acr $containerregistry
     }
 
     # if skipcognitiveSearch is false, create cognitive search service with semantic search capability
