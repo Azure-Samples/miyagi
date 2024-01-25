@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: miyagi-ui
+  labels:
+    app: miyagi-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: miyagi-ui
+  template:
+    metadata:
+      labels:
+        app: miyagi-ui
+    spec:
+      containers:
+      - name: miyagi-ui
+        image: <ACR-NAME>.azurecr.io/miyagi-ui:latest
+        ports:
+        - containerPort: 3000

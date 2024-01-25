@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: miyagi-recommendation
+  labels:
+    app: miyagi-recommendation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: miyagi-recommendation
+  template:
+    metadata:
+      labels:
+        app: miyagi-recommendation
+    spec:
+      containers:
+      - name: miyagi-recommendation
+        image: <ACR-NAME>.azurecr.io/miyagi-recommendation:latest
+        ports:
+        - containerPort: 8080
