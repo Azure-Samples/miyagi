@@ -12,7 +12,7 @@ Project Miyagi showcases Microsoft's Copilot Stack in an [envisioning workshop](
 > **Note**  
 > *Work in Progress*. Meanwhile, signup at [intelligentapp.dev](https://intelligentapp.dev) for updates and checkout our related repo that showcases Generative AI capabilities for cloud-native, event-driven microservices: [Azure/reddog-solutions](https://github.com/Azure/reddog-solutions#readme). 
 >
-> For a preview, catch the [recording on Cosmos DB Live TV](https://www.youtube.com/watch?v=V8dlEvXdGEM&t=144s)
+> :tv: For a preview, catch the [recording on Cosmos DB Live TV](https://www.youtube.com/watch?v=V8dlEvXdGEM&t=144s)
 >
 
 
@@ -29,6 +29,7 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 1. [MVP with Personalize (Synthesis via Semantic Kernel) and Chat on Azure Container Apps](https://agentmiyagi.com).
     1. [Detailed breakdown and implementations](./services/README.md)
     1. [Quickstart with RaG](./sandbox/usecases/rag/dotnet/Getting-started.ipynb)
+1. [VSCode extension for GitHub Copilot Agent](./sandbox/usecases/code-modernization/vscode-gh-copilot-extension/README.md)
 1. [Miyagi ChatGPT Plugin](./services/chatgpt-plugin/python)
 1. [Knowledge Graph memory using Langchain's entity cache](./sandbox/experiments/langchain/Memory_Usecases.ipynb)
 1. [Qdrant vector store for embeddings via Langchain](./sandbox/experiments/langchain/qdrant_miyagi_example)
@@ -94,6 +95,9 @@ This will be similar to [reddog](https://reddog-solutions.com) product [image ge
 
 - [Azure OpenAI](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/models)
 - [Semantic Kernel](https://github.com/microsoft/semantic-kernel)
+- [LangChain](https://python.langchain.com/docs/get_started/introduction)
+- [LlamaIndex](https://docs.llamaindex.ai/en/stable/)
+- [GitHub Copilot Agent](https://gh.io/copilot-partner-program)
 - [AI Studio](https://azure.microsoft.com/en-us/products/ai-studio)
 - [AI Search](https://azure.microsoft.com/en-us/products/ai-services/ai-search)
 - [AI Speech](https://azure.microsoft.com/en-us/products/ai-services/ai-speech)
@@ -114,8 +118,7 @@ This will be similar to [reddog](https://reddog-solutions.com) product [image ge
 - [Azure DB for PostgreSQL](https://azure.microsoft.com/en-us/products/postgresql)
 - [Azure Redis Cache](https://azure.microsoft.com/en-us/products/cache)
 - [Azure Storage](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction)
-- [LangChain](https://github.com/hwchase17/langchain#readme)
-- [LlamaIndex](https://github.com/run-llama/llama_index)
+
 
 
 ### Contributing
