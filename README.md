@@ -43,7 +43,8 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 Interaction with foundation models is more than chat. This sample shows a few use cases 
 ![frontend](./assets/images/wip-ui.png)
 
-<p align="left"><img src="assets/images/plugin.png" width=50% height=50% /></p>
+#### VSCode extension for GitHub Copilot Agent
+<p align="left"><img src="sandbox/usecases/code-modernization/vscode-gh-copilot-extension/demo.png" width=50% height=50% /></p>
 
 ### Architecture
 
