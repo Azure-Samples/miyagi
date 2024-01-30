@@ -51,8 +51,14 @@
    ```
 3. Run the following command to create the Azure resources needed for the workshop. The script will create a resource group for each of the workshop participants, and will create the required resources in each resource group. You will need to provide a subscription id, and optionally a resource group prefix, location, and the number of resource groups you want. The script will default to the values below if not provided.
    
+   **ACA Lab**
    ```
-    ./deploy.ps1  -resourceGroupPrefix "<miyagi>" -location "<eastus2>" -resourceGroupCount "<1>" -subscriptionId "<your subscription id>"
+    ./deploy.ps1  -resourceGroupPrefix "<miyagi>" -location "<eastus2>" -resourceGroupCount "<1>" -subscriptionId "<your subscription id>" -deploymentType "aca"
+   ```
+
+   **AKS Lab**
+   ```
+    ./deploy.ps1  -resourceGroupPrefix "<miyagi>" -location "<eastus2>" -resourceGroupCount "<1>" -subscriptionId "<your subscription id>" -deploymentType "aca"
    ```
    Note: If you are setting up the workshop just for you, make sure you set the value of resourceGroupCount to 1
 4. Wait until the script completes. It will take less than 10 minutes to complete.
