@@ -83,6 +83,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
             --location $location `
             --kind "OpenAI" `
             --sku "s0" `
+            --custom-domain "$resourceGroupPrefix-OpenAIService-$i" `
             --subscription $subscriptionId 
     }
     
@@ -250,8 +251,22 @@ for ($i = 1; $i -le $rgIndex; $i++) {
         --attach-acr $containerregistry
     }
 
-    # if skipcognitiveSearch is false, create cognitive search service with semantic search capability
+    # if skipAPIM is false, create APIM instance
+    if ($skipAPIM) {
+        Write-Host "Skipping APIM instance creation"
+    }
+    else {
+        Write-Host "Creating APIM instance $resourceGroupPrefix-apim-$i in $resourceGroupPrefix-rg-$i"
+        
+        az deployment group create `
+        --resource-group "$resourceGroupPrefix-rg-$i" `
+        --template-file "bicep/apim-aoai-service.bicep" `
+        --parameters "apiManagementName=$resourceGroupPrefix-apim-$i" `
+            "eventHubName=$resourceGroupPrefix-eh-$i" `
+            "eventHubNamespaceName=$resourceGroupPrefix-evhns-$i"
+    }
 
+    # if skipcognitiveSearch is false, create cognitive search service with semantic search capability
     if ($skipcognitiveSearch) {
         Write-Host "Skipping cognitive search service creation"
     }
