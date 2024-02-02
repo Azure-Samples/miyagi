@@ -19,5 +19,9 @@ class Settings(BaseSettings):
     os.environ["AZURE_OPENAI_MODEL"] = os.getenv("AZURE_OPENAI_MODEL")
     AZURE_OPENAI_MODEL: str
 
+    os.environ["AZURE_COGNITIVE_SEARCH_SERVICE_NAME"] = os.getenv("AZURE_COGNITIVE_SEARCH_SERVICE_NAME")
+    os.environ["AZURE_COGNITIVE_SEARCH_INDEX_NAME"] = os.getenv("AZURE_COGNITIVE_SEARCH_INDEX_NAME")
+    os.environ["AZURE_COGNITIVE_SEARCH_API_KEY"] = os.getenv("AZURE_COGNITIVE_SEARCH_API_KEY")
+
 
 settings = Settings()
