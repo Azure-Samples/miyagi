@@ -1,13 +1,13 @@
 import os
 import ssl
-
 from fastapi import HTTPException
+
 from langchain.globals import set_debug, set_verbose
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import AzureChatOpenAI
-
+from langchain.retrievers import AzureCognitiveSearchRetriever
 from app.data.input_data import InputData
 from app.settings import settings
 
@@ -19,6 +19,11 @@ async def allow_self_signed_https(allowed):
 
 
 async def transform(input_data: InputData):
+    """
+    This function is the entry point for the transforming code with LangChain
+    Use unstrcutred.io or LlamaIndex to hydrate the indexer
+    """
+
     # this line is needed if you use self-signed certificate in your scoring service.
     await allow_self_signed_https(True)
 
@@ -37,7 +42,8 @@ async def transform(input_data: InputData):
                                                        "{existing_language} and convert"
                                                        "it to {desired_language}."
                                                        "The user will send you legacy code and reply back working "
-                                                       "code in {desired_language} "),
+                                                       "code in {desired_language}. Use context below to answer:"
+                                                       "\n {context}"),
              HumanMessagePromptTemplate.from_template("{code}"), ])
 
         metadata = input_data.payload.metadata

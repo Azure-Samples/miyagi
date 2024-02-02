@@ -153,14 +153,12 @@ In this task, you'll Push miyagi-recommendation images to acr.
    > **Note**: Please replace **[ACRname]** and **[uname]** with **<inject key="AcrUsername" enableCopy="true"/>**, and **[password]** with **<inject key="AcrPassword" enableCopy="true"/>**.
    
    ```
-   az acr login -n [ACRname] -u [uname] -p [password]
+   az acr login -n [ACRname] 
    ```
-
-   ![](./Media/task2-5.png)
     
 1. Run the following command to add the tag.
 
-   > **Note**: Please replace **[ACRname]** with **<inject key="AcrLoginServer" enableCopy="true"/>**.
+   > **Note**: To get the **[ACRname]** navigate to the Container registry created in the previous lab, go to Overview, and copy the **Login server**. The value should be in the format **[ACRname].azurecr.io**.
 
    ```
    docker tag miyagi-recommendation:latest [ACRname]/miyagi-recommendation:latest
