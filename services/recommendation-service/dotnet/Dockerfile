@@ -13,5 +13,5 @@ RUN dotnet publish "GBB.Miyagi.RecommendationService.csproj" -c Release -o /app/
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-EXPOSE 80
+EXPOSE 8080
 ENTRYPOINT ["dotnet", "GBB.Miyagi.RecommendationService.dll"]

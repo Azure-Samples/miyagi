@@ -2,16 +2,75 @@
 
 In this lab, you'll setup and configure Miyagi app locally.
 
-### Task 1: Setup configuration for miyagi app
+### Prerequisites:
 
-1. Open **Visual Studio Code** from the Lab VM desktop by double-clicking on it.
+1. Install Visual Studio Code (https://code.visualstudio.com/download)
+2. Install the following VSCode extenstions
+    1. Azure Tools (https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack)
+    2. Polyglot Notebooks (https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
+    3. Semantic Kernel (https://marketplace.visualstudio.com/items?itemName=ms-semantic-kernel.semantic-kernel)
+    4. Prompt flow for VSCode (https://marketplace.visualstudio.com/items?itemName=prompt-flow.prompt-flow)
+    5. Azure Container Apps (https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurecontainerapps)
+    6. Docker Extension (https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
+3. Install Azure CLI (https://docs.microsoft.com/en-us/cli/azure/install-azure-cli), min version 2.53.0
+4. Install PowerShell (https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.1)
+5. Install Docker Desktop (https://www.docker.com/products/docker-desktop)
+6. Install .NET 8.0 SDK (https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+7. Install python 3.11 (https://www.python.org/downloads/)
+8. Install jq (https://stedolan.github.io/jq/download/)
+9. Install Postman (https://www.postman.com/downloads/)
+
+### Task 1: Clone miyagi app
+
+1. Create a new folder for the workshop
+1. Open the new folder: File -> Open Folder -> Select the folder you created in step 1
+1. Open a new terminal: Terminal -> New Terminal (or Ctrl + Shift + `)   
+1. Clone this repo
+   
+   ```
+    git clone https://github.com/Azure-Samples/miyagi.git
+
+   ```
+### Task 2: Provision Azure Resources required for Miyagi app
+
+1. Change folder to miyagi/deploy/infrastructure/cli
+   
+   ```
+    cd miyagi/deploy/infrastructure/cli
+   ```
+2. Login to Azure and select the subscription you want to use for the workshop
+   
+   ```
+    az login
+    az account set --subscription "<your subscription id>"
+
+   ```
+3. Run the following command to create the Azure resources needed for the workshop. The script will create a resource group for each of the workshop participants, and will create the required resources in each resource group. You will need to provide a subscription id, and optionally a resource group prefix, location, and the number of resource groups you want. The script will default to the values below if not provided. Pick the deployment type based on whether you want to deploy the workshop for Azure Container Apps (ACA) or Azure Kubernetes Service (AKS).
+   
+   **ACA Lab**
+   ```
+    ./deploy.ps1  -resourceGroupPrefix "<miyagi>" -location "<eastus2>" -resourceGroupCount "<1>" -subscriptionId "<your subscription id>" -deploymentType "aca"
+   ```
+
+   **AKS Lab**
+   ```
+    ./deploy.ps1  -resourceGroupPrefix "<miyagi>" -location "<eastus2>" -resourceGroupCount "<1>" -subscriptionId "<your subscription id>" -deploymentType "aca"
+   ```
+   Note: If you are setting up the workshop just for you, make sure you set the value of resourceGroupCount to 1
+4. Wait until the script completes. It will take less than 10 minutes to complete.
+5. Bump up the capacity for Open AI model deployments
+
+   By default the Open AI model are deployed with 1K Tokens per minute (TPM) capacity. This is not enough for the workshop. You will need to bump up the capacity to 20K Tokens per minute. You can do this by going to Azure Portal -> Resource Groups -> Select the resource group you created in step 3 of the previous section -> Select the Open AI resource -> Overview -> Click Go to Azure OpenAI Studio -> Deployments -> Select the deployment for gpt-35-turbo model -> Click Edit Deployment -> Advanced Options -> Slide the TPM slider to 20K -> Click Save and close.
+   
+   Repeat the same steps for the deployment for text-embedding-ada-002 model.
+
+### Task 2: Configure miyagi app
+
+2. Open **Visual Studio Code** from your desktop by double-clicking on it.
 
    ![](./Media/vs.png)
 
-   >**Note** If **Join us in making promt-flow extension better!** window prompted please click on **No,thanks**.
-
-   ![](./Media/image-rg-01.png)
-   
+ 
 1. In **Visual Studio Code** from menu bar select **File(1)>open folder(2)**.
 
    ![](./Media/image-rg-02.png)
@@ -25,31 +84,30 @@ In this lab, you'll setup and configure Miyagi app locally.
    ![](./Media/image-rg-18.png)
    
 1. Expand **miyagi>ui** directory and verify that **.env.** file is present. 
-
-1. Expand **miyagi/services/recommendation-service/dotnet** directory and verify that **appsettings.json** is present.
-  
+1. Create a new file named appsettings.json in miyagi/services/recommendation-service/dotnet
+1. Copy paste the contents of appsettings.json.example into appsettings.json and save the file
 1. Update appsettings.json with the values for the variables below. You can get the values from the Azure Portal.
 
 1. To obtain the deployment model names for "deploymentOrModelId" and "embeddingDeploymentOrModelId" follow the below steps:
    
       - In Azure Portal, click on **Resource groups** from the Navigate panel.
 
-      - From the Resource groups page, click on miyagi-rg-<inject key="DeploymentID" enableCopy="false"/>.
+      - From the Resource groups page, click on the resource group you created in the previous task.
 
          ![](./Media/image-rg-1.png)
 
-      - On **miyagi-rg-<inject key="DeploymentID" enableCopy="false"/>**, from the Overview (1) tab select the **OpenAIService-<inject key="DeploymentID" enableCopy="false"/> (2)**.
+      - Click Overview and select Open AI Service from the resources list.
 
         ![](./Media/image-rg-2.png)
 
-      - On the OpenAI Overview (1) page and right-click on Go to Azure OpenAI Studio (2) button and click on Open link a new tab.
+      - From the OpenAI Overview page, right-click on Go to Azure OpenAI Studio button and click on Open link a new tab.
 
          ![](./Media/image-rg-03.png) 
    
       - In the Azure AI Studio, select Deployments, under Management section.
         ![](./Media/image-rg-6.png)
 
-      - On the Deployments blade of Azure AI Studio, click on gpt-35-turbo model model name **(1)** and Copy full deployment name of gpt-35-turbo model **(2)** and enter copied deployment for 
+      - On the Deployments blade of Azure AI Studio, click on gpt-35-turbo model model name  and Copy full deployment name of **gpt-35-turbo model** and enter copied deployment name into 
         **"deploymentOrModelId"** in appsettings.json by navigating back to visual studio code.
           ![](./Media/image-rg-7.png)
         
@@ -59,101 +117,73 @@ In this lab, you'll setup and configure Miyagi app locally.
       
       -  Navigate back to deployment page
 
-      - On the Deployments blade of Azure AI Studio, click on **text-embedding-ada-002 model name (1)** and Copy full deployment name of **text-embedding-ada-002 model(2)** and enter copied deployment for 
+      - On the Deployments blade of Azure AI Studio, click on **text-embedding-ada-002 model name** and Copy full deployment name of **text-embedding-ada-002 model** and enter copied deployment name into 
         **"embeddingDeploymentOrModelId"** in appsettings.json by navigating back to visual studio code.   
 
          ![](./Media/image-rg-10.png)
 
          ![](./Media/image-rg-11.png)
 
-      >**Note**: Kindly record the text-embedding-ada-002 model name in notepad you need this values in further tasks.
+      >**Note**: Kindly record the text-embedding-ada-002 model name in notepad you need these values in further tasks.
 
 1. To obtain the values for **endpoint** and **apiKey** follow the below steps:
-
-   -  Navigate back to the tab displaying **Azure portal**. 
-
-   -  On **OpenAIService-<inject key="DeploymentID" enableCopy="false"/>** blade, under **Resource Management** section select **Keys and Endpoint**, copy the **KEY1** and **Endpoint** values in notepad and get back to Visual studio code in appsettings.json file paste **Key to **"<Your OpenAI API Key>"**, and "endpoints" to **"<Your Open AI point>"**,
+   
+   -  Go back to your Open AI Service and under **Resource Management** section select **Keys and Endpoint**, copy the **KEY1** and **Endpoint** values in notepad and get back to appsettings.json file in Visual Studi Code and paste **Key1** into **apikey**, and **Endpoint** into **endpoint**.
 
       ![](./Media/image-rg-3.png)
 
-       >**Note**: Kindly record the **KEY1** and **Endpoint** values in notepad you need this values in next further tasks.
+       >**Note**: Kindly record the **KEY1** and **Endpoint** values in notepad you need this values further tasks.
 
-1. To obtain the values for  "azureCognitiveSearchEndpoint", "azureCognitiveSearchApiKey", follow below steps:
+2. To obtain the values for  "azureCognitiveSearchEndpoint", "azureCognitiveSearchApiKey", follow below steps:
    
-   1. Navigate back to **miyagi-rg-<inject key="DeploymentID" enableCopy="false"/>** resource group.
+   1. Navigate back to your resource group.
 
-   1. On the **miyagi-rg-<inject key="DeploymentID" enableCopy="false"/>** page, select **acs-<inject key="DeploymentID" enableCopy="false"/>** from resources list.
-   ![](./Media/image-rg-12.png)
+   2. Select Search Service from resources list.
+   
+      ![](./Media/image-rg-12.png)
  
-   1. On **acs-<inject key="DeploymentID" enableCopy="false"/>** blade copy the URL and get back to Visual studio code and paste URL to **azureCognitiveSearchEndpoint**
-   ![](./Media/image-rg-13.png)
+   3. From the Overview blade copy the URL and get back to Visual studio code and paste URL to **azureCognitiveSearchEndpoint**
+   
+      ![](./Media/image-rg-13.png)
 
       >**Note**: Please record **URL** and paste in notepad you need this values in further tasks.
 
-   1. On **acs-<inject key="DeploymentID" enableCopy="false"/>** blade, under **Settings** section, copy **Primary admin Key** values and paste to **azureCognitiveSearchApiKey** 
+   4. Click on Settings > Keys and copy **Primary admin Key** value and paste it into **azureCognitiveSearchApiKey** 
       in visual studio code
    
       ![](./Media/image-rg-14.png)
 
        >**Note**: Please record **Key** values in notepad you need this values in further tasks.
 
-1. To obtain the values for "cosmosDbUri" and "cosmosDbName," please follow the steps below:
+3. To obtain the values for "cosmosDbUri" and "cosmosDbName," please follow the steps below:
 
-   1. Navigative back to resource group **miyagi-rg-<inject key="DeploymentID" enableCopy="false"/>** resource group page, select **cosmos-<inject key="DeploymentID" enableCopy="false"/>** from resources list.
+   1. Navigative back to your resource group and select Azure Cosmos DB account from resources list.
       ![](./Media/image-rg-15.png)
 
-   1. On **cosmos-<inject key="DeploymentID" enableCopy="false"/>** copy the URL 
+   2. Copy the URI from the Overview blade and paste it into **cosmosDbUri** in appsettings.json file in visual studio code. 
       ![](./Media/image-rg-16.png)
 
-      >**Note**: Please record **URL** in notepad you need this values in further tasks.
+      >**Note**: Please record **URI** in notepad you need this values in further tasks.
 
-   1. On **cosmos-<inject key="DeploymentID" enableCopy="false"/>** under **Settings** select **Keys** and Copy the value of the **Cosmos DB Primary Connection String**.
+   3. Click on **Settings** > **Keys** and Copy the value of the **Cosmos DB Primary Connection String** and paste it into **CosmosDbConnectionString** in appsettings.json file in visual studio code.
       ![](./Media/cs.png)
 
        >**Note**: Please record **Cosmos DB Primary Connection String** in notepad you need this values in further tasks.
 
-   1. Get back to visual studio and paste URL to **CosmosDBURI**, PRIMARY CONNECTION STRING to **Cosmos DB Connection String:** and  for **cosmosDbName** replace "miyagi** with **cosmos-<inject key="DeploymentID" enableCopy="false"/>**
-
-        >**Note**: Please record **Name** values in notepad you need this values in further tasks.
-
-1. For "blobServiceUri", replace Your **blobServiceUri** with https://miyagiblobstorge<inject key="DeploymentID" enableCopy="false"/>.blob.core.windows.net/
-
-1. Leave default settings for  "cosmosDbContainerName": "recommendations","logLevel": "Trace"
-
-1. Once afer updating the values kindly save the file by pressing **CTRL + S**.
-
-1. Navigate to miyagi/sandbox/usecases/rag/dotnet and verify .env file is present
   
-1. Update the values which you recorded in previous steps into .env file and save the file
+4. For "blobServiceUri", replace Your **blobServiceUri** with https://[yourstorageaccountname].blob.core.windows.net/
+
+5. Leave default settings for "cosmosDbName": "miyagi","cosmosDbContainerName": "recommendations", "collectionName": "miyagi-embeddings","logLevel": "Trace"
+6. Set the value of **bingApiKey** to **none**
+7. After updating the values save the file by pressing **CTRL + S**.
+   
+8. Create a new file named .env in miyagi/sandbox/usecases/rag/dotnet
+9.  Copy paste the contents of rag/.env.local.example into .env and save the file
+10. Update the values which you recorded in previous steps into .env file and save the file
 
    >**Note**: Please refer the below image to know how to update the values in .env files.
 
    ![](./Media/image-rg-24.png)
-
- ### Task 2: Setup .NET secrets
-
-1. Navigate to **miyagi/services/recommendation-service/dotnet**, right click on dotnet and in cascading menu, select **Open in intergate Terminal**.
-1. Run the following command to set the secrets for the recommendation service. You will need to provide the values for the variables below.
-   
-     ```
-     dotnet user-secrets set "USE_OPEN_AI" "False"
-     dotnet user-secrets set "serviceType" "AzureOpenAI"
-     dotnet user-secrets set "BING_API_KEY" "<Your Bing API Key>"
-     dotnet user-secrets set "MEMORY_COLLECTION" "miyagi-embeddings"
-     dotnet user-secrets set "deploymentOrModelId" "<Your Open AI Completions model Deployment Id>"
-     dotnet user-secrets set "embeddingDeploymentOrModelId" "<Your Open AI Embeddings model Deployment Id>"
-     dotnet user-secrets set "endpoint" "<Your Open AI Endpoint>" 
-     dotnet user-secrets set "apiKey" "<Your Open AI API Key>"
-     dotnet user-secrets set "COSMOS_DB_CONNECTION_STRING" "<Cosmos DB Connection String>"    
-     ```
-   Use the following instructions to get the values for the arguments to the dotnet user-secrets set command
-
-   -  **Bing API Key:** Provide **a6a11817493b4c2cb9a49d11bcd31e98**
-   -  **deploymentOrModelId** Replace <Your Open AI Completions model Deployment Id> with deployment name for gpt-35-turbo model
-   -  **embeddingDeploymentOrModelId** Replace  <Your Open AI Embeddings model Deployment Id> with deployment name for text-embedding-ada-002
-   -  **Open AI Endpoint**: Replace "<Your Open AI Endpoint>" with Open AI Endpoint
-   -  **Open AI API Key:** Replace "<Your Open AI API Key>" with Open AI Key
-   -  **Cosmos DB Connection String:**  Replace "< Your Cosmos DB Connection String >" with the cosmos key
 
 ### Task 3: Understanding implementation of the recommendation service
 
