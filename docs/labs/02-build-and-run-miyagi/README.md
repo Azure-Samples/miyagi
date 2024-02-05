@@ -3,8 +3,8 @@
 In this hands-on workshop, you will learn how to build Intelligent Applications using Microsoft Copilot stack and Azure Open AI services, and run them on Azure Container Apps or Azure Kubernetes Service. You will bootstrap a sample application called Miyagi, and understand how to build a financial advisor application that provides personalized recommendations to users based on their financial goals and preferences. The application uses Azure Open AI services to generate personalized responses to user queries and Azure Cognitive Search to index and search financial documents. The application is composed of the following components:
 
 1. **Miyagi Frontend**: A Next.js application that provides a user interface for the application. The frontend is built using TypeScript and React.
-2. **Recommendation Service**: A .NET 6 application that provides personalized recommendations to users. The service uses Azure Open AI services to generate personalized responses to user queries and Azure Cognitive Search to index and search financial documents.
-3. **RAG Usecase**: A .NET 6 application that demonstrates how to use the Semantic Kernel SDK to implement the RAG pattern for the recommendation service.
+2. **Recommendation Service**: A .NET 8 application that provides personalized recommendations to users. The service uses Azure Open AI services to generate personalized responses to user queries and Azure Cognitive Search to index and search financial documents.
+3. **RAG Usecase**: A .NET 8 application that demonstrates how to use the Semantic Kernel SDK to implement the RAG pattern for the recommendation service.
 4. **Azure Open AI**: A service that provides AI models for generating personalized responses to user queries.
 5. **Azure Cognitive Search**: A service that provides indexing and search capabilities for financial documents.
 6. **Azure Container Apps**: A service that provides a platform for deploying and running containerized applications.

@@ -23,7 +23,7 @@ In this lab, you'll setup and configure Miyagi app locally.
 ### Task 1: Clone miyagi app
 
 1. Create a new folder for the workshop
-1. Open the new folder: File -> Open Folder -> Select the folder you created in step 1
+1. Start Visual Studio Code and Open the new folder: File -> Open Folder -> Select the folder you created in step 1
 1. Open a new terminal: Terminal -> New Terminal (or Ctrl + Shift + `)   
 1. Clone this repo
    
