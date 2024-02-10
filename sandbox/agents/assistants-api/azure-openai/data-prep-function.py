@@ -1,13 +1,26 @@
+import yfinance as yf
 import csv
 import os
 
-def create_dcf_analysis_csv(years, initial_revenue, projected_revenue_growth_rate, wacc, file_name):
+def create_dcf_analysis_csv(ticker, start_year, end_year, projected_revenue_growth_rate, wacc, file_name):
+    # Fetch historical data
+    company = yf.Ticker(ticker)
+    financials = company.financials
+    revenue = financials.loc['Total Revenue']
+    
     # Function to calculate projected values
     def calculate_projected_values(initial_value, growth_rate, years):
         return [initial_value * ((1 + growth_rate) ** year) for year in range(years)]
 
+    # Estimate initial revenue based on the latest available data
+    initial_revenue = revenue.iloc[0] # assuming the latest data is at index 0
+
+    # Generate years range
+    years = list(range(start_year, end_year + 1))
+
     # Calculate projected revenue, EBIT, net income, and free cash flow
     projected_revenue = calculate_projected_values(initial_revenue, projected_revenue_growth_rate, len(years))
+   
     projected_ebit = [r * 0.3 for r in projected_revenue]  # assuming EBIT is 30% of revenue
     projected_net_income = [ebit * 0.7 for ebit in projected_ebit]  # assuming Net Income is 70% of EBIT
     projected_fcf = projected_net_income  # simplified assumption for Free Cash Flow
@@ -23,7 +36,7 @@ def create_dcf_analysis_csv(years, initial_revenue, projected_revenue_growth_rat
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     # Construct the full path to save the file in the 'datasets' directory
-    file_path = os.path.join(script_dir, file_name)
+    file_path = os.path.join(script_dir, 'datasets', file_name)
 
     # Write data to CSV
     with open(file_path, 'w', newline='') as file:
@@ -37,8 +50,9 @@ def create_dcf_analysis_csv(years, initial_revenue, projected_revenue_growth_rat
 if __name__ == "__main__":
     # Example usage
     create_dcf_analysis_csv(
-        years=[2024, 2025, 2026, 2027, 2028],
-        initial_revenue=100000, 
+        ticker='MSFT', 
+        start_year=2024, 
+        end_year=2028, 
         projected_revenue_growth_rate=0.05, 
         wacc=0.07,
         file_name='msft_dcf_analysis.csv'
