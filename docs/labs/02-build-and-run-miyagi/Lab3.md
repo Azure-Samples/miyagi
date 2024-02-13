@@ -40,17 +40,22 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 
     ![](./Media/openai-apis.png)
 
+3. Navigate to the settings tab and update the subscription key header to api-key.
+    ![](./Media/subscription-header.png)
 
-3. Navigate to the products tab in the Azure API Management menu and select Add. For the display name and description you can enter OpenAI. Under the APIs menu click the plus sign and add the Azure OpenAI Service API.
+4. Navigate to the products tab in the Azure API Management menu and select Add. For the display name and description you can enter OpenAI. Under the APIs menu click the plus sign and add the Azure OpenAI Service API.
     ![](./Media/aoai-apim-product.png)
 
-4. Navigate to the subscriptions tab in the product menu and click add subscription.
+5. Navigate to the subscriptions tab in the product menu and click add subscription.
    ![](./Media/new-subscription.png)
 
-5. Navigate to your OpenAI resource in the Azure Portal and select the Identity and Access Management tab. Select Add and role-assignment and at the next screen select Cognitive Services User, click next, then the managed identity radio button, and select memebers. In the managed identity drop down you should see your API Management, select the manage identity and click select. Once finished select Review and Assign and save the role assignment.
+6. Once the subscription is created click the three dots next to the newly created key and then click **Show\hide keys**. Copy the primary subscription key and save it for later.
+   ![](./Media/show-key.png)
+
+7. Navigate to your OpenAI resource in the Azure Portal and select the Identity and Access Management tab. Select Add and role-assignment and at the next screen select Cognitive Services User, click next, then the managed identity radio button, and select memebers. In the managed identity drop down you should see your API Management, select the manage identity and click select. Once finished select Review and Assign and save the role assignment.
     ![](./Media/apim-role.png)
 
-6. In the Azure Portal navigate back to the API Management resource and select APIs. Select the Azure OpenAI Service API create in the earlier step and select All Operations. Copy the below policy to overwrite the **inbound** tags only.
+8. In the Azure Portal navigate back to the API Management resource and select APIs. Select the Azure OpenAI Service API create in the earlier step and select All Operations. Copy the below policy to overwrite the **inbound** tags only.
 ```
 <inbound>
    <base />
@@ -63,10 +68,10 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 </inbound>
 ```
 
-7. Next navigate to the test tab in API Management next to settings and select **Creates a completion for the chat message**. In the deployment-id filed enter **gpt-35-turbo**. Inside the api-version field enter **2023-05-15** and click send. 
+1. Next navigate to the test tab in API Management next to settings and select **Creates a completion for the chat message**. In the deployment-id filed enter **gpt-35-turbo**. Inside the api-version field enter **2023-05-15** and click send. 
    ![](./Media/apim-test.png)
 
-8. Scroll down the response and you should see a 200 response and a message back from your OpenAI service.
+2. Scroll down the response and you should see a 200 response and a message back from your OpenAI service.
    ![](./Media/openai-response.png)
 
 ### Task 3: Update the Docker Image for Recommendation service
@@ -79,11 +84,15 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 
    ![](./Media/lab3-t2-s2.png)
 
-3. From the Explorer, navigate to `Miyagi/services/recommendation-service/dotnet/` **(1)** path. Right-click on `dotnet` folder and select **Open in Integrated Terminal** **(2)** from the options tab to open terminal with required path.
+3. In the `appsettings.json` file, you have to replace the **apiKey** value with the subscription key that was copied from our earlier steps. 
+
+    ![](./Media/apikey-setting.png)
+
+4. From the Explorer, navigate to `Miyagi/services/recommendation-service/dotnet/` **(1)** path. Right-click on `dotnet` folder and select **Open in Integrated Terminal** **(2)** from the options tab to open terminal with required path.
 
    ![](./Media/lab3-t2-s3.png)
 
-4. Now, you need to re-build the docker image for recommendation service by running the below docker command. Make to update the docker image name which was created earlier for recommendation service with the same name.
+5. Now, you need to re-build the docker image for recommendation service by running the below docker command. Make to update the docker image name which was created earlier for recommendation service with the same name.
 
    ```
    docker build . -t [Docker_Image_Name_Recommendation_Service]
@@ -91,7 +100,7 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 
    ![](./Media/lab3-t2-s4.png)
 
-5. Run following command to ACR login.
+6. Run following command to ACR login.
 
    > **Note**: Please replace **[ACRname]** with **<inject key="AcrLoginServer" enableCopy="true"/>**, **[uname]** with **<inject key="AcrUsername" enableCopy="true"/>**, and **[password]** with **<inject key="AcrPassword" enableCopy="true"/>**.
 
@@ -99,7 +108,7 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
     docker login [ACRname] -u [uname] -p [password]
     ```
 
-6. Once you are logged into ACR. Run the below command to push the updated docker image of the recommendation service to the container registry.
+7. Once you are logged into ACR. Run the below command to push the updated docker image of the recommendation service to the container registry.
 
    **Note**: Make sure to replace **[ACRname]** with **<inject key="AcrLoginServer" enableCopy="true"/>**.
 
