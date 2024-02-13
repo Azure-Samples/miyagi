@@ -1,0 +1,202 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Gets_a_single_embedding": {
+                "inputs": {
+                    "parameters": {
+                        "deploymentId": "text-embedding-ada-002",
+                        "input": "@{body('Parse_JSON')?['data_type']}earnings"
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "openai",
+                        "operationId": "getSingleEmbedding",
+                        "serviceProviderId": "/serviceProviders/openai"
+                    }
+                },
+                "runAfter": {
+                    "Parse_JSON": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "ServiceProvider"
+            },
+            "Gets_the_chat_completions": {
+                "inputs": {
+                    "parameters": {
+                        "deploymentId": "gpt-35-turbo",
+                        "messages": [
+                            {
+                                "message": "You are a summarizer of JSON data that provides narratives for a given JSON about user's portfolio allocation.",
+                                "role": "assistant"
+                            },
+                            {
+                                "message": "@concat(string(body('Vector_search')?[0]?['chunk']), string(body('Query_items')?['items']?[0]))",
+                                "role": "user"
+                            }
+                        ],
+                        "temperature": 0.7
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "openai",
+                        "operationId": "getChatCompletions",
+                        "serviceProviderId": "/serviceProviders/openai"
+                    }
+                },
+                "runAfter": {
+                    "Query_items": [
+                        "SUCCEEDED"
+                    ],
+                    "Vector_search": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "ServiceProvider"
+            },
+            "Parse_JSON": {
+                "inputs": {
+                    "content": "@triggerOutputs()",
+                    "schema": {
+                        "properties": {
+                            "data_type": {
+                                "type": "string"
+                            },
+                            "ticker": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {},
+                "type": "ParseJson"
+            },
+            "Query_items": {
+                "inputs": {
+                    "parameters": {
+                        "containerId": "recommendations",
+                        "databaseId": "miyagi",
+                        "queryText": "SELECT c.data.Request.Portfolio FROM c OFFSET 0 LIMIT 1"
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "AzureCosmosDB",
+                        "operationId": "QueryDocuments",
+                        "serviceProviderId": "/serviceProviders/AzureCosmosDB"
+                    }
+                },
+                "runAfter": {
+                    "Parse_JSON": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "ServiceProvider"
+            },
+            "Response": {
+                "inputs": {
+                    "body": "@body('Gets_the_chat_completions')?['content']",
+                    "statusCode": 200
+                },
+                "kind": "Http",
+                "runAfter": {
+                    "Gets_the_chat_completions": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "Response"
+            },
+            "Send_an_email_(V2)": {
+                "inputs": {
+                    "body": {
+                        "Body": "<p>@{body('Gets_the_chat_completions')?['content']}</p>",
+                        "Importance": "Normal",
+                        "Subject": "Stock summary",
+                        "To": "@triggerBody()?['email']"
+                    },
+                    "host": {
+                        "connection": {
+                            "referenceName": "outlook"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/v2/Mail"
+                },
+                "runAfter": {
+                    "Gets_the_chat_completions": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Send_to_Service_Bus": {
+                "inputs": {
+                    "parameters": {
+                        "entityName": "logicapps",
+                        "message": {
+                            "contentData": "@body('Gets_the_chat_completions')?['content']"
+                        }
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "serviceBus",
+                        "operationId": "sendMessage",
+                        "serviceProviderId": "/serviceProviders/serviceBus"
+                    }
+                },
+                "runAfter": {
+                    "Gets_the_chat_completions": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "ServiceProvider"
+            },
+            "Vector_search": {
+                "inputs": {
+                    "parameters": {
+                        "indexName": "msft",
+                        "kNearestNeighbors": 3,
+                        "searchVector": {
+                            "fieldName": "vector",
+                            "vector": "@body('Gets_a_single_embedding')['embedding']"
+                        }
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "azureaisearch",
+                        "operationId": "vectorSearch",
+                        "serviceProviderId": "/serviceProviders/azureaisearch"
+                    }
+                },
+                "runAfter": {
+                    "Gets_a_single_embedding": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "ServiceProvider"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "triggers": {
+            "When_a_HTTP_request_is_received": {
+                "inputs": {
+                    "method": "POST",
+                    "schema": {
+                        "properties": {
+                            "data_type": {
+                                "type": "string"
+                            },
+                            "email": {
+                                "type": "string"
+                            },
+                            "ticker": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "kind": "Http",
+                "type": "Request"
+            }
+        }
+    },
+    "kind": "Stateful"
+}
