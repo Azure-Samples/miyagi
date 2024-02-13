@@ -373,7 +373,7 @@ tfplan
 *.crt
 *.pub
 id_rsa
-.vscode/
+
 python/expense-classification-guidance/.env
 
 python/expense-classification-guidance/.idea/
@@ -389,3 +389,5 @@ sandbox/usecases/rag/dotnet/.env
 sandbox/notebooks/prompt-engineering/dotnet/.env
 
 sandbox/prompt-engineering/notebooks/prompt-engineering/dotnet/.env
+
+.vscode/settings.json

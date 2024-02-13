@@ -1,0 +1,69 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/dotnet/recommendation-service/GBB.Miyagi.RecommendationService.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/dotnet/recommendation-service/GBB.Miyagi.RecommendationService.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/dotnet/recommendation-service/GBB.Miyagi.RecommendationService.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "type": "func",
+            "label": "func: host start",
+            "command": "host start",
+            "problemMatcher": "$func-python-watch",
+            "isBackground": true,
+            "dependsOn": "pip install (functions)",
+            "options": {
+                "cwd": "${workspaceFolder}/sandbox\\agents\\plugins"
+            }
+        },
+        {
+            "label": "pip install (functions)",
+            "type": "shell",
+            "osx": {
+                "command": "${config:azureFunctions.pythonVenv}/bin/python -m pip install -r requirements.txt"
+            },
+            "windows": {
+                "command": "${config:azureFunctions.pythonVenv}\\Scripts\\python -m pip install -r requirements.txt"
+            },
+            "linux": {
+                "command": "${config:azureFunctions.pythonVenv}/bin/python -m pip install -r requirements.txt"
+            },
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/sandbox\\agents\\plugins"
+            }
+        }
+    ]
+}
