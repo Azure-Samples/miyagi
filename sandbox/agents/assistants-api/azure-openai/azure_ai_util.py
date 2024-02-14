@@ -80,18 +80,19 @@ class AzureAIUtils:
             return self.client.files.create(file=f, purpose="assistants")
 
     @retry(
-        stop=stop_after_attempt(15),
-        wait=wait_exponential(multiplier=1.5, min=4, max=20),
-        retry=retry_if_exception_type(NotCompletedException),
+    stop=stop_after_attempt(15),
+    wait=wait_exponential(multiplier=1.5, min=4, max=20),
+    retry=retry_if_exception_type(NotCompletedException),
     )
-    def get_run_lifecycle_status(self, thread_id, run_id):
+    def get_run_lifecycle_status(self, thread_id, run_id, action_func=None):
         """
         Retrieves and prints the lifecycle status of a run and
-        retries based on specific conditions.
+        retries based on specific conditions. Optionally calls a function if provided.
 
         Parameters:
         thread_id: The ID of the thread.
         run_id: The ID of the run.
+        action_func (optional): A callable function to be executed when the run requires action.
 
         Returns:
         The run object if its status is 'completed', 'failed', 'expired', or 'cancelled'.
@@ -105,6 +106,9 @@ class AzureAIUtils:
             print(f"Run info: {run}")
             return run
         elif run.status == "requires_action":
-            pass  # Handle cases that require action differently
+            print(f"Run requires action: {run}")
+            if action_func:
+                action_func() 
+            return run
         else:
             raise NotCompletedException("Run not completed yet")
