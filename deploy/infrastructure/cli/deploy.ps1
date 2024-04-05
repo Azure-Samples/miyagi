@@ -4,7 +4,19 @@ param (
     [string]$resourceGroupCount = 1,
     [Parameter(Mandatory = $true)]
     [string]$subscriptionId,
-    [string]$deploymentType = "aca"
+    [string]$deploymentType = "aks",
+    [string]$owner = "default",
+    [string]$skipRg = "false",
+    [string]$skipOpenAI = "false",
+    [string]$skipEmbeddingModelDeployment = "false",
+    [string]$skipCompletionModelDeployment = "false",
+    [string]$skipcognitiveSearch = "false",
+    [string]$skipCosmosDB = "false",
+    [string]$skipBlobStorage = "false",
+    [string]$skipAzureContainerApps = "false",
+    [string]$skipAKS = "false",
+    [string]$skipAzureContainerRegistry = "false",
+    [string]$skipAPIM = "false"
 )
 
 # Generate a unique suffix based on a hash of the subscription ID and the resource group, just like uniqueString() would do for ARM templates
@@ -30,40 +42,39 @@ Write-Host "location: $location"
 Write-Host "resourceGroupCount: $resourceGroupCount"
 Write-Host "subscriptionId: $subscriptionId"
 Write-Host "deploymentType: $deploymentType"
+Write-Host "owner: $owner"
+Write-Host "skipRg: $skipRg"
+Write-Host "skipOpenAI: $skipOpenAI"
+Write-Host "skipEmbeddingModelDeployment: $skipEmbeddingModelDeployment"
+Write-Host "skipCompletionModelDeployment: $skipCompletionModelDeployment"
+Write-Host "skipcognitiveSearch: $skipcognitiveSearch"
+Write-Host "skipCosmosDB: $skipCosmosDB"
+Write-Host "skipBlobStorage: $skipBlobStorage"
+Write-Host "skipAzureContainerApps: $skipAzureContainerApps"
+Write-Host "skipAKS: $skipAKS"
+Write-Host "skipAzureContainerRegistry: $skipAzureContainerRegistry"
+Write-Host "skipAPIM: $skipAPIM"
+
 
 # set rgIndex to resourceGroupCount
 
 $rgIndex = $resourceGroupCount
 
-# set all these to false the first time you run this script. After that you can set them to true to skip creating resources that already exist
-$skipRg = $false
-$skipOpenAI = $false
-$skipEmbeddingModelDeployment = $false
-$skipCompletionModelDeployment = $false
-$skipcognitiveSearch = $false
-$skipCosmosDB = $false
-$skipBlobStorage = $false
-$skipAzureContainerApps = $false
-$skipAKS = $false
-$skipAzureContainerRegistry = $false
-$skipAPIM = $false
-
-
 # strip - from resourceGroupPrefix
-
 $resourceGroupPrefix = $resourceGroupPrefix.Replace("-","");
 
 # create resource groups in a loop for rgIndex
 # if skipRg is true, skip creating resource group
 
-if ($skipRg) {
+if ($skipRg -eq "true") {
     Write-Host "Skipping resource group creation"
 }
 else {
 
     for ($i = 1; $i -le $rgIndex; $i++) {
         Write-Host "Creating resource group $resourceGroupPrefix-rg-$i in $location"
-        az group create --name "$resourceGroupPrefix-rg-$i" --location $location
+        #az group create --name "$resourceGroupPrefix-rg-$i" --location $location
+        az group create --name "$resourceGroupPrefix-rg-$i" --location $location --tags Owner=$owner Service=OpenAI Type=Workshop
     }
 }
    
@@ -71,7 +82,7 @@ else {
 
 for ($i = 1; $i -le $rgIndex; $i++) {
     # if skipRg is true, skip creating resource group
-    if ($skipOpenAI) {
+    if ($skipOpenAI -eq "true") {
         Write-Host "Skipping OpenAI resource creation"
     }
     else {
@@ -89,7 +100,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
     
     # if skipEmbeddingModelDeployment is true, skip embedding model deployment
 
-    if ($skipEmbeddingModelDeployment) {
+    if ($skipEmbeddingModelDeployment -eq "true") {
         Write-Host "Skipping embedding model deployment"
     }
     else {
@@ -111,7 +122,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
     
     # if skipCompletionModelDeployment is true, skip completion model deployment
 
-    if ($skipCompletionModelDeployment) {
+    if ($skipCompletionModelDeployment -eq "true") {
         Write-Host "Skipping completion model deployment"
     }
     else {
@@ -132,7 +143,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
 
     # if skipCosmosDB is false, create CosmosDB account called miyagi with a container called recommendations
 
-    if ($skipCosmosDB) {
+    if ($skipCosmosDB -eq "true") {
         Write-Host "Skipping CosmosDB account creation"
     }
     else {
@@ -165,7 +176,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
 
     # if skipBlobStorage is false, create blob storage account with a container called miyagi
 
-    if ($skipBlobStorage) {
+    if ($skipBlobStorage -eq "true") {
         Write-Host "Skipping blob storage account creation"
     }
     else {
@@ -194,9 +205,14 @@ for ($i = 1; $i -le $rgIndex; $i++) {
             --subscription $subscriptionId
     }
 
-    # if skipAzureContainerRegistry is false, create Azure Container Registry called miyagi
+    # define containerregistry variable
 
-    if ($skipAzureContainerRegistry) {
+    $containerregistry = ""
+
+
+    # if skipAzureContainerRegistry is false, create Azure Container Registry
+
+    if ($skipAzureContainerRegistry -eq "true") {
         Write-Host "Skipping Azure Container Registry creation"
     }
     else {
@@ -212,6 +228,9 @@ for ($i = 1; $i -le $rgIndex; $i++) {
             --location $location `
             --sku "Basic" `
             --subscription $subscriptionId
+        # print container registry
+        Write-Host "Created Container Registry: $containerregistry"
+    
     }
 
     # if skipAzureContainerApps is false, create Azure Container Apps with a container called miyagi
@@ -252,7 +271,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
     }
 
     # if skipAPIM is false, create APIM instance
-    if ($skipAPIM) {
+    if ($skipAPIM -eq "true") {
         Write-Host "Skipping APIM instance creation"
     }
     else {
@@ -267,7 +286,7 @@ for ($i = 1; $i -le $rgIndex; $i++) {
     }
 
     # if skipcognitiveSearch is false, create cognitive search service with semantic search capability
-    if ($skipcognitiveSearch) {
+    if ($skipcognitiveSearch -eq "true") {
         Write-Host "Skipping cognitive search service creation"
     }
     else {
@@ -281,7 +300,3 @@ for ($i = 1; $i -le $rgIndex; $i++) {
             
     }
 }
-
-
-
-
