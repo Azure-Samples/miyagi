@@ -20,6 +20,13 @@ This folder contains notebooks that demonstrate several use cases implemented us
     ```
 1. Run the notebooks.
 
+## Architecture
+![](../assets/images/agents-block-diagram.png)
+
 ## Notebooks
 
-- [**Assitants API - Equity Analyst**](./assistants-api/azure-openai/equity-analyst.ipynb): This notebook demonstrates how to use the Assistants API to create an Equity Analyst assistant that can answer questions about stock prices, market trends, and other financial data.
+> WIP
+
+1. [Agents with AutoGen](./autogen/notebooks/expense-tracking-budgeting.ipynb)
+1. [Agents with Assistants API](./assistants-api/azure-openai/equity-analyst.ipynb)
+1. [Agents with Assistants API and function calling](./assistants-api/azure-openai/function-calling-ea.ipynb)
