@@ -26,7 +26,10 @@ This folder contains notebooks that demonstrate several use cases implemented us
 ## Notebooks
 
 > WIP
+### Agents with AutoGen
+1. [Expense tracking and budgeting](./autogen/notebooks/expense-tracking-budgeting.ipynb)
+1. [Retirement Planning](./autogen/notebooks/retirement-planning.ipynb)
 
-1. [Agents with AutoGen](./autogen/notebooks/expense-tracking-budgeting.ipynb)
-1. [Agents with Assistants API](./assistants-api/azure-openai/equity-analyst.ipynb)
-1. [Agents with Assistants API and function calling](./assistants-api/azure-openai/function-calling-ea.ipynb)
+### Agents with Assistants API
+1. [Equity Analyst with Code Interpreter](./assistants-api/azure-openai/equity-analyst.ipynb)
+1. [Analyst with Function calling using Logic Apps](./assistants-api/azure-openai/function-calling-ea.ipynb)
