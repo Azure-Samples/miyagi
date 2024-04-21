@@ -66,7 +66,7 @@ Interaction with foundation models is more than chat. This sample shows a few us
 
 ### 30k foot view
 #### Typical AI Application
-<p align="left"><img src="assets/images/ai_application.png" width=30% height=30% /></p>
+<p align="left"><img src="assets/images/ai_application.png" width=60% height=60% /></p>
 
 #### AI Application in Azure
 <p align="left"><img src="assets/images/basic-arch.png" width=30% height=30% /></p>
