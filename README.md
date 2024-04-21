@@ -29,6 +29,8 @@ Due to the rapid pace of advancements in foundation models, we are incrementally
 1. [MVP with Personalize (Synthesis via Semantic Kernel) and Chat on Azure Container Apps](https://agentmiyagi.com).
     1. [Detailed breakdown and implementations](./services/README.md)
     1. [Quickstart with RaG](./sandbox/usecases/rag/dotnet/Getting-started.ipynb)
+    1. [Agents with Assistants API](./agents/assistants-api/azure-openai/equity-analyst.ipynb)
+    1. [Agents with Autogen](./agents/README.md)
 1. [VSCode extension for GitHub Copilot Agent](./sandbox/usecases/code-modernization/vscode-gh-copilot-extension/README.md)
 1. [Miyagi ChatGPT Plugin](./services/chatgpt-plugin/python)
 1. [Knowledge Graph memory using Langchain's entity cache](./sandbox/experiments/langchain/Memory_Usecases.ipynb)
@@ -62,8 +64,11 @@ Interaction with foundation models is more than chat. This sample shows a few us
 
 <p align="left"><img src="assets/images/embeddings.png" width=40% height=40% /></p>
 
-#### 30k foot view
+### 30k foot view
+#### Typical AI Application
+<p align="left"><img src="assets/images/ai_application.png" width=30% height=30% /></p>
 
+#### AI Application in Azure
 <p align="left"><img src="assets/images/basic-arch.png" width=30% height=30% /></p>
 
 
