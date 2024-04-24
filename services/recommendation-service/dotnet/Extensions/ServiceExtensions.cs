@@ -65,7 +65,8 @@ public static class ServiceExtensions
             services.AddKernel().AddAzureOpenAIChatCompletion(
                 deploymentName: kernelSettings.DeploymentOrModelId,
                 endpoint: kernelSettings.Endpoint,
-                apiKey: kernelSettings.ApiKey,
+                // credentials: new DefaultAzureCredential() // Use this for token based authentication (recommended)
+                apiKey: kernelSettings.ApiKey, // Use this for API key based authentication (not recommended for production use)
                 modelId: kernelSettings.DeploymentOrModelId);
             services.AddSingleton<KernelPlugin>(sp => KernelPluginFactory.CreateFromType<TimePlugin>(serviceProvider: sp));
             services.AddSingleton<KernelPlugin>(sp => KernelPluginFactory.CreateFromType<UserProfilePlugin>(serviceProvider: sp));
@@ -78,13 +79,17 @@ public static class ServiceExtensions
         {
             // Azure AI Search Vector DB - a store that persists data in a hosted Azure AI Search database
             IMemoryStore store = new AzureAISearchMemoryStore(
-                kernelSettings.AzureCognitiveSearchEndpoint, kernelSettings.AzureCognitiveSearchApiKey);
+                kernelSettings.AzureCognitiveSearchEndpoint,
+                // credentials: new DefaultAzureCredential() // Use this for token based authentication (recommended)
+                kernelSettings.AzureCognitiveSearchApiKey // Use this for API key based authentication (not recommended for production use)
+                );
             
             // Create an embedding generator to use for semantic memory.
             var embeddingGenerator = new AzureOpenAITextEmbeddingGenerationService(
                 kernelSettings.EmbeddingDeploymentOrModelId, 
                 kernelSettings.Endpoint,
-                kernelSettings.ApiKey,
+                // credential: new DefaultAzureCredential(), // Use this for token based authentication (recommended)
+                kernelSettings.ApiKey, // Use this for API key based authentication (not recommended for production use)
                 kernelSettings.EmbeddingDeploymentOrModelId);
 
             // The combination of the text embedding generator and the memory store makes up the 'SemanticTextMemory' object used to
