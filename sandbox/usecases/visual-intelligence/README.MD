@@ -37,3 +37,5 @@ streamlit ui.py
 ```
 
 
+## Sample run
+![sample_run](sample_run.png)
