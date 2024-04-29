@@ -34,6 +34,18 @@
             "request": "attach",
             "port": 9091,
             "preLaunchTask": "func: host start"
+        },
+        {
+            "name": "Python:Streamlit",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": [
+                "run",
+                "${file}",
+                "--server.port",
+                "2000"
+            ]
         }
     ]
 }
