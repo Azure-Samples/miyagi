@@ -54,7 +54,7 @@ In this lab, you'll setup and configure Miyagi app locally.
 
    **AKS Lab**
    ```
-    ./deploy.ps1  -resourceGroupPrefix "<miyagi>" -location "<eastus2>" -resourceGroupCount "<1>" -subscriptionId "<your subscription id>" -deploymentType "aca"
+    ./deploy.ps1  -resourceGroupPrefix "<miyagi>" -location "<eastus2>" -resourceGroupCount "<1>" -subscriptionId "<your subscription id>" -deploymentType "aks"
    ```
    Note: If you are setting up the workshop just for you, make sure you set the value of resourceGroupCount to 1
 4. Wait until the script completes. It will take less than 10 minutes to complete.
