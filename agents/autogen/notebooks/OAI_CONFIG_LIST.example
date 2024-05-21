@@ -1,9 +1,0 @@
-[
-    {
-        "model": "gpt-4",
-        "api_key": "<YOUR_API_KEY>",
-        "api_type": "azure",
-        "base_url": "https://<YOUR_ENDPOINT>.openai.azure.com",
-        "api_version": "2023-12-01-preview"
-    }
-]
