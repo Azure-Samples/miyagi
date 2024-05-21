@@ -20,6 +20,7 @@
     "cosmosDbContainerName": "recommendations",
     "cosmosDbConnectionString": "<Your Cosmos DB Connection String>",
     "logLevel": "Trace",
+    "useCosmosDBWithVectorIndexing":true,
     "CorsAllowedOrigins": [
       "http://localhost:4001",
       "http://localhost:3000",

@@ -2,6 +2,7 @@ using System.Text.Json;
 using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.Models;
 using GBB.Miyagi.RecommendationService.Resources;
+using GBB.Miyagi.RecommendationService.Plugins;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
@@ -10,6 +11,9 @@ using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Plugins.Memory;
 using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
 using ConsoleLogger = GBB.Miyagi.RecommendationService.Utils.ConsoleLogger;
+using Microsoft.SemanticKernel.Connectors.MongoDB;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
@@ -23,36 +27,34 @@ namespace GBB.Miyagi.RecommendationService.Controllers;
 public class InvestmentsController : ControllerBase
 {
     private readonly Kernel _kernel;
+    private DocumentPlugin _documentPlugin;
     private readonly KernelSettings _kernelSettings = KernelSettings.LoadSettings();
     private SemanticTextMemory _memory;
 
-    public InvestmentsController(Kernel kernel, SemanticTextMemory memory)
+    public InvestmentsController(Kernel kernel, SemanticTextMemory memory, DocumentPlugin documentPlugin = null)
     {
         _kernel = kernel;
         _memory = memory;
+        _documentPlugin = documentPlugin;
     }
-    
-    
+
+
     [HttpPost("/investments")]
     public async Task<IActionResult> GetRecommendations([FromBody] MiyagiContext miyagiContext)
     {
         var log = ConsoleLogger.Log;
         log.BeginScope("InvestmentController.GetRecommendationsAsync");
         // ========= Import Advisor skill from local filesystem =========
-        
+
         // Load prompts
         var prompts = _kernel.CreatePluginFromPromptDirectory("Prompts");
 
         // Load prompt from YAML
         var promptYaml = EmbeddedResource.Read("Prompts.InvestmentAdvise.prompt.yaml");
-        //using StreamReader reader = new(Assembly.GetExecutingAssembly().GetManifestResourceStream("prompts.InvestmentAdvise.prompt.yaml")!);
-        KernelFunction investmentAdvise = _kernel.CreateFunctionFromPromptYaml(
-            promptYaml,
-            new HandlebarsPromptTemplateFactory()
-        );
+
 
         KernelPlugin memoryPlugin;
-        
+
         // Check if TextMemoryPlugin already exists in the kernel
         if (!_kernel.Plugins.Any(p => p.Name == "TextMemoryPlugin"))
         {
@@ -63,7 +65,7 @@ public class InvestmentsController : ControllerBase
         {
             memoryPlugin = _kernel.Plugins["TextMemoryPlugin"];
         }
-        
+
         // Create few-shot examples
         List<ChatHistory> fewShotExamples = [
             [
@@ -71,7 +73,7 @@ public class InvestmentsController : ControllerBase
                 new ChatMessageContent(AuthorRole.Assistant, @"{""portfolio"":[{""symbol"":""MSFT"",""gptRecommendation"":""Booyah! Hold on, steady growth! Diversify, though!""},{""symbol"":""ACN"",""gptRecommendation"":""Buy! Services will see a boom!""}]}")
             ]
         ];
-        
+
         /*
          * Resolve issue with Handlebars ProcessPositionalArguments issue with parameter parsing for TextMemoryPlugin-recall
          * In prompt template for handlebars, the following is not working:
@@ -106,9 +108,39 @@ public class InvestmentsController : ControllerBase
             [TextMemoryPlugin.LimitParam] = "2",
             ["memories"] = memories.GetValue<string>()
         };
-        
+
+        if (_kernelSettings.useCosmosDBWithVectorIndexing)
+        {
+
+            // Create memory store for Mongo DB
+            IMemoryStore store = new MongoDBMemoryStore(_kernelSettings.mongoVectorDBConnectionString, _kernelSettings.mongoVectorDBName);
+
+            // Create an embedding generator to use for semantic memory.
+            var embeddingGenerator = new AzureOpenAITextEmbeddingGenerationService(
+                deploymentName: _kernelSettings.EmbeddingDeploymentOrModelId,
+                endpoint: _kernelSettings.Endpoint,
+                apiKey: _kernelSettings.ApiKey,
+                modelId: "text-embedding-ada-002");//_kernelSettings.EmbeddingDeploymentOrModelId);
+
+            SemanticTextMemory textMemory = new SemanticTextMemory(store, embeddingGenerator);
+            MongoClient mongoClient = new MongoClient(_kernelSettings.mongoVectorDBConnectionString);
+            IMongoDatabase mongoDatabase = mongoClient.GetDatabase(_kernelSettings.mongoVectorDBName);
+
+            _documentPlugin = new DocumentPlugin(mongoClient, null, mongoDatabase.GetCollection<BsonDocument>(_kernelSettings.mongoVectorDBCollectionName), embeddingGenerator);
+            var _memories = await _documentPlugin.RecallAsync($"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level", 2, cancellationToken);
+
+            arguments["memories"] = _memories;
+        }
+
         // Call LLM with function calling
+        //using StreamReader reader = new(Assembly.GetExecutingAssembly().GetManifestResourceStream("prompts.InvestmentAdvise.prompt.yaml")!);
+        KernelFunction investmentAdvise = _kernel.CreateFunctionFromPromptYaml(
+            promptYaml,
+            new HandlebarsPromptTemplateFactory()
+        );
+
         OpenAIPromptExecutionSettings settings = new() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };
+        
         var result = await _kernel.InvokeAsync(
             investmentAdvise,
             arguments
@@ -118,7 +150,7 @@ public class InvestmentsController : ControllerBase
         for (var currentRetry = 0; currentRetry < maxRetries; currentRetry++)
             try
             {
-                var jsonDocument = JsonDocument.Parse(result.GetValue<string>() ?? string.Empty);
+                var jsonDocument = JsonDocument.Parse(result.GetValue<string>().Replace("<message role=\"assistant\">","").Replace("</message>","") ?? string.Empty);
                 return new JsonResult(jsonDocument);
             }
             catch (JsonException ex)
@@ -137,8 +169,8 @@ public class InvestmentsController : ControllerBase
         log.LogError("Failed to parse JSON data, returning 400");
         return BadRequest(new { error = "Unexpected error occurred during processing investments" });
     }
-    
-        [HttpPost("/v2/investments")]
+
+    [HttpPost("/v2/investments")]
     public async Task<IActionResult> GetRecommendationsWithPlanner([FromBody] MiyagiContext miyagiContext)
     {
         var log = ConsoleLogger.Log;

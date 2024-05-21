@@ -14,16 +14,16 @@ internal class KernelSettings
     [JsonPropertyName("embeddingDeploymentOrModelId")]
     public string EmbeddingDeploymentOrModelId { get; set; } = string.Empty;
 
-    [JsonPropertyName("endpoint")] 
+    [JsonPropertyName("endpoint")]
     public string Endpoint { get; set; } = string.Empty;
 
-    [JsonPropertyName("apiKey")] 
+    [JsonPropertyName("apiKey")]
     public string ApiKey { get; set; } = string.Empty;
 
-    [JsonPropertyName("orgId")] 
+    [JsonPropertyName("orgId")]
     public string OrgId { get; set; } = string.Empty;
 
-    [JsonPropertyName("logLevel")] 
+    [JsonPropertyName("logLevel")]
     public LogLevel? LogLevel { get; set; }
 
     [JsonPropertyName("azureCognitiveSearchEndpoint")]
@@ -32,28 +32,41 @@ internal class KernelSettings
     [JsonPropertyName("azureCognitiveSearchApiKey")]
     public string AzureCognitiveSearchApiKey { get; set; } = string.Empty;
 
-    [JsonPropertyName("collectionName")] 
+    [JsonPropertyName("collectionName")]
     public string CollectionName { get; set; } = string.Empty;
-    
-    [JsonPropertyName("bingApiKey")] 
+
+    [JsonPropertyName("bingApiKey")]
     public string BingApiKey { get; set; } = string.Empty;
-    
-    [JsonPropertyName("cosmosDbName")] 
+
+    [JsonPropertyName("cosmosDbName")]
     public string CosmosDbName { get; set; } = string.Empty;
-    
-    [JsonPropertyName("cosmosDbUri")] 
+
+    [JsonPropertyName("cosmosDbUri")]
     public string CosmosDbUri { get; set; } = string.Empty;
 
     [JsonPropertyName("cosmosDbContainerName")]
     public string CosmosDbContainerName { get; set; } = string.Empty;
-    
-    [JsonPropertyName("cosmosDbConnectionString")] 
+
+    [JsonPropertyName("cosmosDbConnectionString")]
     public string CosmosDbConnectionString { get; set; } = string.Empty;
 
     [JsonPropertyName("corsAllowedOrigins")]
     public string[] CorsAllowedOrigins { get; set; } = Array.Empty<string>();
 
+    [JsonPropertyName("useCosmosDBWithVectorIndexing")]
+    public bool useCosmosDBWithVectorIndexing { get; set; } = false;
 
+    [JsonPropertyName("mongoVectorDBConnectionString")]
+    public string mongoVectorDBConnectionString { get; set; } = string.Empty;
+
+    [JsonPropertyName("mongoVectorDBName")]
+    public string mongoVectorDBName { get; set; } = string.Empty;
+
+    [JsonPropertyName("mongoVectorDBCollectionName")]
+    public string mongoVectorDBCollectionName { get; set; } = string.Empty;
+    
+    [JsonPropertyName("mongoVectorDBIndexName")]
+    public string mongoVectorDBIndexName { get; set; } = string.Empty;
     /// <summary>
     ///     Load the kernel settings from settings.json if the file exists and if not attempt to use user secrets.
     /// </summary>

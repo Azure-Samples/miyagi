@@ -70,7 +70,7 @@ public class AssetsController : ControllerBase
         for (var currentRetry = 0; currentRetry < maxRetries; currentRetry++)
             try
             {
-                var jsonDocument = JsonDocument.Parse(result.GetValue<string>() ?? string.Empty);
+                var jsonDocument = JsonDocument.Parse(result.GetValue<string>().Replace("<message role=\"assistant\">Based on your age, income, and risk tolerance, here is the ideal advice for your portfolio allocation:</message>\n<message role=\"assistant\">","").Replace("</message>","") ?? string.Empty);
                 return new JsonResult(jsonDocument);
             }
             catch (JsonException ex)
