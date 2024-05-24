@@ -6,6 +6,7 @@ using GBB.Miyagi.RecommendationService.Plugins;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.AzureCosmosDBMongoDB;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Plugins.Memory;
@@ -49,13 +50,27 @@ public class InvestmentsController : ControllerBase
         // Load prompts
         var prompts = _kernel.CreatePluginFromPromptDirectory("Prompts");
 
-        // Load prompt from YAML
+        // Load prompt from   YAML
         var promptYaml = EmbeddedResource.Read("Prompts.InvestmentAdvise.prompt.yaml");
 
 
         KernelPlugin memoryPlugin;
 
-        // Check if TextMemoryPlugin already exists in the kernel
+        
+        if (_kernelSettings.useCosmosDBWithVectorIndexing)
+        {
+
+            IMemoryStore store=new AzureCosmosDBMongoDBMemoryStore(_kernelSettings.mongoVectorDBConnectionString,_kernelSettings.mongoVectorDBName, new AzureCosmosDBMongoDBConfig(1536));
+            var embeddingGenerator = new AzureOpenAITextEmbeddingGenerationService(
+                deploymentName: _kernelSettings.EmbeddingDeploymentOrModelId,
+                endpoint: _kernelSettings.Endpoint,
+                apiKey: _kernelSettings.ApiKey,
+                modelId: "text-embedding-ada-002"
+            );
+            SemanticTextMemory textMemory = new(store, embeddingGenerator);
+            memoryPlugin = _kernel.ImportPluginFromObject(new TextMemoryPlugin(textMemory));
+        }
+        else // Check if TextMemoryPlugin already exists in the kernel
         if (!_kernel.Plugins.Any(p => p.Name == "TextMemoryPlugin"))
         {
             // Import TextMemoryPlugin only if it's not already present
@@ -65,7 +80,6 @@ public class InvestmentsController : ControllerBase
         {
             memoryPlugin = _kernel.Plugins["TextMemoryPlugin"];
         }
-
         // Create few-shot examples
         List<ChatHistory> fewShotExamples = [
             [
@@ -109,28 +123,6 @@ public class InvestmentsController : ControllerBase
             ["memories"] = memories.GetValue<string>()
         };
 
-        if (_kernelSettings.useCosmosDBWithVectorIndexing)
-        {
-
-            // Create memory store for Mongo DB
-            IMemoryStore store = new MongoDBMemoryStore(_kernelSettings.mongoVectorDBConnectionString, _kernelSettings.mongoVectorDBName);
-
-            // Create an embedding generator to use for semantic memory.
-            var embeddingGenerator = new AzureOpenAITextEmbeddingGenerationService(
-                deploymentName: _kernelSettings.EmbeddingDeploymentOrModelId,
-                endpoint: _kernelSettings.Endpoint,
-                apiKey: _kernelSettings.ApiKey,
-                modelId: "text-embedding-ada-002");//_kernelSettings.EmbeddingDeploymentOrModelId);
-
-            SemanticTextMemory textMemory = new SemanticTextMemory(store, embeddingGenerator);
-            MongoClient mongoClient = new MongoClient(_kernelSettings.mongoVectorDBConnectionString);
-            IMongoDatabase mongoDatabase = mongoClient.GetDatabase(_kernelSettings.mongoVectorDBName);
-
-            _documentPlugin = new DocumentPlugin(mongoClient, null, mongoDatabase.GetCollection<BsonDocument>(_kernelSettings.mongoVectorDBCollectionName), embeddingGenerator);
-            var _memories = await _documentPlugin.RecallAsync($"Investment advise for {miyagiContext.UserInfo.RiskLevel} risk level", 2, cancellationToken);
-
-            arguments["memories"] = _memories;
-        }
 
         // Call LLM with function calling
         //using StreamReader reader = new(Assembly.GetExecutingAssembly().GetManifestResourceStream("prompts.InvestmentAdvise.prompt.yaml")!);
