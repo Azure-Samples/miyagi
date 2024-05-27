@@ -28,12 +28,13 @@ export function ChatSessionList({ className, setSelectedSession: updateSelectedS
 
             // Set the first session as selected
             if (data.length > 0) {
-                const mostRecentChatSession = data[0];
-                setSelectedSession(mostRecentChatSession);
-                await fetchChatMessages(mostRecentChatSession.id);
+                const randomIndex = Math.floor(Math.random() * data.length);
+                const randomChatSession = data[randomIndex];
+                setSelectedSession(randomChatSession);
+                await fetchChatMessages(randomChatSession.id);
                 setUserInfoAtom((prevUserInfo: UserInfoProps) => ({
                     ...prevUserInfo,
-                    chatId: mostRecentChatSession.id,
+                    chatId: randomChatSession.id,
                 }));
             }
         }

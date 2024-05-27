@@ -199,7 +199,7 @@ export default function Sidebar({ className, setSelectedSession, setUserInfoAtom
                         </span>
                         <Input
                             type="text"
-                            placeholder="Ask Miyagi"
+                            placeholder="Chat throttled in demo mode"
                             className="w-full dark:bg-dark/60 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3"
                             value={userInput}
                             onChange={handleInputChange}
