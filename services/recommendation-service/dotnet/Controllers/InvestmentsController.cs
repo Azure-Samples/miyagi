@@ -15,6 +15,7 @@ using ConsoleLogger = GBB.Miyagi.RecommendationService.Utils.ConsoleLogger;
 using Microsoft.SemanticKernel.Connectors.MongoDB;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using System.Text.RegularExpressions;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
@@ -28,15 +29,15 @@ namespace GBB.Miyagi.RecommendationService.Controllers;
 public class InvestmentsController : ControllerBase
 {
     private readonly Kernel _kernel;
-    private DocumentPlugin _documentPlugin;
     private readonly KernelSettings _kernelSettings = KernelSettings.LoadSettings();
     private SemanticTextMemory _memory;
+    private SemanticTextMemory _textMemory;
 
-    public InvestmentsController(Kernel kernel, SemanticTextMemory memory, DocumentPlugin documentPlugin = null)
+    public InvestmentsController(Kernel kernel, SemanticTextMemory memory, SemanticTextMemory textMemory)
     {
         _kernel = kernel;
         _memory = memory;
-        _documentPlugin = documentPlugin;
+        _textMemory = textMemory;
     }
 
 
@@ -56,30 +57,16 @@ public class InvestmentsController : ControllerBase
 
         KernelPlugin memoryPlugin;
 
-        
-        if (_kernelSettings.useCosmosDBWithVectorIndexing)
-        {
-
-            IMemoryStore store=new AzureCosmosDBMongoDBMemoryStore(_kernelSettings.mongoVectorDBConnectionString,_kernelSettings.mongoVectorDBName, new AzureCosmosDBMongoDBConfig(1536));
-            var embeddingGenerator = new AzureOpenAITextEmbeddingGenerationService(
-                deploymentName: _kernelSettings.EmbeddingDeploymentOrModelId,
-                endpoint: _kernelSettings.Endpoint,
-                apiKey: _kernelSettings.ApiKey,
-                modelId: "text-embedding-ada-002"
-            );
-            SemanticTextMemory textMemory = new(store, embeddingGenerator);
-            memoryPlugin = _kernel.ImportPluginFromObject(new TextMemoryPlugin(textMemory));
-        }
-        else // Check if TextMemoryPlugin already exists in the kernel
         if (!_kernel.Plugins.Any(p => p.Name == "TextMemoryPlugin"))
         {
             // Import TextMemoryPlugin only if it's not already present
-            memoryPlugin = _kernel.ImportPluginFromObject(new TextMemoryPlugin(_memory));
+            memoryPlugin = _kernel.ImportPluginFromObject(new TextMemoryPlugin(_kernelSettings.useCosmosDBWithVectorIndexing ? _textMemory : _memory));
         }
         else
         {
             memoryPlugin = _kernel.Plugins["TextMemoryPlugin"];
         }
+
         // Create few-shot examples
         List<ChatHistory> fewShotExamples = [
             [
@@ -132,7 +119,7 @@ public class InvestmentsController : ControllerBase
         );
 
         OpenAIPromptExecutionSettings settings = new() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };
-        
+
         var result = await _kernel.InvokeAsync(
             investmentAdvise,
             arguments
@@ -142,7 +129,9 @@ public class InvestmentsController : ControllerBase
         for (var currentRetry = 0; currentRetry < maxRetries; currentRetry++)
             try
             {
-                var jsonDocument = JsonDocument.Parse(result.GetValue<string>().Replace("<message role=\"assistant\">","").Replace("</message>","") ?? string.Empty);
+                string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(ExtractJsonObject(result.GetValue<string>()));
+
+                var jsonDocument = JsonDocument.Parse(jsonString ?? string.Empty);
                 return new JsonResult(jsonDocument);
             }
             catch (JsonException ex)
@@ -171,5 +160,33 @@ public class InvestmentsController : ControllerBase
 
         return null;
 
+    }
+    public static Newtonsoft.Json.Linq.JObject? ExtractJsonObject(string text)
+    {
+        try
+        {
+            // Find potential JSON objects using a relaxed regular expression
+            var jsonMatches = Regex.Matches(text, @"({(?>[^{}]+|(?<o>){|(?<-o>)})*(?(o)(?!))})");
+
+            foreach (Match match in jsonMatches)
+            {
+                try
+                {
+                    // Attempt to parse each match as a JSON object
+                    var jsonObject = Newtonsoft.Json.Linq.JObject.Parse(match.Value);
+                    return jsonObject; // Return the first valid JSON object found
+                }
+                catch (Exception)
+                {
+                    // Ignore invalid JSON matches and continue searching
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error extracting JSON: {ex.Message}"); // Log or handle the error
+        }
+
+        return null; // No valid JSON object found
     }
 }
