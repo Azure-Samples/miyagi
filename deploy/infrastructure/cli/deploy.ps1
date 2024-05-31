@@ -6,8 +6,8 @@ param (
     [string]$subscriptionId,
     [string]$deploymentType = "aca",
     [string]$skipAzureCosmosVectorDB = "false",
-    [string]$adminUsername = "admin",
-    [securestring]$adminPassword = "admin1234"
+    [string]$adminUsername = "<adminusername>",
+    [securestring]$adminPassword = "<adminpassword>"
 )
 
 # Generate a unique suffix based on a hash of the subscription ID and the resource group, just like uniqueString() would do for ARM templates
