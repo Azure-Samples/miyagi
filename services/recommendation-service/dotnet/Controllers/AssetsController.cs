@@ -1,10 +1,12 @@
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using GBB.Miyagi.RecommendationService.Models;
 using GBB.Miyagi.RecommendationService.Resources;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
+
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
@@ -38,13 +40,13 @@ public class AssetsController : ControllerBase
         var log = ConsoleLogger.Log;
         log.BeginScope("AssetsController.GetRecommendations");
         log.LogDebug("*************************************");
-        
+
         // Load prompts
         var prompts = _kernel.CreatePluginFromPromptDirectory("Prompts");
 
         // Load prompt from YAML
         var promptYaml = EmbeddedResource.Read("Prompts.AssetAllocationAdvise.prompt.yaml");
-        
+
         // Add arguments for context
         const string defaultRiskLevel = "Conservative";
         var arguments = new KernelArguments
@@ -53,27 +55,28 @@ public class AssetsController : ControllerBase
             ["portfolio"] = JsonSerializer.Serialize(miyagiContext.Portfolio),
             ["risk"] = miyagiContext.UserInfo.RiskLevel ?? defaultRiskLevel
         };
-        
-        
+
+
         //using StreamReader reader = new(Assembly.GetExecutingAssembly().GetManifestResourceStream("prompts.InvestmentAdvise.prompt.yaml")!);
         KernelFunction investmentAdvise = _kernel.CreateFunctionFromPromptYaml(
             promptYaml,
             new HandlebarsPromptTemplateFactory()
         );
-        
+
         var result = await _kernel.InvokeAsync(
             investmentAdvise,
             arguments
         );
-        
+
         const int maxRetries = 2;
         for (var currentRetry = 0; currentRetry < maxRetries; currentRetry++)
             try
             {
-                var jsonDocument = JsonDocument.Parse(result.GetValue<string>() ?? string.Empty);
+                string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(ExtractJsonObject(result.GetValue<string>()));
+                var jsonDocument = JsonDocument.Parse(jsonString ?? string.Empty);
                 return new JsonResult(jsonDocument);
             }
-            catch (JsonException ex)
+            catch (Exception ex)
             {
                 if (currentRetry == maxRetries - 1)
                 {
@@ -88,5 +91,33 @@ public class AssetsController : ControllerBase
 
         log.LogError("Failed to parse JSON data, returning 400");
         return BadRequest(new { error = "Unexpected error occurred during processing asset allocation" });
+    }
+    public static Newtonsoft.Json.Linq.JObject? ExtractJsonObject(string text)
+    {
+        try
+        {
+            // Find potential JSON objects using a relaxed regular expression
+            var jsonMatches = Regex.Matches(text, @"({(?>[^{}]+|(?<o>){|(?<-o>)})*(?(o)(?!))})");
+
+            foreach (Match match in jsonMatches)
+            {
+                try
+                {
+                    // Attempt to parse each match as a JSON object
+                    var jsonObject = Newtonsoft.Json.Linq.JObject.Parse(match.Value);
+                    return jsonObject; // Return the first valid JSON object found
+                }
+                catch (Exception)
+                {
+                    // Ignore invalid JSON matches and continue searching
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error extracting JSON: {ex.Message}"); // Log or handle the error
+        }
+
+        return null; // No valid JSON object found
     }
 }

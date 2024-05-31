@@ -2,14 +2,20 @@ using System.Text.Json;
 using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.Models;
 using GBB.Miyagi.RecommendationService.Resources;
+using GBB.Miyagi.RecommendationService.Plugins;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.AzureCosmosDBMongoDB;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Plugins.Memory;
 using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
 using ConsoleLogger = GBB.Miyagi.RecommendationService.Utils.ConsoleLogger;
+using Microsoft.SemanticKernel.Connectors.MongoDB;
+using MongoDB.Driver;
+using MongoDB.Bson;
+using System.Text.RegularExpressions;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
 
@@ -25,45 +31,42 @@ public class InvestmentsController : ControllerBase
     private readonly Kernel _kernel;
     private readonly KernelSettings _kernelSettings = KernelSettings.LoadSettings();
     private SemanticTextMemory _memory;
+    private SemanticTextMemory _textMemory;
 
-    public InvestmentsController(Kernel kernel, SemanticTextMemory memory)
+    public InvestmentsController(Kernel kernel, SemanticTextMemory memory, SemanticTextMemory textMemory)
     {
         _kernel = kernel;
         _memory = memory;
+        _textMemory = textMemory;
     }
-    
-    
+
+
     [HttpPost("/investments")]
     public async Task<IActionResult> GetRecommendations([FromBody] MiyagiContext miyagiContext)
     {
         var log = ConsoleLogger.Log;
         log.BeginScope("InvestmentController.GetRecommendationsAsync");
         // ========= Import Advisor skill from local filesystem =========
-        
+
         // Load prompts
         var prompts = _kernel.CreatePluginFromPromptDirectory("Prompts");
 
-        // Load prompt from YAML
+        // Load prompt from   YAML
         var promptYaml = EmbeddedResource.Read("Prompts.InvestmentAdvise.prompt.yaml");
-        //using StreamReader reader = new(Assembly.GetExecutingAssembly().GetManifestResourceStream("prompts.InvestmentAdvise.prompt.yaml")!);
-        KernelFunction investmentAdvise = _kernel.CreateFunctionFromPromptYaml(
-            promptYaml,
-            new HandlebarsPromptTemplateFactory()
-        );
+
 
         KernelPlugin memoryPlugin;
-        
-        // Check if TextMemoryPlugin already exists in the kernel
+
         if (!_kernel.Plugins.Any(p => p.Name == "TextMemoryPlugin"))
         {
             // Import TextMemoryPlugin only if it's not already present
-            memoryPlugin = _kernel.ImportPluginFromObject(new TextMemoryPlugin(_memory));
+            memoryPlugin = _kernel.ImportPluginFromObject(new TextMemoryPlugin(_kernelSettings.useCosmosDBWithVectorIndexing ? _textMemory : _memory));
         }
         else
         {
             memoryPlugin = _kernel.Plugins["TextMemoryPlugin"];
         }
-        
+
         // Create few-shot examples
         List<ChatHistory> fewShotExamples = [
             [
@@ -71,7 +74,7 @@ public class InvestmentsController : ControllerBase
                 new ChatMessageContent(AuthorRole.Assistant, @"{""portfolio"":[{""symbol"":""MSFT"",""gptRecommendation"":""Booyah! Hold on, steady growth! Diversify, though!""},{""symbol"":""ACN"",""gptRecommendation"":""Buy! Services will see a boom!""}]}")
             ]
         ];
-        
+
         /*
          * Resolve issue with Handlebars ProcessPositionalArguments issue with parameter parsing for TextMemoryPlugin-recall
          * In prompt template for handlebars, the following is not working:
@@ -106,9 +109,17 @@ public class InvestmentsController : ControllerBase
             [TextMemoryPlugin.LimitParam] = "2",
             ["memories"] = memories.GetValue<string>()
         };
-        
+
+
         // Call LLM with function calling
+        //using StreamReader reader = new(Assembly.GetExecutingAssembly().GetManifestResourceStream("prompts.InvestmentAdvise.prompt.yaml")!);
+        KernelFunction investmentAdvise = _kernel.CreateFunctionFromPromptYaml(
+            promptYaml,
+            new HandlebarsPromptTemplateFactory()
+        );
+
         OpenAIPromptExecutionSettings settings = new() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };
+
         var result = await _kernel.InvokeAsync(
             investmentAdvise,
             arguments
@@ -118,7 +129,9 @@ public class InvestmentsController : ControllerBase
         for (var currentRetry = 0; currentRetry < maxRetries; currentRetry++)
             try
             {
-                var jsonDocument = JsonDocument.Parse(result.GetValue<string>() ?? string.Empty);
+                string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(ExtractJsonObject(result.GetValue<string>()));
+
+                var jsonDocument = JsonDocument.Parse(jsonString ?? string.Empty);
                 return new JsonResult(jsonDocument);
             }
             catch (JsonException ex)
@@ -137,8 +150,8 @@ public class InvestmentsController : ControllerBase
         log.LogError("Failed to parse JSON data, returning 400");
         return BadRequest(new { error = "Unexpected error occurred during processing investments" });
     }
-    
-        [HttpPost("/v2/investments")]
+
+    [HttpPost("/v2/investments")]
     public async Task<IActionResult> GetRecommendationsWithPlanner([FromBody] MiyagiContext miyagiContext)
     {
         var log = ConsoleLogger.Log;
@@ -147,5 +160,33 @@ public class InvestmentsController : ControllerBase
 
         return null;
 
+    }
+    public static Newtonsoft.Json.Linq.JObject? ExtractJsonObject(string text)
+    {
+        try
+        {
+            // Find potential JSON objects using a relaxed regular expression
+            var jsonMatches = Regex.Matches(text, @"({(?>[^{}]+|(?<o>){|(?<-o>)})*(?(o)(?!))})");
+
+            foreach (Match match in jsonMatches)
+            {
+                try
+                {
+                    // Attempt to parse each match as a JSON object
+                    var jsonObject = Newtonsoft.Json.Linq.JObject.Parse(match.Value);
+                    return jsonObject; // Return the first valid JSON object found
+                }
+                catch (Exception)
+                {
+                    // Ignore invalid JSON matches and continue searching
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error extracting JSON: {ex.Message}"); // Log or handle the error
+        }
+
+        return null; // No valid JSON object found
     }
 }

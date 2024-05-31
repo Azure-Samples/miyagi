@@ -1,5 +1,8 @@
 using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.Extensions;
+using Microsoft.SemanticKernel.Connectors.AzureCosmosDBMongoDB;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
+using Microsoft.SemanticKernel.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,20 @@ builder.Services.AddAzureServices();
 
 // Add Semantic Kernel services
 builder.Services.AddSkServices();
+
+// Add Semantic Kernel services for Vector Indexing
+if (kernelSettings.useCosmosDBWithVectorIndexing)
+{
+    var azureCosmosDBMongoDBMemoryStore = new AzureCosmosDBMongoDBMemoryStore(kernelSettings.mongoVectorDBConnectionString, kernelSettings.mongoVectorDBName, new AzureCosmosDBMongoDBConfig(1536));
+    var embeddingGenerator = new AzureOpenAITextEmbeddingGenerationService(
+            deploymentName: kernelSettings.EmbeddingDeploymentOrModelId,
+            endpoint: kernelSettings.Endpoint,
+            apiKey: kernelSettings.ApiKey,
+            modelId: "text-embedding-ada-002"
+        );
+    SemanticTextMemory textMemory = new(azureCosmosDBMongoDBMemoryStore, embeddingGenerator);
+    builder.Services.AddSingleton(textMemory);
+}
 
 // Read additional CORS origins from the environment variable
 var envCorsOrigins = Environment.GetEnvironmentVariable("ENV_CORS_ORIGINS")?.Split(',') ?? Array.Empty<string>();

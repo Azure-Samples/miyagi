@@ -4,7 +4,10 @@ param (
     [string]$resourceGroupCount = 1,
     [Parameter(Mandatory = $true)]
     [string]$subscriptionId,
-    [string]$deploymentType = "aca"
+    [string]$deploymentType = "aca",
+    [string]$skipAzureCosmosVectorDB = "false",
+    [string]$adminUsername = "<adminusername>",
+    [securestring]$adminPassword = "<adminpassword>"
 )
 
 # Generate a unique suffix based on a hash of the subscription ID and the resource group, just like uniqueString() would do for ARM templates
@@ -30,7 +33,7 @@ Write-Host "location: $location"
 Write-Host "resourceGroupCount: $resourceGroupCount"
 Write-Host "subscriptionId: $subscriptionId"
 Write-Host "deploymentType: $deploymentType"
-
+Write-Host "skipAPIM: $skipAzureCosmosVectorDB"
 # set rgIndex to resourceGroupCount
 
 $rgIndex = $resourceGroupCount
@@ -107,6 +110,36 @@ for ($i = 1; $i -le $rgIndex; $i++) {
             --capacity "20"
     
     }
+
+    # if skipAzureCosmosVectorDB is true, skip creating Cosmos Vector DB account
+
+    if ($skipAzureCosmosVectorDB -eq "true") {
+        Write-Host "Skipping Cosmos Vector DB account creation"
+    }
+    else {
+        Write-Host "Creating CosmosDB account $resourceGroupPrefix-cosmos-$i in $resourceGroupPrefix-rg-$i"
+        
+        az cosmosdb create `
+            --name "$resourceGroupPrefix-cosmosVec-$i" `
+            --resource-group "$resourceGroupPrefix-rg-$i" `
+            --kind "GlobalDocumentDB" `
+            --subscription $subscriptionId
+
+        Write-Host "Creating CosmosDB database $resourceGroupPrefix-cosmos-$i in $resourceGroupPrefix-rg-$i"
+        
+        az cosmosdb mongocluster create `
+        --cluster-name $clusterName `
+        --resource-group  "$resourceGroupPrefix-rg-$i" `
+        --location $location `
+        --administrator-login $adminUsername `
+        --administrator-login-password $adminPassword `
+        --server-version 6.0 `
+        --shard-node-tier "Free" `
+        --shard-node-ha false `
+        --shard-node-disk-size-gb 32 `
+        --shard-node-count 1
+    }
+
     
     # if skipCompletionModelDeployment is true, skip completion model deployment
 

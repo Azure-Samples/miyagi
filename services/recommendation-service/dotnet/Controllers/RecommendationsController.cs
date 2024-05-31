@@ -19,10 +19,10 @@ public class RecommendationsController : ControllerBase
 
     public RecommendationsController(Kernel kernel,
         SemanticTextMemory memory,
-        CosmosDbService cosmosDbService)
+        CosmosDbService cosmosDbService, SemanticTextMemory textMemory)
     {
         _assetsController = new AssetsController(kernel);
-        _investmentsController = new InvestmentsController(kernel, memory);
+        _investmentsController = new InvestmentsController(kernel, memory, textMemory);
         _cosmosDbService = cosmosDbService;
     }
 

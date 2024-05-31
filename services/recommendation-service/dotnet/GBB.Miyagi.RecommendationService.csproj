@@ -16,21 +16,27 @@
         <PackageReference Include="Azure.Identity" Version="1.10.4" />
         <PackageReference Include="Azure.Storage.Blobs" Version="12.20.0-beta.1" />
         <PackageReference Include="Confluent.Kafka" Version="2.3.0" />
-        <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.37.1" />
+        <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.38.1" />
         <PackageReference Include="Microsoft.ML.Tokenizers" Version="0.21.0" />
-        <PackageReference Include="Microsoft.SemanticKernel" Version="1.0.1" />
-        <PackageReference Include="Microsoft.SemanticKernel.Abstractions" Version="1.0.1" />
+        <PackageReference Include="Microsoft.SemanticKernel" Version="1.13.0-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.Abstractions" Version="1.13.0-alpha" />
         <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureAISearch" Version="1.0.1-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.13.0-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.MongoDB" Version="1.13.0-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureCosmosDBMongoDB" Version="1.13.0-alpha" />
         <PackageReference Include="Microsoft.SemanticKernel.Planning.StepwisePlanner" Version="0.24.230918.1-preview" />
-        <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.0.1-alpha" />
-        <PackageReference Include="Microsoft.SemanticKernel.Plugins.Memory" Version="1.0.1-alpha" />
-        <PackageReference Include="Microsoft.SemanticKernel.Plugins.OpenApi" Version="1.0.1-alpha" />
-        <PackageReference Include="Microsoft.SemanticKernel.Plugins.Web" Version="1.0.1-alpha" />
-        <PackageReference Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.0.1" />
+        <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.13.0-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.Plugins.Memory" Version="1.13.0-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.Plugins.OpenApi" Version="1.13.0-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.Plugins.Web" Version="1.13.0-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.13.0-alpha" />
         <PackageReference Include="Microsoft.SemanticKernel.Skills.Web" Version="0.24.230918.1-preview" />
-        <PackageReference Include="Microsoft.SemanticKernel.Yaml" Version="1.0.1" />
+        <PackageReference Include="Microsoft.SemanticKernel.Yaml" Version="1.13.0-alpha" />
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+        <PackageReference Include="MongoDB.BSON" Version="2.25.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.25.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="OpenAI" Version="1.11.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
         <None Update="Plugins\AdvisorPlugin\InvestmentAdvise\skprompt.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
