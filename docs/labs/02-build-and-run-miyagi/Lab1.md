@@ -170,6 +170,18 @@ In this lab, you'll setup and configure Miyagi app locally.
 
        >**Note**: Please record **Cosmos DB Primary Connection String** in notepad you need this values in further tasks.
 
+3. If you have to use ***Azure Cosmos DB for MongoDB (vCore)*** instead of Azure Cognitive Search, please do the following to obtain the values for "mongoVectorDBConnectionString" and "mongoVectorDBName," please follow the steps below:
+
+   1. Navigative back to your resource group and select Azure Cosmos DB for MongoDB (vCore) account from resources list.
+      !![alt text](image-1.png)
+      
+   2. Click on **Settings** > **Connection String** and Copy the value of the **Connection String** and paste it into **mongoVectorDBConnectionString** in appsettings.json file in visual studio code.
+      ![alt text](image.png)
+
+       >**Note**: Please update the username and password in the connection sting to the configuration details used while creating the resource.
+       
+       > Please record **Connection String** in notepad you need this values in further tasks.
+   3. set ***useCosmosDBWithVectorIndexing*** as ***true*** to use ***Azure Cosmos DB for MongoDB (vCore)*** instead of Azure Cognitive Search.
   
 4. For "blobServiceUri", replace Your **blobServiceUri** with https://[yourstorageaccountname].blob.core.windows.net/
 
