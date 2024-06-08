@@ -4,6 +4,7 @@ using GBB.Miyagi.RecommendationService.Resources;
 using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.PromptTemplates.Handlebars;
 
 namespace GBB.Miyagi.RecommendationService.Controllers;
@@ -47,15 +48,17 @@ public class AssetsController : ControllerBase
         
         // Add arguments for context
         const string defaultRiskLevel = "Conservative";
-        var arguments = new KernelArguments
+        var arguments = new KernelArguments(new OpenAIPromptExecutionSettings
+        {
+            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
+            ResponseFormat = "json_object"
+        })
         {
             ["userId"] = miyagiContext.UserInfo.UserId,
             ["portfolio"] = JsonSerializer.Serialize(miyagiContext.Portfolio),
             ["risk"] = miyagiContext.UserInfo.RiskLevel ?? defaultRiskLevel
         };
         
-        
-        //using StreamReader reader = new(Assembly.GetExecutingAssembly().GetManifestResourceStream("prompts.InvestmentAdvise.prompt.yaml")!);
         KernelFunction investmentAdvise = _kernel.CreateFunctionFromPromptYaml(
             promptYaml,
             new HandlebarsPromptTemplateFactory()

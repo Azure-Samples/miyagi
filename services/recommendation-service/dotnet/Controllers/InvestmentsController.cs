@@ -2,6 +2,7 @@ using System.Text.Json;
 using GBB.Miyagi.RecommendationService.config;
 using GBB.Miyagi.RecommendationService.Models;
 using GBB.Miyagi.RecommendationService.Resources;
+using GBB.Miyagi.RecommendationService.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
@@ -31,7 +32,6 @@ public class InvestmentsController : ControllerBase
         _kernel = kernel;
         _memory = memory;
     }
-    
     
     [HttpPost("/investments")]
     public async Task<IActionResult> GetRecommendations([FromBody] MiyagiContext miyagiContext)
@@ -92,7 +92,11 @@ public class InvestmentsController : ControllerBase
         Console.WriteLine();
         // Add arguments for context
         const string defaultRiskLevel = "Conservative";
-        var arguments = new KernelArguments
+        var arguments = new KernelArguments(new OpenAIPromptExecutionSettings
+        {
+            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
+            ResponseFormat = "json_object"
+        })
         {
             ["userId"] = miyagiContext.UserInfo.UserId,
             ["stocks"] = JsonSerializer.Serialize(miyagiContext.Stocks),
@@ -108,7 +112,6 @@ public class InvestmentsController : ControllerBase
         };
         
         // Call LLM with function calling
-        OpenAIPromptExecutionSettings settings = new() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };
         var result = await _kernel.InvokeAsync(
             investmentAdvise,
             arguments
@@ -138,7 +141,7 @@ public class InvestmentsController : ControllerBase
         return BadRequest(new { error = "Unexpected error occurred during processing investments" });
     }
     
-        [HttpPost("/v2/investments")]
+    [HttpPost("/v2/investments")]
     public async Task<IActionResult> GetRecommendationsWithPlanner([FromBody] MiyagiContext miyagiContext)
     {
         var log = ConsoleLogger.Log;
@@ -146,6 +149,5 @@ public class InvestmentsController : ControllerBase
         // ========= Import Advisor skill from local filesystem =========
 
         return null;
-
     }
 }
