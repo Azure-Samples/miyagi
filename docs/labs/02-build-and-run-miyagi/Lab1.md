@@ -64,7 +64,7 @@ In this lab, you'll setup and configure Miyagi app locally.
    
    Repeat the same steps for the deployment for text-embedding-ada-002 model.
 
-### Task 2: Configure miyagi app
+### Task 3: Configure miyagi app
 
 2. Open **Visual Studio Code** from your desktop by double-clicking on it.
 
