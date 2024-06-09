@@ -28,7 +28,7 @@ In this lab, you'll setup and configure Miyagi app locally.
 1. Clone this repo
    
    ```
-    git clone https://github.com/Azure-Samples/miyagi.git
+    git clone -b ap/wk-lab https://github.com/Azure-Samples/miyagi.git
 
    ```
 ### Task 2: Provision Azure Resources required for Miyagi app
