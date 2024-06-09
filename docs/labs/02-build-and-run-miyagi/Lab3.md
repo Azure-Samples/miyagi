@@ -64,11 +64,11 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
    <set-header name="Authorization" exists-action="override">
       <value>@("Bearer " + (string)context.Variables["msi-access-token"])</value>
    </set-header>
-   <set-backend-service base-url="https://<<API_MANAGMENT_URL>>/openai" />
+   <set-backend-service base-url="https://<<OPEN_AI_URL>>/openai" />
 </inbound>
 ```
 
-1. Next navigate to the test tab in API Management next to settings and select **Creates a completion for the chat message**. In the deployment-id filed enter **gpt-35-turbo**. Inside the api-version field enter **2023-05-15** and click send. 
+1. Next navigate to the test tab in API Management next to settings and select **Creates a completion for the chat message**. In the deployment-id filed enter **your chat completions model id**. Inside the api-version field enter **2024-02-01** and click send. 
    ![](./Media/apim-test.png)
 
 2. Scroll down the response and you should see a 200 response and a message back from your OpenAI service.
@@ -95,30 +95,53 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 5. Now, you need to re-build the docker image for recommendation service by running the below docker command. Make to update the docker image name which was created earlier for recommendation service with the same name.
 
    ```
-   docker build . -t [Docker_Image_Name_Recommendation_Service]
+   docker build . -t miyagi-recommendation
    ```
 
-   ![](./Media/lab3-t2-s4.png)
+   
 
 6. Run following command to ACR login.
 
    > **Note**: Please replace **[ACRname]** with **<inject key="AcrLoginServer" enableCopy="true"/>**, **[uname]** with **<inject key="AcrUsername" enableCopy="true"/>**, and **[password]** with **<inject key="AcrPassword" enableCopy="true"/>**.
 
-    ```
-    docker login [ACRname] -u [uname] -p [password]
-    ```
+   ```
+   az acr login -n [ACRname] -u [uname] -p [password]
+   ```
 
 7. Once you are logged into ACR. Run the below command to push the updated docker image of the recommendation service to the container registry.
 
    **Note**: Make sure to replace **[ACRname]** with **<inject key="AcrLoginServer" enableCopy="true"/>**.
 
    ```
+   docker tag miyagi-recommendation:latest [ACRname]/miyagi-recommendation:latest
+   ```
+
+   ```
    docker push [ACRname]/miyagi-recommendation:latest
    ```
 
-   ![](./Media/lab3-t2-s5.png)
+### Task 4: Redeploy the Application Pods
 
-### Task 4: Revision of Recommendation service from Container App
+**Note**: Use this opion only if you chose 2.ii: Deploy Apps to Azure Kubernets Service.
+
+1. Run the following commands to deploy the application pods.
+   
+   ```
+    kubectl apply -f ./miyagi-recommendation.yaml
+   ```
+2. Delete the pods to force pull of new image.
+   ```
+    kubectl delete pods --all
+   ```
+3. Refresh the Miyagi UI and get the recommendations again. Now the call to Azure Open AI goes through APIM. 
+   You can verify the logs of Recommendations service pod to see the logs of the API call to Open AI. Open a terminal and run the below command to get the logs of the recommendation service pod.
+   ```
+    kubectl logs -f <recommendation-service-pod-name>
+   ```
+   
+### Task 5: Revision of Recommendation service from Container App
+
+**Note**: Use this opion only if you chose 2.i: Deploy Apps to Azure Container Apps.
 
 1. Navigate to Azure portal, open the Resource Group named **miyagi-rg-<inject key="DeploymentID" enableCopy="false"/>**  and select **miyagi-rec-ca-<inject key="DeploymentID" enableCopy="false"/>** Container App from the resources list.
 
@@ -146,7 +169,7 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 
    ![](./Media/lab3-t3-s5.png)
 
-### Task 5: Setup Event Hub Logging and Validate Input
+### Task 6: Setup Event Hub Logging and Validate Input
 
 1. Navigate to your event hub in the Azure Portal and select the Identity and Access Management tab. Select Add and role-assignment and at the next screen select Azure Event Hubs Data Sender, click next, then the managed identity radio button, and select memebers. In the managed identity drop down you should see your API Management, select the manage identity and click select. Once finished select Review and Assign and save the role assignment.
     ![](./Media/apim-role.png)

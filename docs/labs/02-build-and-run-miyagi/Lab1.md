@@ -178,7 +178,7 @@ In this lab, you'll setup and configure Miyagi app locally.
 7. After updating the values save the file by pressing **CTRL + S**.
    
 8. Create a new file named .env in miyagi/sandbox/usecases/rag/dotnet
-9.  Copy paste the contents of rag/.env.local.example into .env and save the file
+9.  Copy paste the contents of rag/.env.example into .env and save the file
 10. Update the values which you recorded in previous steps into .env file and save the file
 
    >**Note**: Please refer the below image to know how to update the values in .env files.

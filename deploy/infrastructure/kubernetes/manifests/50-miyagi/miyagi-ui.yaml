@@ -16,6 +16,7 @@ spec:
     spec:
       containers:
       - name: miyagi-ui
-        image: <ACR-NAME>.azurecr.io/miyagi-ui:latest
+        image: zmiyagi1acr1tqgrlvhlvdnde.azurecr.io/miyagi-ui:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 3000

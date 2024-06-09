@@ -16,6 +16,7 @@ spec:
     spec:
       containers:
       - name: miyagi-recommendation
-        image: <ACR-NAME>.azurecr.io/miyagi-recommendation:latest
+        image: zmiyagi1acr1tqgrlvhlvdnde.azurecr.io/miyagi-recommendation:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080

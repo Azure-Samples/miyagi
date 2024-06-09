@@ -1,0 +1,50 @@
+az aks get-credentials -n zmiyagi1aksmiyagi1 -g zmiyagi1-rg-1
+
+ kubectl apply -f ./miyagi-recommendation-service.yaml
+
+kubectl apply -f ./miyagi-ui-service.yaml
+
+kubectl get svc
+
+docker build . -t miyagi-ui
+
+# Get all pods
+kubectl get pods
+
+# Delete all pods
+kubectl delete pods --all
+
+# describe pod miyagi-recommendation-6cdd67df69-g47fn
+kubectl describe pod miyagi-recommendation-6cdd67df69-g47fn
+
+docker build . -t miyagi-recommendation
+
+# delete image miyagi-recommendation
+docker rmi miyagi-recommendation
+
+docker images
+
+az login
+
+az acr login -n zmiyagi1acr1tqgrlvhlvdnde
+
+docker tag miyagi-recommendation:latest zmiyagi1acr1tqgrlvhlvdnde.azurecr.io/miyagi-recommendation:latest
+
+docker push zmiyagi1acr1tqgrlvhlvdnde.azurecr.io/miyagi-recommendation:latest
+
+docker tag miyagi-ui:latest zmiyagi1acr1tqgrlvhlvdnde.azurecr.io/miyagi-ui:latest
+
+docker push zmiyagi1acr1tqgrlvhlvdnde.azurecr.io/miyagi-ui:latest
+
+ kubectl apply -f ./miyagi-recommendation.yaml
+
+  kubectl apply -f ./miyagi-ui.yaml
+
+  # get pods
+    kubectl get pods
+
+# get pod logs
+kubectl logs miyagi-recommendation-6cdd67df69-gvj8k
+
+# get pod logs
+kubectl logs miyagi-ui-fc69c47c9-vr7f5
