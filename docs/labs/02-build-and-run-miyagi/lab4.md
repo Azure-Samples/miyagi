@@ -167,3 +167,7 @@ What makes Semantic Kernel _special_, however, is its ability to _automatically_
 
 1. Import the `TextMemoryPlugin` and update the Semantic Function (Prompt template) with `{recall $fact1}` in a manner akin to the Semantic Kernel's [C#](https://github.com/microsoft/semantic-kernel/blob/main/dotnet/notebooks/06-memory-and-embeddings.ipynb) or [Python](https://github.com/microsoft/semantic-kernel/blob/main/python/notebooks/06-memory-and-embeddings.ipynb) notebooks.
 
+# add a link called Back to Home that points to README.md
+
+[Back to Home](./README.md)
+

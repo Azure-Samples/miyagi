@@ -231,3 +231,7 @@ In this task, you'll Push miyagi-recommendation images to acr.
 
 2. Copy the IP address of the miyagi-ui and enter it into the browser. You should now see the Miyagi frontend.
     ![](./Media/miyagi-ui.png)
+
+[Back to Home](./README.md)
+
+[Next](./Lab3.md)

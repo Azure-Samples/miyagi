@@ -227,3 +227,5 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 
 8. Next open the Miyagi UI in a separate browser tab and change your stock preferences. In the Event Hub query you should see log information for the tokens used.
     ![](./Media/event-hub-data.png)
+
+[Back to Home](./README.md)

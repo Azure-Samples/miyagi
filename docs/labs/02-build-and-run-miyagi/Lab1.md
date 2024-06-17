@@ -307,3 +307,10 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
 1. You should see the recommendations from the recommendation service in the Top Stocks widget.
 
    ![](./Media/financial-advisor-output.png) 
+
+   [Back to Home](./README.md)
+   ### Choose one of the following labs to proceed.
+   
+   [If you chose to do AKS Lab, click here](./Lab2-A(AKS).md)
+
+   [If you chose to do ACA Lab, click here](./Lab2.md)
