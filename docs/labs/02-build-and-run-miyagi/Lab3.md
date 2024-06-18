@@ -52,7 +52,7 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 6. Once the subscription is created click the three dots next to the newly created key and then click **Show\hide keys**. Copy the primary subscription key and save it for later.
    ![](./Media/show-key.png)
 
-7. Navigate to your OpenAI resource in the Azure Portal and select the Identity and Access Management tab. Select Add and role-assignment and at the next screen select Cognitive Services User, click next, then the managed identity radio button, and select memebers. In the managed identity drop down you should see your API Management, select the manage identity and click select. Once finished select Review and Assign and save the role assignment.
+7. Navigate to your OpenAI resource in the Azure Portal and select the Access control (IAM) tab. Select Add and role-assignment and at the next screen select Cognitive Services User, click next, then the managed identity radio button, and select memebers. In the managed identity drop down you should see your API Management, select the manage identity and click select. Once finished select Review and Assign and save the role assignment.
     ![](./Media/apim-role.png)
 
 8. In the Azure Portal navigate back to the API Management resource and select APIs. Select the Azure OpenAI Service API create in the earlier step and select All Operations. Copy the below policy to overwrite the **inbound** tags only.
@@ -68,7 +68,7 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 </inbound>
 ```
 
-1. Next navigate to the test tab in API Management next to settings and select **Creates a completion for the chat message**. In the deployment-id filed enter **your chat completions model id**. Inside the api-version field enter **2024-02-01** and click send. 
+1. Next navigate to the test tab in API Management next to settings and select **Creates a completion for the chat message**. In the deployment-id filed enter **your chat completions model id (deploymentOrModelId from app settings.json)**. Inside the api-version field enter **2024-02-01** and click send. 
    ![](./Media/apim-test.png)
 
 2. Scroll down the response and you should see a 200 response and a message back from your OpenAI service.
@@ -102,10 +102,10 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 
 6. Run following command to ACR login.
 
-   > **Note**: Please replace **[ACRname]** with **<inject key="AcrLoginServer" enableCopy="true"/>**, **[uname]** with **<inject key="AcrUsername" enableCopy="true"/>**, and **[password]** with **<inject key="AcrPassword" enableCopy="true"/>**.
+   > **Note**: Please replace **[ACRname]** with **AcrLoginServer"**.
 
    ```
-   az acr login -n [ACRname] -u [uname] -p [password]
+   az acr login -n [ACRname] 
    ```
 
 7. Once you are logged into ACR. Run the below command to push the updated docker image of the recommendation service to the container registry.
@@ -122,9 +122,9 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 
 ### Task 4: Redeploy the Application Pods
 
-**Note**: Use this opion only if you chose 2.ii: Deploy Apps to Azure Kubernets Service.
+**Note**: Use this option **only** if you chose 2.ii: Deploy Apps to Azure Kubernets Service.
 
-1. Run the following commands to deploy the application pods.
+1. Change directory to **miyagi\deploy\infrastructure\kubernetes\manifests\50-miyagi** Run the following commands to deploy the application pods.
    
    ```
     kubectl apply -f ./miyagi-recommendation.yaml
@@ -133,15 +133,25 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
    ```
     kubectl delete pods --all
    ```
-3. Refresh the Miyagi UI and get the recommendations again. Now the call to Azure Open AI goes through APIM. 
+3. Refresh the Miyagi UI and get the recommendations again (See Lab2 > Task 2: Explore Miyagi App in AKS using Ingress Endpoint). Now the call to Azure Open AI goes through APIM. 
+      
    You can verify the logs of Recommendations service pod to see the logs of the API call to Open AI. Open a terminal and run the below command to get the logs of the recommendation service pod.
+
+   1. Get the pod name of the recommendation service by running the below command.
+   
+   ```
+    kubectl get pods
+   ```
+
+   2. Get the logs of the recommendation service pod by running the below command.
+
    ```
     kubectl logs -f <recommendation-service-pod-name>
    ```
    
 ### Task 5: Revision of Recommendation service from Container App
 
-**Note**: Use this opion only if you chose 2.i: Deploy Apps to Azure Container Apps.
+**Note**: Use this option **only** if you chose 2.i: Deploy Apps to Azure Container Apps.
 
 1. Navigate to Azure portal, open the Resource Group named **miyagi-rg-<inject key="DeploymentID" enableCopy="false"/>**  and select **miyagi-rec-ca-<inject key="DeploymentID" enableCopy="false"/>** Container App from the resources list.
 
@@ -171,7 +181,7 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 
 ### Task 6: Setup Event Hub Logging and Validate Input
 
-1. Navigate to your event hub in the Azure Portal and select the Identity and Access Management tab. Select Add and role-assignment and at the next screen select Azure Event Hubs Data Sender, click next, then the managed identity radio button, and select memebers. In the managed identity drop down you should see your API Management, select the manage identity and click select. Once finished select Review and Assign and save the role assignment.
+1. Navigate to your event hub in the Azure Portal and select the Axcess Control (IAM) tab. Select Add and role-assignment and at the next screen select Azure Event Hubs Data Sender, click next, then the managed identity radio button, and select memebers. In the managed identity drop down you should see your API Management, select the manage identity and click select. Once finished select Review and Assign and save the role assignment.
     ![](./Media/apim-role.png)
 
 2. Navigate to your event hub in the Azure Portal and select event hubs, then select your event hub name. In the left menu select share access policies and create a new policy that can send data.
@@ -179,7 +189,7 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 
 3. Next navigate to the shared access policy and copy the Connection string–primary key to your clip board.
 
-4. Navigate to the `miyagi` root folder in your file explorer and create a new file called aoai-logger.bicep. Paste the content into that file and update the <<API_MANAGEMENT_NAME>> name and the <<EVENT_HUB_CONNECTION_STRING>> copied from the step above.
+4. Navigate to the `miyagi` root folder in your file explorer and create a new file called aoai-logger.bicep. Paste the content into that file and update the <<API_MANAGEMENT_NAME>> name and the <<EVENT_HUB_CONNECTION_STRING>>. API_MANAGEMENT_NAME is the name of your API Management Service.
     ```
    resource existingApiManagement 'Microsoft.ApiManagement/service@2023-03-01-preview' existing = {
       name: '<<API_MANAGEMENT_NAME>>'

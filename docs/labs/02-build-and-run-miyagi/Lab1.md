@@ -66,7 +66,7 @@ In this lab, you'll setup and configure Miyagi app locally.
 
 ### Task 3: Configure miyagi app
 
-2. Open **Visual Studio Code** from your desktop by double-clicking on it.
+1. Open **Visual Studio Code** from your desktop by double-clicking on it.
 
    ![](./Media/vs.png)
 
@@ -103,7 +103,11 @@ In this lab, you'll setup and configure Miyagi app locally.
       - From the OpenAI Overview page, right-click on Go to Azure OpenAI Studio button and click on Open link a new tab.
 
          ![](./Media/image-rg-03.png) 
-   
+      
+      - If the Azure AI Studio opens with the side bar collapsed, click on the hamburger icon to expand the side bar.
+
+         ![](./Media/ai-studio-2.png)          
+ 
       - In the Azure AI Studio, select Deployments, under Management section.
         ![](./Media/image-rg-6.png)
 
@@ -126,7 +130,7 @@ In this lab, you'll setup and configure Miyagi app locally.
 
       >**Note**: Kindly record the text-embedding-ada-002 model name in notepad you need these values in further tasks.
 
-1. To obtain the values for **endpoint** and **apiKey** follow the below steps:
+2. To obtain the values for **endpoint** and **apiKey** follow the below steps:
    
    -  Go back to your Open AI Service and under **Resource Management** section select **Keys and Endpoint**, copy the **KEY1** and **Endpoint** values in notepad and get back to appsettings.json file in Visual Studi Code and paste **Key1** into **apikey**, and **Endpoint** into **endpoint**.
 
@@ -134,7 +138,7 @@ In this lab, you'll setup and configure Miyagi app locally.
 
        >**Note**: Kindly record the **KEY1** and **Endpoint** values in notepad you need this values further tasks.
 
-2. To obtain the values for  "azureCognitiveSearchEndpoint", "azureCognitiveSearchApiKey", follow below steps:
+3. To obtain the values for  "azureCognitiveSearchEndpoint", "azureCognitiveSearchApiKey", follow below steps:
    
    1. Navigate back to your resource group.
 
@@ -155,7 +159,7 @@ In this lab, you'll setup and configure Miyagi app locally.
 
        >**Note**: Please record **Key** values in notepad you need this values in further tasks.
 
-3. To obtain the values for "cosmosDbUri" and "cosmosDbName," please follow the steps below:
+4. To obtain the values for "cosmosDbUri" and "cosmosDbName," please follow the steps below:
 
    1. Navigative back to your resource group and select Azure Cosmos DB account from resources list.
       ![](./Media/image-rg-15.png)
@@ -185,13 +189,15 @@ In this lab, you'll setup and configure Miyagi app locally.
 
    ![](./Media/image-rg-24.png)
 
-### Task 3: Understanding implementation of the recommendation service
+### Task 4: Understanding implementation of the recommendation service
 
 Recommendation service implements RAG pattern using Semantic Kernel SDK. The details of the implementation are captured in the Jupyter notebook in the folder miyagi/sandbox/usecases/rag/dotnet. You can open the notebook in VSCode and run the cells to understand step by step details of how the Recommendation Service is implemented. Pay special attention to how RAG pattern is implemented using Semantic Kernel. Select kernel as .NET Interactive in the top right corner of the notebook.
 
 1. In Visual Studio Code navigate to **miyagi/sandbox/usecases/rag/dotnet** folder and select **Getting-started.ipynb**
 
    ![](./Media/image-rg-23.png)
+   
+1. Please make sure you meet the prerequisites mentioned in the notebook before running the cells.
 
 1. Execute the notebook cell by cell (using either Ctrl + Enter to stay on the same cell or Shift + Enter to advance to the next cell) and observe the results of each cell execution.
    
@@ -199,11 +205,18 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
 
    ![](./Media/run.png)
 
+      **Note:** If you run into nuget package issues with cell 1, please removet the following source reference, reopen the ipynb file and try again: 
+      ```
+      #r "nuget: dotenv.net"
+      ```
+
+      
+
  1. Once after Excuting all the cell you need see the output as shown in below diagram.
 
     ![](./Media/output.png)
    
-### Task 4: Run recommendation service locally
+### Task 5: Run recommendation service locally
 
 1. Open a new terminal: by navigating **miyagi/services/recommendation-service/dotnet** and right-click on in cascading menu select **Open in intergate Terminal**.
 
@@ -228,7 +241,7 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
    ![](./Media/miyagi2.png)
 
 
-### Task 5: Run miyagi frontend locally
+### Task 6: Run miyagi frontend locally
 
 1. Open a new terminal: by navigating  **miyagi/ui** and right-click on **ui/typescript** , in cascading menu select **Open in intergate Terminal**.
 
@@ -254,7 +267,7 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
                        
    ![](./Media/miyagi1.png)
    
-### Task 6: Persist embeddings in Azure Cognitive Search
+### Task 7: Persist embeddings in Azure Cognitive Search
 
 1. Navigate back to the **swagger UI** page, scoll to **Memory** session, click on **POST /dataset** for expansion, and click on **Try it out**.
 
@@ -294,7 +307,7 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
 
     > **Note**: Please click on the refresh button still you view the **Document Count**.
 
-### Task 7: Explore the recommendation service
+### Task 8: Explore the recommendation service
 
 1. Navigate back to the **recommendation service** ui page, and click on **personalize** button.
 

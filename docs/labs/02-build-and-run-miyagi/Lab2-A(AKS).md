@@ -1,4 +1,4 @@
-# Lab 2.1: Containerizing Miyagi UI and Recommendation service to Azure Kubernetes Service(AKS)
+# Lab 2.2: Containerizing Miyagi UI and Recommendation service to Azure Kubernetes Service(AKS)
 
 In this lab, you'll be building the docker images and publishing them to Azure Kubernetes Service(AKS).
 
@@ -88,7 +88,7 @@ In this lab, you'll be building the docker images and publishing them to Azure K
 
 ### Task 3: Build Docker Images for the Recommendation service
 
-1. Navigate back to **Visual studio code** window and navigate to **miyagi/services/recommendation-service/dotnet** right - click on dotnet in cascading menu, select **Open in integrate Terminal**.
+1. Navigate back to **Visual studio code** window and navigate to **miyagi/services/recommendation-service/dotnet** right - click and in cascading menu, select **Open in integrate Terminal**.
 
 1. Run the following command to build a **Docker image**
 
@@ -150,7 +150,7 @@ In this task, you'll Push miyagi-recommendation images to acr.
 
 1. Run the following command to log in to an **Azure Container Registry (ACR)** using the Azure CLI.
 
-   > **Note**: Please replace **[ACRname]** and **[uname]** with **<inject key="AcrUsername" enableCopy="true"/>**, and **[password]** with **<inject key="AcrPassword" enableCopy="true"/>**.
+   > **Note**: Please replace **[ACRname]** with your ACR name**.
    
    ```
    az acr login -n [ACRname] 
@@ -161,7 +161,7 @@ In this task, you'll Push miyagi-recommendation images to acr.
    > **Note**: To get the **[ACRname]** navigate to the Container registry created in the previous lab, go to Overview, and copy the **Login server**. The value should be in the format **[ACRname].azurecr.io**.
 
    ```
-   docker tag miyagi-recommendation:latest [ACRname]/miyagi-recommendation:latest
+   docker tag miyagi-recommendation:latest [ACRname].azurecr.io/miyagi-recommendation:latest
    ```
    ```
    docker tag miyagi-ui:latest [ACRname]/miyagi-ui:latest
@@ -219,7 +219,7 @@ In this task, you'll Push miyagi-recommendation images to acr.
 2. Copy the IP address of the miyagi-recommendation-service and enter it into the browser. You should now see the swagger endpoint.
     ![](./Media/service-swagger.png)
    
-### Task 2: Explore Miyagi App in Azure Container Apps using Ingress Endpoint
+### Task 2: Explore Miyagi App in AKS using Ingress Endpoint
 
 1. To test the UI run the below command to get the service IP addresses
    ```
