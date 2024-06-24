@@ -164,7 +164,7 @@ In this task, you'll Push miyagi-recommendation images to acr.
    docker tag miyagi-recommendation:latest [ACRname].azurecr.io/miyagi-recommendation:latest
    ```
    ```
-   docker tag miyagi-ui:latest [ACRname]/miyagi-ui:latest
+   docker tag miyagi-ui:latest [ACRname].azurecr.io/miyagi-ui:latest
    ```
 
 1. Run the following command to push the image to the container registry.
