@@ -102,7 +102,7 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 
 6. Run following command to ACR login.
 
-   > **Note**: Please replace **[ACRname]** with **AcrLoginServer"**.
+   > **Note**: Please replace **[ACRname]** with **your ACR Name"**.
 
    ```
    az acr login -n [ACRname] 
@@ -110,8 +110,7 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 
 7. Once you are logged into ACR. Run the below command to push the updated docker image of the recommendation service to the container registry.
 
-   **Note**: Make sure to replace **[ACRname]** with **<inject key="AcrLoginServer" enableCopy="true"/>**.
-
+   **Note**: Make sure to replace **[ACRname]** with with **AcrLoginServer** which you can find in the Azure Portal -> Container Registry -> Overview -> Login server. The value should be in the format **[ACRname].azurecr.io**.
    ```
    docker tag miyagi-recommendation:latest [ACRname]/miyagi-recommendation:latest
    ```
