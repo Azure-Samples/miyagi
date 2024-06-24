@@ -38,6 +38,7 @@ In this lab, you'll setup and configure Miyagi app locally.
 
    ```
 ### Task 2: Provision Azure Resources required for Miyagi app
+** Note: Skip this step if your administrator has already provisioned the resources for you.**
 
 1. Change folder to miyagi/deploy/infrastructure/cli
    
