@@ -205,12 +205,7 @@ Recommendation service implements RAG pattern using Semantic Kernel SDK. The det
 
    ![](./Media/run.png)
 
-      **Note:** If you run into nuget package issues with cell 1, please removet the following source reference, reopen the ipynb file and try again: 
-      ```
-      #r "nuget: dotenv.net"
-      ```
-
-      
+       
 
  1. Once after Excuting all the cell you need see the output as shown in below diagram.
 
