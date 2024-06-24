@@ -19,6 +19,7 @@ In this lab, you'll setup and configure Miyagi app locally.
 7. Install python 3.11 (https://www.python.org/downloads/)
 8. Install jq (https://stedolan.github.io/jq/download/)
 9. Install Postman (https://www.postman.com/downloads/)
+10. Install Node.js (https://nodejs.org/en/download/)
 
 ### Task 1: Clone miyagi app
 
