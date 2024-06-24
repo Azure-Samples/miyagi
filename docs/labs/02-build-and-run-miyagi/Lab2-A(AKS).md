@@ -49,7 +49,7 @@ In this lab, you'll be building the docker images and publishing them to Azure K
 
 4. In the **Tell us about the work you do** window, click on **Skip**.
    
-5. Navigate back to **Visual studio code** window and navigate to **miyagi/ui/typescript** right - click on dotnet in cascading menu, select **Open in integrate Terminal**.
+5. Navigate back to **Visual studio code** window and navigate to **miyagi/ui/typescript** right - click on the cascading menu, select **Open in integrate Terminal**.
 
    ```
    docker build . -t miyagi-ui      
