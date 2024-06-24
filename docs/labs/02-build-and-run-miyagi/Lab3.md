@@ -46,7 +46,7 @@ In this lab, you'll be verifying and creating APIs in the deployed API Managemen
 4. Navigate to the products tab in the Azure API Management menu and select Add. For the display name and description you can enter OpenAI. Under the APIs menu click the plus sign and add the Azure OpenAI Service API.
     ![](./Media/aoai-apim-product.png)
 
-5. Navigate to the subscriptions tab in the product menu and click add subscription.
+5. Navigate to the subscriptions tab in the left menu and click add subscription.
    ![](./Media/new-subscription.png)
 
 6. Once the subscription is created click the three dots next to the newly created key and then click **Show\hide keys**. Copy the primary subscription key and save it for later.

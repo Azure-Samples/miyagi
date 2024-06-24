@@ -169,13 +169,13 @@ In this task, you'll Push miyagi-recommendation images to acr.
 
 1. Run the following command to push the image to the container registry.
 
-   > **Note**: Please replace **[ACRname]** with **<inject key="AcrLoginServer" enableCopy="true"/>**.
+   > **Note**: Please replace **[ACRname]** with the login server name of your Azure Container Registry. Go to Azure Portal -> Container Registry -> Overview -> Login server. The value should be in the format **[ACRname].azurecr.io**.
 
    ```
-   docker push [ACRname]/miyagi-recommendation:latest
+   docker push [ACRname].azurecr.io/miyagi-recommendation:latest
    ```
    ```
-   docker push [ACRname]/miyagi-ui:latest
+   docker push [ACRname].azurecr.io/miyagi-ui:latest
    ```
 
    ![](./Media/task2-6.png)
