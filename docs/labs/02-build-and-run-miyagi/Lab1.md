@@ -21,6 +21,10 @@ In this lab, you'll setup and configure Miyagi app locally.
 9. Install Postman (https://www.postman.com/downloads/)
 10. Install Node.js (https://nodejs.org/en/download/)
 11. Install git (https://git-scm.com/downloads)
+12. Open a PowerShell command line and run the following command to install aks cli
+    ```powershell
+    az aks install-cli
+    ```
 
 ### Task 1: Clone miyagi app
 
