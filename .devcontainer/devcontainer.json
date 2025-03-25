@@ -1,5 +1,6 @@
 {
 	"name": "Kubernetes-Hackfest",
+	"image": "mcr.microsoft.com/devcontainers/javascript-node:20-bullseye",
 	"dockerFile": "Dockerfile",
 
 	// do not change these if you want Docker in Docker support
@@ -11,32 +12,26 @@
 	//"remoteUser": "hackfest",
 
 	// Set container specific settings
-	"settings": {
-		"terminal.integrated.defaultProfile.linux": "zsh"
-	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "zsh"
+			},
+			"extensions": [
+				"ms-dotnettools.csharp",
+				"ms-azuretools.vscode-docker",
+				"ms-kubernetes-tools.vscode-kubernetes-tools",
+				"davidanson.vscode-markdownlint",
+				"gruntfuggly.todo-tree",
+				"mutantdino.resourcemonitor",
+				"humao.rest-client"
+			]
+		}
+	}
 
 	// "hostRequirements": {
 	// 	"cpus": 4
 	// },
-	
-	//forward ports for the app
-	// "forwardPorts": [
-	// ],
-
-	//add labels
-	// "portsAttributes": {
-	// },
-
-	// Install extensions
-	"extensions": [
-		"ms-dotnettools.csharp",
-		"ms-azuretools.vscode-docker",
-		"ms-kubernetes-tools.vscode-kubernetes-tools",
-		"davidanson.vscode-markdownlint",
-		"gruntfuggly.todo-tree",
-		"mutantdino.resourcemonitor",
-		"humao.rest-client"
-	],
 
 	// Use 'onCreateCommand' to run commands as part of container creation.
 	//"onCreateCommand": "/bin/bash -c .devcontainer/on-create.sh",
