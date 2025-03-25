@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "cd .. & cd .. & husky install"
+    "prepare": "cd .. && cd .. && husky install"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
@@ -28,7 +28,7 @@
     "little-state-machine": "^4.8.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
-    "next": "^13.3.0",
+    "next": "^13.5.9",
     "next-pwa": "^5.6.0",
     "next-seo": "^6.0.0",
     "next-sitemap": "^4.0.7",
