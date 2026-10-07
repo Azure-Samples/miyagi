@@ -18,14 +18,14 @@ jobs:
     steps:
 
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
 
     - name: Set short_sha
       id: vars
       run: echo "short_sha=$(git rev-parse --short HEAD)" >> ${GITHUB_ENV}
 
     - name: Login to GHCR
-      uses: docker/login-action@v1
+      uses: docker/login-action@dd4fa0671be5250ee6f50aedf4cb05514abda2c7 # v1.14.1
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
@@ -36,7 +36,7 @@ jobs:
         echo "REPOSITORY=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
     - name: Build and push Docker image
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a # v2.10.0
       with:
         context: ui/typescript
         push: true
